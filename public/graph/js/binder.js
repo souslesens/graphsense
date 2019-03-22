@@ -9,7 +9,7 @@ var binder=(function(){
 var xxx=  $("#filterCollapseMenu");
 
         $("#filterCollapseMenu").load("htmlSnippets/queryFilters.html", function () {
-            alert("aa");
+           // alert("aa");
         })
 
 
