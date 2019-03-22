@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sous le sens</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="node_modules/vis/dist/vis-network.min.css" rel="stylesheet" type="text/css"/>
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+            integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+            crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+            integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+            crossorigin="anonymous"></script>
+
+
+    <script type="text/javascript" src="js/jquery/jquery.min.js"></script>
+
+
+    <script type="text/javascript" src="js/vis-data.js"></script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+
+    <!---------- scripts souslesens ----------->
+    <script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript" src="js/binder.js"></script>
+    <!---------- fin scripts souslesens ----------->
+
+
+    <script>
+        //when page loaded
+        $(function () {
+
+            // bind controls
+            binder.bindOnPageload();
+
+            //collapse navbar javascript
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+
+
+        })
+
+    </script>
+
+
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <!-- Sidebar  -->
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Sous le Sens</h3>
+            <strong>SlS</strong>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li class="active">
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-home"></i>
+                    Query
+                </a>
+
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <li>
+                        <a href="#queryLabelContent" data-toggle="modal">Functional Class</a>
+                    </li>
+                    <li>
+                        <a href="#">Technical Class</a>
+                    </li>
+                    <li>
+                        <a href="#">Discipline</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-briefcase"></i>
+                    Tree
+                </a>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-copy"></i>
+                    Infos
+                </a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                        <a href="#">Page 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 3</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-image"></i>
+                    Expand
+                </a>
+            </li>
+            <li>
+                <a href="#highlightContent" data-toggle="modal">
+                    <i class="fas fa-question"></i>
+                    Highlight
+                </a>
+            </li>
+
+        </ul>
+
+        <ul class="list-unstyled CTAs">
+            <li>
+                <a href="#" class="download">Menu 1</a>
+            </li>
+            <li>
+                <a href="#" class="article">Menu 2</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content">
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+
+                <button type="button" id="sidebarCollapse" class="btn btn-info">
+                    <i class="fas fa-align-left"></i>
+                    <span>Toggle Sidebar</span>
+                </button>
+                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-align-justify"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Page</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Page</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Page</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Page</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- icon menu navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#displayModalContent">
+                        <img src="img/display.png" width="40" height="40" alt="">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="#">
+                        <img src="img/fit.png" width="40" height="40" alt="">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="#">
+                        <img src="img/label.png" width="40" height="40" alt="">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" data-toggle="collapse" href="#filterCollapseMenu" aria-expanded="false"
+                       data-target="#filterCollapseMenu">
+                        <img src="img/filter.png" width="40" height="40" alt="">
+                    </a>
+                </li>
+            </ul>
+            <a class="navbar-brand" href="#navbarSupportedContent" data-toggle="collapse"
+               data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+               aria-label="Toggle navigation">
+                <img src="img/fullScreen.png" width="40" height="40" alt="">
+            </a>
+
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </nav>
+
+
+        <!-- Filter Collaspse menu -->
+        <div class="collapse navbar-collapse" id="filterCollapseMenu">
+            <!-- <div class="card card-body">
+                 <div class="row">
+
+                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                         <div class="btn-group mr-2" role="group" aria-label="First group">
+                             <button type="button" class="btn btn-primary" data-toggle="modal"
+                                     data-target="#queryLabelContent">Node Label 1 <span
+                                     class="badge badge-pill badge-light">55</span></button>
+                             <button type="button" class="btn btn-secondary">Node Label 2 <span
+                                     class="badge badge-pill badge-light">20</span></button>
+                             <button type="button" class="btn btn-success">Node Label 3 <span
+                                     class="badge badge-pill badge-light">15</span></button>
+                             <button type="button" class="btn btn-danger">Node Label 4 <span
+                                     class="badge badge-pill badge-light">5</span></button>
+                         </div>
+                     </div>
+                 </div>
+
+                 <div>
+                     <div class="row" style="margin-top: 10px;">
+                         <div class="card text-white border-primary mb-3" style="max-width: 18rem;">
+                             <div class="card-header bg-primary">Filtre Node Lable 1</div>
+                             <div class="card-body text-primary">
+                                 <p class="card-text">Name == "Nom Filtre 1"</p>
+                                 <a href="#" class="btn btn-primary text-right">Supprimer</a>
+                             </div>
+                         </div>
+                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                         <div class="card  border-secondary mb-3" style="max-width: 18rem;">
+                             <div class="card-header text-white bg-secondary">Filtre Node Lable 2</div>
+                             <div class="card-body">
+                                 <p class="card-text">Name == "Nom Filtre 2"</p>
+                                 <a href="#" class="btn btn-secondary">Supprimer</a>
+                             </div>
+                         </div>
+
+                     </div>
+                 </div>
+             </div>-->
+        </div>
+
+        <!-- Display Setting Modal -->
+        <div class="modal fade" id="displayModalContent" tabindex="-1" role="dialog" aria-labelledby="displayModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="displayModalLabel">Display Setting</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group row">
+                                <legend class="col-form-label col-sm-4 pt-0">Display Nodes</legend>
+                                <div class="col-sm-8">
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input" id="relationsNamesCheck">
+                                        <label class="form-check-label" for="relationsNamesCheck">Relations
+                                            names</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="checkbox" class="form-check-input"
+                                               id="hideNodesWithNoRelationsCheck">
+                                        <label class="form-check-label" for="hideNodesWithNoRelationsCheck">Hide nodes
+                                            with no relations</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label" for="nodeShapeSelect">Shape</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control" id="graphParamsDialog_shapeSelect">
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Display Setting Modal -->
+
+        <!-- Query Label Modal -->
+        <div class="modal fade" id="queryLabelContent" tabindex="-1" role="dialog" aria-labelledby="queryModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="queryModalLabel">Query Label > Functional Class</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group row">
+                                <legend class="col-form-label col-sm-4">Label Property</legend>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="nodeShapeSelect">
+                                        <option>Name</option>
+                                        <option>CTGCode</option>
+                                        <option>CifosCode</option>
+                                        <option>Defnition</option>
+                                        <option>Discipline</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <legend class="col-form-label col-sm-4">Filter Type</legend>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="nodeShapeSelect">
+                                        <option>contains</option>
+                                        <option>equal</option>
+                                        <option>not equal</option>
+                                        <option>greater than</option>
+                                        <option>lesser than</option>
+                                        <option>null</option>
+                                        <option>not null</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="formFilterValueInput" class="col-form-label col-sm-4">Filter Value</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="formFilterValueInput"
+                                           placeholder="enter value here...">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Add filter</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Display Setting Modal -->
+
+        <!-- Highlight Modal -->
+        <div class="modal fade" id="highlightContent" tabindex="-1" role="dialog" aria-labelledby="highlightModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="highlightModalLabel">Highlight Node</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group row">
+                                <legend class="col-form-label col-sm-4">Node to highlight</legend>
+                                <div class="col-sm-8">
+                                    <select class="form-control" id="nodeShapeSelect">
+                                        <option>Name</option>
+                                        <option>CTGCode</option>
+                                        <option>CifosCode</option>
+                                        <option>Defnition</option>
+                                        <option>Discipline</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Highlight</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Highlight Modal -->
+
+
+        <div class="container-fluid">
+
+            <!-- Content Row -->
+            <div class="row">
+                <div id="mynetwork" class="col-xl-12" style="height: 800px">
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- end of Page Content -->
+
+</div>
+<!-- end of Wrapper  -->
+
+
+</body>
+</html>
