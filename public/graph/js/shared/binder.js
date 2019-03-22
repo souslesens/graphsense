@@ -11,13 +11,11 @@ var binder=(function(){
           console.log("queryFilters.html loaded")
         })
 
-        var cypher = " match(n)-[]-(m) return n limit 100";
-
-
+      /*  var cypher = " match(n)-[]-(m) return n limit 100";
         Cypher.executeCypher(cypher, function (err, result) {
             if( err)
                 var xx=2
-        })
+        })*/
 
 
 
