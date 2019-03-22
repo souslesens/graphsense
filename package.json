@@ -1,16 +1,41 @@
 {
-  "name": "souslesens",
-  "version": "0.0.0",
+  "name": "graphsense",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "async": "^2.6.2",
     "cookie-parser": "~1.4.3",
+    "csvtojson": "^2.0.8",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
-    "morgan": "~1.9.0"
-  }
+    "morgan": "~1.9.0",
+    "multer": "^1.4.1",
+    "neo4j": "^2.0.0-RC2",
+    "request": "^2.88.0"
+  },
+  "description": "version bootstrap of souslesens",
+  "main": "app.js",
+  "bin": {
+    "graphsense": "authentication..js"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/souslesens/graphsense.git"
+  },
+  "keywords": [
+    "graph",
+    "visjs"
+  ],
+  "author": "Claude Fauconnet",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/souslesens/graphsense/issues"
+  },
+  "homepage": "https://github.com/souslesens/graphsense#readme"
 }

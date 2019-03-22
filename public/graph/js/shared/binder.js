@@ -6,11 +6,19 @@ var binder=(function(){
         common.fillSelectOptionsWithStringArray("graphParamsDialog_shapeSelect",array,true);
 
 
-var xxx=  $("#filterCollapseMenu");
 
         $("#filterCollapseMenu").load("htmlSnippets/queryFilters.html", function () {
-           // alert("aa");
+          console.log("queryFilters.html loaded")
         })
+
+        var cypher = " match(n)-[]-(m) return n limit 100";
+
+
+        Cypher.executeCypher(cypher, function (err, result) {
+            if( err)
+                var xx=2
+        })
+
 
 
     }
