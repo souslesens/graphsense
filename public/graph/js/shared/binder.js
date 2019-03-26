@@ -13,6 +13,10 @@ var binder=(function(){
           console.log("queryExpand.html loaded")
         })
 
+        $("#highlightCollapseMenu").load("htmlSnippets/queryHighlight.html", function () {
+          console.log("queryHighlight.html loaded")
+        })
+
       /*  var cypher = " match(n)-[]-(m) return n limit 100";
         Cypher.executeCypher(cypher, function (err, result) {
             if( err)

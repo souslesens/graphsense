@@ -1,14 +1,24 @@
 <div class="card card-body">
-    <div class="row">
-        <div class="form-group row">
-            <legend class="col-form-label col-sm-4">From Label</legend>
-            <div class="col-sm-8">
-                <select class="form-control" id="nodeShapeSelect">
-                    <option>Node Label 1</option>
-                    <option>Node Label 2</option>
-                    <option>Node Label 3</option>
-                </select>
-            </div>
+    <form>
+    <div class="form-row">
+        <div class="form-group col-ml-6">
+            <label for="fromLabelSelect">From Label</label>
+            <select class="form-control" id="fromLabelSelect">
+                 <option selected>Select Source...</option>
+                <option>Node Label 1</option>
+                <option>Node Label 2</option>
+                <option>Node Label 3</option>
+            </select>
+        </div>
+        <div class="form-group col-ml-6">
+            <label>To Label</label>
+            <select class="form-control" id="toLabelSelect">
+                <option selected>Select Destination...</option>
+                <option>Node Label 1</option>
+                <option>Node Label 2</option>
+                <option>Node Label 3</option>
+            </select>
         </div>
     </div>
+    </form>
 </div>
