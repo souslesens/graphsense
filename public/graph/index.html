@@ -178,31 +178,47 @@
         <!-- icon menu navbar -->
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
             <ul class="navbar-nav mr-auto">
-                    
-                </li>
+                   
                 <li class="nav-item">
                     
                 </li>
                 
                 <li class="nav-item">
-                    <a class="navbar-brand" data-toggle="collapse" href="#filterCollapseMenu" aria-expanded="false"
-                       data-target="#filterCollapseMenu">
-                        <img src="img/filter.png" width="40" height="40" alt="Filter">
+                    <a class="navbar-brand" data-toggle="collapse" href="#dbFilterCollapseMenu" aria-expanded="false"
+                       data-target="#dbFilterCollapseMenu">
+                        <img src="img/cube.png" width="40" height="40" alt="Filter">
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="#">
+                        <img src="img/tree.png" width="40" height="40" alt="Filter">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    
+                </li>
+            </ul>
+
+            <ul class="navbar-nav mr-auto">
+    
                 <li class="nav-item">
                     <a class="navbar-brand" data-toggle="collapse" href="#expandCollapseMenu" aria-expanded="false"
                         data-target="#expandCollapseMenu">
                         <img src="img/expandLabel.png" width="40" height="40" alt="Filter">
                     </a>
                 </li>
-
                 <li class="nav-item">
-                        <a class="navbar-brand" data-toggle="collapse" href="#highlightCollapseMenu" aria-expanded="false" 
-                            data-target="#highlightCollapseMenu">
-                            <img src="img/label.png" width="40" height="40" alt="Tag">
-                        </a>
+                    <a class="navbar-brand" data-toggle="collapse" href="#highlightCollapseMenu" aria-expanded="false" 
+                        data-target="#highlightCollapseMenu">
+                        <img src="img/label.png" width="40" height="40" alt="Tag">
+                    </a>
                 </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="#">
+                        <img src="img/filter.png" width="40" height="40" alt="Tag">
+                    </a>
+                </li>
+    
             </ul>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -235,8 +251,8 @@
         <div class="collapse navbar-collapse" id="highlightCollapseMenu">
         </div>
     
-        <!-- Filter Collaspse menu -->
-        <div class="collapse navbar-collapse" id="filterCollapseMenu">
+        <!-- DB Filter Collaspse menu -->
+        <div class="collapse navbar-collapse" id="dbFilterCollapseMenu">
         </div>
 
         <!-- Expand Collapse Menu -->
@@ -252,59 +268,9 @@
         <!-- End of Display Setting Modal -->
 
         <!-- Query Label Modal -->
-        <div class="modal fade" id="queryLabelContent" tabindex="-1" role="dialog" aria-labelledby="queryModalLabel"
+        <div class="modal fade" id="dbQueryFilterLabelModal" tabindex="-1" role="dialog" aria-labelledby="dbQueryFilterLabelModal"
              aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="queryModalLabel">Query Label > Functional Class</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group row">
-                                <legend class="col-form-label col-sm-4">Label Property</legend>
-                                <div class="col-sm-8">
-                                    <select class="form-control" id="nodeShapeSelect">
-                                        <option>Name</option>
-                                        <option>CTGCode</option>
-                                        <option>CifosCode</option>
-                                        <option>Defnition</option>
-                                        <option>Discipline</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <legend class="col-form-label col-sm-4">Filter Type</legend>
-                                <div class="col-sm-8">
-                                    <select class="form-control" id="nodeShapeSelect">
-                                        <option>contains</option>
-                                        <option>equal</option>
-                                        <option>not equal</option>
-                                        <option>greater than</option>
-                                        <option>lesser than</option>
-                                        <option>null</option>
-                                        <option>not null</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="formFilterValueInput" class="col-form-label col-sm-4">Filter Value</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="formFilterValueInput"
-                                           placeholder="enter value here...">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Add filter</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+           
         </div>
         <!-- End of Display Setting Modal -->
 

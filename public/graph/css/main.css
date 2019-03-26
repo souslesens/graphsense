@@ -254,12 +254,19 @@ a.article:hover {
     }
 }
 
+/* ---------------------------------------------------
+    RANGE SLIDER 
+----------------------------------------------------- */
+.graph {
+    background: url('../img/Schema.png') no-repeat;
+    float: left;
+    width: 20px;
+    height: 20px;
+  }
 
 /* ---------------------------------------------------
     RANGE SLIDER 
 ----------------------------------------------------- */
-
-
 .slidecontainer {
     width: 100%; /* Width of the outside container */
   }
