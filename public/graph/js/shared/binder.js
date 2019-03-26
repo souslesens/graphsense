@@ -5,10 +5,12 @@ var binder=(function(){
         var array=["circle","square"];
         common.fillSelectOptionsWithStringArray("graphParamsDialog_shapeSelect",array,true);
 
-
-
         $("#filterCollapseMenu").load("htmlSnippets/queryFilters.html", function () {
           console.log("queryFilters.html loaded")
+        })
+
+        $("#expandCollapseMenu").load("htmlSnippets/queryExpand.html", function () {
+          console.log("queryExpand.html loaded")
         })
 
       /*  var cypher = " match(n)-[]-(m) return n limit 100";
