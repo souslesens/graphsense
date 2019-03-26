@@ -1,0 +1,78 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="displayModalLabel">Display Setting</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group row">
+                    <legend class="col-form-label col-sm-4 pt-0">Display Nodes</legend>
+                    <div class="col-sm-8">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="relationsNamesCheck">
+                            <label class="form-check-label" for="relationsNamesCheck">Relations
+                                names</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input"
+                                    id="hideNodesWithNoRelationsCheck">
+                            <label class="form-check-label" for="hideNodesWithNoRelationsCheck">Hide nodes
+                                with no relations</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="nodeShapeSelect">Shape</label>
+                    <div class="col-sm-5">
+                        <select class="form-control" id="graphParamsDialog_shapeSelect">
+                            <option selected>Cirlce</option>
+                            <option>Square</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="nodeShapeSelect">Type</label>
+                    <div class="col-sm-5">
+                        <select class="form-control" id="graphParamsDialog_typeSelect">
+                            <option selected>Continuous</option>
+                            <option selected>Cubic Bezier</option>
+                            <option selected>Curved CW</option>
+                            <option>DiagonalCross</option>
+                            <option>Discrete</option>
+                            <option>StraightCross</option>
+                            <option>Dyanmic</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="nodeShapeSelect">Force Direction</label>
+                    <div class="col-sm-5">
+                        <select class="form-control" id="graphParamsDialog_typeSelect">
+                            <option selected>None</option>
+                            <option selected>Horizontal</option>
+                            <option selected>Vertical</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="nodeShapeSelect">Roundness</label>
+                    <div class="col-sm-5">
+                        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                    </div>
+                    <div class="col-sm-1">
+                        <span id="myRangeTxt">1</span>
+                    </div>
+                </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

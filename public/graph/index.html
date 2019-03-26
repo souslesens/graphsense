@@ -10,6 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link href="node_modules/vis/dist/vis-network.min.css" rel="stylesheet" type="text/css"/>
 
@@ -161,16 +162,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Page</a>
+                            <a class="nav-link" href="login.html">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Page</a>
+                            <a class="nav-link" href="#">Admin</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Page</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Page</a>
+                            <a class="nav-link" href="#">About</a>
                         </li>
                     </ul>
                 </div>
@@ -185,11 +183,7 @@
                 <li class="nav-item">
                     
                 </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" data-toggle="modal" href="#highlightCollapseMenu" data-target="#highlightCollapseMenu">
-                        <img src="img/label.png" width="40" height="40" alt="Tag">
-                    </a>
-                </li>
+                
                 <li class="nav-item">
                     <a class="navbar-brand" data-toggle="collapse" href="#filterCollapseMenu" aria-expanded="false"
                        data-target="#filterCollapseMenu">
@@ -197,12 +191,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                        <a class="navbar-brand" data-toggle="collapse" href="#expandCollapseMenu" aria-expanded="false"
-                           data-target="#expandCollapseMenu">
-                            <img src="img/expandLabel.png" width="40" height="40" alt="Filter">
+                    <a class="navbar-brand" data-toggle="collapse" href="#expandCollapseMenu" aria-expanded="false"
+                        data-target="#expandCollapseMenu">
+                        <img src="img/expandLabel.png" width="40" height="40" alt="Filter">
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                        <a class="navbar-brand" data-toggle="collapse" href="#highlightCollapseMenu" aria-expanded="false" 
+                            data-target="#highlightCollapseMenu">
+                            <img src="img/label.png" width="40" height="40" alt="Tag">
                         </a>
-                    </li>
-    
+                </li>
             </ul>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -231,101 +231,23 @@
         </nav>
 
 
+        <!-- Highlight Modal -->
+        <div class="collapse navbar-collapse" id="highlightCollapseMenu">
+        </div>
+    
         <!-- Filter Collaspse menu -->
         <div class="collapse navbar-collapse" id="filterCollapseMenu">
-            <!-- <div class="card card-body">
-                 <div class="row">
-
-                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                         <div class="btn-group mr-2" role="group" aria-label="First group">
-                             <button type="button" class="btn btn-primary" data-toggle="modal"
-                                     data-target="#queryLabelContent">Node Label 1 <span
-                                     class="badge badge-pill badge-light">55</span></button>
-                             <button type="button" class="btn btn-secondary">Node Label 2 <span
-                                     class="badge badge-pill badge-light">20</span></button>
-                             <button type="button" class="btn btn-success">Node Label 3 <span
-                                     class="badge badge-pill badge-light">15</span></button>
-                             <button type="button" class="btn btn-danger">Node Label 4 <span
-                                     class="badge badge-pill badge-light">5</span></button>
-                         </div>
-                     </div>
-                 </div>
-
-                 <div>
-                     <div class="row" style="margin-top: 10px;">
-                         <div class="card text-white border-primary mb-3" style="max-width: 18rem;">
-                             <div class="card-header bg-primary">Filtre Node Lable 1</div>
-                             <div class="card-body text-primary">
-                                 <p class="card-text">Name == "Nom Filtre 1"</p>
-                                 <a href="#" class="btn btn-primary text-right">Supprimer</a>
-                             </div>
-                         </div>
-                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                         <div class="card  border-secondary mb-3" style="max-width: 18rem;">
-                             <div class="card-header text-white bg-secondary">Filtre Node Lable 2</div>
-                             <div class="card-body">
-                                 <p class="card-text">Name == "Nom Filtre 2"</p>
-                                 <a href="#" class="btn btn-secondary">Supprimer</a>
-                             </div>
-                         </div>
-
-                     </div>
-                 </div>
-             </div>-->
         </div>
 
         <!-- Expand Collapse Menu -->
         <div class="collapse navbar-collapse" id="expandCollapseMenu">
-            
         </div>
 
 
         <!-- Display Setting Modal -->
         <div class="modal fade" id="displayModalContent" tabindex="-1" role="dialog" aria-labelledby="displayModalLabel"
              aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="displayModalLabel">Display Setting</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group row">
-                                <legend class="col-form-label col-sm-4 pt-0">Display Nodes</legend>
-                                <div class="col-sm-8">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="relationsNamesCheck">
-                                        <label class="form-check-label" for="relationsNamesCheck">Relations
-                                            names</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input"
-                                               id="hideNodesWithNoRelationsCheck">
-                                        <label class="form-check-label" for="hideNodesWithNoRelationsCheck">Hide nodes
-                                            with no relations</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" for="nodeShapeSelect">Shape</label>
-                                <div class="col-sm-4">
-                                    <select class="form-control" id="graphParamsDialog_shapeSelect">
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        
         </div>
         <!-- End of Display Setting Modal -->
 
@@ -386,12 +308,7 @@
         </div>
         <!-- End of Display Setting Modal -->
 
-        <!-- Highlight Modal -->
-        <div class="modal fade" id="highlightCollapseMenu" tabindex="-1" role="dialog" aria-labelledby="highlightModalLabel"
-             aria-hidden="true">
-          
-        </div>
-        <!-- End of Highlight Modal -->
+
 
 
         <div class="container-fluid">
