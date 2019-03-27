@@ -10,6 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link href="node_modules/vis/dist/vis-network.min.css" rel="stylesheet" type="text/css"/>
 
@@ -39,11 +40,25 @@
             crossorigin="anonymous"></script>
 
 
+
+    <!---------- scripts others ----------->
+    <script type="text/javascript" src="js/others/async.js"></script>
+    <!---------- end scripts others ----------->
+
     <!---------- scripts souslesens ----------->
-    <script type="text/javascript" src="js/shared/common.js"></script>
-    <script type="text/javascript" src="js/shared/binder.js"></script>
-    <script type="text/javascript" src="js/shared/cypher.js"></script>
-    <!---------- fin scripts souslesens ----------->
+    <script type="text/javascript" src="js/shared/common.js"></script>//  util methods generic
+    <script type="text/javascript" src="js/shared/binder.js"></script>// binds control to methods of different objects
+    <script type="text/javascript" src="js/shared/cypher.js"></script>// neo4j client proxy (see also /routes/index.js for protocols)
+
+    <script type="text/javascript" src="js/shared/params.js"></script>// app global params
+    <script type="text/javascript" src="js/shared/schema.js"></script>// access to description and logic of neo4j database
+    <script type="text/javascript" src="js/shared/neo4jDataModel.js"></script>// access to description and logic of neo4j database
+   <script type="text/javascript" src="js/shared/mainController.js"></script> // global  controller
+    <script type="text/javascript" src="js/shared/context.js"></script>// object containing contextual objects
+    <script type="text/javascript" src="js/shared/UI_graph.js"></script>
+    <script type="text/javascript" src="js/shared/UI_parameters.js"></script>
+    <script type="text/javascript" src="js/shared/UI_query.js"></script>
+    <!---------- end scripts souslesens ----------->
 
 
     <script>
@@ -51,6 +66,7 @@
         $(function () {
 
             // bind controls
+            MainController.init();
             binder.bindOnPageload();
 
             //collapse navbar javascript
@@ -161,16 +177,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Page</a>
+                            <a class="nav-link" href="login.html">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Page</a>
+                            <a class="nav-link" href="#">Admin</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Page</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Page</a>
+                            <a class="nav-link" href="#">About</a>
                         </li>
                     </ul>
                 </div>
@@ -180,33 +193,67 @@
         <!-- icon menu navbar -->
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
             <ul class="navbar-nav mr-auto">
+                   
                 <li class="nav-item">
-                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#displayModalContent">
-                        <img src="img/display.png" width="40" height="40" alt="">
+                    
+                </li>
+                
+                <li class="nav-item">
+                    <a class="navbar-brand" data-toggle="collapse" href="#dbFilterCollapseMenu" aria-expanded="false"
+                       data-target="#dbFilterCollapseMenu">
+                        <img src="img/cube.png" width="40" height="40" alt="Filter">
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="#">
+                        <img src="img/tree.png" width="40" height="40" alt="Filter">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    
+                </li>
+            </ul>
+
+            <ul class="navbar-nav mr-auto">
+    
+                <li class="nav-item">
+                    <a class="navbar-brand" data-toggle="collapse" href="#expandCollapseMenu" aria-expanded="false"
+                        data-target="#expandCollapseMenu">
+                        <img src="img/expandLabel.png" width="40" height="40" alt="Filter">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" data-toggle="collapse" href="#highlightCollapseMenu" aria-expanded="false" 
+                        data-target="#highlightCollapseMenu">
+                        <img src="img/label.png" width="40" height="40" alt="Tag">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href="#">
+                        <img src="img/filter.png" width="40" height="40" alt="Tag">
+                    </a>
+                </li>
+    
+            </ul>
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="navbar-brand" href="#">
                         <img src="img/fit.png" width="40" height="40" alt="">
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="#">
-                        <img src="img/label.png" width="40" height="40" alt="">
+                <li>
+                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#displayModalContent">
+                        <img src="img/display.png" width="40" height="40" alt="">
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" data-toggle="collapse" href="#filterCollapseMenu" aria-expanded="false"
-                       data-target="#filterCollapseMenu">
-                        <img src="img/filter.png" width="40" height="40" alt="">
+                <li>
+                    <a class="navbar-brand" href="#navbarSupportedContent" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                        <img src="img/fullScreen.png" width="40" height="40" alt="">
                     </a>
-                </li>
+                    </li>
             </ul>
-            <a class="navbar-brand" href="#navbarSupportedContent" data-toggle="collapse"
-               data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-               aria-label="Toggle navigation">
-                <img src="img/fullScreen.png" width="40" height="40" alt="">
-            </a>
 
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -215,190 +262,34 @@
         </nav>
 
 
-        <!-- Filter Collaspse menu -->
-        <div class="collapse navbar-collapse" id="filterCollapseMenu">
-            <!-- <div class="card card-body">
-                 <div class="row">
-
-                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                         <div class="btn-group mr-2" role="group" aria-label="First group">
-                             <button type="button" class="btn btn-primary" data-toggle="modal"
-                                     data-target="#queryLabelContent">Node Label 1 <span
-                                     class="badge badge-pill badge-light">55</span></button>
-                             <button type="button" class="btn btn-secondary">Node Label 2 <span
-                                     class="badge badge-pill badge-light">20</span></button>
-                             <button type="button" class="btn btn-success">Node Label 3 <span
-                                     class="badge badge-pill badge-light">15</span></button>
-                             <button type="button" class="btn btn-danger">Node Label 4 <span
-                                     class="badge badge-pill badge-light">5</span></button>
-                         </div>
-                     </div>
-                 </div>
-
-                 <div>
-                     <div class="row" style="margin-top: 10px;">
-                         <div class="card text-white border-primary mb-3" style="max-width: 18rem;">
-                             <div class="card-header bg-primary">Filtre Node Lable 1</div>
-                             <div class="card-body text-primary">
-                                 <p class="card-text">Name == "Nom Filtre 1"</p>
-                                 <a href="#" class="btn btn-primary text-right">Supprimer</a>
-                             </div>
-                         </div>
-                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                         <div class="card  border-secondary mb-3" style="max-width: 18rem;">
-                             <div class="card-header text-white bg-secondary">Filtre Node Lable 2</div>
-                             <div class="card-body">
-                                 <p class="card-text">Name == "Nom Filtre 2"</p>
-                                 <a href="#" class="btn btn-secondary">Supprimer</a>
-                             </div>
-                         </div>
-
-                     </div>
-                 </div>
-             </div>-->
+        <!-- Highlight Modal -->
+        <div class="collapse navbar-collapse" id="highlightCollapseMenu">
         </div>
+    
+        <!-- DB Filter Collaspse menu -->
+        <div class="collapse navbar-collapse" id="dbFilterCollapseMenu">
+        </div>
+
+        <!-- Expand Collapse Menu -->
+        <div class="collapse navbar-collapse" id="expandCollapseMenu">
+        </div>
+
 
         <!-- Display Setting Modal -->
         <div class="modal fade" id="displayModalContent" tabindex="-1" role="dialog" aria-labelledby="displayModalLabel"
              aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="displayModalLabel">Display Setting</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group row">
-                                <legend class="col-form-label col-sm-4 pt-0">Display Nodes</legend>
-                                <div class="col-sm-8">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="relationsNamesCheck">
-                                        <label class="form-check-label" for="relationsNamesCheck">Relations
-                                            names</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input"
-                                               id="hideNodesWithNoRelationsCheck">
-                                        <label class="form-check-label" for="hideNodesWithNoRelationsCheck">Hide nodes
-                                            with no relations</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label" for="nodeShapeSelect">Shape</label>
-                                <div class="col-sm-4">
-                                    <select class="form-control" id="graphParamsDialog_shapeSelect">
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        
         </div>
         <!-- End of Display Setting Modal -->
 
         <!-- Query Label Modal -->
-        <div class="modal fade" id="queryLabelContent" tabindex="-1" role="dialog" aria-labelledby="queryModalLabel"
+        <div class="modal fade" id="dbQueryFilterLabelModal" tabindex="-1" role="dialog" aria-labelledby="dbQueryFilterLabelModal"
              aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="queryModalLabel">Query Label > Functional Class</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group row">
-                                <legend class="col-form-label col-sm-4">Label Property</legend>
-                                <div class="col-sm-8">
-                                    <select class="form-control" id="nodeShapeSelect">
-                                        <option>Name</option>
-                                        <option>CTGCode</option>
-                                        <option>CifosCode</option>
-                                        <option>Defnition</option>
-                                        <option>Discipline</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <legend class="col-form-label col-sm-4">Filter Type</legend>
-                                <div class="col-sm-8">
-                                    <select class="form-control" id="nodeShapeSelect">
-                                        <option>contains</option>
-                                        <option>equal</option>
-                                        <option>not equal</option>
-                                        <option>greater than</option>
-                                        <option>lesser than</option>
-                                        <option>null</option>
-                                        <option>not null</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="formFilterValueInput" class="col-form-label col-sm-4">Filter Value</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" id="formFilterValueInput"
-                                           placeholder="enter value here...">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Add filter</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+           
         </div>
         <!-- End of Display Setting Modal -->
 
-        <!-- Highlight Modal -->
-        <div class="modal fade" id="highlightContent" tabindex="-1" role="dialog" aria-labelledby="highlightModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="highlightModalLabel">Highlight Node</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group row">
-                                <legend class="col-form-label col-sm-4">Node to highlight</legend>
-                                <div class="col-sm-8">
-                                    <select class="form-control" id="nodeShapeSelect">
-                                        <option>Name</option>
-                                        <option>CTGCode</option>
-                                        <option>CifosCode</option>
-                                        <option>Defnition</option>
-                                        <option>Discipline</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Highlight</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End of Highlight Modal -->
+
 
 
         <div class="container-fluid">
