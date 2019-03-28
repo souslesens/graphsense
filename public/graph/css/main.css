@@ -5,7 +5,13 @@
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 body {
-    background: #fafafa;
+    margin: 0;
+    font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    background-color: #d4d3d6;
 }
 
 p {
@@ -26,11 +32,11 @@ a:focus {
 
 
 .navbar {
-    padding: 15px 10px;
+    padding: 10px 0px;
     background: #fff;
     border: none;
-    border-radius: 0;
-    margin-bottom: 40px;
+    border-radius: 0px;
+    margin-bottom: 0px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -64,7 +70,7 @@ a:focus {
     left: 0;
     height: 100vh;
     z-index: 999;
-    background: #7386D5;
+    background: #4e73df;
     color: #fff;
     transition: all 0.3s;
 }
@@ -74,13 +80,23 @@ a:focus {
 }
 
 #sidebar .sidebar-header {
-    padding: 20px;
-    background: #6d7fcc;
+    padding:20px 20px 1px 20px ;
+    background: #4e73df;
 }
+
+.sidebar-divider {
+    border-top: 1px solid #eaecf4;
+    margin: 10px;
+  }
+
+.sidebar-divider2 {
+    border-top: 1px solid #4e73df;
+    margin: 0px 10px 0px 10px;
+  }
+
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #47748b;
 }
 
 #sidebar ul p {
@@ -95,14 +111,14 @@ a:focus {
 }
 
 #sidebar ul li a:hover {
-    color: #7386D5;
+    color: #4e73df;
     background: #fff;
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #6d7fcc;
+    background: #4e73df;
 }
 
 a[data-toggle="collapse"] {
@@ -120,7 +136,7 @@ a[data-toggle="collapse"] {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
+    background: #4e73df;
 }
 
 /* ---------------------------------------------------
@@ -129,7 +145,7 @@ ul ul a {
 
 #content {
     width: calc(100% - 250px);
-    padding: 40px;
+    padding: 0px;
     min-height: 100vh;
     transition: all 0.3s;
     position: absolute;
@@ -164,13 +180,70 @@ ul ul a {
 }
 
 /* ---------------------------------------------------
-    RANGE SLIDER 
+    Top Navbar
 ----------------------------------------------------- */
-.graph {
+
+
+.topbar {
+    height: 4.375rem;
+  }
+  
+  .topbar #sidebarToggleTop {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+
+.topbar .topbar-divider {
+    width: 0;
+    border-right: 1px solid #e3e6f0;
+    height: calc(4.375rem - 2rem);
+    margin: auto 1rem;
+  }
+
+.shadow-sm {
+    -webkit-box-shadow: 0 0.125rem 0.25rem 0 rgba(58, 59, 69, 0.2) !important;
+    box-shadow: 0 0.125rem 0.25rem 0 rgba(58, 59, 69, 0.2) !important;
+  }
+  
+  .shadow {
+    -webkit-box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15) !important;
+  }
+  
+  .shadow-lg {
+    -webkit-box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+  }
+
+/* ---------------------------------------------------
+    Icon
+----------------------------------------------------- */
+.graphIcon {
     background: url('../img/Schema.png') no-repeat;
+    background-size: 40px;
     float: left;
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    margin-right: 10px;
+  }
+
+.graphIconButton {
+    background: url('../img/Schema.png') no-repeat;
+    background-size: 25px;
+    float: left;
+    width: 25px;
+    height: 25px;
+    border-radius: 35px;
+  }
+
+  .tableIconButton {
+    background: url('../img/table.png') no-repeat;
+    background-size: 25px;
+    float: left;
+    width: 25px;
+    height: 25px;
+    border-radius: 35px;
   }
 
 /* ---------------------------------------------------
