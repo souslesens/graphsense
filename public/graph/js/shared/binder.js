@@ -9,6 +9,13 @@ var binder=(function(){
 
     $("#dbFilterCollapseMenu").load("htmlSnippets/dbQueryFilter.html", function () {
       console.log("queryFilters.html loaded");
+
+      /*
+      $('#filterQueryMenuCloseButton').click(function(){
+        $('#dbFilterCollapseMenu').collapse();
+      });
+*/
+
       var dbLabelToFilter = ["Label 1", "Label 2", "Label 3", "Label 4"];
       var dbColorClassToFilter = ["primary", "secondary", "success", "danger", "warning","info","light","dark"];
       var dbBadgeToFilter = [10,55,30,44,8,32];
@@ -19,7 +26,6 @@ var binder=(function(){
         $("#dbFilterLabelButtonGroup").append( buttonLabelToAdd );
       }
 
-      
       $("#dbQueryFilterLabelModal").load("htmlSnippets/dbQueryFilterLabelModal.html", function () {
         console.log("queryExpand.html loaded")
       })
@@ -27,12 +33,12 @@ var binder=(function(){
       
     })
 
-    $("#expandCollapseMenu").load("htmlSnippets/queryExpand.html", function () {
-      console.log("queryExpand.html loaded")
+    $("#graphExpandModalMenu").load("htmlSnippets/graphQueryExpand.html", function () {
+      console.log("graphQueryExpand.html loaded")
     })
 
-    $("#highlightCollapseMenu").load("htmlSnippets/queryHighlight.html", function () {
-      console.log("queryHighlight.html loaded")
+    $("#graphHighlightModalMenu").load("htmlSnippets/graphQueryHighlight.html", function () {
+      console.log("graphQueryHighlight.html loaded")
     })
 
     $("#displayModalContent").load("htmlSnippets/graphDisplayModal.html", function () {
