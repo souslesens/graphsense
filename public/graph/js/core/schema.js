@@ -103,14 +103,14 @@ var Schema = (function () {
                     $("#schemaConfig_configSchemaDiv").css("visibility", "visible");
 
 
-                    self.initSchema(_schema);
+                    Schema.initSchema(_schema);
                     if (typeof dialog !== 'undefined') {
                         $("#dialog").html("new schema is ready : reload page to use it")
                         dialog.dialog("close");
                     }
 
                     if (callback)
-                        return callback(null, self.schema)
+                        return callback(null, Schema.schema)
 
                 }
             })
@@ -137,11 +137,11 @@ var Schema = (function () {
 
         self.resetSchema = function () {
             var confirmMessage = "delete  this schema and recreate one from graph database ?";
-            self.delete(confirmMessage, function (err, result) {
+            Schema.delete(confirmMessage, function (err, result) {
                 if (err)
                     return console.log(err);
 
-                self.createSchema(subGraph);
+                Schema.createSchema(subGraph);
 
 
             })
@@ -153,7 +153,7 @@ var Schema = (function () {
         self.createIndex = function (property, labels) {
 
             if (!labels)
-                labels = self.getAllLabelNames();
+                labels = Schema.getAllLabelNames();
             var statements = [];
             labels.forEach(function (label) {
                 statements.push({statement: "CREATE INDEX ON :" + label + "(" + property + ")"})
@@ -163,7 +163,7 @@ var Schema = (function () {
                 statements: statements
 
             }
-            $.ajax(self.serverRootUrl + '/neo', {
+            $.ajax(Schema.serverRootUrl + '/neo', {
                 data: payload,
                 dataType: "json",
                 type: 'POST',
@@ -182,7 +182,7 @@ var Schema = (function () {
             var newName = $("#schemaConfig_defaultNodeNameProperty").val();
             if (newName !== "") {
                 Schema.schema.defaultNodeNameProperty = newName;
-                self.save(subGraph)
+                Schema.save(subGraph)
 
 
             }
@@ -204,7 +204,7 @@ var Schema = (function () {
                 if (!data.defaultNodeNameProperty)
                     data.defaultNodeNameProperty = "name";
 
-                for (var key in self.schema) {// pour completer le champs vides non enregistrés par Jquery
+                for (var key in Schema.schema) {// pour completer le champs vides non enregistrés par Jquery
                     if (!data[key])
                         data[key] = {};
                 }
@@ -238,7 +238,7 @@ var Schema = (function () {
                 Gparams.defaultNodeNameProperty = Schema.schema.defaultNodeNameProperty;
 
                 if (callback)
-                    callback(null, self.schema);
+                    callback(null, Schema.schema);
 
             }
 
@@ -246,7 +246,7 @@ var Schema = (function () {
 
         self.save = function (subGraph, json, callback) {
             if (!json)
-                json = self.schema;
+                json = Schema.schema;
 
             //name  used in UI but not stored
             for (var key in Schema.schema.relations) {
@@ -281,7 +281,7 @@ var Schema = (function () {
                         return console.log(err)
                     }
 
-                    self.schema = json;
+                    Schema.schema = json;
                     if (callback) {
                         return callback(null, json);
                     }
@@ -292,7 +292,7 @@ var Schema = (function () {
 
         self.save_file = function (subGraph, json, callback) {
             if (!json)
-                json = self.schema;
+                json = Schema.schema;
 
             //name  used in UI but not stored
             for (var key in Schema.schema.relations) {
@@ -313,7 +313,7 @@ var Schema = (function () {
                 path: serverDir + subGraph + ".json",
                 data: json///JSON.stringify(json)
             }
-            $.ajax(self.serverRootUrl + '/jsonFileStorage', {
+            $.ajax(Schema.serverRootUrl + '/jsonFileStorage', {
                 data: payload,
                 dataType: "json",
                 type: 'POST',
@@ -325,7 +325,7 @@ var Schema = (function () {
                 }
                 ,
                 success: function (data) {
-                    self.schema = json;
+                    Schema.schema = json;
                     if (callback)
                         return callback(null, json);
 
@@ -358,9 +358,9 @@ var Schema = (function () {
                     var xxx = ';'
                 }
                 else {
-                    for (var i = 0; i < dataModel.allRelationsArray.length; i++) {
+                    for (var i = 0; i < DataModel.allRelationsArray.length; i++) {
                         var index = (i) % Gparams.palette.length;
-                        linkColors[dataModel.allRelationsArray[i]] = Gparams.palette[index];
+                        linkColors[DataModel.allRelationsArray[i]] = Gparams.palette[index];
 
                     }
                 }
@@ -382,8 +382,8 @@ var Schema = (function () {
                 }
             }
             else {
-                for (var i = 0; i < dataModel.allLabels.length; i++) {
-                    var label = dataModel.allLabels[i];
+                for (var i = 0; i < DataModel.allLabels.length; i++) {
+                    var label = DataModel.allLabels[i];
                     var index = i % Gparams.palette.length;
                     context.nodeColors[label] = Gparams.palette[index];
                 }
@@ -620,7 +620,7 @@ var Schema = (function () {
 
 
         self.getNameProperty = function (label) {
-            if (!self.schema)
+            if (!Schema.schema)
                 return "name";
             if (!label)
                 return Schema.schema.defaultNodeNameProperty;
@@ -669,7 +669,7 @@ var Schema = (function () {
 
             if (true) {//confirm("save new Schema ?")) {
                 Schema.schema.relations = relationsNewModel;
-                self.save(self.subGraph, self.schema)
+                Schema.save(self.subGraph, self.schema)
 
             }
             return relationsNewModel;
@@ -677,13 +677,13 @@ var Schema = (function () {
         }
 
         self.generateNeoImplicitSchema = function (subGraph, save, callback) {
-            if (self.schema && !save)
+            if (Schema.schema && !save)
                 return;
             var properties = {};
             var labels = {};
             var k = 0;
             DataModel.initNeoModel(subGraph, function () {
-                for (var label in dataModel.labels) {
+                for (var label in DataModel.labels) {
                     labels[label] = {icon: "default.png"};
                     if (Gparams && Gparams.palette) {
                         var index = (k++) % Gparams.palette.length;
@@ -693,7 +693,7 @@ var Schema = (function () {
                     }
                     if (!properties[label])
                         properties[label] = {};
-                    var neoProps = dataModel.labels[label];
+                    var neoProps = DataModel.labels[label];
                     for (var i = 0; i < neoProps.length; i++) {
                         properties[label][neoProps[i]] = {
                             type: "text",
@@ -703,7 +703,7 @@ var Schema = (function () {
                 }
                 var implShema = {
                     labels: labels,
-                    relations: self.updateRelationsModel(dataModel.allRelations),
+                    relations: Schema.updateRelationsModel(DataModel.allRelations),
                     properties: properties,
                     fieldsSelectValues: {},
                     defaultNodeNameProperty: "name",
@@ -712,7 +712,7 @@ var Schema = (function () {
                 }
                 if (save) {
                     // console.log(JSON.stringify(implShema, undefined, 4));
-                    self.save(subGraph, implShema, callback);
+                    Schema.save(subGraph, implShema, callback);
                 }
             })
 
