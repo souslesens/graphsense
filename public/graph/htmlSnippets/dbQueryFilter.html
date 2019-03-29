@@ -1,12 +1,5 @@
 <div class="card border-primary"  >
-    <div class="card-header bg-primary text-white">Database Query Menu
-
-        <button id='#filterQueryMenuCloseButton' type="button" class="close pull-right" aria-label="Close" aria-expanded="false" data-toggle="collapse" data-target="#dbFilterCollapseMenu">
-            <span aria-hidden="true">&times;</span>
-        </button>
-
-
-    </div>
+    <div class="card-header bg-primary text-white">Database Query Menu</div>
 
     <div class="card card-body">
         <h5 class="card-title">Select a node label to add a request filter</h5>
@@ -24,50 +17,24 @@
             </div>
         </div>
 
-
         <div class="row" style="padding-top: 10px;">
 
 
-            <div class="card-deck">
+            <div class="card-deck" id="query_cardDeck">
                             
-                <div class="card border-primary mb-3" >
-                    <div class="card-header text-white  bg-primary">Filtre Label 1
-                            <button type="button" class="close pull-right" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                    </div>
-                    <div class="card-body ">
-                        <p class="card-text"><small> Name == "Nom Filtre 1"</small></p>
-                    </div>
-                </div>
 
-                <div class="card  border-secondary mb-3" >
-                    <div class="card-header text-white bg-secondary">Filtre Label 2
-                            <button type="button" class="close pull-right" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text"><small> Name == "Nom Filtre 1"</small></p>
-                    </div>
-                    
-                </div>
 
             </div>
 
         </div>
 
-        <div class="d-flex flex-row-reverse">
-            <button class='btn btn-info' >
-                    <span class="tableIconButton rounded-circle"></span> Display Result Tab
-            </button>
-            &nbsp;&nbsp;
-            <button class='btn btn-info' >
-                <span class="graphIconButton"></span> Display Graph
-            </button>
-           
+        <div class="row" style="padding-top: 10px;">
+                <button class='btn btn-info'>
+                        <span class="graph"></span> Display Graph
+                     </button>
         </div>
         
     </div>
 
 </div>
+    

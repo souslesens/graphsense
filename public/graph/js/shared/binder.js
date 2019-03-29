@@ -8,37 +8,23 @@ var binder=(function(){
 
 
     $("#dbFilterCollapseMenu").load("htmlSnippets/dbQueryFilter.html", function () {
-      console.log("queryFilters.html loaded");
+        console.log("queryFilters.html loaded");
+        UI_query.initDbQueryFilter()
 
-      /*
-      $('#filterQueryMenuCloseButton').click(function(){
-        $('#dbFilterCollapseMenu').collapse();
-      });
-*/
+        $("#dbQueryFilterLabelModal").load("htmlSnippets/dbQueryFilterLabelModal.html", function () {
 
-      var dbLabelToFilter = ["Label 1", "Label 2", "Label 3", "Label 4"];
-      var dbColorClassToFilter = ["primary", "secondary", "success", "danger", "warning","info","light","dark"];
-      var dbBadgeToFilter = [10,55,30,44,8,32];
-      
-      for(i=0;i<dbLabelToFilter.length;i++)
-      {
-        var buttonLabelToAdd = "<button type='button' class='btn btn-" + dbColorClassToFilter[i] + "' data-toggle='modal' data-target='#dbQueryFilterLabelModal'>" + dbLabelToFilter[i] + " <span class='badge badge-pill badge-light'>" + dbBadgeToFilter[i] + "</span></button>";
-        $("#dbFilterLabelButtonGroup").append( buttonLabelToAdd );
-      }
+        })
 
-      $("#dbQueryFilterLabelModal").load("htmlSnippets/dbQueryFilterLabelModal.html", function () {
-        console.log("queryExpand.html loaded")
-      })
-      
+
       
     })
 
-    $("#graphExpandModalMenu").load("htmlSnippets/graphQueryExpand.html", function () {
-      console.log("graphQueryExpand.html loaded")
+    $("#expandCollapseMenu").load("htmlSnippets/queryExpand.html", function () {
+      console.log("queryExpand.html loaded")
     })
 
-    $("#graphHighlightModalMenu").load("htmlSnippets/graphQueryHighlight.html", function () {
-      console.log("graphQueryHighlight.html loaded")
+    $("#highlightCollapseMenu").load("htmlSnippets/queryHighlight.html", function () {
+      console.log("queryHighlight.html loaded")
     })
 
     $("#displayModalContent").load("htmlSnippets/graphDisplayModal.html", function () {
