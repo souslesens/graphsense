@@ -80,21 +80,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="neo4jDataModel.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="neo4jDataModel.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/graph/js/core/neo4jDataModel.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3456">
-              <caret line="235" column="59" lean-forward="true" selection-start-line="235" selection-start-column="59" selection-end-line="235" selection-end-column="59" />
+            <state relative-caret-position="0">
+              <caret line="43" column="60" lean-forward="false" selection-start-line="43" selection-start-column="60" selection-end-line="43" selection-end-column="60" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="schema.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="schema.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/graph/js/core/schema.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="43" column="23" lean-forward="true" selection-start-line="43" selection-start-column="23" selection-end-line="43" selection-end-column="23" />
+            <state relative-caret-position="153">
+              <caret line="37" column="33" lean-forward="true" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -138,8 +138,8 @@
       <find>initQueryLabels</find>
       <find>self.schema.</find>
       <find>displayTable</find>
-      <find>dataModel</find>
       <find>self</find>
+      <find>dataModel</find>
     </findStrings>
     <replaceStrings>
       <replace>ui</replace>
@@ -367,7 +367,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22082000" />
+    <option name="totallyTimeSpent" value="22706000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -798,18 +798,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/core/schema.js">
+    <entry file="file://$PROJECT_DIR$/public/graph/js/core/neo4jDataModel.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="43" column="23" lean-forward="true" selection-start-line="43" selection-start-column="23" selection-end-line="43" selection-end-column="23" />
+        <state relative-caret-position="0">
+          <caret line="43" column="60" lean-forward="false" selection-start-line="43" selection-start-column="60" selection-end-line="43" selection-end-column="60" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/core/neo4jDataModel.js">
+    <entry file="file://$PROJECT_DIR$/public/graph/js/core/schema.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3456">
-          <caret line="235" column="59" lean-forward="true" selection-start-line="235" selection-start-column="59" selection-end-line="235" selection-end-column="59" />
+        <state relative-caret-position="153">
+          <caret line="37" column="33" lean-forward="true" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
           <folding />
         </state>
       </provider>

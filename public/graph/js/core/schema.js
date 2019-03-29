@@ -32,7 +32,6 @@ var Schema = (function () {
         self.neo4jProxyUrl = "../../neo";
         self.serverRootUrl = "../../..";
 
-
         self.allLabelsPaths = null;
         self.subGraph;
 

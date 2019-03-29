@@ -42,8 +42,6 @@ var DataModel = (function () {
         var where = ""
         if (subGraph)
             where = " where n.subGraph='" + subGraph + "' ";
-
-
         var dataLabels = [];
         var dataRels = [];
         async.series([
