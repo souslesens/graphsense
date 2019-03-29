@@ -4,7 +4,9 @@ var MainController = (function () {
 
     self.init = function () {
         self.initSubGraph();
-        Schema.load(context.subGraph);
+        Schema.load(context.subGraph,function(err,result){
+            binder.bindOnPageload();
+        });
 
 
     }

@@ -1,0 +1,61 @@
+<div class="card border-primary"  >
+    <div class="card-header bg-primary text-white">Database Query Menu</div>
+
+    <div class="card card-body">
+        <h5 class="card-title">Select a node label to add a request filter</h5>
+        <div class="row align-self-center "  >
+
+            <div class="btn-toolbar" role="toolbar">
+                <div id="dbFilterLabelButtonGroup" class="btn-group" role="group" >
+                <!-- loaded by  UI_query.initQueryLabels() -->
+                </div>
+            </div>
+        </div>
+
+        <div class="row" style="padding-top: 10px;">
+
+            <div class="card-deck" id="query_cardDeck">
+                <!-- loaded by  see UI_query.addCardToQueryDeck()-->
+          </div>
+
+      </div>
+
+        <div class="d-flex flex-row-reverse">
+
+                <button class='btn btn-info'  id="query_displayTableButton">
+                    <span class="tableIconButton rounded-circle" > Display Table</span>
+                </button>
+                &nbsp;&nbsp;
+                <button class='btn btn-info' id="query_displayGraphButton" >
+                    <span class="graphIconButton" > Display Graph</span>
+                </button>
+
+                <button class='btn btn-info'  id="query_newQueryButton">
+                    <span class="graphIconButton"> New Query</span>
+                </button>
+
+
+
+        </div>
+
+  </div>
+
+</div>
+
+<script>
+    $("#query_displayTableButton").bind("click",function(){
+        UI_query.displayTable();
+
+    })
+
+    $("#query_displayGraphButton").bind("click",function(){
+        UI_query.displayGraph();
+
+    })
+
+    $("#query_newQueryButton").bind("click",function(){
+        UI_query.newQuery();
+
+    })
+
+</script>

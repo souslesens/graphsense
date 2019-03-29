@@ -58,7 +58,7 @@ var Schema = (function () {
             Cypher.executeCypher("MATCH (n:schema) where n.name='" + subGraph + "' return n", function (err, result) {
                 if (err || result.length == 0) {
                     console.log("no schema found, will create one");
-                    self.createSchema(subGraph);
+                    Schema.createSchema(subGraph);
 
                     /*  setTimeout(function () {
                           toutlesensController.dispatchAction('showSchemaConfigDialog');//({create:1});
@@ -67,7 +67,7 @@ var Schema = (function () {
                 else {
                     var schema = result[0].n.properties.data;
                     schema = JSON.parse(atob(schema))
-                    self.initSchema(schema, callback);
+                    Schema.initSchema(schema, callback);
                 }
 
 
@@ -91,7 +91,7 @@ var Schema = (function () {
 
             // location.reload()
 
-            self.generateNeoImplicitSchema(subGraph, true, function (err, _schema) {
+            Schema.generateNeoImplicitSchema(subGraph, true, function (err, _schema) {
                 if (err) {
                     console.log(err)
                     if (callback)
@@ -181,7 +181,7 @@ var Schema = (function () {
         self.setDefaultNodeNameProperty = function () {
             var newName = $("#schemaConfig_defaultNodeNameProperty").val();
             if (newName !== "") {
-                self.schema.defaultNodeNameProperty = newName;
+                Schema.schema.defaultNodeNameProperty = newName;
                 self.save(subGraph)
 
 
@@ -210,32 +210,32 @@ var Schema = (function () {
                 }
 
 
-                self.schema = data;
+                Schema.schema = data;
                 if (Gparams)
-                    Gparams.defaultNodeNameProperty = self.schema.defaultNodeNameProperty;
+                    Gparams.defaultNodeNameProperty = Schema.schema.defaultNodeNameProperty;
                 //name  used in UI but not stored
-                for (var key in self.schema.relations) {
-                    self.schema.relations[key].name = key
+                for (var key in Schema.schema.relations) {
+                    Schema.schema.relations[key].name = key
                 }
 
-                for (var key in self.schema.labels) {
-                    if (!self.schema.properties[key])
-                        self.schema.properties[key] = {};
-                    if (!self.schema.properties[key][self.schema.defaultNodeNameProperty])
-                        self.schema.properties[key][self.schema.defaultNodeNameProperty] = {
+                for (var key in Schema.schema.labels) {
+                    if (!Schema.schema.properties[key])
+                        Schema.schema.properties[key] = {};
+                    if (!Schema.schema.properties[key][Schema.schema.defaultNodeNameProperty])
+                        Schema.schema.properties[key][Schema.schema.defaultNodeNameProperty] = {
                             "type": "text"
                         }
                 }
 
-                self.setLabelsColor();
-                self.setLinkColors();
-                if (self.schema.Gparams) {
-                    for (var key in self.schema.Gparams) {
-                        Gparams[key] = self.schema.Gparams[key];
+                Schema.setLabelsColor();
+                Schema.setLinkColors();
+                if (Schema.schema.Gparams) {
+                    for (var key in Schema.schema.Gparams) {
+                        Gparams[key] = Schema.schema.Gparams[key];
                     }
                 }
 
-                Gparams.defaultNodeNameProperty = self.schema.defaultNodeNameProperty;
+                Gparams.defaultNodeNameProperty = Schema.schema.defaultNodeNameProperty;
 
                 if (callback)
                     callback(null, self.schema);
@@ -249,15 +249,15 @@ var Schema = (function () {
                 json = self.schema;
 
             //name  used in UI but not stored
-            for (var key in self.schema.relations) {
-                delete self.schema.relations[key].name
+            for (var key in Schema.schema.relations) {
+                delete Schema.schema.relations[key].name
             }
 
-            for (var key in self.schema.labels) {
-                if (!self.schema.properties[key])
-                    self.schema.properties[key] = {};
-                if (!self.schema.properties[key][self.schema.defaultNodeNameProperty])
-                    self.schema.properties[key][self.schema.defaultNodeNameProperty] = {
+            for (var key in Schema.schema.labels) {
+                if (!Schema.schema.properties[key])
+                    Schema.schema.properties[key] = {};
+                if (!Schema.schema.properties[key][Schema.schema.defaultNodeNameProperty])
+                    Schema.schema.properties[key][Schema.schema.defaultNodeNameProperty] = {
                         "type": "text"
                     }
 
@@ -295,15 +295,15 @@ var Schema = (function () {
                 json = self.schema;
 
             //name  used in UI but not stored
-            for (var key in self.schema.relations) {
-                delete self.schema.relations[key].name
+            for (var key in Schema.schema.relations) {
+                delete Schema.schema.relations[key].name
             }
 
-            for (var key in self.schema.labels) {
-                if (!self.schema.properties[key])
-                    self.schema.properties[key] = {};
-                if (!self.schema.properties[key][self.schema.defaultNodeNameProperty])
-                    self.schema.properties[key][self.schema.defaultNodeNameProperty] = {
+            for (var key in Schema.schema.labels) {
+                if (!Schema.schema.properties[key])
+                    Schema.schema.properties[key] = {};
+                if (!Schema.schema.properties[key][Schema.schema.defaultNodeNameProperty])
+                    Schema.schema.properties[key][Schema.schema.defaultNodeNameProperty] = {
                         "type": "text"
                     }
 
@@ -395,7 +395,7 @@ var Schema = (function () {
             if (!direction)
                 direction = "normal";
             var relationsPermitted = [];
-            var relations = self.schema.relations;
+            var relations = Schema.schema.relations;
             var relationNames = [];
 
             for (var key in relations) {
@@ -453,7 +453,7 @@ var Schema = (function () {
 
         self.getPermittedRelTypes = function (startLabel, endLabel, inverseRelAlso) {
             relTypes = [];
-            var relations = self.schema.relations;
+            var relations = Schema.schema.relations;
             for (var key in relations) {
                 var relation = relations[key];
                 var type = relations[key].type;
@@ -470,7 +470,7 @@ var Schema = (function () {
 
         self.getPermittedLabels = function (startLabel, inverseRelAlso, withoutInverseSign) {
             labels = [];
-            var relations = self.schema.relations;
+            var relations = Schema.schema.relations;
             for (var key in relations) {
                 var relation = relations[key];
 
@@ -494,7 +494,7 @@ var Schema = (function () {
 
         self.getRelations = function (startLabel, endLabel, mongoCollection) {
             var matchingRels = []
-            var relations = self.schema.relations;
+            var relations = Schema.schema.relations;
             for (var key in relations) {
                 var relation = relations[key];
 
@@ -514,7 +514,7 @@ var Schema = (function () {
 
         self.getRelationsByType = function (type) {
             var matchingRels = []
-            var relations = self.schema.relations;
+            var relations = Schema.schema.relations;
             for (var key in relations) {
                 var relation = relations[key];
                 if (relation.type == type) {
@@ -533,7 +533,7 @@ var Schema = (function () {
 
                 return 2;
             }
-            var relations = self.schema.relations;
+            var relations = Schema.schema.relations;
             var nodesChildren = {};
 
             // nodes around each nodes
@@ -623,20 +623,20 @@ var Schema = (function () {
             if (!self.schema)
                 return "name";
             if (!label)
-                return self.schema.defaultNodeNameProperty;
-            var properties = self.schema.properties[label];
+                return Schema.schema.defaultNodeNameProperty;
+            var properties = Schema.schema.properties[label];
             for (var field in properties) {
                 if (properties[field].isName)
                     return field
 
             }
-            return self.schema.defaultNodeNameProperty;
+            return Schema.schema.defaultNodeNameProperty;
         }
 
 
         self.updateRelationsModel = function (oldRelations) {
             var relationsNewModel = {}
-            var relations = self.schema.relations;
+            var relations = Schema.schema.relations;
             if (oldRelations)
                 relations = oldRelations;
             for (var key in relations) {
@@ -668,7 +668,7 @@ var Schema = (function () {
             //      console.log(JSON.stringify(self.schema, undefined, 4));
 
             if (true) {//confirm("save new Schema ?")) {
-                self.schema.relations = relationsNewModel;
+                Schema.schema.relations = relationsNewModel;
                 self.save(self.subGraph, self.schema)
 
             }

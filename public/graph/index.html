@@ -46,18 +46,20 @@
     <!---------- end scripts others ----------->
 
     <!---------- scripts souslesens ----------->
-    <script type="text/javascript" src="js/shared/common.js"></script>//  util methods generic
-    <script type="text/javascript" src="js/shared/binder.js"></script>// binds control to methods of different objects
-    <script type="text/javascript" src="js/shared/cypher.js"></script>// neo4j client proxy (see also /routes/index.js for protocols)
 
-    <script type="text/javascript" src="js/shared/params.js"></script>// app global params
-    <script type="text/javascript" src="js/shared/schema.js"></script>// access to description and logic of neo4j database
-    <script type="text/javascript" src="js/shared/neo4jDataModel.js"></script>// access to description and logic of neo4j database
-   <script type="text/javascript" src="js/shared/mainController.js"></script> // global  controller
-    <script type="text/javascript" src="js/shared/context.js"></script>// object containing contextual objects
-    <script type="text/javascript" src="js/shared/UI_graph.js"></script>
-    <script type="text/javascript" src="js/shared/UI_parameters.js"></script>
-    <script type="text/javascript" src="js/shared/UI_query.js"></script>
+    <script type="text/javascript" src="js/core/cypher.js"></script><!-- neo4j client proxy (see also /routes/index.js for protocols)  -->
+    <script type="text/javascript" src="js/core/schema.js"></script><!--  access to description and logic of neo4j database  -->
+    <script type="text/javascript" src="js/core/neo4jDataModel.js"></script><!--  access to description and logic of neo4j database  -->
+    <script type="text/javascript" src="js/core/common.js"></script><!--  util methods generic -->
+    <script type="text/javascript" src="js/core/buildPaths.js"></script><!--  builds an execute requests -->
+
+    <script type="text/javascript" src="js/ui/binder.js"></script><!-- binds control to methods of different objects  -->
+    <script type="text/javascript" src="js/ui/params.js"></script><!--  app global params  -->
+     <script type="text/javascript" src="js/ui/mainController.js"></script> <!--  global  controller  -->
+    <script type="text/javascript" src="js/ui/context.js"></script><!--  object containing contextual objects  -->
+    <script type="text/javascript" src="js/ui/UI_graph.js"></script>
+    <script type="text/javascript" src="js/ui/UI_parameters.js"></script>
+    <script type="text/javascript" src="js/ui/UI_query.js"></script>
     <!---------- end scripts souslesens ----------->
 
 
@@ -67,7 +69,7 @@
 
             // bind controls
             MainController.init();
-            binder.bindOnPageload();
+
 
             //collapse navbar javascript
             $('#sidebarCollapse').on('click', function () {
@@ -82,97 +84,136 @@
 
 </head>
 
+<script type="text/javascript">
+    //when page loaded
+    $(function () {
+
+        // bind controls
+        binder.bindOnPageload();
+
+        $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+        });
+
+
+        $('#showTreeButton').on('click', function () {
+            $('#sidebar, #content').toggleClass('active');
+            $('.collapse.in').toggleClass('in');
+            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
+
+        $('#myTree1Test').tree({
+            uiLibrary: 'bootstrap4',
+            dataSource: 'dataTree.json',
+            primaryKey: 'id',
+            imageUrlField: 'flagUrl',
+            checkboxes: true
+        });
+
+        $('#myTree2Test').tree({
+            uiLibrary: 'bootstrap4',
+            dataSource: 'dataTree.json',
+            primaryKey: 'id',
+            imageUrlField: 'flagUrl',
+            checkboxes: true
+        });
+
+    });
+
+
+</script>
+
+
+</head>
+
 <body>
 
 <div class="wrapper">
 
     <!-- Sidebar  -->
-    <nav id="sidebar">
+    <nav id="sidebar" >
+
         <div class="sidebar-header">
-            <h3>Sous le Sens</h3>
-            <strong>SlS</strong>
+            <span class="graphIcon"></span><h3>Sous le Sens</h3>
         </div>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
         <ul class="list-unstyled components">
             <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <i class="fas fa-home"></i>
-                    Query
-                </a>
-
-                <ul class="collapse list-unstyled" id="homeSubmenu">
+                <a href="#tree1Menu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">Tree 1 </a>
+                <ul class="collapse list-unstyled" id="tree1Menu">
                     <li>
-                        <a href="#queryLabelContent" data-toggle="modal">Functional Class</a>
-                    </li>
-                    <li>
-                        <a href="#">Technical Class</a>
-                    </li>
-                    <li>
-                        <a href="#">Discipline</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="fas fa-briefcase"></i>
-                    Tree
-                </a>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <i class="fas fa-copy"></i>
-                    Infos
-                </a>
-                <ul class="collapse list-unstyled" id="pageSubmenu">
-                    <li>
-                        <a href="#">Page 1</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 2</a>
-                    </li>
-                    <li>
-                        <a href="#">Page 3</a>
+                        <div class="container-fluid active" style="background-color:white;padding-top: 5px;" >
+                            <div class="row ml-auto" style="padding-left: 70px" >
+                                <button class='btn btn-info' >
+                                    <span class="graphIconButton"></span>&nbsp;Display Graph
+                                </button>
+                            </div>
+                            <div class="row">
+                                <div id="myTree1Test"></div>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </li>
-            <li>
-                <a href="#">
-                    <i class="fas fa-image"></i>
-                    Expand
-                </a>
-            </li>
-            <li>
-                <a href="#highlightContent" data-toggle="modal">
-                    <i class="fas fa-question"></i>
-                    Highlight
-                </a>
-            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
+
+            <li class="active">
+                <a href="#tree2Menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tree 2 </a>
+                <ul class="collapse list-unstyled" id="tree2Menu">
+                    <li>
+                        <div class="container-fluid active">
+                            <div id="myTree2Test"></div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
         </ul>
 
-        <ul class="list-unstyled CTAs">
-            <li>
-                <a href="#" class="download">Menu 1</a>
-            </li>
-            <li>
-                <a href="#" class="article">Menu 2</a>
-            </li>
-        </ul>
+
     </nav>
 
     <!-- Page Content  -->
     <div id="content">
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white topbar static-top shadow">
             <div class="container-fluid">
 
+                <!--
                 <button type="button" id="sidebarCollapse" class="btn btn-info">
                     <i class="fas fa-align-left"></i>
                     <span>Toggle Sidebar</span>
                 </button>
+
                 <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-align-justify"></i>
                 </button>
+                -->
+                <form class="form-inline my-2 my-lg-0">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-0 small" style="background-color: #d4d3d6;" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">
+                                <i class="fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="topbar-divider d-none d-sm-block"></div>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
@@ -190,14 +231,12 @@
             </div>
         </nav>
 
+        <div class="sidebar-divider2"></div>
         <!-- icon menu navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <nav class="navbar navbar-expand-lg navbar-light">
+
             <ul class="navbar-nav mr-auto">
-                   
-                <li class="nav-item">
-                    
-                </li>
-                
+
                 <li class="nav-item">
                     <a class="navbar-brand" data-toggle="collapse" href="#dbFilterCollapseMenu" aria-expanded="false"
                        data-target="#dbFilterCollapseMenu">
@@ -205,26 +244,20 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" id="showTreeButton" href="#">
                         <img src="img/tree.png" width="40" height="40" alt="Filter">
                     </a>
-                </li>
-                <li class="nav-item">
-                    
                 </li>
             </ul>
 
             <ul class="navbar-nav mr-auto">
-    
                 <li class="nav-item">
-                    <a class="navbar-brand" data-toggle="collapse" href="#expandCollapseMenu" aria-expanded="false"
-                        data-target="#expandCollapseMenu">
-                        <img src="img/expandLabel.png" width="40" height="40" alt="Filter">
+                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#graphExpandModalMenu">
+                        <img src="img/expandLabel.png" width="40" height="40" alt="">
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" data-toggle="collapse" href="#highlightCollapseMenu" aria-expanded="false" 
-                        data-target="#highlightCollapseMenu">
+                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#graphHighlightModalMenu">
                         <img src="img/label.png" width="40" height="40" alt="Tag">
                     </a>
                 </li>
@@ -233,7 +266,6 @@
                         <img src="img/filter.png" width="40" height="40" alt="Tag">
                     </a>
                 </li>
-    
             </ul>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -248,46 +280,45 @@
                 </li>
                 <li>
                     <a class="navbar-brand" href="#navbarSupportedContent" data-toggle="collapse"
-                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                       data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                       aria-label="Toggle navigation">
                         <img src="img/fullScreen.png" width="40" height="40" alt="">
                     </a>
-                    </li>
+                </li>
             </ul>
-
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </nav>
 
-
-        <!-- Highlight Modal -->
-        <div class="collapse navbar-collapse" id="highlightCollapseMenu">
+        <!-- Query Label Modal -->
+        <div class="modal fade" id="dbQueryFilterLabelModal" tabindex="-1" role="dialog" aria-labelledby="dbQueryFilterLabelModal" aria-hidden="true">
         </div>
-    
+        <!-- End of Display Setting Modal -->
+
+
+        <!-- Expand Modal Menu -->
+        <div class="modal fade bd-example-modal-lg" id="graphExpandModalMenu" tabindex="-1" role="dialog" aria-labelledby="displayModalLabel" aria-hidden="true">
+        </div>
+
+        <!-- Highlight Modal Menu -->
+        <div class="modal fade" id="graphHighlightModalMenu" tabindex="-1" role="dialog" aria-labelledby="displayModalLabel" aria-hidden="true">
+        </div>
+
         <!-- DB Filter Collaspse menu -->
         <div class="collapse navbar-collapse" id="dbFilterCollapseMenu">
+            <!--loaded by binder.bindOnPageload()-->
         </div>
 
-        <!-- Expand Collapse Menu -->
-        <div class="collapse navbar-collapse" id="expandCollapseMenu">
-        </div>
 
 
         <!-- Display Setting Modal -->
-        <div class="modal fade" id="displayModalContent" tabindex="-1" role="dialog" aria-labelledby="displayModalLabel"
-             aria-hidden="true">
-        
+        <div class="modal fade" id="displayModalContent" tabindex="-1" role="dialog" aria-labelledby="displayModalLabel"aria-hidden="true">
+
         </div>
         <!-- End of Display Setting Modal -->
 
-        <!-- Query Label Modal -->
-        <div class="modal fade" id="dbQueryFilterLabelModal" tabindex="-1" role="dialog" aria-labelledby="dbQueryFilterLabelModal"
-             aria-hidden="true">
-           
-        </div>
-        <!-- End of Display Setting Modal -->
+
+        <!-- end of Wrapper  -->
+
+
 
 
 
@@ -307,7 +338,7 @@
     <!-- end of Page Content -->
 
 </div>
-<!-- end of Wrapper  -->
+
 
 
 </body>
