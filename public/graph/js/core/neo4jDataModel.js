@@ -27,7 +27,8 @@
 var DataModel = (function () {
     var self = {};
 
-    self.neo4jProxyUrl = "../../";
+    self.neo4jProxyUrl = "../../../neo";
+
     self.labels = {};
     self.labelsRelations = {};
     self.relations = {};
