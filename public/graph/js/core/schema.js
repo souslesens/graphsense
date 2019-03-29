@@ -47,7 +47,6 @@ var Schema = (function () {
             fieldsSelectValues: {}
         }
 
-
         /**
          * load schema from config/schemas dir
          * if no schema call schema configDialog

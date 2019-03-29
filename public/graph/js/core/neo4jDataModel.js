@@ -55,6 +55,7 @@ var DataModel = (function () {
                         dataLabels = result;
                         callback()
                     });
+                    
 
                 },
                 function (callback) {
