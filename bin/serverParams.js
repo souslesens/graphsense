@@ -27,8 +27,8 @@
 
 var serverParams={
     routesRootUrl:"",
-   neo4jUrl: 'http://neo4j:souslesens@127.0.0.1:7474',
-     sourceUrl : "sourcedb://127.0.0.1:27017/",
+    neo4jUrl: 'http://neo4j:souslesens@127.0.0.1:7474',
+    sourceUrl : "sourcedb://127.0.0.1:27017/",
     sourceFetchSize:2000,
     elasticFethSize:2000,
     elasticUrl:'http://127.0.0.1:9200/',
