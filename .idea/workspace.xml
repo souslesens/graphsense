@@ -2,32 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0b8677d-dbc9-4124-b08c-92f03bd70409" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/public/graph/htmlSnippets/graph/graphExpand.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/public/graph/htmlSnippets/graph/graphHighlight.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/public/graph/js/core/buildPaths.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/public/graph/js/ui/binder.js" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/public/graph/htmlSnippets/dbQueryFilter.html" afterPath="$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilter.html" />
-      <change beforePath="$PROJECT_DIR$/public/graph/htmlSnippets/dbQueryFilterLabelModal.html" afterPath="$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilterLabelModal.html" />
-      <change beforePath="$PROJECT_DIR$/public/graph/htmlSnippets/graphDisplayModal.html" afterPath="$PROJECT_DIR$/public/graph/htmlSnippets/graph/graphDisplayModal.html" />
-      <change beforePath="$PROJECT_DIR$/public/graph/htmlSnippets/queryExpand.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graph/htmlSnippets/queryFilters.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graph/htmlSnippets/queryHighlight.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graph/index.html" afterPath="$PROJECT_DIR$/public/graph/index.html" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/old/searchNodes.js" afterPath="$PROJECT_DIR$/public/graph/js/core/searchNodes.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/shared/UI_graph.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/UI_graph.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/shared/UI_parameters.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/UI_parameters.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/shared/UI_query.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/UI_query.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/shared/binder.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/shared/common.js" afterPath="$PROJECT_DIR$/public/graph/js/core/common.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/shared/context.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/context.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/shared/cypher.js" afterPath="$PROJECT_DIR$/public/graph/js/core/cypher.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/shared/mainController.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/mainController.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/shared/neo4jDataModel.js" afterPath="$PROJECT_DIR$/public/graph/js/core/neo4jDataModel.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/shared/params.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/params.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/shared/schema.js" afterPath="$PROJECT_DIR$/public/graph/js/core/schema.js" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/htmlSnippets/dbQueryFilter.html" afterPath="$PROJECT_DIR$/public/graphPJ/htmlSnippets/dbQueryFilter.html" />
+      <change beforePath="$PROJECT_DIR$/public/graph/css/main.css" afterPath="$PROJECT_DIR$/public/graph/css/main.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilter.html" afterPath="$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilter.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -87,21 +63,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="queryFilter.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="queryFilter.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilter.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state relative-caret-position="308">
+              <caret line="32" column="70" lean-forward="false" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="70" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dbQueryFilter.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="dbQueryFilter.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/graphPJ/htmlSnippets/dbQueryFilter.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="52" column="20" lean-forward="true" selection-start-line="52" selection-start-column="20" selection-end-line="52" selection-end-column="20" />
+            <state relative-caret-position="227">
+              <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/graph/css/main.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="20" column="23" lean-forward="true" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -254,6 +240,13 @@
               <item name="souslesens" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
               <item name="graph" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
+              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="graph" type="462c0819:PsiDirectoryNode" />
               <item name="htmlSnippets" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -306,6 +299,13 @@
               <item name="souslesens" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
               <item name="graphPJ" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
+              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="graphPJ" type="462c0819:PsiDirectoryNode" />
               <item name="htmlSnippets" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -344,11 +344,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\GitHub\souslesens\public\graph\css" />
       <recent name="D:\GitHub\souslesens\public\graph\js\core" />
       <recent name="D:\GitHub\souslesens\public\graph\htmlSnippets" />
       <recent name="D:\GitHub\souslesens\public\graphCF" />
       <recent name="D:\GitHub\souslesens\public" />
-      <recent name="D:\GitHub\souslesens\bin" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\GitHub\souslesens\public\graph\js\core" />
@@ -388,7 +388,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16674000" />
+    <option name="totallyTimeSpent" value="17562000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -489,13 +489,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="10" column="3" lean-forward="false" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -813,18 +806,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilter.html">
+    <entry file="file://$PROJECT_DIR$/public/graph/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="360">
+          <caret line="20" column="23" lean-forward="true" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/graphPJ/htmlSnippets/dbQueryFilter.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="52" column="20" lean-forward="true" selection-start-line="52" selection-start-column="20" selection-end-line="52" selection-end-column="20" />
+        <state relative-caret-position="227">
+          <caret line="54" column="0" lean-forward="true" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilter.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="32" column="70" lean-forward="false" selection-start-line="32" selection-start-column="50" selection-end-line="32" selection-end-column="70" />
           <folding />
         </state>
       </provider>
