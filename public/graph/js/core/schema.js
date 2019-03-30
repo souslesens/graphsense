@@ -59,7 +59,7 @@ var Schema = (function () {
                     Schema.createSchema(subGraph);
 
                     /*  setTimeout(function () {
-                          toutlesensController.dispatchAction('showSchemaConfigDialog');//({create:1});
+                          GraphController.dispatchAction('showSchemaConfigDialog');//({create:1});
                       }, 2000)*/
                 }
                 else {
@@ -316,7 +316,7 @@ var Schema = (function () {
                 dataType: "json",
                 type: 'POST',
                 error: function (error, ajaxOptions, thrownError) {
-                    toutlesensController.onErrorInfo(error)
+                    GraphController.onErrorInfo(error)
                     if (callback)
                         return callback("error " + error)
 

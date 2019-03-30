@@ -20,131 +20,6 @@ var buildPaths = (function () {
 
 
 
-    self.addQueryObjectDiv = function () {
-
-        context.queryObject.inResult = true;
-        self.queryObjs.push(JSON.parse(JSON.stringify(context.queryObject)));//clone
-        self.drawNodeQueryDivs();
-        //   self.onSelectNodeDiv(index);
-
-
-    }
-
-    self.updateQueryDiv = function (index, queryObject) {
-
-        self.queryObjs[index] = queryObject;
-
-        $("#buildPath_nodeConditionDiv_" + index).html(queryObject.globalText)
-        globalHtml = $("#buildGraphDiv").html()
-
-        self.currentCypher = self.buildQuery();
-        $("#buildPaths_cypherTA").text(self.currentCypher)
-        var maxStr = "";
-        if (queryObject.nodeIds.length >= Gparams.listDisplayLimitMax)
-            maxStr = ">"
-        var queryCountNodes = "<b>" + maxStr + queryObject.nodeIds.length + " nodes" + "</b>";
-        $("#buildPath_resultCountDiv_" + index).html(queryCountNodes);
-        searchNodes.setUIPermittedLabels(queryObject.label);
-
-
-    }
-
-
-    self.drawNodeQueryDivs = function (withButtons) {
-        var html = ""
-        self.queryObjs.forEach(function (queryObject, index) {
-            html += self.getRelDivHtml(index);
-            html += self.getNodeDivHtml(queryObject, index);
-        })
-
-
-        if (globalHtml == "") {
-            self.init()
-            $("#buildGraphDiv").html(globalHtml);
-        }
-        $("#buildPaths_matchNodesWrapper").html(html);
-        globalHtml = $("#buildGraphDiv").html();
-        self.currentCypher = self.buildQuery();
-        $("#buildPaths_cypherTA").text(self.currentCypher)
-
-    }
-
-    self.getNodeDivHtml = function (queryObject, index) {
-        var queryText = queryObject.text;
-        var maxStr = ""
-        if (queryObject.nodeIds.length >= Gparams.listDisplayLimitMax)
-            maxStr = ">"
-        var queryCountNodes = "<b>" + maxStr + queryObject.nodeIds.length + " nodes" + "</b>";
-
-        var color = context.nodeColors[queryObject.label];
-        var classInResult = "";
-        if (queryObject.inResult)
-            classInResult = " buildPaths-nodeInResultDiv";
-
-
-        var html = "<div id='buildPath_nodeDiv_" + index + "' class=' buildPaths-nodeDiv  stopPropag" + classInResult + "'  onclick='buildPaths.onSelectNodeDiv(" + index + ")'>" +
-            " <div class='buildPaths-partDiv' style='background-color: " + color + "'><b>" + queryObject.label + "</b></div>" +
-            "<div id='buildPath_nodeConditionDiv_" + index + "' class='buildPath-nodeConditionDiv buildPaths-partDiv'> " + queryText + "</div>" +
-            "<div id='buildPath_resultCountDiv_" + index + "' class='buildPath-resultCountDiv buildPaths-partDiv'> " + queryCountNodes + "</div>" +
-            // " <div class='buildPaths-partDiv'><button  id='buildPaths_inResultButton'  onclick='buildPaths.nodeInResult(" + index + ")'>not in result</button> </div>" +
-            "<span><input type='checkbox' id='buildPaths-inResultCbx_" + index + "' checked='checked' >in result </span><br>"
-        // " <span><input type='checkbox' id='buildPaths-inResultCbx' checked='checked' onclick='buildPaths.nodeInResult(" + index + ")'>in result </span><br>";
-
-        if (false && index > 0)
-            html += "<span><input type='checkbox' id='buildPaths-clusterCbx'  onclick='buildPaths.clusterNodesInGraph(" + index + ")'>cluster</span> <br> ";
-
-        // "<button onclick='buildPaths.removeQueryObj(" + index + ")'>X</button>" +
-        html += "<div style='display: flex'><input type='image' height='15px'  title='move left' onclick='buildPaths.moveDivLeft(" + index + ")' src='images/left.png'/>" +
-            "<input type='image' height='15px'  title='remove node' onclick='buildPaths.removeQueryObj(" + index + ")' src='images/trash.png'/>" +
-            "<input type='image' height='15px'  title='move right' onclick='buildPaths.moveDivRight(" + index + ")' src='images/right.png'/></div>" +
-            "</div>"
-
-
-        return html;
-
-
-    }
-
-    self.getRelDivHtml = function (index) {
-        if (index == 0)
-            return "";
-        var startLabel = self.queryObjs[index - 1].label;
-        var endLabel = self.queryObjs[index].label;
-        var permittedRels = Schema.getPermittedRelations(startLabel, "both");
-        var rels = [];
-        var relTypes = [];
-        permittedRels.forEach(function (rel) {
-            if (rel.endLabel == endLabel || rel.startLabel == endLabel) ;
-
-            rels.push(rel)
-            relTypes.push(rel.type)
-        })
-
-
-        searchRelations.setEdgeColors(relTypes)
-        self.queryObjs[index].incomingRelation = {
-            candidates: rels,
-            selected: null
-        }
-
-
-        var html = "<div id='buildPath_relDiv_" + index + "' class=' buildPaths-relDiv  stopPropag '  onclick='buildPaths.onRelDivClick(" + index + ")' >" +
-            // " <div class='buildPaths-relPartDiv' style='display: flex;margin: 2px'><i>" + rels[0].name + "</i>" +//
-            // "<input type=\"image\" height=\"15px\" src=\"images/filter.png\" onclick='buildPaths.onRelFilterClick(" + index + ")'></div>" +//
-            "<div id='buildPath_relConditionsDiv_" + index + "' class=' buildPaths-relConditionDiv  stopPropag' ><-></div>" +
-            "</div>"
-
-
-        /*  if (rels.length > 1) {// choose witch relation**************!!!
-              self.onRelDivClick(index);
-
-
-          }*/
-
-        return html;
-
-
-    }
 
     self.onRelDivClick = function (index) {
         $("#dialog").load("htmlSnippets/searchRelationsDialog.html", function () {
@@ -243,17 +118,6 @@ var buildPaths = (function () {
 
     }
 
-    /*self.nodeInResult = function (index) {
-        if (!self.queryObjs[index].inResult) {
-            $("#buildPath_nodeDiv_" + index).addClass("buildPaths-nodeInResultDiv");
-            self.queryObjs[index].inResult = true;
-            $(("#buildPaths_inResultButton")).html('Not in Result')
-        } else {
-            $("#buildPath_nodeDiv_" + index).removeClass("buildPaths-nodeInResultDiv");
-            self.queryObjs[index].inResult = false;
-            $(("#buildPaths_inResultButton")).html('In Result')
-        }
-    }*/
 
     self.clusterNodesInGraph = function (index) {
         if (!self.queryObjs[index].clusterInResult) {
@@ -300,11 +164,7 @@ var buildPaths = (function () {
 
         }
     }
-    /*  self.reset = function () {
-          self.queryObjs = [];
-          $("#buildPaths_matchNodesWrapper").html("");
-          currentDivIndex = -1
-      }*/
+
 
 
     self.checkQueryExceedsLimits = function () {
@@ -327,17 +187,15 @@ var buildPaths = (function () {
     }
     self.executeQuery = function (type, callback) {
 
-        if (false && self.checkQueryExceedsLimits())
+     /*   if (false && self.checkQueryExceedsLimits())
             return alert("query too large. put  conditions on nodes or relations")
 
         $("#searchDialog_previousPanelButton").css('visibility', 'visible');
         var countResults = self.countResults();
-        /* if (countResults == 0) {
-             return alert("you must least include on label in return clause of the query")
-         }*/
+
         if (!currentSetType) {
             $("#buildPath_moreParamsDiv").css('visibility', 'hidden')
-        }
+        }*/
 
 
         var uiCypher = $('#buildPaths_cypherTA').val();
@@ -418,6 +276,54 @@ var buildPaths = (function () {
 
 
     }
+    self.getWhereClauseFromQueryObject = function (queryObject, nodeAlias) {
+
+        var property = queryObject.property;
+        var operator = queryObject.operator;
+        var value = queryObject.value;
+
+        if (operator == "exists" || operator == "notExists") {
+            ;
+        }
+        else if (!value || value == "")
+            return null;
+
+        var not = (operator == "notContains") ? "NOT " : "";
+        if (operator == "!=") {
+            operator = "<>"
+            if (!(/^-?\d+\.?\d*$/).test(value))//not number
+                value = "\"" + value + "\"";
+        }
+
+
+        else if (operator == "~" || operator == "contains" || operator == "notContains") {
+            operator = "=~"
+            // value = "'.*" + value.trim() + ".*'";
+            value = "'(?i).*" + value.trim() + ".*'";
+        }
+        else {
+            //if ((/[\s\S]+/).test(value))
+            if (!(/^-?\d+\.?\d*$/).test(value))//not number
+                value = "\"" + value + "\"";
+        }
+        var propStr = "";
+
+        if (operator == "exists" || operator == "notExists") {
+            if (operator == "notExists")
+                not = " NOT "
+            else
+                not = " "
+            propStr = not + " EXISTS(" + nodeAlias + "." + property + ")";
+        }
+        else if (property == "any")
+            propStr = "(any(prop in keys(n) where n[prop]" + operator + value + "))";
+
+        else {
+            propStr = not + nodeAlias + "." + property + operator + value.trim();
+        }
+        return propStr;
+
+    }
 
     self.countResults = function () {
         var count = 0;
@@ -427,6 +333,55 @@ var buildPaths = (function () {
                 count += 1;
         })
         return count;
+    }
+
+    self.getWhereClauseFromQueryObject = function (queryObject, nodeAlias) {
+
+        var property = queryObject.property;
+        var operator = queryObject.operator;
+        var value = queryObject.value;
+
+        if (operator == "exists" || operator == "notExists") {
+            ;
+        }
+        else if (!value || value == "")
+            return null;
+
+        var not = (operator == "notContains") ? "NOT " : "";
+        if (operator == "!=") {
+            operator = "<>"
+            if (!(/^-?\d+\.?\d*$/).test(value))//not number
+                value = "\"" + value + "\"";
+        }
+
+
+        else if (operator == "~" || operator == "contains" || operator == "notContains") {
+            operator = "=~"
+            // value = "'.*" + value.trim() + ".*'";
+            value = "'(?i).*" + value.trim() + ".*'";
+        }
+        else {
+            //if ((/[\s\S]+/).test(value))
+            if (!(/^-?\d+\.?\d*$/).test(value))//not number
+                value = "\"" + value + "\"";
+        }
+        var propStr = "";
+
+        if (operator == "exists" || operator == "notExists") {
+            if (operator == "notExists")
+                not = " NOT "
+            else
+                not = " "
+            propStr = not + " EXISTS(" + nodeAlias + "." + property + ")";
+        }
+        else if (property == "any")
+            propStr = "(any(prop in keys(n) where n[prop]" + operator + value + "))";
+
+        else {
+            propStr = not + nodeAlias + "." + property + operator + value.trim();
+        }
+        return propStr;
+
     }
 
     self.buildQuery = function (type, returnQueryObj) {
@@ -452,7 +407,7 @@ var buildPaths = (function () {
 
 
             var symbol = alphabet.charAt(index);
-            queryObject.inResult = $("#buildPaths-inResultCbx_" + index).is(':checked');
+
 
 
             // set relation where
@@ -468,7 +423,7 @@ var buildPaths = (function () {
 //with n,count(r) as cnt  MATCH (n:personne)-[r]-(m:communaute) where cnt>3  return n,m
                     }
                     else if (queryRelObject.value != "") {
-                        var withStr = searchNodes.getWhereClauseFromQueryObject(queryRelObject, symbol)
+                        var withStr = self.getWhereClauseFromQueryObject(queryRelObject, symbol)
                         cypherObj.whereRelation.push(withStr)
 
 
@@ -492,12 +447,12 @@ var buildPaths = (function () {
             }
             else if (queryObject.value && queryObject.value != "") {
 
-                whereCypher += searchNodes.getWhereClauseFromQueryObject(queryObject, symbol);
+                whereCypher += self.getWhereClauseFromQueryObject(queryObject, symbol);
             }
             if (queryObject.subQueries) {
                 queryObject.subQueries.forEach(function (suqQuery) {
                     if (suqQuery.value && suqQuery.value != "") {
-                        whereCypher += " " + suqQuery.booleanOperator + " " + searchNodes.getWhereClauseFromQueryObject(suqQuery, symbol);
+                        whereCypher += " " + suqQuery.booleanOperator + " " + self.getWhereClauseFromQueryObject(suqQuery, symbol);
                     }
                 })
             }
@@ -508,8 +463,8 @@ var buildPaths = (function () {
                 cypherObj.distinct.push("ID(" + symbol + ")")
             }
 
-            if (subGraph)
-                cypherObj.whereNode.push(symbol + ".subGraph='" + subGraph + "'")
+            if (context.subGraph)
+                cypherObj.whereNode.push(symbol + ".subGraph='" + context.subGraph + "'")
 
 
             cypherObj.match.push(matchCypher)
@@ -632,7 +587,7 @@ var buildPaths = (function () {
                     if (labels.indexOf(props.labelNeo) < 0)
                         labels.push(props.labelNeo);
 
-                    var obj = connectors.getVisjsNodeFromNeoNode(subLine, false)
+                    var obj = visJsDataProcessor.getVisjsNodeFromNeoNode(subLine, false)
                     obj.incomingRelation = currentRel;
                     lineObj[key] = obj;
 
@@ -801,7 +756,7 @@ var buildPaths = (function () {
                     var relNeo = line[symbol].incomingRelation;
 
 
-                    var relObj = connectors.getVisjsRelFromNeoRel(fromNode.id, toNode.id, relNeo.id, relNeo.type, relNeo.neoAttrs, false, false);
+                    var relObj = visJsDataProcessor.getVisjsRelFromNeoRel(fromNode.id, toNode.id, relNeo.id, relNeo.type, relNeo.neoAttrs, false, false);
 
 
                     visjsData.edges.push(relObj);
@@ -813,13 +768,13 @@ var buildPaths = (function () {
 
             })
         })
-        if (true || dataset.relTypes.length > 1) {
+        if (false || dataset.relTypes.length > 1) {
             searchRelations.setEdgeColors(dataset.relTypes)
             visjsGraph.drawLegend(visjsData.labels, dataset.relTypes);
         }
         else
             visjsGraph.drawLegend(visjsData.labels, null);
-        filters.currentLabels = visjsData.labels;
+        GraphFilter.currentLabels = visjsData.labels;
 
         visjsGraph.draw("graphDiv", visjsData, {}, function () {
             if (callback)
@@ -832,7 +787,7 @@ var buildPaths = (function () {
         $(".graphDisplayed").css("visibility", "visible");
         self.expandCollapse()
         var relsCount = {};
-        toutlesensController.setGraphMessage("Working...")
+        GraphController.setGraphMessage("Working...")
         self.drawGraph(self.currentDataset, function () {
             self.updateResultCountDiv(relsCount);
 
@@ -842,8 +797,8 @@ var buildPaths = (function () {
         });
 
 
-        paint.initHighlight();
-        common.fillSelectOptionsWithStringArray(filterDialog_NodeLabelInput, filters.currentLabels);
+        GraphHighlight.initHighlight();
+        common.fillSelectOptionsWithStringArray(filterDialog_NodeLabelInput, GraphFilter.currentLabels);
         $("#toTextMenuButton").css("visibility", "visible");
         searchNodes.onExecuteGraphQuery()
 
@@ -880,14 +835,14 @@ var buildPaths = (function () {
                 result.forEach(function (line) {
                     statsData.push({name: line.name, count: line.cnt})
                 });
-                if (!toutlesensController.graphDataTable) {
-                    toutlesensController.graphDataTable = new myDataTable();
-                    toutlesensController.graphDataTable.pageLength = 30;
+                if (!GraphController.graphDataTable) {
+                    GraphController.graphDataTable = new myDataTable();
+                    GraphController.graphDataTable.pageLength = 30;
                 }
 
                 dialogLarge.load("htmlSnippets/dataTable.html", function () {
                     dialogLarge.dialog("open");
-                    toutlesensController.graphDataTable.loadJsonInTable(null, "dataTableDiv", statsData, function (err, result) {
+                    GraphController.graphDataTable.loadJsonInTable(null, "dataTableDiv", statsData, function (err, result) {
                     }, 2000)
 
 

@@ -285,7 +285,7 @@ var DataModel = (function () {
                 $("#dialog").dialog("close")
             },
             error: function (xhr, err, msg) {
-                toutlesensController.onErrorInfo(xhr)
+                GraphController.onErrorInfo(xhr)
             }
         })
 
@@ -307,7 +307,7 @@ var DataModel = (function () {
                 callback(data);
             },
             error: function (xhr, err, msg) {
-                toutlesensController.onErrorInfo(xhr)
+                GraphController.onErrorInfo(xhr)
             }
         });
     }
@@ -336,7 +336,7 @@ var DataModel = (function () {
             },
             error: function (xhr, err, msg) {
 
-                toutlesensController.onErrorInfo(xhr)
+                GraphController.onErrorInfo(xhr)
                 if (err.result) {
                     $("#message").html(err.result);
                     $("#message").css("color", "red");

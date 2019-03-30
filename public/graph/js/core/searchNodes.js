@@ -109,7 +109,7 @@ var searchNodes = (function () {
 
             self.configBooleanOperatorsUI(true);
             if (searchDialog_propertySelect) ;
-            filters.initProperty(null, label, searchDialog_propertySelect)
+            GraphFilter.initProperty(null, label, searchDialog_propertySelect)
 
         }
 
@@ -143,7 +143,7 @@ var searchNodes = (function () {
             $('#searchDialog_valueInput').focus();
             //if(searchNodes.self.previousAction!="path" || pathSourceSearchCriteria)
             if (searchDialog_propertySelect)
-                filters.initProperty(null, value, searchDialog_propertySelect);
+                GraphFilter.initProperty(null, value, searchDialog_propertySelect);
 
         }
 
@@ -212,7 +212,7 @@ var searchNodes = (function () {
             $(".selectLabelDiv").removeClass("selectLabelDivSelected");
             $("#searchDialog_propertySelect").val(Schema.schema.defaultNodeNameProperty)
             currentLabel = null;
-            //   toutlesensController.dispatchAction("showSchema")
+            //   GraphController.dispatchAction("showSchema")
 
         }
 
@@ -431,7 +431,7 @@ var searchNodes = (function () {
             context.addToGraphContext({graphType: self.previousAction})
 
             eventsController.stopEvent = true;
-            toutlesensController.openFindAccordionPanel(false);
+            GraphController.openFindAccordionPanel(false);
             paintAccordion.accordion("option", "active", 0)
             tabsAnalyzePanel.tabs("option", "active", 2);//highlight
         }
@@ -442,7 +442,7 @@ var searchNodes = (function () {
 
             $("#toTextMenuButton").css("visibility", "visible");
             if (action != 'graphNodes')
-                toutlesensController.setGraphMessage("Working...");
+                GraphController.setGraphMessage("Working...");
 
             self.onExecuteGraphQuery();
 
@@ -455,7 +455,7 @@ var searchNodes = (function () {
                 var cypher = "MATCH (n) where " + searchNodes.getWhereClauseFromArray("_id", ids, "n") + ' RETURN n order by n.' + Schema.getNameProperty();
                 dialogLarge.load("htmlSnippets/dataTable.html", function () {
                     dialogLarge.dialog("open");
-                    self.dataTable.loadNodes(self.dataTable, "dataTableDiv", cypher, {onClick: toutlesensController.graphNodeNeighbours}, function (err, result) {
+                    self.dataTable.loadNodes(self.dataTable, "dataTableDiv", cypher, {onClick: GraphController.graphNodeNeighbours}, function (err, result) {
 
                     })
 
@@ -504,7 +504,7 @@ var searchNodes = (function () {
                         return console.log(err);
                     }
 
-                    toutlesensController.displayGraph(result, {});
+                    GraphController.displayGraph(result, {});
                     $("#searchDialog_ExecuteButton").css('visibility', 'visible');
                     self.currentAction = "graphSomeNeighbours";
 
@@ -533,7 +533,7 @@ var searchNodes = (function () {
                 options.hideNodesWithoutRelations = 1;
                 if (collapseGraph)
                     options.clusterIntermediateNodes = true;
-                toutlesensController.generateGraph(null, options, function (err, data) {
+                GraphController.generateGraph(null, options, function (err, data) {
                     if (err)
                         return err;
 
@@ -563,7 +563,7 @@ var searchNodes = (function () {
                 }
 
                 toutlesensData.getNodeAllRelations(options, treeMap.draw);
-                paint.initHighlight();
+                GraphHighlight.initHighlight();
                 $("#searchDialog_ExecuteButton").css('visibility', 'visible');
                 $("#searchDialog_PreviousPanelButton").css('visibility', 'visible');
 
@@ -793,11 +793,9 @@ var searchNodes = (function () {
 
         self.getWhereClauseFromQueryObject = function (queryObject, nodeAlias) {
 
-
             var property = queryObject.property;
             var operator = queryObject.operator;
             var value = queryObject.value;
-
 
             if (operator == "exists" || operator == "notExists") {
                 ;

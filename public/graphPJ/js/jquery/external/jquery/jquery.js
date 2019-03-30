@@ -1858,7 +1858,7 @@ Expr = Sizzle.selectors = {
 			// But maintain support for old signatures
 			if ( fn.length > 1 ) {
 				args = [ pseudo, pseudo, "", argument ];
-				return Expr.setFilters.hasOwnProperty( pseudo.toLowerCase() ) ?
+				return Expr.setGraphFilter.hasOwnProperty( pseudo.toLowerCase() ) ?
 					markFunction(function( seed, matches ) {
 						var idx,
 							matched = fn( seed, argument ),
@@ -2091,7 +2091,7 @@ for ( i in { submit: true, reset: true } ) {
 
 // Easy API for creating new setFilters
 function setFilters() {}
-setFilters.prototype = Expr.filters = Expr.pseudos;
+setGraphFilter.prototype = Expr.filters = Expr.pseudos;
 Expr.setFilters = new setFilters();
 
 tokenize = Sizzle.tokenize = function( selector, parseOnly ) {
@@ -7723,7 +7723,7 @@ function Animation( elem, properties, options ) {
 	var result,
 		stopped,
 		index = 0,
-		length = Animation.prefilters.length,
+		length = Animation.preGraphFilter.length,
 		deferred = jQuery.Deferred().always( function() {
 
 			// don't match elem in the :animated selector
@@ -7868,9 +7868,9 @@ jQuery.Animation = jQuery.extend( Animation, {
 
 	prefilter: function( callback, prepend ) {
 		if ( prepend ) {
-			Animation.prefilters.unshift( callback );
+			Animation.preGraphFilter.unshift( callback );
 		} else {
-			Animation.prefilters.push( callback );
+			Animation.preGraphFilter.push( callback );
 		}
 	}
 } );
@@ -10001,7 +10001,7 @@ function filterHidden( elem ) {
 	return false;
 }
 
-jQuery.expr.filters.hidden = function( elem ) {
+jQuery.expr.GraphFilter.hidden = function( elem ) {
 
 	// Support: Opera <= 12.12
 	// Opera reports offsetWidths and offsetHeights less than zero on some elements
@@ -10011,8 +10011,8 @@ jQuery.expr.filters.hidden = function( elem ) {
 			filterHidden( elem );
 };
 
-jQuery.expr.filters.visible = function( elem ) {
-	return !jQuery.expr.filters.hidden( elem );
+jQuery.expr.GraphFilter.visible = function( elem ) {
+	return !jQuery.expr.GraphFilter.hidden( elem );
 };
 
 
@@ -10666,7 +10666,7 @@ jQuery.each( [
 
 
 
-jQuery.expr.filters.animated = function( elem ) {
+jQuery.expr.GraphFilter.animated = function( elem ) {
 	return jQuery.grep( jQuery.timers, function( fn ) {
 		return elem === fn.elem;
 	} ).length;

@@ -8,7 +8,7 @@ var binder=(function(){
 
 
     $("#dbFilterCollapseMenu").load("htmlSnippets/dbQueryFilter.html", function () {
-      console.log("queryFilters.html loaded");
+      console.log("queryGraphFilter.html loaded");
 
       /*
       $('#filterQueryMenuCloseButton').click(function(){
@@ -33,11 +33,11 @@ var binder=(function(){
       
     })
 
-    $("#graphExpandModalMenu").load("htmlSnippets/graphQueryExpand.html", function () {
+    $("#GraphExpandModalMenu").load("htmlSnippets/graphQueryExpand.html", function () {
       console.log("graphQueryExpand.html loaded")
     })
 
-    $("#graphHighlightModalMenu").load("htmlSnippets/graphQueryHighlight.html", function () {
+    $("#GraphHighlightModalMenu").load("htmlSnippets/graphQueryHighlight.html", function () {
       console.log("graphQueryHighlight.html loaded")
     })
 

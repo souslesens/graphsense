@@ -8,7 +8,7 @@ var binder=(function(){
 
 
     $("#dbFilterCollapseMenu").load("htmlSnippets/query/queryFilter.html", function () {
-        console.log("queryFilters.html loaded");
+        console.log("queryGraphFilter.html loaded");
         //loads for each label buttons to build a card for this label
         UI_query.initQueryLabels();
 
@@ -19,11 +19,11 @@ var binder=(function(){
 
     })
 
-      $("#graphExpandModalMenu").load("htmlSnippets/graph/graphExpand.html", function () {
+      $("#GraphExpandModalMenu").load("htmlSnippets/graph/GraphExpand.html", function () {
           console.log("graphQueryExpand.html loaded")
       })
 
-      $("#graphHighlightModalMenu").load("htmlSnippets/graph/graphHighlight.html", function () {
+      $("#GraphHighlightModalMenu").load("htmlSnippets/graph/GraphHighlight.html", function () {
           console.log("graphQueryHighlight.html loaded")
       })
 

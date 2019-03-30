@@ -54,4 +54,8 @@
         UI_query.addCardToQueryDeck();
     })
 
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#query_valueInput').trigger('focus');
+    })
+
 </script>
