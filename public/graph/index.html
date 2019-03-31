@@ -11,7 +11,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+    <!-- tree CSS -->
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
     <link rel="stylesheet" type="text/css" href="css/main.css">
+
+
 
 
     <!-- Font Awesome JS -->
@@ -56,7 +61,7 @@
     <!-- binds control to methods of different objects  -->
     <script type="text/javascript" src="js/ui/binder.js"></script>
 
-    <script type="text/javascript" src="js/ui/params.js"></script><!--  app global params  -->
+    <script type="text/javascript" src="js/ui/config.js"></script><!--  app global params  -->
     <script type="text/javascript" src="js/ui/mainController.js"></script> <!--  global  controller  -->
     <script type="text/javascript" src="js/ui/graphController.js"></script><!--   controller for  operations on graph -->
     <script type="text/javascript" src="js/ui/graphFilter.js"></script>
@@ -81,6 +86,8 @@
     <link rel="stylesheet" type="text/css" href="js/others/visjs/vis-network.min.css.js"/>
     <!---------- fin scripts visjs ----------->
 
+    <!-- tree JS -->
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 
     <script>
         //when page loaded
@@ -112,21 +119,7 @@
             $('a[aria-expanded=true]').attr('aria-expanded', 'false');
         });
 
-        $('#myTree1Test').tree({
-            uiLibrary: 'bootstrap4',
-            dataSource: 'dataTree.json',
-            primaryKey: 'id',
-            imageUrlField: 'flagUrl',
-            checkboxes: true
-        });
 
-        $('#myTree2Test').tree({
-            uiLibrary: 'bootstrap4',
-            dataSource: 'dataTree.json',
-            primaryKey: 'id',
-            imageUrlField: 'flagUrl',
-            checkboxes: true
-        });
 
     });
 
@@ -148,7 +141,7 @@
             <h3>Sous le Sens</h3>
         </div>
         <div>
-            <form class="form-inline my-2 my-lg-0">
+
                 <div class="input-group">
                     <input type="text" class="form-control border-0 small" style="background-color: #d4d3d6;"
                            placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
@@ -158,9 +151,20 @@
                         </button>
                     </div>
                 </div>
-            </form>
+
         </div>
         <!-- Divider -->
+        <hr class="sidebar-divider">
+        <div class="modal-body">
+                <div class="form-row">
+                    <label class="col-form-label col-ml-4" for="tree_labelSelect">tree label</label>
+                    <div class="col-sm-8">
+                        <select class="form-control " id="tree_labelSelect">
+
+                        </select>
+                    </div>
+                </div>
+        </div>
         <hr class="sidebar-divider">
 
         <ul class="list-unstyled components">
@@ -169,9 +173,9 @@
                 <ul class="collapse list-unstyled" id="tree1Menu">
                     <li>
                         <div class="container-fluid active" style="background-color:white;padding-top: 5px;">
-                            <div class="row ml-auto" style="padding-left: 70px">
-                                <button class='btn btn-info'>
-                                    <span class="graphIconButton"></span>&nbsp;Display Graph
+                            <div class="row ml-auto" style="padding-left: 70px ">
+                                <button class='btn btn-info' onclick="Tree.addSelectionToQuery()">
+                                    <span class="graphIconButton" ></span>&nbsp;Add to query
                                 </button>
                             </div>
                             <div class="row">
@@ -185,17 +189,7 @@
             <hr class="sidebar-divider">
 
 
-            <li class="active">
-                <a href="#tree2Menu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Tree 2 </a>
-                <ul class="collapse list-unstyled" id="tree2Menu">
-                    <li>
-                        <div class="container-fluid active">
-                            <div id="myTree2Test"></div>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+
 
 
     </nav>
@@ -244,7 +238,7 @@
             <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item">
-                    <a class="navbar-brand" data-toggle="collapse" href="#dbFilterCollapseMenu" aria-expanded="false"
+                    <a class="navbar-brand" onclick="UI_query.showQueryMenu()" data-toggle="collapse" href="#dbFilterCollapseMenu" aria-expanded="false"
                        data-target="#dbFilterCollapseMenu">
                         <img src="img/cube.png" width="40" height="40" alt="Filter">
                     </a>

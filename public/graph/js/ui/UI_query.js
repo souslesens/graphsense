@@ -36,18 +36,19 @@ var UI_query = (function () {
     }
 
 
-    self.addCardToQueryDeck = function () {
+    self.addCardToQueryDeck = function (queryObject) {
         $('#dbQueryFilterLabelModal').modal('hide');
 
 
 
-        var queryObject = self.setContextQueryObjectParams();
+      if(!queryObject)
+          queryObject = self.setContextQueryObjectParams();
         var index = buildPaths.queryObjs.length;
         buildPaths.queryObjs.push(JSON.parse(JSON.stringify(queryObject)));//clone
 
         self.setUIPermittedLabels(queryObject.label);
 
-        var html = '<div class="card border-primary mb-3" id="query_filterCard"' + index + '" >\n' +
+        var html = '<div class="card border-primary mb-3" id="query_filterCard_' + index + '" >\n' +
             '            <div class="card-header text-white  bg-primary">' + queryObject.label + '\n' +
             '        <button type="button" onclick="UI_query.removeFilterCard(' + index + ')" class="close pull-right" aria-label="Close">\n' +
             '            <span aria-hidden="true">&times;</span>\n' +
@@ -71,7 +72,8 @@ var UI_query = (function () {
     }
     self.removeFilterCard = function (index) {
         buildPaths.queryObjs.splice(index, 1);
-        $("#query_filterCard" + index).remove();
+      $("#query_filterCard_" + index).remove();
+
 
     }
     self.setContextQueryObjectParams = function () {
@@ -141,7 +143,7 @@ var UI_query = (function () {
         buildPaths.executeQuery("graph", function (err, result) {
             if(err)
               return  MainController.error(err);
-            $("#navbar_graph").removeClass("d-none");
+            $("#dbFilterCollapseMenu").addClass("d-none");
 
         })
 
@@ -152,10 +154,13 @@ var UI_query = (function () {
     self.newQuery = function () {
         $(".btn_query_label").css("opacity", 1);
         $("#query_cardDeck").html("");
-        $("#navbar_graph").addClass("d-none");
+        $("#dbFilterCollapseMenu").removeClass("d-none");
         buildPaths.queryObjs = [];
 
 
+    }
+    self.showQueryMenu=function(){
+        $("#dbFilterCollapseMenu").removeClass("d-none");
     }
 
     return self;

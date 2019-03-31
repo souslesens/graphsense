@@ -44,7 +44,7 @@ var GraphExpand = (function () {
         var cypher = "match(n:" + sourceLabel + ")-[r]-(m:" + targetLabel + ")" +
             " where " + where + " " +//" and NOT p:"+sourceLabel+
             " return n, collect(m) as mArray  , type(r) as relType, r as rel" +
-            " limit " + Gparams.maxResultSupported;
+            " limit " + Config.maxResultSupported;
         if (hasClusters)// on redessinne d'abord le graphe
             buildPaths.drawGraph(buildPaths.currentDataset.data.nodes, function () {
                 self.execute(cypher, clusterLimit, showAllNewNodesrelations, targetLabel);
@@ -65,7 +65,7 @@ var GraphExpand = (function () {
         var cypher = "match(n:" + currentNode.label + ")-[r]-(m" + targetLabelStr + ")" +
             " where id(n)=" + currentNode.id + " " +//" and NOT p:"+sourceLabel+
             " return n, collect(m) as mArray, type(r) as relType, r as rel" +
-            " limit " + Gparams.maxResultSupported;
+            " limit " + Config.maxResultSupported;
         self.execute(cypher, 1000, true, label);
 
 

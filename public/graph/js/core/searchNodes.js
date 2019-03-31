@@ -741,7 +741,7 @@ var searchNodes = (function () {
                 queryObject.property = "";
 
             queryObject.subGraph = subGraph;
-            queryObject.limit = Gparams.jsTreeMaxChildNodes;
+            queryObject.limit = Config.jsTreeMaxChildNodes;
             queryObject.from = 0;
 
 
@@ -749,7 +749,7 @@ var searchNodes = (function () {
             var returnStr = " RETURN n";
             var cursorStr = "";
 
-            //  cursorStr += " ORDER BY n." + Gparams.defaultNodeNameProperty;
+            //  cursorStr += " ORDER BY n." + Config.defaultNodeNameProperty;
             if (queryObject.from)
                 cursorStr += " SKIP " + queryObject.from;
             if (queryObject.limit)
@@ -872,7 +872,7 @@ var searchNodes = (function () {
                 elasticQuery2NeoNodes: 1,
                 queryString: word,
                 index: subGraph.toLowerCase(),
-                resultSize: Gparams.ElasticResultMaxSize
+                resultSize: Config.ElasticResultMaxSize
             }
 
             $.ajax({
@@ -881,8 +881,8 @@ var searchNodes = (function () {
                 data: payload,
                 dataType: "json",
                 success: function (data, textStatus, jqXHR) {
-                    if (data.length >= Gparams.ElasticResultMaxSize) {
-                        $("#searchResultMessage").html("cannot show all data : max :" + Gparams.ElasticResultMaxSize);
+                    if (data.length >= Config.ElasticResultMaxSize) {
+                        $("#searchResultMessage").html("cannot show all data : max :" + Config.ElasticResultMaxSize);
                     }
                     else {
                         $("#searchResultMessage").html(data.length + " nodes found");
@@ -898,9 +898,9 @@ var searchNodes = (function () {
                                 for (var i = 0; i < data.length; i++) {
                                     var properties = data[i].n.properties;
                                     //   console.log(id+"-"+text);
-                                    if (properties[Gparams.defaultNodeNameProperty] == text) {
+                                    if (properties[Config.defaultNodeNameProperty] == text) {
                                         for (var key in properties) {
-                                            if (properties[Gparams.defaultNodeNameProperty].toLowerCase().indexOf(word0) > -1)
+                                            if (properties[Config.defaultNodeNameProperty].toLowerCase().indexOf(word0) > -1)
                                                 continue;
                                             if (properties[key] && typeof properties[key] != "object" && properties[key].indexOf && properties[key].toLowerCase().indexOf(word0) > -1) {
                                                 var xx = key;
@@ -944,7 +944,7 @@ var searchNodes = (function () {
                     html = err;
                 else if (result.length == 0)
                     html = "no values"
-                else if (result.length > Gparams.listDisplayLimitMax)
+                else if (result.length > Config.listDisplayLimitMax)
                     html = "...cannot display all values enter the beginning of word"
                 else {
                     result.splice(0, 0, {value: ""})
@@ -968,7 +968,7 @@ var searchNodes = (function () {
             var whereCypher = "";
             if (where && where != "")
                 whereCypher = " where " + where;
-            var cypher = "Match (n:" + label + ") " + whereCypher + " return distinct n." + property + " as value order by value limit " + Gparams.maxResultSupported;
+            var cypher = "Match (n:" + label + ") " + whereCypher + " return distinct n." + property + " as value order by value limit " + Config.maxResultSupported;
             Cypher.executeCypher(cypher, function (err, result) {
                 return callback(err, result);
 

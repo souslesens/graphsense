@@ -210,7 +210,7 @@ var Schema = (function () {
 
                 Schema.schema = data;
                 if (Gparams)
-                    Gparams.defaultNodeNameProperty = Schema.schema.defaultNodeNameProperty;
+                    Config.defaultNodeNameProperty = Schema.schema.defaultNodeNameProperty;
                 //name  used in UI but not stored
                 for (var key in Schema.schema.relations) {
                     Schema.schema.relations[key].name = key
@@ -233,7 +233,7 @@ var Schema = (function () {
                     }
                 }
 
-                Gparams.defaultNodeNameProperty = Schema.schema.defaultNodeNameProperty;
+                Config.defaultNodeNameProperty = Schema.schema.defaultNodeNameProperty;
 
                 if (callback)
                     callback(null, Schema.schema);
@@ -346,10 +346,10 @@ var Schema = (function () {
                             linkColors[relKey] = relation.color;
                         else {
 
-                            var index = (i++) % Gparams.palette.length;
+                            var index = (i++) % Config.palette.length;
 
 
-                            linkColors[relKey] = Gparams.palette[index];
+                            linkColors[relKey] = Config.palette[index];
                         }
 
                     }
@@ -357,8 +357,8 @@ var Schema = (function () {
                 }
                 else {
                     for (var i = 0; i < DataModel.allRelationsArray.length; i++) {
-                        var index = (i) % Gparams.palette.length;
-                        linkColors[DataModel.allRelationsArray[i]] = Gparams.palette[index];
+                        var index = (i) % Config.palette.length;
+                        linkColors[DataModel.allRelationsArray[i]] = Config.palette[index];
 
                     }
                 }
@@ -370,9 +370,9 @@ var Schema = (function () {
                     if (false && Schema.schema.labels[key].color)
                         context.nodeColors[key] = Schema.schema.labels[key].color;
                     else {
-                        var index = (i++) % Gparams.palette.length;
+                        var index = (i++) % Config.palette.length;
 
-                        context.nodeColors[key] = Gparams.palette[index];
+                        context.nodeColors[key] = Config.palette[index];
                         console.log(index + " " + context.nodeColors[key] + " " + key)
                     }
                     if (Schema.schema.labels[key].icon == "default.png")
@@ -382,8 +382,8 @@ var Schema = (function () {
             else {
                 for (var i = 0; i < DataModel.allLabels.length; i++) {
                     var label = DataModel.allLabels[i];
-                    var index = i % Gparams.palette.length;
-                    context.nodeColors[label] = Gparams.palette[index];
+                    var index = i % Config.palette.length;
+                    context.nodeColors[label] = Config.palette[index];
                 }
             }
         }
@@ -683,9 +683,9 @@ var Schema = (function () {
             DataModel.initNeoModel(subGraph, function () {
                 for (var label in DataModel.labels) {
                     labels[label] = {icon: "default.png"};
-                    if (Gparams && Gparams.palette) {
-                        var index = (k++) % Gparams.palette.length;
-                        labels[label].color = Gparams.palette[index];
+                    if (Gparams && Config.palette) {
+                        var index = (k++) % Config.palette.length;
+                        labels[label].color = Config.palette[index];
 
 
                     }

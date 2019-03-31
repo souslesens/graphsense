@@ -194,7 +194,7 @@ var GraphHighlight = (function () {
                     targetNodes.push({
                         id: "" + allGraphNodes[i].id,
                         color: allGraphNodes[i].initialColor,
-                        shape: Gparams.visjs.defaultNodeShape,
+                        shape: Config.visjs.defaultNodeShape,
                         hidden: false
                     });
 
@@ -429,7 +429,7 @@ var GraphHighlight = (function () {
 
             var legendStr = "";
 
-            if (Gparams.useVisjsNetworkgraph) {
+            if (Config.useVisjsNetworkgraph) {
                 var xxx = $("#propertiesSelectionDialog_ObjectTypeInput").val();
                 if ($("#propertiesSelectionDialog_ObjectTypeInput").val() == "node") {
 
@@ -790,9 +790,9 @@ var GraphHighlight = (function () {
                         properties.push(key)
             }
             properties.sort();
-            if (paintDialog_highlightPropertySelect)
+         /*   if (paintDialog_highlightPropertySelect)
                 common.fillSelectOptionsWithStringArray(paintDialog_highlightPropertySelect, properties,true);
-            common.fillSelectOptionsWithStringArray(paint_showNodeNamesForLabelSelect, GraphFilter.currentLabels,true);
+            common.fillSelectOptionsWithStringArray(paint_showNodeNamesForLabelSelect, GraphFilter.currentLabels,true);*/
 
 
         }

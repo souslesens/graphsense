@@ -64,6 +64,10 @@ router.post(serverParams.routesRootUrl + '/neo', function (req, response) {
         neoToJstree.generateTreeFromChildToParentRelType(req.body.label, req.body.relType, req.body.rootNeoId,  function (error, result) {
             processResponse(response, error, result)
         });
+    if (req.body && req.body.generateTreeFromParentToChildrenRelType)
+        neoToJstree.generateTreeFromParentToChildrenRelType(req.body.label, req.body.relType, req.body.rootNeoId,  function (error, result) {
+            processResponse(response, error, result)
+        });
     if (req.body && req.body.generateAllDescendantsTreeFromChildToParentRelType)
         neoToJstree. generateAllDescendantsTreeFromChildToParentRelType(req.body.label, req.body.relType, req.body.rootNeoId,req.body.depth , function (error, result) {
             processResponse(response, error, result)
@@ -361,7 +365,7 @@ router.post(serverParams.routesRootUrl + '/rdf', function (req, response) {
 
 router.post(serverParams.routesRootUrl + '/storedParams', function (req, response) {
     if (req.body && req.body.load) {
-        //  var payload={"load": "displayParams","user":Gparams.user};
+        //  var payload={"load": "displayParams","user":Config.user};
         var type = req.body.load;
         var user = req.body.user;
         jsonFileProxy.load(type, user, function (error, result) {
@@ -369,7 +373,7 @@ router.post(serverParams.routesRootUrl + '/storedParams', function (req, respons
         });
     }
     if (req.body && req.body.save) {
-        // var payload={save:"displayParams",obj:JSON.stringify( obj),"user":Gparams.user}};
+        // var payload={save:"displayParams",obj:JSON.stringify( obj),"user":Config.user}};
         var type = req.body.save;
         var obj = JSON.parse(req.body.obj);
         var user = req.body.user;

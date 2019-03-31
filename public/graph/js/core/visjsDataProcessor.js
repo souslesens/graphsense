@@ -41,7 +41,7 @@ var visJsDataProcessor = (function () {
                             continue;
 
                     }
-                    var hideLabel = true ;//|| resultArray.length < Gparams.showLabelsMaxNumOfNodes || !options || !options.clusterIntermediateNodes || options.showNodesLabel;
+                    var hideLabel = true ;//|| resultArray.length < Config.showLabelsMaxNumOfNodes || !options || !options.clusterIntermediateNodes || options.showNodesLabel;
                     var neoId = nodes[j]._id;
                     var rel = rels[0];
                     if (!nodesMap[neoId]) {
@@ -104,7 +104,7 @@ var visJsDataProcessor = (function () {
                         var relId = relProperties[j]._id;
                         var relProps = relProperties[j].properties;
                         var outline = resultArray[i].outlineRel;
-                        var showType = (options && options.showRelationsType == true) && Gparams.showRelationNames == true;
+                        var showType = (options && options.showRelationsType == true) && Config.showRelationNames == true;
                         var relObj = self.getVisjsRelFromNeoRel(from, to, relId, relType, relProps, showType, outline);
                         visjsData.edges.push(relObj);
 
@@ -131,9 +131,9 @@ var visJsDataProcessor = (function () {
 
             var labels = nodeNeo.labels;
 
-            var labelVisjs = nodeNeoProps[Gparams.defaultNodeNameProperty];
-            if (labelVisjs && labelVisjs.length > Gparams.nodeMaxTextLength)
-                labelVisjs = labelVisjs.substring(0, Gparams.nodeMaxTextLength) + "...";
+            var labelVisjs = nodeNeoProps[Config.defaultNodeNameProperty];
+            if (labelVisjs && labelVisjs.length > Config.nodeMaxTextLength)
+                labelVisjs = labelVisjs.substring(0, Config.nodeMaxTextLength) + "...";
 
             var color = context.nodeColors[nodeNeo.labels[0]];
             var nodeObj = {
@@ -145,8 +145,8 @@ var visJsDataProcessor = (function () {
                 children: [],
                 neoAttrs: nodeNeoProps,
               // value: 2,
-                size: Gparams.visjs.defaultNodeSize,
-                font:{size: Gparams.visjs.defaultTextSize},
+                size: Config.visjs.defaultNodeSize,
+                font:{size: Config.visjs.defaultTextSize},
 
 
             }
@@ -214,7 +214,7 @@ var visJsDataProcessor = (function () {
                     nodeObj.font = {
                         value: 8,
                         //  size: 18,
-                        color: Gparams.outlineTextColor,
+                        color: Config.outlineTextColor,
                         strokeWidth: 3,
                         strokeColor: '#ffffff'
                     }
@@ -244,8 +244,8 @@ var visJsDataProcessor = (function () {
             }
 
             /*  if (toutlesensData.queriesIds.indexOf(queryId) > -1) {
-                  relObj.width = Gparams.outlineEdgeWidth;
-                  relObj.color = Gparams.outlineColor;
+                  relObj.width = Config.outlineEdgeWidth;
+                  relObj.color = Config.outlineColor;
               }*/
 
             if (outline) {

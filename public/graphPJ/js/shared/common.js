@@ -327,7 +327,7 @@ var common = (function () {
 
 
     self.setColorPaletteSelect = function (select, callback) {
-        var colors = Gparams.palette;
+        var colors = Config.palette;
         colors.splice(0, 0, "");
         common.fillSelectOptionsWithStringArray(select, colors);
 

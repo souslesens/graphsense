@@ -10,6 +10,8 @@ var MainController = (function () {
             binder.bindOnPageload();
         });
 
+        Tree. drawTree("myTree1Test","physicalClass","childOf");
+
 
     }
 
@@ -18,7 +20,7 @@ var MainController = (function () {
         var queryParams = common.getQueryParams(document.location.search);
         context.subGraph = queryParams.subGraph;
         if (!context.subGraphsubGraph)
-            context.subGraphsubGraph = Gparams.defaultSubGraph;
+            context.subGraphsubGraph = Config.defaultSubGraph;
     }
 
 

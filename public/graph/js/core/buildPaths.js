@@ -216,7 +216,7 @@ var buildPaths = (function () {
             }
             if (result.length == 0)
                 return $("#buildPaths_resultDiv").html("no result")
-            if (false && result.length > Gparams.graphMaxDataLengthToDisplayGraphDirectly)
+            if (false && result.length > Config.graphMaxDataLengthToDisplayGraphDirectly)
                 return $("#buildPaths_resultDiv").html("too many results" + result.length);
 
 
@@ -384,6 +384,31 @@ var buildPaths = (function () {
 
     }
 
+    self.getWhereClauseFromArray = function (property, _array, nodeSymbol) {
+        var array;
+        if (!nodeSymbol)
+            nodeSymbol = "n";
+        if (typeof _array == "string")
+            array = _array.split(",");
+        else
+            array = _array;
+
+        var query = nodeSymbol + "." + property + " in ["
+        if (property == "_id")
+            query = "ID(n) in ["
+        var quote = "";
+        for (var i = 0; i < array.length; i++) {
+            if (i > 0 && i < array.length)
+                query += ","
+            else if ((typeof array[i] === 'string'))
+                var quote = "\"";
+            query += quote + array[i] + quote;
+        }
+        query += "] ";
+        return query;
+    }
+
+
     self.buildQuery = function (type, returnQueryObj) {
         if (self.queryObjs.length == 0)
             return console.log("self.queryObjs is empty")
@@ -531,7 +556,7 @@ var buildPaths = (function () {
         var cypher = "";
         if (cypherObj.with.length == 0) {// without with clause
 
-            cypher = " MATCH p=(" + cypherObj.match.cypher + ") " + cypherObj.whereRelation.cypher + cypherObj.whereNode.cypher + " RETURN " + cypherObj.distinct.cypher + cypherObj.return.cypher + " LIMIT " + Gparams.maxResultSupported;
+            cypher = " MATCH p=(" + cypherObj.match.cypher + ") " + cypherObj.whereRelation.cypher + cypherObj.whereNode.cypher + " RETURN " + cypherObj.distinct.cypher + cypherObj.return.cypher + " LIMIT " + Config.maxResultSupported;
         }
         else {//use of WITH : count relations for example...
             for (var key in withClauses) {
@@ -797,10 +822,10 @@ var buildPaths = (function () {
         });
 
 
-        GraphHighlight.initHighlight();
+     /*   GraphHighlight.initHighlight();
         common.fillSelectOptionsWithStringArray(filterDialog_NodeLabelInput, GraphFilter.currentLabels);
         $("#toTextMenuButton").css("visibility", "visible");
-        searchNodes.onExecuteGraphQuery()
+        searchNodes.onExecuteGraphQuery()*/
 
     }
 

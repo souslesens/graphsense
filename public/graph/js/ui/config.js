@@ -26,7 +26,8 @@
  *
  ******************************************************************************/
 var serverRootUrl = "";
-var Gparams = {
+var Config = {
+
     plugins: ['Total'],
     displayVersion: "1_googleLike",
     user: "anonymous",

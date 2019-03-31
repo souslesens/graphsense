@@ -14,9 +14,9 @@ var visjsGraph = (function () {
         self.currentScale;
 
 
-        self.currentLayoutType = Gparams.visjs.defaultLayout;
+        self.currentLayoutType = Config.visjs.defaultLayout;
         self.currentLayoutDirection = "";
-        self.currentShape = Gparams.visjs.defaultNodeShape;
+        self.currentShape = Config.visjs.defaultNodeShape;
 
 
         self.scaleToShowLabels = 0.6;
@@ -71,9 +71,9 @@ var visjsGraph = (function () {
 
                 nodes: {
                     borderWidthSelected: 6,
-                    shape: Gparams.visjs.defaultNodeShape,
-                    size: Gparams.visjs.defaultNodeSize,
-                    font: {size: Gparams.visjs.defaultTextSize},
+                    shape: Config.visjs.defaultNodeShape,
+                    size: Config.visjs.defaultNodeSize,
+                    font: {size: Config.visjs.defaultTextSize},
 
                 },
                 edges:
@@ -342,7 +342,8 @@ var visjsGraph = (function () {
                        //  console.log('graph loaded Event');
                    });*/
 
-
+if(callback)
+    return callback(null,"ok")
         }
         self.outlineNodeEdges = function (nodeId) {
             self.edges.setOption({width: 1})
@@ -458,12 +459,12 @@ var visjsGraph = (function () {
 
                 var nodes = [];
                 var scaleCoef = scale >= 1 ? (scale * .9) : (scale * 2)
-                var size = Gparams.visjs.defaultNodeSize / scaleCoef;
-                var fontSize = (Gparams.visjs.defaultTextSize / (scaleCoef));
+                var size = Config.visjs.defaultNodeSize / scaleCoef;
+                var fontSize = (Config.visjs.defaultTextSize / (scaleCoef));
                 if (scale < 1)
-                    fontSize = (Gparams.visjs.defaultTextSize / (scaleCoef * 0.8));
+                    fontSize = (Config.visjs.defaultTextSize / (scaleCoef * 0.8));
                 else
-                    fontSize = (Gparams.visjs.defaultTextSize / (scaleCoef * 1.3));
+                    fontSize = (Config.visjs.defaultTextSize / (scaleCoef * 1.3));
                 for (var key in self.nodes._data) {
 
                     if (scale > showNodesLabelMinScale) {
@@ -635,7 +636,7 @@ var visjsGraph = (function () {
             if (option)
                 show = option.show
             show = $("#showRelationTypesCbx").prop("checked");
-            Gparams.showRelationNames = show;
+            Config.showRelationNames = show;
 
             for (var key in self.edges._data) {
                 if (show) {
