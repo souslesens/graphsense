@@ -209,7 +209,7 @@ var Schema = (function () {
 
 
                 Schema.schema = data;
-                if (Gparams)
+                if (Config)
                     Config.defaultNodeNameProperty = Schema.schema.defaultNodeNameProperty;
                 //name  used in UI but not stored
                 for (var key in Schema.schema.relations) {
@@ -227,9 +227,9 @@ var Schema = (function () {
 
                 Schema.setLabelsColor();
                 Schema.setLinkColors();
-                if (Schema.schema.Gparams) {
-                    for (var key in Schema.schema.Gparams) {
-                        Gparams[key] = Schema.schema.Gparams[key];
+                if (Schema.schema.Config) {
+                    for (var key in Schema.schema.Config) {
+                        Config[key] = Schema.schema.Config[key];
                     }
                 }
 
@@ -683,7 +683,7 @@ var Schema = (function () {
             DataModel.initNeoModel(subGraph, function () {
                 for (var label in DataModel.labels) {
                     labels[label] = {icon: "default.png"};
-                    if (Gparams && Config.palette) {
+                    if (Config && Config.palette) {
                         var index = (k++) % Config.palette.length;
                         labels[label].color = Config.palette[index];
 
@@ -705,7 +705,7 @@ var Schema = (function () {
                     properties: properties,
                     fieldsSelectValues: {},
                     defaultNodeNameProperty: "name",
-                    Gparams: {}
+                    Config: {}
 
                 }
                 if (save) {

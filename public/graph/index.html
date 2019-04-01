@@ -143,10 +143,10 @@
         <div>
 
                 <div class="input-group">
-                    <input type="text" class="form-control border-0 small" style="background-color: #d4d3d6;"
+                    <input type="text"  id="tree_searchNodeValue" class="form-control border-0 small" style="background-color: #d4d3d6;"
                            placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
+                        <button class="btn btn-primary" type="button" onclick="Tree.searchNodes($('#tree_searchNodeValue').val())">
                             <i class="fas fa-search fa-sm"></i>
                         </button>
                     </div>
@@ -159,7 +159,7 @@
                 <div class="form-row">
                     <label class="col-form-label col-ml-4" for="tree_labelSelect">tree label</label>
                     <div class="col-sm-8">
-                        <select class="form-control " id="tree_labelSelect">
+                        <select class="form-control "  id="tree_labelSelect" onchange="Tree.drawNodeHierarchyTree($(this).val())">
 
                         </select>
                     </div>
@@ -167,9 +167,11 @@
         </div>
         <hr class="sidebar-divider">
 
+
         <ul class="list-unstyled components">
             <li class="active">
-                <a href="#tree1Menu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">Tree 1 </a>
+                <div class="row" id="treeContainerDiv" ></div>
+              <!--  <a href="#tree1Menu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">Tree 1 </a>
                 <ul class="collapse list-unstyled" id="tree1Menu">
                     <li>
                         <div class="container-fluid active" style="background-color:white;padding-top: 5px;">
@@ -178,15 +180,18 @@
                                     <span class="graphIconButton" ></span>&nbsp;Add to query
                                 </button>
                             </div>
-                            <div class="row">
-                                <div id="myTree1Test"></div>
+                            <div class="row" id="treeContainerDiv">
+
                             </div>
                         </div>
                     </li>
-                </ul>
+                </ul>-->
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
+            <button class='btn btn-info d-none' id="tree_addToselectionButton" onclick="Tree.addSelectionToQuery()">
+                <span class="graphIconButton" ></span>&nbsp;Add to query
+            </button>
 
 
 

@@ -6,11 +6,12 @@ var MainController = (function () {
 
         $("#navbar_graph").addClass("d-none");
         self.initSubGraph();
+
         Schema.load(context.subGraph,function(err,result){
             binder.bindOnPageload();
+            Tree.init();
         });
 
-        Tree. drawTree("myTree1Test","physicalClass","childOf");
 
 
     }

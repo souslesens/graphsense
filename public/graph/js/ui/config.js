@@ -28,15 +28,27 @@
 var serverRootUrl = "";
 var Config = {
 
-    plugins: ['Total'],
+
+    trees: {
+        "functionalClass": {
+            label: "functionalClass",
+            relType:"childOf"
+        },
+        "physicalClass": {
+            label: "physicalClass",
+            relType:"childOf"
+        },
+    }
+    ,
+    plugins: [],
     displayVersion: "1_googleLike",
     user: "anonymous",
 
 
     //Graph display defaults***************************
-    visjs:{
-        defaultNodeSize:10,
-        defaultTextSize:18,
+    visjs: {
+        defaultNodeSize: 10,
+        defaultTextSize: 18,
         defaultNodeShape: "dot",
         defaultLayout: "random",
 
@@ -46,8 +58,6 @@ var Config = {
     shortestPathMaxDistanceTest: 8,
     circleR: 15,
     nodeMaxTextLength: 40,
-
-
 
 
     searchNodeAutocompletion: true,
@@ -81,13 +91,11 @@ var Config = {
     maxResultSupported: 5000,
     graphMaxDataLengthToDisplayGraphDirectly: 2000,
     bulkGraphViewMaxNodesToDrawLinks: 1000,
-    listDisplayLimitMax: 1500,
-    jsTreeMaxChildNodes: 1500,
+    maxListDisplayLimit: 1500,
+
     maxDepthExplorationAroundNode: 3,
     maxNodesForRelNamesOnGraph: 100,
     showLabelsMaxNumOfNodes: 4000,//in fact relations
-
-
 
 
     //urls************************
@@ -127,9 +135,6 @@ var Config = {
     },
     currentProfile: "all",//minimum ,all
     navigationStyle: "",// , "jpt" // Jean Paul
-
-
-
 
 
     outlineColor: "grey",
@@ -199,8 +204,7 @@ var Config = {
         '#FFDEF4',]
 
 
-
-, "relationPalette":[
+    , "relationPalette": [
         "#d9d7dc",
         "#c8bac1",
         "#d5d7cc",

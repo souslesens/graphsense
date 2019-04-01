@@ -944,7 +944,7 @@ var searchNodes = (function () {
                     html = err;
                 else if (result.length == 0)
                     html = "no values"
-                else if (result.length > Config.listDisplayLimitMax)
+                else if (result.length > Config.maxListDisplayLimit)
                     html = "...cannot display all values enter the beginning of word"
                 else {
                     result.splice(0, 0, {value: ""})

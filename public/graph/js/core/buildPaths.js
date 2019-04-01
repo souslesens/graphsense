@@ -456,12 +456,16 @@ var buildPaths = (function () {
                 }
             }
 
+            var labelStr="";
+            if(queryObject.label)
+                labelStr=":"+queryObject.label;
             if (index == 0) {
-                matchCypher = "(" + symbol + ":" + queryObject.label + ")";
+
+                matchCypher = "(" + symbol  + labelStr + ")";
             } else {
 
                 matchCypher += "-[r" + index + relType + "]-"
-                matchCypher += "(" + symbol + ":" + queryObject.label + ")";
+                matchCypher += "(" + symbol + labelStr + ")";
                 cypherObj.return.push("r" + index);
 
             }
