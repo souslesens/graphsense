@@ -30,7 +30,12 @@ var UI_query = (function () {
 
         common.fillSelectOptionsWithStringArray("query_propertySelect", properties, true);
         $("#query_propertySelect").val(Schema.getNameProperty())
-        $("#query_valueInput").val("")
+
+        $("#query_validateQueryButton").bind('click', function (target) {
+            $('#query_filterLabelDialogModal').modal('hide');
+            UI_query.addCardToQueryDeck();
+            $('#query_valueInput').focus();
+        })
 
 
     }
@@ -40,9 +45,8 @@ var UI_query = (function () {
         $('#dbQueryFilterLabelModal').modal('hide');
 
 
-
-      if(!queryObject)
-          queryObject = self.setContextQueryObjectParams();
+        if (!queryObject)
+            queryObject = self.setContextQueryObjectParams();
         var index = buildPaths.queryObjs.length;
         buildPaths.queryObjs.push(JSON.parse(JSON.stringify(queryObject)));//clone
 
@@ -57,10 +61,10 @@ var UI_query = (function () {
             '        <div class="card-body ">\n' +
             '            <p class="card-text"><small> ' + queryObject.text + '</small></p>\n' +
             '        </div>\n' +
-                    '<div class="form-check">\n' +
-                    '    <input type="checkbox"  checked="checked" class="form-check-input" id="query_filterCardInResult">\n' +//à completer PB!!!!
-                    '    <label class="form-check-label" for="query_filterCardInResult">In Result</label>\n' +
-                    '</div>'
+            '<div class="form-check">\n' +
+            '    <input type="checkbox"  checked="checked" class="form-check-input" id="query_filterCardInResult">\n' +//à completer PB!!!!
+            '    <label class="form-check-label" for="query_filterCardInResult">In Result</label>\n' +
+            '</div>'
 
         '</div>';
 
@@ -72,7 +76,7 @@ var UI_query = (function () {
     }
     self.removeFilterCard = function (index) {
         buildPaths.queryObjs.splice(index, 1);
-      $("#query_filterCard_" + index).remove();
+        $("#query_filterCard_" + index).remove();
 
 
     }
@@ -81,7 +85,7 @@ var UI_query = (function () {
         var operator = $("#query_operatorSelect").val();
         var value = $("#query_valueInput").val();
         var value = $("#query_valueInput").val();
-        var inResult =true /// $("#query_filterCardInResult").prop("checked");  à completer !!!!
+        var inResult = true /// $("#query_filterCardInResult").prop("checked");  à completer !!!!
         var booleanOperatorStr = "";//booleanOperator || ""; à finir
         var text = "";
         if (!value || value == "")
@@ -96,7 +100,7 @@ var UI_query = (function () {
             operator: operator,
             value: value,
             text: text,
-            inResult:inResult,
+            inResult: inResult,
             globalText: ""// a finir
         }
         return context.queryObject;
@@ -141,9 +145,10 @@ var UI_query = (function () {
     self.displayGraph = function () {
 
         buildPaths.executeQuery("graph", function (err, result) {
-            if(err)
-              return  MainController.error(err);
-            $("#dbFilterCollapseMenu").addClass("d-none");
+            if (err)
+                return MainController.error(err);
+            $("#dbFilterCollapseMenu").removeClass("show");
+
 
         })
 
@@ -154,13 +159,59 @@ var UI_query = (function () {
     self.newQuery = function () {
         $(".btn_query_label").css("opacity", 1);
         $("#query_cardDeck").html("");
-        $("#dbFilterCollapseMenu").removeClass("d-none");
+      //  $("#dbFilterCollapseMenu").removeClass("d-none");
         buildPaths.queryObjs = [];
 
 
     }
-    self.showQueryMenu=function(){
-        $("#dbFilterCollapseMenu").removeClass("d-none");
+    self.showQueryMenu = function () {
+       $("#dbFilterCollapseMenu").addClass("show");
+    }
+
+    self.listPropertyValues = function () {
+        context.queryObject = {};
+        var queryObj = self.setContextQueryObjectParams();
+
+        $("#query_operatorSelect").val("=");
+
+        var select = "query_operatorSelect";
+
+        var whereStr = "";
+        if (queryObj.value != "")
+            whereStr = "where n." + queryObj.property + "=~'(?i).*" + queryObj.value.trim() + ".*'";
+        var labelStr = ""
+        if (queryObj.label)
+            labelStr = ":" + queryObj.label
+
+        var cypher = "Match (n" + labelStr + ") " + whereStr + " return distinct n." + queryObj.property + " as value order by value limit " + Config.maxListDisplayLimit;
+        Cypher.executeCypher(cypher, function (err, result) {
+            var html = "";
+            if (err)
+                html = err;
+            else if (result.length == 0)
+                html = "no values"
+            else if (result.length > Config.maxListDisplayLimit)
+                html = "...cannot display all values enter the beginning of word"
+            else {
+                result.splice(0, 0, {value: ""})
+                html = "<select style='width:150px' onchange=$('#query_valueInput').val($(this).val());$('#query_operatorSelect').val('=');$('#query_possibleValuesSpan').html('')\n >"
+
+                result.forEach(function (line) {
+                    html += "<option>" + line.value + "</option>"
+
+                })
+                html += "</select>";
+
+
+            }
+
+            $("#query_possibleValuesSpan").html(html)
+
+        })
+
+    }
+    self.onPossibleValueSelected=function(){
+
     }
 
     return self;

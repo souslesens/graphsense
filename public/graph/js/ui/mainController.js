@@ -24,6 +24,12 @@ var MainController = (function () {
             context.subGraphsubGraph = Config.defaultSubGraph;
     }
 
+    self.alert=function(message){
+        $(".alert").removeClass("d-none")
+        $(".alert").html(message)
+
+    }
+
 
     return self;
 })()

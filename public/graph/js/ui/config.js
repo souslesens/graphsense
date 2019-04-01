@@ -92,6 +92,7 @@ var Config = {
     graphMaxDataLengthToDisplayGraphDirectly: 2000,
     bulkGraphViewMaxNodesToDrawLinks: 1000,
     maxListDisplayLimit: 1500,
+    maxInIdsArrayLength: 500,
 
     maxDepthExplorationAroundNode: 3,
     maxNodesForRelNamesOnGraph: 100,

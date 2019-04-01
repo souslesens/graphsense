@@ -15,6 +15,14 @@ var binder=(function(){
         //loads the modal dialog to apply filters to a card , customized with property of the label
         $("#dbQueryFilterLabelModal").load("htmlSnippets/query/queryFilterLabelModal.html", function () {
 
+            $('#dbQueryFilterLabelModal').on('hidden.bs.modal', function (e) {
+
+                $('#query_possibleValuesDiv').addClass('d-none');
+                $("#query_valueInput").val("");
+                $('#query_valueInput').focus();
+                $("#query_validateQueryButton").unbind('click');
+            })
+
         })
 
     })

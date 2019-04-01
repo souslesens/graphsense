@@ -449,6 +449,19 @@ var Schema = (function () {
         }
 
 
+        self.getAllProperties = function () {
+            var properties = [];
+            for (var label in Schema.schema.properties) {
+                for (var prop in Schema.schema.properties[label]) {
+                    if( properties.indexOf(prop)<0)
+                    properties.push(prop);
+                }
+            }
+            properties.sort();
+            return properties;
+        }
+
+
         self.getPermittedRelTypes = function (startLabel, endLabel, inverseRelAlso) {
             relTypes = [];
             var relations = Schema.schema.relations;

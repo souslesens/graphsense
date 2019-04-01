@@ -12,11 +12,9 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- tree CSS -->
-    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
 
     <link rel="stylesheet" type="text/css" href="css/main.css">
-
-
 
 
     <!-- Font Awesome JS -->
@@ -43,8 +41,6 @@
             crossorigin="anonymous"></script>
 
 
-
-
     <!---------- scripts others ----------->
     <script type="text/javascript" src="js/others/async.js"></script>
     <!---------- end scripts others ----------->
@@ -63,14 +59,12 @@
 
     <script type="text/javascript" src="js/ui/config.js"></script><!--  app global params  -->
     <script type="text/javascript" src="js/ui/mainController.js"></script> <!--  global  controller  -->
-    <script type="text/javascript" src="js/ui/graphController.js"></script><!--   controller for  operations on graph -->
+    <script type="text/javascript" src="js/ui/graphController.js"></script>
+    <!--   controller for  operations on graph -->
     <script type="text/javascript" src="js/ui/graphFilter.js"></script>
     <script type="text/javascript" src="js/ui/grahHighlight.js"></script>
     <script type="text/javascript" src="js/ui/graphExpand.js"></script>
     <script type="text/javascript" src="js/ui/tree.js"></script>
-
-
-
 
 
     <script type="text/javascript" src="js/ui/context.js"></script><!--  object containing contextual objects  -->
@@ -113,18 +107,17 @@
             });
 
 
-        $('#showTreeButton').on('click', function () {
-            $('#sidebar, #content').toggleClass('active');
-            $('.collapse.in').toggleClass('in');
-            $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            $('#showTreeButton').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+
+
         });
 
 
-
-    });
-
-
-</script>
+    </script>
 
 
 </head>
@@ -142,59 +135,68 @@
         </div>
         <div>
 
-                <div class="input-group">
-                    <input type="text"  id="tree_searchNodeValue" class="form-control border-0 small" style="background-color: #d4d3d6;"
-                           placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" onclick="Tree.searchNodes($('#tree_searchNodeValue').val())">
-                            <i class="fas fa-search fa-sm"></i>
-                        </button>
-                    </div>
+            <div class="input-group">
+                <input type="text" id="tree_searchNodeValue" class="form-control border-0 small"
+                       style="background-color: #d4d3d6;"
+                       placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button"
+                            onclick="Tree.searchNodes($('#tree_searchNodeValue').val())">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                    <button class="btn btn-primary" type="button"
+                            onclick="Tree.searchNodesDialog($('#tree_searchNodeValue').val())">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
                 </div>
+            </div>
 
         </div>
         <!-- Divider -->
         <hr class="sidebar-divider">
         <div class="modal-body">
-                <div class="form-row">
-                    <label class="col-form-label col-ml-4" for="tree_labelSelect">tree label</label>
-                    <div class="col-sm-8">
-                        <select class="form-control "  id="tree_labelSelect" onchange="Tree.drawNodeHierarchyTree($(this).val())">
+            <div class="form-row">
+                <label class="col-form-label col-ml-4" for="tree_labelSelect">tree label</label>
+                <div class="col-sm-8">
+                    <select class="form-control " id="tree_labelSelect"
+                            onchange="Tree.drawNodeHierarchyTree($(this).val())">
 
-                        </select>
-                    </div>
+                    </select>
                 </div>
+            </div>
         </div>
         <hr class="sidebar-divider">
 
 
         <ul class="list-unstyled components">
             <li class="active">
-                <div class="row" id="treeContainerDiv" ></div>
-              <!--  <a href="#tree1Menu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">Tree 1 </a>
-                <ul class="collapse list-unstyled" id="tree1Menu">
-                    <li>
-                        <div class="container-fluid active" style="background-color:white;padding-top: 5px;">
-                            <div class="row ml-auto" style="padding-left: 70px ">
-                                <button class='btn btn-info' onclick="Tree.addSelectionToQuery()">
-                                    <span class="graphIconButton" ></span>&nbsp;Add to query
-                                </button>
-                            </div>
-                            <div class="row" id="treeContainerDiv">
+                <div class="row" id="treeContainerDiv"></div>
+                <!--  <a href="#tree1Menu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">Tree 1 </a>
+                  <ul class="collapse list-unstyled" id="tree1Menu">
+                      <li>
+                          <div class="container-fluid active" style="background-color:white;padding-top: 5px;">
+                              <div class="row ml-auto" style="padding-left: 70px ">
+                                  <button class='btn btn-info' onclick="Tree.addSelectionToQuery()">
+                                      <span class="graphIconButton" ></span>&nbsp;Add to query
+                                  </button>
+                              </div>
+                              <div class="row" id="treeContainerDiv">
 
-                            </div>
-                        </div>
-                    </li>
-                </ul>-->
+                              </div>
+                          </div>
+                      </li>
+                  </ul>-->
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
             <button class='btn btn-info d-none' id="tree_addToselectionButton" onclick="Tree.addSelectionToQuery()">
-                <span class="graphIconButton" ></span>&nbsp;Add to query
+                <span class="graphIconButton"></span>&nbsp;Add to query
             </button>
 
+            <div class="alert alert-success d-none" role="alert"></div>
 
 
+        </ul>
 
 
     </nav>
@@ -202,39 +204,39 @@
     <!-- Page Content  -->
     <div id="content">
 
-      <!--  <nav class="navbar navbar-expand-lg navbar-light bg-white topbar static-top shadow">
-            <div class="container-fluid">
+        <!--  <nav class="navbar navbar-expand-lg navbar-light bg-white topbar static-top shadow">
+              <div class="container-fluid">
 
-                <form class="form-inline my-2 my-lg-0">
-                    <div class="input-group">
-                        <input type="text" class="form-control border-0 small" style="background-color: #d4d3d6;"
-                               placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
+                  <form class="form-inline my-2 my-lg-0">
+                      <div class="input-group">
+                          <input type="text" class="form-control border-0 small" style="background-color: #d4d3d6;"
+                                 placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                          <div class="input-group-append">
+                              <button class="btn btn-primary" type="button">
+                                  <i class="fas fa-search fa-sm"></i>
+                              </button>
+                          </div>
+                      </div>
+                  </form>
 
-                <div class="topbar-divider d-none d-sm-block"></div>
+                  <div class="topbar-divider d-none d-sm-block"></div>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="login.html">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Admin</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        -->
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="nav navbar-nav ml-auto">
+                          <li class="nav-item active">
+                              <a class="nav-link" href="login.html">Login</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="#">Admin</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="#">About</a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </nav>
+          -->
 
         <div class="sidebar-divider2"></div>
         <!-- icon menu navbar -->
@@ -243,7 +245,7 @@
             <ul class="navbar-nav mr-auto">
 
                 <li class="nav-item">
-                    <a class="navbar-brand" onclick="UI_query.showQueryMenu()" data-toggle="collapse" href="#dbFilterCollapseMenu" aria-expanded="false"
+                    <a class="navbar-brand" data-toggle="collapse" href="#dbFilterCollapseMenu" aria-expanded="false"
                        data-target="#dbFilterCollapseMenu">
                         <img src="img/cube.png" width="40" height="40" alt="Filter">
                     </a>
@@ -256,8 +258,8 @@
 
             </ul>
 
-            <ul id="#navbar_graph"  class="navbar-nav mr-auto">
-                <li class="nav-item" >
+            <ul id="#navbar_graph" class="navbar-nav mr-auto">
+                <li class="nav-item">
                     <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphExpandModalMenu">
                         <img src="img/expandLabel.png" width="40" height="40" alt="">
                     </a>
