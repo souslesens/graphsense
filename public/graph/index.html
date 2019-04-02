@@ -43,6 +43,8 @@
 
     <!---------- scripts others ----------->
     <script type="text/javascript" src="js/others/async.js"></script>
+   <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>-->
+    <script type="text/javascript" src="js/others/d3.js"></script>
     <!---------- end scripts others ----------->
 
     <!---------- scripts souslesens ----------->
@@ -65,6 +67,7 @@
     <script type="text/javascript" src="js/ui/grahHighlight.js"></script>
     <script type="text/javascript" src="js/ui/graphExpand.js"></script>
     <script type="text/javascript" src="js/ui/tree.js"></script>
+    <script type="text/javascript" src="js/ui/layouts.js"></script>
 
 
     <script type="text/javascript" src="js/ui/context.js"></script><!--  object containing contextual objects  -->
@@ -96,9 +99,9 @@
             });
 
 
-            $("#sidebar").mCustomScrollbar({
+         /*   $("#sidebar").mCustomScrollbar({
                 theme: "minimal"
-            });
+            });*/
 
             $('#sidebarCollapse').on('click', function () {
                 $('#sidebar, #content').toggleClass('active');
@@ -171,21 +174,6 @@
         <ul class="list-unstyled components">
             <li class="active">
                 <div class="row" id="treeContainerDiv"></div>
-                <!--  <a href="#tree1Menu" data-toggle="collapse" aria-expanded="true" class="dropdown-toggle">Tree 1 </a>
-                  <ul class="collapse list-unstyled" id="tree1Menu">
-                      <li>
-                          <div class="container-fluid active" style="background-color:white;padding-top: 5px;">
-                              <div class="row ml-auto" style="padding-left: 70px ">
-                                  <button class='btn btn-info' onclick="Tree.addSelectionToQuery()">
-                                      <span class="graphIconButton" ></span>&nbsp;Add to query
-                                  </button>
-                              </div>
-                              <div class="row" id="treeContainerDiv">
-
-                              </div>
-                          </div>
-                      </li>
-                  </ul>-->
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -197,6 +185,13 @@
 
 
         </ul>
+
+        <hr class="sidebar-divider">
+        <div id="graph_nodeInfosDiv" class="modal-body d-none">
+
+        </div>
+
+
 
 
     </nav>
@@ -343,6 +338,9 @@
 
 
     </div>
+
+    <div id="GraphNodePopoverDiv" class="d-none" style="position:absolute "></div>
+
     <!-- end of Page Content -->
 
 </div>

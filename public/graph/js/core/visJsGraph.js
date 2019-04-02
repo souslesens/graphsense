@@ -20,7 +20,7 @@ var visjsGraph = (function () {
 
 
         self.scaleToShowLabels = 0.6;
-        self.context = null;
+        self.context = {currentNode:null, currentEdge:null};
         self.dragRect = {x: 0, y: 0, w: 0, h: 0};
         self.graphHistory = [];
         self.graphHistory.currentIndex = 0;
@@ -197,6 +197,7 @@ var visjsGraph = (function () {
 
 
             self.network.on("click", function (params) {
+                GraphController.hideNodePopover()
                 if (_options.onClick) {
                     var fn = _options["onClick"];
                     return fn(params);
@@ -206,6 +207,7 @@ var visjsGraph = (function () {
 
                 //stop or animation when click on canvas
                 if (params.edges.length == 0 && params.nodes.length == 0) {
+
                     if (options.fixed)
                         return;
 
@@ -230,21 +232,16 @@ var visjsGraph = (function () {
                 // select node
                 else if (params.nodes.length == 1) {
                     var nodeId = params.nodes[0];
-                    context.currentNode = self.nodes._data[nodeId];
-                    context.currentNode._graphPosition = params.pointer.DOM;
+                    var node = self.nodes._data[nodeId];
+                    node._graphPosition = params.pointer.DOM;
                     if (params.event.srcEvent.ctrlKey) {
                         // GraphController.dispatchAction("expandNode", nodeId)
                     }
 
 
                     var point = params.pointer.DOM;
-                    if (GraphController) {
-                        GraphController.dispatchAction("onNodeClick", nodeId);
-                        GraphController.showPopupMenu(point.x, point.y, "nodeInfo");
-                    }
-                    else if (admin) {
-                        admin.showPopupMenu(point.x, point.y);
-                    }
+                    self.context.currentNode = node;
+                    GraphController.onNodeClicked(node, point)
 
 
                 }
@@ -252,12 +249,12 @@ var visjsGraph = (function () {
                 // select edge
                 else if (params.edges.length == 1) {
                     var edgeId = params.edges[0];
-                    context.currentNode = self.edges._data[edgeId];
-                    context.currentNode.fromNode = self.nodes._data[context.currentNode.from]
-                    context.currentNode.toNode = self.nodes._data[context.currentNode.to]
-                    GraphController.dispatchAction("relationInfos", nodeId);
-                    var point = params.pointer.DOM;
-                    GraphController.showPopupMenu(point.x, point.y, "relationInfos");
+                    var edge = self.edges._data[edgeId];
+                    edge = self.nodes._data[context.currentNode.from]
+                    edge = self.nodes._data[context.currentNode.to];
+                    GraphController.onEdgeClicked(edge, point)
+
+
                 }
             });
 
@@ -342,8 +339,8 @@ var visjsGraph = (function () {
                        //  console.log('graph loaded Event');
                    });*/
 
-if(callback)
-    return callback(null,"ok")
+            if (callback)
+                return callback(null, "ok")
         }
         self.outlineNodeEdges = function (nodeId) {
             self.edges.setOption({width: 1})
@@ -1241,6 +1238,8 @@ if(callback)
 
 
         }
+
+
 
 
         return self;

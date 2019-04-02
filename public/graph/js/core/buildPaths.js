@@ -797,7 +797,7 @@ var buildPaths = (function () {
 
             })
         })
-        if (false || dataset.relTypes.length > 1) {
+        if (false){ ///(false || dataset.relTypes.length > 1) {
             searchRelations.setEdgeColors(dataset.relTypes)
             visjsGraph.drawLegend(visjsData.labels, dataset.relTypes);
         }
@@ -904,6 +904,18 @@ var buildPaths = (function () {
               $("#buildPath_resultCountDiv_1"+key).html(html)
 
           }*/
+
+    }
+
+    self.graphFromUniqueNode=function(nodeId){
+
+        var cypher="match (a)-[r1]-(b) where id(a) ="+nodeId+" RETURN DISTINCT(ID(a) +'-'+ ID(b)) as distinctIds,a , r1 , b LIMIT "+Config.maxResultSupported;
+        Cypher.executeCypher(cypher,function (err, result){
+            if(err)
+                return console.log(err);
+            self.currentDataset = self.prepareDataset(result);
+            return buildPaths.displayGraph();
+        })
 
     }
 

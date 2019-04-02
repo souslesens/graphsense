@@ -27,15 +27,25 @@ var binder=(function(){
 
     })
 
-      $("#GraphExpandModalMenu").load("htmlSnippets/graph/GraphExpand.html", function () {
+      $("#GraphNodePopoverDiv").load("htmlSnippets/graph/nodePopover.html", function () {
           console.log("graphQueryExpand.html loaded")
       })
 
-      $("#GraphHighlightModalMenu").load("htmlSnippets/graph/GraphHighlight.html", function () {
+   /*   $("#graph_nodeInfosDiv").load("htmlSnippets/graph/nodeInfos.html", function () {
+
+      })*/
+
+
+
+      $("#GraphExpandModalMenu").load("htmlSnippets/graph/expand.html", function () {
+          console.log("graphQueryExpand.html loaded")
+      })
+
+      $("#GraphHighlightModalMenu").load("htmlSnippets/graph/highlight.html", function () {
           console.log("graphQueryHighlight.html loaded")
       })
 
-      $("#displayModalContent").load("htmlSnippets/graph/graphDisplayModal.html", function () {
+      $("#displayModalContent").load("htmlSnippets/graph/displayModal.html", function () {
           console.log("graphDisplayModal.html loaded")
           $("#myRange").on('input', function() {
               $("#myRangeTxt").html( $(this).val() )

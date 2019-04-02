@@ -62,7 +62,7 @@ var GraphExpand = (function () {
         var targetLabelStr = "";
         if (label)
             targetLabelStr = ":" + label;
-        var cypher = "match(n:" + currentNode.label + ")-[r]-(m" + targetLabelStr + ")" +
+        var cypher = "match(n:" + currentNode.labelNeo + ")-[r]-(m" + targetLabelStr + ")" +
             " where id(n)=" + currentNode.id + " " +//" and NOT p:"+sourceLabel+
             " return n, collect(m) as mArray, type(r) as relType, r as rel" +
             " limit " + Config.maxResultSupported;
@@ -116,7 +116,7 @@ var GraphExpand = (function () {
                         newRelTypes.push(relType);
                 })
                 allRelTypes=allRelTypes.concat(newRelTypes);
-                searchRelations.setEdgeColors(allRelTypes);
+                GraphController.setEdgeColors(allRelTypes);
                 return allRelTypes;
             }
 
@@ -129,7 +129,8 @@ var GraphExpand = (function () {
 
 
             var sizeBounds = getSizeBounds()
-            var scaleSizefn = d3.scaleLinear().domain([sizeBounds.min, sizeBounds.max]).range([20, 100]);
+          //  var scaleSizefn = d3.scaleLinear().domain([sizeBounds.min, sizeBounds.max]).range([20, 100]);
+            var scaleSizefn = d3.scale.linear().domain([sizeBounds.min, sizeBounds.max]).range([20, 100]);
             hasClusters = false;
            var allRelTypes= setEdgeColors(result);
 
@@ -172,7 +173,7 @@ var GraphExpand = (function () {
                     if (visjsGraph.legendLabels.indexOf(targetLabel) < 0)
                         visjsGraph.legendLabels.push(targetLabel);
 
-                    var visjsNode = connectors.getVisjsNodeFromNeoNode(nodeNeo, true);
+                    var visjsNode = visJsDataProcessor.getVisjsNodeFromNeoNode(nodeNeo, true);
 
                     var nodeSize = scaleSizefn(size);
 
@@ -182,7 +183,7 @@ var GraphExpand = (function () {
                     visjsNode.borderWidth = 3
                     newNodes.push(visjsNode);
 
-                    var visjsEdge = connectors.getVisjsRelFromNeoRel(line.n._id, clusterId, relId, relType, relProps);
+                    var visjsEdge = visJsDataProcessor.getVisjsRelFromNeoRel(line.n._id, clusterId, relId, relType, relProps);
                     newEdges.push(visjsEdge);
 
 
@@ -196,7 +197,7 @@ var GraphExpand = (function () {
                             if (newNodeIds.indexOf(neoNode._id) < 0) {
                                 newNodeIds.push(neoNode._id);
 
-                                var visjsNode = connectors.getVisjsNodeFromNeoNode(neoNode, true);
+                                var visjsNode = visJsDataProcessor.getVisjsNodeFromNeoNode(neoNode, true);
                                 newNodes.push(visjsNode);
                             }
                         }
@@ -211,7 +212,7 @@ var GraphExpand = (function () {
                         var relType = line.relType;
                         var relProps = line.rel.properties;
 
-                        var visjsEdge = connectors.getVisjsRelFromNeoRel(from, to, relId, relType, relProps);
+                        var visjsEdge = visJsDataProcessor.getVisjsRelFromNeoRel(from, to, relId, relType, relProps);
                         newEdges.push(visjsEdge);
 
                     })
@@ -244,7 +245,7 @@ var GraphExpand = (function () {
                         line.mIds.forEach(function (mId) {
                             if (visjsGraph.nodes._data[mId]) {
                                 var relPId = "" + Math.random();
-                                var visjsEdge2 = connectors.getVisjsRelFromNeoRel(line.nId, mId, relPId, "expand2", {});
+                                var visjsEdge2 = visJsDataProcessor.getVisjsRelFromNeoRel(line.nId, mId, relPId, "expand2", {});
                                 newEdges2.push(visjsEdge2);
                             }
                         })
@@ -256,7 +257,7 @@ var GraphExpand = (function () {
                                 var clusterIds = visjsGraph.nodes._data[key].neoAttrs.clusterIds;
                                 if (clusterIds && clusterIds.indexOf(line.nId) > -1) {
                                     var relPId = "" + Math.random();
-                                    var visjsEdge2 = connectors.getVisjsRelFromNeoRel(line.nId, key, relPId, "expand2", {});
+                                    var visjsEdge2 = visJsDataProcessor.getVisjsRelFromNeoRel(line.nId, key, relPId, "expand2", {});
                                     newEdges2.push(visjsEdge2);
 
                                 }
@@ -295,7 +296,7 @@ var GraphExpand = (function () {
                 if (!visjsGraph.nodes._data[neoNode._id]) {
                     if (newNodeIds.indexOf(neoNode._id) < 0) {
                         newNodeIds.push(neoNode._id);
-                        var visjsNode = connectors.getVisjsNodeFromNeoNode(neoNode, true);
+                        var visjsNode = visJsDataProcessor.getVisjsNodeFromNeoNode(neoNode, true);
                         visjsNode.clusterId = clusterId;
                         newNodes.push(visjsNode);
                     }
@@ -307,7 +308,7 @@ var GraphExpand = (function () {
                 var relType = line.relType;
                 var relProps = line.rel.properties;
 
-                var visjsEdge = connectors.getVisjsRelFromNeoRel(from, to, relId, relType, relProps);
+                var visjsEdge = visJsDataProcessor.getVisjsRelFromNeoRel(from, to, relId, relType, relProps);
                 newEdges.push(visjsEdge);
 
                 // link opened nodes to others nodes on graph
@@ -318,7 +319,7 @@ var GraphExpand = (function () {
                         var to = neoNode._id;
                         var relId = "" + Math.random();
                         var relType = "expand"
-                        var visjsEdge2 = connectors.getVisjsRelFromNeoRel(from, to, relId, relType, relProps);
+                        var visjsEdge2 = visJsDataProcessor.getVisjsRelFromNeoRel(from, to, relId, relType, relProps);
                         newEdges.push(visjsEdge2);
                     }
 
