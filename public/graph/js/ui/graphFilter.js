@@ -27,8 +27,8 @@
 var GraphFilter = (function () {
     var self = {};
     self.currentSelectdFilters = [];
-    self.currentLabels = [];
-    self.currentRelTypes = []
+    self.currentFilterProperty;
+    self.currentHighlightLabel;
 
     /**
      *
@@ -37,53 +37,60 @@ var GraphFilter = (function () {
      * @param data neo4j DataSet
      */
 
-    self.init = function (data) {
 
-        var labels = [];
-        var relTypes = [];
-        labels.splice(0, 0, "");
-        relTypes.splice(0, 0, "");
-        if (data) {
-            for (var i = 0; i < data.length; i++) {
-                var filterObj = data[i];
-                for (var k = 0; k < filterObj.labels.length; k++) {
-                    var label = filterObj.labels[k][0];
+    self.initDialog = function () {
+        $("#GraphFilterModalMenu").modal("show");
 
-                    if (labels.indexOf(label) < 0)
-                        labels.push(label);
+        if (visjsGraph.legendLabels.length == 1) {
+            common.fillSelectOptionsWithStringArray("graphFilter_labelSelect", visjsGraph.legendLabels);
+            self.setLabelPropertiesSelect(visjsGraph.legendLabels[0])
 
-                }
-                self.currentLabels = labels;
-                for (var k = 0; k < filterObj.rels.length; k++) {
-                    var relType = filterObj.rels[k];
-
-                    if (relTypes.indexOf(relType) < 0)
-                        relTypes.push(relType);
-
-                }
-
-                self.currentRelTypes = relTypes;
-
-
-            }
-        } else {
-
-            self.currentLabels = Schema.getAllLabelNames();
-            self.currentRelTypes = Schema.getAllRelationNames();
-            self.currentLabels.splice(0, 0, "");
-            self.currentRelTypes.splice(0, 0, "");
         }
+        else
+            common.fillSelectOptionsWithStringArray("graphFilter_labelSelect", visjsGraph.legendLabels, true);
+    }
 
 
-        var select = document.getElementById("filterDialog_propertySelect")
-        if (select) {
-            common.fillSelectOptionsWithStringArray(select, self.currentLabels);
-            GraphFilter.initLabelProperty("", filterDialog_propertySelect);
-            $("#filterDialog_propertySelect").val(Schema.getNameProperty())
-        }
+    self.validateDialog = function () {
 
-      //  GraphHighlight.initHighlight();
+      var queryObj=UI_query.setContextQueryObjectParams();
 
+
+    }
+    self.showFilterValueDialog=function(){
+        var label=$("#graphFilter_labelSelect").val();
+        if(label=="")
+           return common.alert("#graphFilter_alertDiv"," select a label first");
+        else
+            common.clearAlert("#graphFilter_alertDiv");
+
+
+        context.queryObject = {label: label};
+
+        var properties = Schema.getLabelProperties(label);
+
+        common.fillSelectOptionsWithStringArray("query_propertySelect", properties, true);
+       // $("#query_propertySelect").val(Schema.getNameProperty())
+
+        $("#query_validateQueryButton").bind('click', function (target) {
+            $('#query_filterLabelDialogModal').modal('hide');
+            self.validateDialog();
+            $('#query_valueInput').focus();
+        })
+
+        $('#query_filterLabelDialogModal').modal('show');
+
+    }
+
+    self.setFilterValue=function(){
+
+    }
+
+    self.setLabelPropertiesSelect = function (label) {
+        if (label == "")
+            return;
+        var properties = Schema.getLabelProperties(label)
+        common.fillSelectOptionsWithStringArray("graphFilter_propertySelect", properties);
     }
 
     /**

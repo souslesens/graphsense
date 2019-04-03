@@ -7,7 +7,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <form>
+
 
             <div class="form-row">
                 <label class="col-form-label col-ml-3" for="graphExpandfromLabelSelect">From Label</label>
@@ -16,20 +16,26 @@
 
                     </select>
                 </div>
-            
+
                 <label class="col-form-label col-ml-3" for="graphExpandToLabelSelect">To Label</label>
                 <div class="col-sm-3">
                     <select class="form-control" id="graphExpandToLabelSelect">
 
                     </select>
+                    <!--      </div>
+                          <label class="col-form-label col-ml-3" for="graphExpandToLabelSelect">Cluster nodes limit</label>
+                          <div class="col-sm-3">
+                             <input id="graphExpandClusterLimitInput" value="20">
+                          </div>-->
                 </div>
             </div>
-    
-            </form>
+            <div class="alert alert-success d-none"  id="graphExpand_alertDiv" role="alert"></div>
 
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Expand</button>
+            <button type="button" onclick="GraphExpand.expandFromUI()"
+                    class="btn btn-primary">Expand
+            </button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
 

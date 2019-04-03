@@ -239,14 +239,11 @@ var visJsDataProcessor = (function () {
                 neoId: id,
                 neoAttrs: props,
                 color: color,
-                width: 1
+             //   width: 1
                 // font:{background:color},
             }
 
-            /*  if (toutlesensData.queriesIds.indexOf(queryId) > -1) {
-                  relObj.width = Config.outlineEdgeWidth;
-                  relObj.color = Config.outlineColor;
-              }*/
+
 
             if (outline) {
                 relObj.width = 3;

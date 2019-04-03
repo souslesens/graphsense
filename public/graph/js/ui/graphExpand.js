@@ -16,21 +16,28 @@ var GraphExpand = (function () {
 
     }
 
+
+
     self.expandFromUI = function () {
+
+
         var filter = self.getExpandWhereFilter();
-        var sourceLabel = $('#expand_labelsSelectSource').val();
-        var targetLabel = $('#expand_labelsSelectTarget').val()
-        var clusterLimit = parseInt($("#expand_clusterMinLimit").val());
+        var sourceLabel = $('#graphExpandfromLabelSelect').val();
+        var targetLabel = $('#graphExpandToLabelSelect').val();
+
+        if(sourceLabel=="")
+          return  self.alert("#graphExpand_alertDiv","Select a label to expand from")
+        if(targetLabel=="")
+            return  self.alert("#graphExpand_alertDiv","Select a label to expand to")
+
+        $('#GraphExpandModalMenu').modal('toggle')
+
+        var clusterLimit = ""+5;// parseInt($("#graphExpandClusterLimitInput").val());
 
 
-        if (!sourceLabel || sourceLabel == "")
-            return alert("select from label")
-        if (!targetLabel || targetLabel == "")
-            return alert("select to label")
-        if (isNaN(clusterLimit))
-            return alert("enter a number")
 
-        var showAllNewNodesrelations = $("#expand_showAllrelationsCbx").prop("checked");
+
+        var showAllNewNodesrelations = false;//$("#expand_showAllrelationsCbx").prop("checked");
         self.expandedNodes = []
         self.initialDataset = {
             nodes: mapToArray(visjsGraph.nodes._data),
@@ -39,7 +46,7 @@ var GraphExpand = (function () {
         if (sourceLabel == "" || targetLabel == "")
             return;
         var ids = visjsGraph.getNodesNeoIdsByLabelNeo(sourceLabel);
-        var where = searchNodes.getWhereClauseFromArray("_id", ids, "n");
+        var where = buildPaths.getWhereClauseFromArray("_id", ids, "n");
 
         var cypher = "match(n:" + sourceLabel + ")-[r]-(m:" + targetLabel + ")" +
             " where " + where + " " +//" and NOT p:"+sourceLabel+
@@ -220,7 +227,6 @@ var GraphExpand = (function () {
 
                 }
 
-
             })
 
             // **********************make  links with other nodes than expanded node*******************
@@ -235,7 +241,7 @@ var GraphExpand = (function () {
                 // create edges with nodes other than source node
 
 
-                var cypher = "Match (n)-[r]-(m) where " + searchNodes.getWhereClauseFromArray("_id", self.expandedNodes, "n") + "return id(n) as nId,labels(n)[0] as clusterLabel, collect(id(m)) as mIds, type(r) as relType";
+                var cypher = "Match (n)-[r]-(m) where " + buildPaths.getWhereClauseFromArray("_id", self.expandedNodes, "n") + "return id(n) as nId,labels(n)[0] as clusterLabel, collect(id(m)) as mIds, type(r) as relType";
                 Cypher.executeCypher(cypher, function (err, result) {
                     var newEdges2 = [];
 
@@ -283,7 +289,7 @@ var GraphExpand = (function () {
         self.openedClusterId = clusterId
 
 
-        var cypher = "Match (n)-[r]-(m) where " + searchNodes.getWhereClauseFromArray("_id", clusterNodeIds) + "return n,collect(id(m)) as mIds";
+        var cypher = "Match (n)-[r]-(m) where " + buildPaths.getWhereClauseFromArray("_id", clusterNodeIds) + "return n,collect(id(m)) as mIds";
         Cypher.executeCypher(cypher, function (err, result) {
             var newNodes = [];
             var newEdges = [];
@@ -394,7 +400,7 @@ var GraphExpand = (function () {
             nodeIds: clusterIds
         }
 
-        searchNodes.execute("tableNodes")
+        buildPaths.execute("tableNodes")
 
 
     }
@@ -413,7 +419,7 @@ var GraphExpand = (function () {
 
     self.initSourceLabel = function (labels) {
         //   common.fillSelectOptionsWithStringArray(expand_labelsSelectSource, Schema.getAllLabelNames(),true);
-        var emptyOption = false;
+        var emptyOption = true;
         if (labels.length == 1) {
             emptyOption = false;
             self.setTargetLabel(labels[0])
@@ -431,7 +437,7 @@ var GraphExpand = (function () {
         $("#expandWhere_propertySelect").val("");
 
         var targetLabels = Schema.getPermittedLabels(label, true, true);
-        common.fillSelectOptionsWithStringArray("graphExpandToLabelSelect", targetLabels);
+        common.fillSelectOptionsWithStringArray("graphExpandToLabelSelect", targetLabels,true);
         if(targetLabels.length==1)
             $("#expand_labelsSelectTarget").prop("selectedIndex",0)
 
@@ -448,7 +454,7 @@ var GraphExpand = (function () {
             operator: $("#expandWhere_operatorSelect").val(),
             value: $("#expandWhere_valueInput").val()
         }
-        var filter = searchNodes.getWhereClauseFromQueryObject(queryobject, "m");
+        var filter = buildPaths.getWhereClauseFromQueryObject(queryobject, "m");
         return filter;
 
     }

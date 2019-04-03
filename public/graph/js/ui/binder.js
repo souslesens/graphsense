@@ -1,5 +1,9 @@
 var binder=(function(){
 
+
+
+
+
   self={}
   self.bindOnPageload=function() {
 
@@ -27,22 +31,21 @@ var binder=(function(){
 
     })
 
-      $("#GraphNodePopoverDiv").load("htmlSnippets/graph/nodePopover.html", function () {
-          console.log("graphQueryExpand.html loaded")
+      $("#GraphNodePopoverDiv").load("htmlSnippets/graph/nodePopover.html" , function () {
+
       })
-
-   /*   $("#graph_nodeInfosDiv").load("htmlSnippets/graph/nodeInfos.html", function () {
-
-      })*/
 
 
 
       $("#GraphExpandModalMenu").load("htmlSnippets/graph/expand.html", function () {
-          console.log("graphQueryExpand.html loaded")
+          console.log("graphExpand.html loaded")
       })
 
       $("#GraphHighlightModalMenu").load("htmlSnippets/graph/highlight.html", function () {
-          console.log("graphQueryHighlight.html loaded")
+          console.log("graphHighlight.html loaded")
+      })
+      $("#GraphFilterModalMenu").load("htmlSnippets/graph/filter.html", function () {
+          console.log("graphfilter.html loaded")
       })
 
       $("#displayModalContent").load("htmlSnippets/graph/displayModal.html", function () {

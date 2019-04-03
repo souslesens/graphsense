@@ -64,7 +64,7 @@
     <script type="text/javascript" src="js/ui/graphController.js"></script>
     <!--   controller for  operations on graph -->
     <script type="text/javascript" src="js/ui/graphFilter.js"></script>
-    <script type="text/javascript" src="js/ui/grahHighlight.js"></script>
+    <script type="text/javascript" src="js/ui/graphHighlight.js"></script>
     <script type="text/javascript" src="js/ui/graphExpand.js"></script>
     <script type="text/javascript" src="js/ui/tree.js"></script>
     <script type="text/javascript" src="js/ui/layouts.js"></script>
@@ -181,7 +181,7 @@
                 <span class="graphIconButton"></span>&nbsp;Add to query
             </button>
 
-            <div class="alert alert-success d-none" role="alert"></div>
+            <div class="alert alert-success d-none"  id="tree_alertDiv" role="alert"></div>
 
 
         </ul>
@@ -255,17 +255,17 @@
 
             <ul id="#navbar_graph" class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphExpandModalMenu">
+                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphExpandModalMenu" >
                         <img src="img/expandLabel.png" width="40" height="40" alt="">
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphHighlightModalMenu">
-                        <img src="img/label.png" width="40" height="40" alt="Tag">
+                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphHighlightModalMenu" onclick="GraphHighlight.initDialog()">
+                        <img src="img/brush.jpg" width="40" height="40" alt="Tag">
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="#"  onclick="GraphFilter.initDialog()">
                         <img src="img/filter.png" width="40" height="40" alt="Tag">
                     </a>
                 </li>
@@ -299,15 +299,22 @@
         <!-- End of Display Setting Modal -->
 
 
-        <!-- Expand Modal Menu -->
+        <!--Graph Expand Modal Menu -->
         <div class="modal fade bd-example-modal-lg" id="GraphExpandModalMenu" tabindex="-1" role="dialog"
              aria-labelledby="displayModalLabel" aria-hidden="true">
         </div>
 
-        <!-- Highlight Modal Menu -->
-        <div class="modal fade" id="GraphHighlightModalMenu" tabindex="-1" role="dialog"
+        <!--Graph Highlight Modal Menu -->
+        <div class="modal fade bd-example-modal-lg" id="GraphHighlightModalMenu" tabindex="-1" role="dialog"
              aria-labelledby="displayModalLabel" aria-hidden="true">
         </div>
+
+        <!-- Graph Filter Collaspse menu -->
+
+        <div class="modal fade bd-example-modal-lg" id="GraphFilterModalMenu" tabindex="-1" role="dialog"
+             aria-labelledby="displayModalLabel" aria-hidden="true">
+        </div>
+
 
         <!-- DB Filter Collaspse menu -->
         <div class="collapse navbar-collapse" id="dbFilterCollapseMenu">
@@ -330,10 +337,16 @@
 
             <!-- Content Row -->
             <div class="row">
-                <div id="graphDiv" class="col-xl-12" style="height: 800px">
+                <div id="graphDiv" class="col-xl-12">
 
                 </div>
             </div>
+
+            <div id="graph_legendDiv"></div>
+            <div id="graph_infosDiv" style="font-size: 8px"></div>
+            <div id="graphCommentDiv" style="position: absolute;background-color: white;margin: 2px;padding: 2px"></div>
+            <div id="GraphHighlight_legendDiv"
+                 style="visibility:hidden;z-index:20;border: 1px;border-style: solid;padding: 5px;background-color: #fafafa;max-height: 400px;max-width: 250px;overflow: auto"></div>
         </div>
 
 

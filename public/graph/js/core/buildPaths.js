@@ -640,7 +640,7 @@ var buildPaths = (function () {
 
         if ($("#buildGraphDiv").html() == "" || expand) {
             $("#buildGraphDiv").html(globalHtml);
-            $("#BIlegendDiv").css("visibility", "hidden")
+            $("#GraphHighlight_legendDiv").css("visibility", "hidden")
         } else {
             $("#buildGraphDiv").html("");
         }
@@ -803,8 +803,6 @@ var buildPaths = (function () {
         }
         else
             visjsGraph.drawLegend(visjsData.labels, null);
-        GraphFilter.currentLabels = visjsData.labels;
-
         visjsGraph.draw("graphDiv", visjsData, {}, function () {
             if (callback)
                 callback();
@@ -819,17 +817,9 @@ var buildPaths = (function () {
         GraphController.setGraphMessage("Working...")
         self.drawGraph(self.currentDataset, function () {
             self.updateResultCountDiv(relsCount);
-
             if (callback)
                 callback();
-
         });
-
-
-     /*   GraphHighlight.initHighlight();
-        common.fillSelectOptionsWithStringArray(filterDialog_NodeLabelInput, GraphFilter.currentLabels);
-        $("#toTextMenuButton").css("visibility", "visible");
-        searchNodes.onExecuteGraphQuery()*/
 
     }
 

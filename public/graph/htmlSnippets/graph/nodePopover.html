@@ -1,15 +1,26 @@
-<div class="popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header" ></h3>
+aaaa
+<div class="popover" role="tooltip">
+    <div class="arrow"></div>
+    <h3 class="popover-header"></h3>
     <div class="popover-body" style="width:200px;">
-        <div id="popover-content-login" class="hide" >
+        <div id="popover-content" class="hide">
             <ul class="list-group">
-                <li class="list-group-item" onclick="GraphController.showNodeInfos()">node infos </li>
+                <li class="list-group-item" onclick="GraphController.showNodeInfos()">node infos</li>
                 <li class="list-group-item" onclick="GraphController.startFromNode()">start from node</li>
-                <li class="list-group-item" onclick="GraphController.expandNode()">expand node</li>
+                <li class="list-group-item" onclick="GraphController.expandNode()">expand node (all labels) </li>
+                <li class="list-group-item" >expand to label <select id="graph_expandNodeLabelSelect" onchange="GraphController.expandNode($(this).val())"></select> </li>
+
                 <li class="list-group-item" onclick="GraphController.hideNode()">hide node</li>
 
             </ul>
         </div>
-</div></div>
+    </div>
+</div>
+
+
+
+
+
 <!--
 <style>
     #nodePopover {

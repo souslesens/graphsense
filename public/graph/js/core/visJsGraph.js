@@ -12,6 +12,9 @@ var visjsGraph = (function () {
         self.edges = [];
         self.network = null;
         self.currentScale;
+        self.smooth = true;
+        self.edgeWidth = 3;
+        self.maxEdgesForSmoothEdges = 200;
 
 
         self.currentLayoutType = Config.visjs.defaultLayout;
@@ -20,7 +23,7 @@ var visjsGraph = (function () {
 
 
         self.scaleToShowLabels = 0.6;
-        self.context = {currentNode:null, currentEdge:null};
+        self.context = {currentNode: null, currentEdge: null};
         self.dragRect = {x: 0, y: 0, w: 0, h: 0};
         self.graphHistory = [];
         self.graphHistory.currentIndex = 0;
@@ -78,8 +81,9 @@ var visjsGraph = (function () {
                 },
                 edges:
                     {
-                        selectionWidth: 5,
-                        smooth: {enabled: false},
+                        selectionWidth: 2,
+                        width: self.edgeWidth,
+                        smooth: {enabled: self.smooth},
                         font:
                             {
                                 size: 8
@@ -160,6 +164,11 @@ var visjsGraph = (function () {
                 edges: self.edges
             };
 
+            if (visjsData.edges.length > self.maxEdgesForSmoothEdges) {
+                self.smooth = false;
+                self.edgeWidth = 1;
+            }
+
 
             self.setStabilisationTimeOut(self.nodes.length);
             var options = self.getVisJsOptions(_options)
@@ -167,26 +176,31 @@ var visjsGraph = (function () {
 
             options.physics.enabled = true;
             self.network = new vis.Network(container, data, options);
-
+            self.network.startSimulation();
 
             window.setTimeout(function () {
 
                 self.physics.enabled = false;
-                if (_options.fixed) {
-                    _options.physics = false;
-                }
-                else {
-                    self.network.setOptions(
-                        {physics: self.physics}
-                    );
-                    self.physicsOn = false;
-                }
+
 
                 if (!_options.scale) {
                     self.network.fit();
                     if (!_options.fixed)
-                        self.onScaleChange()
+                        ;// self.onScaleChange()
                 }
+
+                if (_options.fixed) {
+                    _options.physics = false;
+                }
+                else {
+                    self.network.stopSimulation();
+                   /* self.network.setOptions(
+                        {physics: self.physics}
+                    );*/
+                    self.physicsOn = false;
+                }
+
+
                 if (_options.onFinishDraw) {
 
                     var fn = _options["onFinishDraw"];
@@ -197,37 +211,29 @@ var visjsGraph = (function () {
 
 
             self.network.on("click", function (params) {
+
                 GraphController.hideNodePopover()
+                if (params.event.type == "doubletap")
+                    return;
+
                 if (_options.onClick) {
                     var fn = _options["onClick"];
                     return fn(params);
                 }
-                $("#graphPopup").css("visibility", "hidden");
 
-
-                //stop or animation when click on canvas
-                if (params.edges.length == 0 && params.nodes.length == 0) {
+                if (params.edges.length == 0 && params.nodes.length == 0) {//simple click stop animation
 
                     if (options.fixed)
                         return;
 
-                    self.physicsOn = !self.physicsOn;
+                    self.physicsOn = false;
                     self.physics.enabled = self.physicsOn;
                     self.network.setOptions(
-                        {physics: self.physics, edges: {smooth: {enabled: false}}}
+                        {physics: self.physics, edges: {smooth: {enabled: self.smooth}}}
                     );
 
-                    if (_options.onFinishDraw) {
-                        var fn = _options["onFinishDraw"];
-                        fn();
-                    }
-                    else {
-                        //  self.network.fit();
-                        //  self.onScaleChange()
-                    }
-
-
                 }
+
 
                 // select node
                 else if (params.nodes.length == 1) {
@@ -271,7 +277,42 @@ var visjsGraph = (function () {
             });
 
             self.network.on("doubleClick", function (params) {
+                //stop or animation when click on canvas
+                if (params.edges.length == 0 && params.nodes.length == 0) {
+
+                    if (options.fixed)
+                        return;
+
+                    self.physicsOn = true;
+                    self.physics.enabled = self.physicsOn;
+                    self.network.setOptions(
+                        {physics: self.physics, edges: {smooth: {enabled: self.smooth}}}
+                    );
+
+                    if (_options.onFinishDraw) {
+                        var fn = _options["onFinishDraw"];
+                        fn();
+                    }
+                    else {
+                        //  self.network.fit();
+                        //  self.onScaleChange()
+                    }
+
+
+                }
             })
+
+            self.network.on("stabilizationIterationsDone", function (ctx) {
+               self.onScaleChange()
+            });
+
+            self.network.on("stabilized", function (ctx) {
+                self.onScaleChange()
+            });
+
+            self.network.on(" afterDrawing", function (params) {
+                self.onScaleChange()
+            });
 
             /*       self.network.on("beforeDrawing", function (ctx) {
                        self.context = ctx;
@@ -438,7 +479,7 @@ var visjsGraph = (function () {
 
 
             html += "</table>"
-            $("#graphLegendDiv").html(html);
+            $("#graph_legendDiv").html(html);
             $("#textMenuButton").css("visibility", "visible")
 
 
@@ -446,7 +487,7 @@ var visjsGraph = (function () {
 
         self.onScaleChange = function () {
             var scale = self.network.getScale();
-            if (scale == 1)
+            if (false && scale == 1)
                 return;
             if (!self.currentScale || Math.abs(scale - self.currentScale) > .01) {
 
@@ -531,10 +572,7 @@ var visjsGraph = (function () {
                 else {
                     if (node.initialColor)
                         node.color = {background: node.initialColor};
-                    if (node.labelNeo == currentLabel) {
-                        node.size = 15;
 
-                    }
 
                     if (node.image && node.image.length > 0) {
                         node.shape = 'circularImage';
@@ -1238,8 +1276,6 @@ var visjsGraph = (function () {
 
 
         }
-
-
 
 
         return self;

@@ -49,6 +49,7 @@ var Config = {
     visjs: {
         defaultNodeSize: 10,
         defaultTextSize: 18,
+        defaultNodeColor:"#ccc",
         defaultNodeShape: "dot",
         defaultLayout: "random",
 
@@ -206,6 +207,17 @@ var Config = {
 
 
     , "relationPalette": [
+        "#352961",
+        "#774181",
+        "#33313b",
+        "#5a3921",
+        "#6b8c42",
+        "#7bc67b",
+        "#007880",
+        "#62374e",
+    ]
+
+   /* , "relationPalette": [
         "#d9d7dc",
         "#c8bac1",
         "#d5d7cc",
@@ -214,8 +226,11 @@ var Config = {
         "#fff0f0",
         "#ffebe2",
         "#ddb9c3",
-    ]
+    ]*/
 }
+
+
+
 
 
 /*

@@ -4,6 +4,9 @@ var MainController = (function () {
 
     self.init = function () {
 
+
+      GraphController.initComponentsPositionAndSize("content")
+
         $("#navbar_graph").addClass("d-none");
         self.initSubGraph();
 
@@ -24,11 +27,7 @@ var MainController = (function () {
             context.subGraphsubGraph = Config.defaultSubGraph;
     }
 
-    self.alert=function(message){
-        $(".alert").removeClass("d-none")
-        $(".alert").html(message)
 
-    }
 
 
     return self;

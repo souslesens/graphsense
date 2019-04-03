@@ -1,0 +1,43 @@
+<div class="modal-dialog" role="document" id="graphFilter_dialogDiv">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="displayModalLabel">Filter Graph  Menu</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+
+            <div class="form-row">
+                <label class="col-form-label col-ml-4" for="graphFilter_labelSelect" >Label</label>
+                <div class="col-sm-8">
+                    <select class="form-control " id="graphFilter_labelSelect" onchange="GraphFilter.setLabelPropertiesSelect($(this).val())">
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <label class="col-form-label col-ml-4" for="graphFilter_propertySelect">Property</label>
+                <div class="col-sm-8">
+                    <select class="form-control " id="graphFilter_propertySelect">
+
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-row">
+                <label class="col-form-label col-ml-4" for="graphFilter_labelSelect" >Value (optional)</label>
+                <div class="col-sm-8">
+                    <button type="button"  onclick="GraphFilter.showFilterValueDialog()" class="btn btn-secondary" >Choose...</button>
+                </div>
+            </div>
+            <div class="alert alert-success d-none"  id="graphFilter_alertDiv" role="alert"></div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button"  onclick="GraphFilter.validateDialog()" class="btn btn-primary">Apply</button>
+        </div>
+    </div>
+</div>

@@ -372,6 +372,23 @@ var common = (function () {
 
     }
 
+    self.alert=function(alertDivId,message){
+        if(alertDivId.indexOf("#")<0)
+            alertDivId= "#"+alertDivId;
+        $(alertDivId).removeClass("d-none")
+        $(alertDivId).html(message);
+        return false;
+
+    }
+    self.clearAlert=function(alertDivId){
+        if(alertDivId.indexOf("#")<0)
+            alertDivId= "#"+alertDivId;
+        $(alertDivId).addClass("d-none")
+        $(alertDivId).html("");
+        return false;
+
+    }
+
     self.fillSelectOptionsWithStringArray = function (select, data, withEmptyOption) {
         var selectId;
         if (typeof select == "object")
