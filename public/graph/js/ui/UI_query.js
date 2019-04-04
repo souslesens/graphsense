@@ -80,11 +80,18 @@ var UI_query = (function () {
 
 
     }
-    self.setContextQueryObjectParams = function () {
-        var property = $("#query_propertySelect").val();
-        var operator = $("#query_operatorSelect").val();
-        var value = $("#query_valueInput").val();
-        var value = $("#query_valueInput").val();
+    self.setContextQueryObjectParams = function (targetDialogPrefix) {
+        if(!targetDialogPrefix)
+            targetDialogPrefix="query";
+
+        var label= $("#"+targetDialogPrefix+"_labelSelect").val();
+       if(context.queryObject.label  && context.queryObject.label!="")
+           label= context.queryObject.label;
+
+        var property = $("#"+targetDialogPrefix+"_propertySelect").val();
+        var operator = $("#"+targetDialogPrefix+"_operatorSelect").val();
+        var value = $("#"+targetDialogPrefix+"_valueInput").val();
+
         var inResult = true /// $("#query_filterCardInResult").prop("checked");  à completer !!!!
         var booleanOperatorStr = "";//booleanOperator || ""; à finir
         var text = "";
@@ -95,7 +102,7 @@ var UI_query = (function () {
 
 
         context.queryObject = {
-            label: context.queryObject.label,
+            label: label,
             property: property,
             operator: operator,
             value: value,
@@ -168,17 +175,19 @@ var UI_query = (function () {
        $("#dbFilterCollapseMenu").addClass("show");
     }
 
-    self.listPropertyValues = function () {
+    self.listPropertyValues = function (targetDialogPrefix) {
+        if(!targetDialogPrefix)
+            targetDialogPrefix="query";
         context.queryObject = {};
-        var queryObj = self.setContextQueryObjectParams();
+        var queryObj = self.setContextQueryObjectParams(targetDialogPrefix);
 
-        $("#query_operatorSelect").val("=");
+        $("#"+targetDialogPrefix+"_operatorSelect").val("=");
 
-        var select = "query_operatorSelect";
+
 
         var whereStr = "";
-        if (queryObj.value != "")
-            whereStr = "where n." + queryObj.property + "=~'(?i).*" + queryObj.value.trim() + ".*'";
+       /* if (queryObj.value != "")
+            whereStr = "where n." + queryObj.property + "=~'(?i).*" + queryObj.value.trim() + ".*'";*/
         var labelStr = ""
         if (queryObj.label)
             labelStr = ":" + queryObj.label
@@ -194,7 +203,7 @@ var UI_query = (function () {
                 html = "...cannot display all values enter the beginning of word"
             else {
                 result.splice(0, 0, {value: ""})
-                html = "<select style='width:150px' onchange=$('#query_valueInput').val($(this).val());$('#query_operatorSelect').val('=');$('#query_possibleValuesSpan').html('')\n >"
+                html = "<select style='width:150px' onchange=$('#"+targetDialogPrefix+"_valueInput').val($(this).val());$('#"+targetDialogPrefix+"_operatorSelect').val('=');$('#"+targetDialogPrefix+"_possibleValuesSpan').html('')\n >"
 
                 result.forEach(function (line) {
                     html += "<option>" + line.value + "</option>"
@@ -205,7 +214,7 @@ var UI_query = (function () {
 
             }
 
-            $("#query_possibleValuesSpan").html(html)
+            $("#"+targetDialogPrefix+"_possibleValuesSpan").html(html)
 
         })
 

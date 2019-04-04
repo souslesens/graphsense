@@ -320,6 +320,61 @@ var visJsDataProcessor = (function () {
             return visjsData;//testData;
         }
 
+        self.isLabelNodeOk = function (data, label, property, operator, value) {
+
+            if (label && (!value || value == "")) {
+                if (data.labelNeo == label)
+                    return true;
+                return false;
+            }
+
+            if (property && property.length > 0) {
+
+
+                if (!data.neoAttrs[property])
+                    return false;
+
+
+                var comparison;
+                if (operator == "contains")
+                    comparison = "\"" + data.neoAttrs[property] + "\".match(/.*" + value + ".*/i)";
+                else {
+                    if (operator == "=")
+                        operator="==";
+                    if (common.isNumber(value))
+                        value = value;
+                    else
+                        value = "'" + value + "'"
+                    var predicate=data.neoAttrs[property];
+                    if(typeof predicate=="string")
+                        predicate="'"+predicate+"'"
+
+                    comparison = predicate+ operator + value;
+                }
+                var result = eval(comparison)
+                return result;
+
+
+            } else {
+                if (value && value.length > 0) {// we look for value in all properties
+
+                    for (var key in data) {
+                        if (self.isLabelNodeOk(data, key, operator, value, type)) {
+                            return true;
+                        }
+                    }
+                }
+                else {// we look that type corresponds
+
+                    if (data.labelNeo == label)
+                        return true;
+                }
+
+            }
+            return false;
+
+        }
+
 
         self.toutlesensSchemaToVisjs = function (schema, id) {
 

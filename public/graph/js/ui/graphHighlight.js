@@ -383,7 +383,7 @@ var GraphHighlight = (function () {
                             ids.push(key);
                             legendStr = " All " + self.currentLabel;
                         }
-                        else if (self.isLabelNodeOk(nodeData, property, operator, value, type)) {
+                        else if (visJsDataProcessor.isLabelNodeOk(nodeData, property, operator, value, type)) {
                             ids.push(key);
                             legendStr = self.currentLabel + "." + property + "" + operator + "" + value;
                         }
@@ -404,7 +404,7 @@ var GraphHighlight = (function () {
                             ids.push(relData.neoId);
                             legendStr = " All " + self.currentRelType;
                         }
-                        else if (self.isLabelNodeOk(relData.neoAttrs, property, operator, value, type)) {
+                        else if (visJsDataProcessor.isLabelNodeOk(relData.neoAttrs, property, operator, value, type)) {
                             ids.push(relData.neoId);
                             legendStr = self.currentRelType + "." + property + "" + operator + "" + value;
                         }
@@ -421,7 +421,7 @@ var GraphHighlight = (function () {
                 /*  self.applyInitialGraphObjectAttrs(nodeColor, nodeR, linkStroke, linkStrokeWidth);
                   d3.selectAll(".pointsRadar").select("circle").each(function (d) {
 
-                      if (option == "outline" && self.isLabelNodeOk(d)) {
+                      if (option == "outline" && visJsDataProcessor.isLabelNodeOk(d)) {
                           d3.select(this).style("fill", self.currentColor)
                           d3.select(this).style("r", r)
                       }
@@ -433,7 +433,7 @@ var GraphHighlight = (function () {
                 var strokeWidth = $("#propertiesSelectionDialog_strokeWidthInput").val()
                 self.applyInitialGraphObjectAttrs(nodeColor, nodeR, linkStroke, linkStrokeWidth);
                 d3.selectAll(".link").select("line").each(function (d) {
-                    if (option == "outline" && self.isLabelNodeOk(d)) {
+                    if (option == "outline" && visJsDataProcessor.isLabelNodeOk(d)) {
                         d3.select(this).style("stroke", self.currentColor)
                         d3.select(this).style("stroke-width", strokeWidth)
                     }
@@ -454,54 +454,7 @@ var GraphHighlight = (function () {
 
         }
 
-        self.isLabelNodeOk = function (data, property, operator, value, type) {
 
-            if (type && (!value || value == "")) {
-                if (data.labelNeo == type)
-                    return true;
-                return false;
-            }
-
-            if (property && property.length > 0) {
-
-
-                if (!data.neoAttrs[property])
-                    return false;
-
-
-                var comparison;
-                if (operator == "contains")
-                    comparison = "\"" + data.neoAttrs[property] + "\".match(/.*" + value + ".*/i)";
-                else {
-                    if (common.isNumber(value))
-                        value = value;
-                    else
-                        value = "'" + value + "'"
-                    comparison = data.neoAttrs[property] + operator + value;
-                }
-                var result = eval(comparison)
-                return result;
-
-
-            } else {
-                if (value && value.length > 0) {// we look for value in all properties
-
-                    for (var key in data) {
-                        if (self.isLabelNodeOk(data, key, operator, value, type)) {
-                            return true;
-                        }
-                    }
-                }
-                else {// we look that type corresponds
-
-                    if (data.labelNeo == type)
-                        return true;
-                }
-
-            }
-            return false;
-
-        }
 
 
         self.onActionTypeSelect = function (action) {

@@ -194,9 +194,9 @@ var visjsGraph = (function () {
                 }
                 else {
                     self.network.stopSimulation();
-                   /* self.network.setOptions(
-                        {physics: self.physics}
-                    );*/
+                    /* self.network.setOptions(
+                         {physics: self.physics}
+                     );*/
                     self.physicsOn = false;
                 }
 
@@ -303,15 +303,15 @@ var visjsGraph = (function () {
             })
 
             self.network.on("stabilizationIterationsDone", function (ctx) {
-               self.onScaleChange()
+               // self.onScaleChange()
             });
 
             self.network.on("stabilized", function (ctx) {
-                self.onScaleChange()
+              //  self.onScaleChange()
             });
 
             self.network.on(" afterDrawing", function (params) {
-                self.onScaleChange()
+             //   self.onScaleChange()
             });
 
             /*       self.network.on("beforeDrawing", function (ctx) {
@@ -485,11 +485,13 @@ var visjsGraph = (function () {
 
         }
 
-        self.onScaleChange = function () {
+        self.onScaleChange = function (options) {
+            if(!options)
+                options={};
             var scale = self.network.getScale();
             if (false && scale == 1)
                 return;
-            if (!self.currentScale || Math.abs(scale - self.currentScale) > .01) {
+            if (options.force || !self.currentScale || Math.abs(scale - self.currentScale) > .01) {
 
                 $("#graphInfosSpan").html(" scale " + Math.round(scale * 100) + "%");
                 //  if (_options.showNodesLabel == false && scale > self.scaleToShowLabels) {
@@ -509,7 +511,7 @@ var visjsGraph = (function () {
                         self.labelsVisible = true;
                         nodes.push({
                             id: key,
-                            label: self.nodes._data[key].hiddenLabel,
+                            label: (self.nodes._data[key].ishidden?null:self.nodes._data[key].hiddenLabel),
                             size: size,
                             font: {size: fontSize}
                         });
@@ -1090,7 +1092,7 @@ var visjsGraph = (function () {
         }
 
 
-        self.filterGraph = function (booleanOption, property, operator, value, type) {
+        self.filterGraph = function (booleanOption, label, property, operator, value) {
             //  self.saveGraph();
             var objectType = "node";
 
@@ -1103,36 +1105,49 @@ var visjsGraph = (function () {
 
 
                     var node = self.nodes._data[key];
+                    var hidden = false;
+
                     if (context.currentNode && context.currentNode.id && context.currentNode.id == node.id)
                         ;
-                    else {
-                        var connectedEdgesIds = self.network.getConnectedEdges(key);
 
-                        /* var nodeEdges = [];
-                          for (var i = 0; i < connectedEdges.length; i++) {
-                              var connectedEdgeId = connectedEdges[i].id;
-                              nodeEdges.push(connectedEdgeId);
+                    else if (booleanOption == "none") {
+                        ;
+                    } else {
 
-                          }*/
-
-                        var nodeOk = GraphHighlight.isLabelNodeOk(node, property, operator, value, type);
+                        var nodeOk = visJsDataProcessor.isLabelNodeOk(node, label, property, operator, value);
                         if (booleanOption == "not")
-                            nodeOk = !nodeOk;
-
-                        var hidden = (nodeOk || booleanOption == "all") ? false : true;
-                        selectedNodes.push({id: "" + node.id, hidden: hidden});
-
-                        connectedEdgesIds.forEach(function (edgeId) {
-
-
-                            selectedEdges.push({id: "" + edgeId, hidden: hidden})
-                        })
-
-
+                            hidden = nodeOk;
+                        else
+                            hidden = !nodeOk;
                     }
+
+                    var color = node.initialColor;
+                    var vijsLabel = node.hiddenLabel;
+
+                    if (hidden) {
+                        color = hexToRgba(node.initialColor, 0.1);
+                        vijsLabel = null;
+                    }
+
+                    selectedNodes.push({id: "" + node.id, color: color, label: vijsLabel,ishidden:hidden});
+                    //  selectedNodes.push({id: "" + node.id, hidden: hidden});
+                    var connectedEdgesIds = self.network.getConnectedEdges(key);
+                    connectedEdgesIds.forEach(function (edgeId) {
+                        var edgeColor = "#333"
+                        if (hidden)
+                            edgeColor = "#ddd"
+                        else
+                            edgeColor = "#ddd"
+
+                        selectedEdges.push({id: "" + edgeId, color: edgeColor})
+                        //   selectedEdges.push({id: "" + edgeId, hidden: hidden})
+                    })
+
+
                 }
                 self.nodes.update(selectedNodes);
                 self.edges.update(selectedEdges);
+               // self.onScaleChange({force:true});
             }
             else if (objectType == "relation") {
 
