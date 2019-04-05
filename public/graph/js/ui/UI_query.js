@@ -145,7 +145,14 @@ var UI_query = (function () {
     }
 
     self.displayTable = function () {
+        $("#dbFilterCollapseMenu").removeClass("show");
+        buildPaths.executeQuery("dataTable", function (err, result) {
+            if (err)
+                return MainController.error(err);
 
+
+
+        })
 
     }
 

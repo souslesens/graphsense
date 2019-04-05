@@ -16,11 +16,6 @@ var buildPaths = (function () {
     var globalHtml = "";
 
 
-
-
-
-
-
     self.onRelDivClick = function (index) {
         $("#dialog").load("htmlSnippets/searchRelationsDialog.html", function () {
             dialog.dialog("open");
@@ -166,7 +161,6 @@ var buildPaths = (function () {
     }
 
 
-
     self.checkQueryExceedsLimits = function () {
         var ok = true;
         var cartesianProduct = 1
@@ -187,15 +181,15 @@ var buildPaths = (function () {
     }
     self.executeQuery = function (type, callback) {
 
-     /*   if (false && self.checkQueryExceedsLimits())
-            return alert("query too large. put  conditions on nodes or relations")
+        /*   if (false && self.checkQueryExceedsLimits())
+               return alert("query too large. put  conditions on nodes or relations")
 
-        $("#searchDialog_previousPanelButton").css('visibility', 'visible');
-        var countResults = self.countResults();
+           $("#searchDialog_previousPanelButton").css('visibility', 'visible');
+           var countResults = self.countResults();
 
-        if (!currentSetType) {
-            $("#buildPath_moreParamsDiv").css('visibility', 'hidden')
-        }*/
+           if (!currentSetType) {
+               $("#buildPath_moreParamsDiv").css('visibility', 'hidden')
+           }*/
 
 
         var uiCypher = $('#buildPaths_cypherTA').val();
@@ -434,7 +428,6 @@ var buildPaths = (function () {
             var symbol = alphabet.charAt(index);
 
 
-
             // set relation where
             var relType = "";
             if (queryObject.incomingRelation) {
@@ -456,12 +449,12 @@ var buildPaths = (function () {
                 }
             }
 
-            var labelStr="";
-            if(queryObject.label)
-                labelStr=":"+queryObject.label;
+            var labelStr = "";
+            if (queryObject.label)
+                labelStr = ":" + queryObject.label;
             if (index == 0) {
 
-                matchCypher = "(" + symbol  + labelStr + ")";
+                matchCypher = "(" + symbol + labelStr + ")";
             } else {
 
                 matchCypher += "-[r" + index + relType + "]-"
@@ -582,14 +575,15 @@ var buildPaths = (function () {
 
     self.prepareDataset = function (neoResult) {
         var dataset = {nodes: [], relations: []}
+        var uniqueNodeRels = [];
         var columns = [];
         var labelSymbols = [];
         var labels = [];
         var relTypes = [];
-        var currentRel;
+
         neoResult.forEach(function (line, index) {// define columns and structure objects by line
             var lineObj = {};
-
+            var currentRel = null;
             for (var key in line) {// each node type
                 var subLine = line[key];
                 if (key == "distinctIds")
@@ -622,7 +616,10 @@ var buildPaths = (function () {
 
 
                 }
-                dataset.nodes.push(lineObj)
+
+                    dataset.nodes.push(lineObj)
+
+
             }
 
         })
@@ -742,15 +739,16 @@ var buildPaths = (function () {
         })
 
 
-        $("#dialog").load("htmlSnippets/exportDialog.html", function () {
-            dialog.dialog("open");
+        $("#ExportDataModalMenu").modal("show");
+        ExportData.initDialog(datasetGroupedArray);
+
+
+        /*    dialog.dialog("open");
 
 
             dialog.dialog({title: "Select table columns"});
-            exportDialog.init(datasetGroupedArray, true)
+            exportDialog.init(datasetGroupedArray, true)*/
 
-
-        })
 
     }
 
@@ -766,7 +764,8 @@ var buildPaths = (function () {
 
         var visjsData = {nodes: [], edges: [], labels: []};
         visjsData.labels = dataset.labels;
-        var uniqueNodes = []
+        var uniqueNodes = [];
+        var uniqueRels = [];
         dataset.data.nodes.forEach(function (line, indexLine) {
             for (var nodeKey in line) {
                 var nodeNeo = line[nodeKey];
@@ -784,11 +783,15 @@ var buildPaths = (function () {
                     var toNode = line[symbol];
                     var relNeo = line[symbol].incomingRelation;
 
+                    if (uniqueRels.indexOf(relNeo.id) < 0) {
+                        uniqueRels.push(relNeo.id);
+
 
                     var relObj = visJsDataProcessor.getVisjsRelFromNeoRel(fromNode.id, toNode.id, relNeo.id, relNeo.type, relNeo.neoAttrs, false, false);
 
 
                     visjsData.edges.push(relObj);
+                }
                     /*  if (!relsCount[indexSymbol])
                           relsCount[indexSymbol] = 0
                       relsCount[indexSymbol] += 1*/
@@ -797,7 +800,7 @@ var buildPaths = (function () {
 
             })
         })
-        if (false){ ///(false || dataset.relTypes.length > 1) {
+        if (false) { ///(false || dataset.relTypes.length > 1) {
             searchRelations.setEdgeColors(dataset.relTypes)
             visjsGraph.drawLegend(visjsData.labels, dataset.relTypes);
         }
@@ -812,11 +815,12 @@ var buildPaths = (function () {
     self.displayGraph = function (callback) {
 
         $(".graphDisplayed").css("visibility", "visible");
-        self.expandCollapse()
+        // self.expandCollapse()
         var relsCount = {};
         GraphController.setGraphMessage("Working...")
         self.drawGraph(self.currentDataset, function () {
-            self.updateResultCountDiv(relsCount);
+            Cache.addCurrentGraphToCache()
+            // self.updateResultCountDiv(relsCount);
             if (callback)
                 callback();
         });
@@ -897,11 +901,11 @@ var buildPaths = (function () {
 
     }
 
-    self.graphFromUniqueNode=function(nodeId){
+    self.graphFromUniqueNode = function (nodeId) {
 
-        var cypher="match (a)-[r1]-(b) where id(a) ="+nodeId+" RETURN DISTINCT(ID(a) +'-'+ ID(b)) as distinctIds,a , r1 , b LIMIT "+Config.maxResultSupported;
-        Cypher.executeCypher(cypher,function (err, result){
-            if(err)
+        var cypher = "match (a)-[r1]-(b) where id(a) =" + nodeId + " RETURN DISTINCT(ID(a) +'-'+ ID(b)) as distinctIds,a , r1 , b LIMIT " + Config.maxResultSupported;
+        Cypher.executeCypher(cypher, function (err, result) {
+            if (err)
                 return console.log(err);
             self.currentDataset = self.prepareDataset(result);
             return buildPaths.displayGraph();

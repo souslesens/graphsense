@@ -8,28 +8,30 @@
         </div>
         <div class="modal-body">
 
+            <form>
+                <div class="form-row">
+                    <label class="col-form-label col-ml-3" for="graphExpandfromLabelSelect"
+                          >From Label</label>
+                    <div class="col-sm-3">
+                        <select class="form-control " id="graphExpandfromLabelSelect"  onchange="GraphExpand.setTargetLabel($(this).val())">
 
-            <div class="form-row">
-                <label class="col-form-label col-ml-3" for="graphExpandfromLabelSelect">From Label</label>
-                <div class="col-sm-3">
-                    <select class="form-control " id="graphExpandfromLabelSelect">
+                        </select>
+                    </div>
 
-                    </select>
+                    <label class="col-form-label col-ml-3" for="graphExpandToLabelSelect">To Label</label>
+                    <div class="col-sm-3">
+                        <select class="form-control" id="graphExpandToLabelSelect">
+
+                        </select>
+                        <!--      </div>
+                              <label class="col-form-label col-ml-3" for="graphExpandToLabelSelect">Cluster nodes limit</label>
+                              <div class="col-sm-3">
+                                 <input id="graphExpandClusterLimitInput" value="20">
+                              </div>-->
+                    </div>
                 </div>
-
-                <label class="col-form-label col-ml-3" for="graphExpandToLabelSelect">To Label</label>
-                <div class="col-sm-3">
-                    <select class="form-control" id="graphExpandToLabelSelect">
-
-                    </select>
-                    <!--      </div>
-                          <label class="col-form-label col-ml-3" for="graphExpandToLabelSelect">Cluster nodes limit</label>
-                          <div class="col-sm-3">
-                             <input id="graphExpandClusterLimitInput" value="20">
-                          </div>-->
-                </div>
-            </div>
-            <div class="alert alert-success d-none"  id="graphExpand_alertDiv" role="alert"></div>
+                <div class="alert alert-success d-none" id="graphExpand_alertDiv" role="alert"></div>
+            </form>
 
         </div>
         <div class="modal-footer">

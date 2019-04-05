@@ -450,7 +450,7 @@ var visjsGraph = (function () {
                     self.legendLabels.push(label);
             })
 
-            GraphExpand.initSourceLabel(self.legendLabels)
+
             var html = "<table>";
             var onClick = "";
 

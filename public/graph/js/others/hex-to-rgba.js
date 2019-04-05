@@ -71,4 +71,3 @@ var hexToRgba = function hexToRgba(hex, a) {
   return formatRgb(decimalObject, a);
 };
 
-module.exports = hexToRgba;

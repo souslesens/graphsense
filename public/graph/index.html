@@ -49,6 +49,15 @@
 
     <!---------- end scripts others ----------->
 
+
+    <!---------- datatables ----------->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.6/b-html5-1.5.6/b-print-1.5.6/fc-3.2.5/fh-3.1.4/r-2.2.2/rr-1.2.4/datatables.min.css"/>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.6/b-html5-1.5.6/b-print-1.5.6/fc-3.2.5/fh-3.1.4/r-2.2.2/rr-1.2.4/datatables.min.js"></script>    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/b-html5-1.5.6/fc-3.2.5/fh-3.1.4/datatables.min.js"></script>
+    <!---------- end datatables ----------->
+
     <!---------- scripts souslesens ----------->
     <!-- neo4j client proxy (see also /routes/index.js for protocols)  -->
     <script type="text/javascript" src="js/core/cypher.js"></script>
@@ -58,18 +67,22 @@
     <script type="text/javascript" src="js/core/neo4jDataModel.js"></script>
     <script type="text/javascript" src="js/core/common.js"></script><!--  util methods generic -->
     <script type="text/javascript" src="js/core/buildPaths.js"></script><!--  builds an execute requests -->
+    <script type="text/javascript" src="js/core/cache.js"></script>
     <!-- binds control to methods of different objects  -->
     <script type="text/javascript" src="js/ui/binder.js"></script>
 
     <script type="text/javascript" src="js/ui/config.js"></script><!--  app global params  -->
     <script type="text/javascript" src="js/ui/mainController.js"></script> <!--  global  controller  -->
     <script type="text/javascript" src="js/ui/graphController.js"></script>
-    <!--   controller for  operations on graph -->
+
+    <!--   controllers for  operations on graph -->
     <script type="text/javascript" src="js/ui/graphFilter.js"></script>
     <script type="text/javascript" src="js/ui/graphHighlight.js"></script>
     <script type="text/javascript" src="js/ui/graphExpand.js"></script>
     <script type="text/javascript" src="js/ui/tree.js"></script>
     <script type="text/javascript" src="js/ui/layouts.js"></script>
+    <script type="text/javascript" src="js/ui/exportData.js"></script>
+
 
 
     <script type="text/javascript" src="js/ui/context.js"></script><!--  object containing contextual objects  -->
@@ -257,7 +270,7 @@
 
             <ul id="#navbar_graph" class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphExpandModalMenu" >
+                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphExpandModalMenu"  onclick="GraphExpand.initSourceLabel(visjsGraph.legendLabels)">
                         <img src="img/expandLabel.png" width="40" height="40" alt="">
                     </a>
                 </li>
@@ -266,11 +279,28 @@
                         <img src="img/brush.jpg" width="40" height="40" alt="Tag">
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a class="navbar-brand" href="#"  onclick="GraphFilter.initDialog()">
                         <img src="img/filter.png" width="40" height="40" alt="Tag">
                     </a>
                 </li>
+                <li class="nav-item" >
+                    <a class="navbar-brand d-none" href="#"   id="graphCache_previousGraphButton" onclick="Cache.restorePreviousGraph()">
+                        <img src="img/previous.jpg" width="40" height="40" alt="Tag">
+                    </a>
+                </li>
+
+                <li class="nav-item" >
+                    <a class="navbar-brand d-none"  id="graphCache_nextGraphButton" href="#"  onclick="Cache.restoreNextGraph()">
+                        <img src="img/next.jpg" width="40" height="40" alt="Tag">
+                    </a>
+                </li>
+
+
+
+
+
             </ul>
             <ul id="#navbar_params" class="navbar-nav mr-auto">
                 <li class="nav-item">
@@ -312,9 +342,19 @@
         </div>
 
         <!-- Graph Filter Collaspse menu -->
-
         <div class="modal fade bd-example-modal-lg" id="GraphFilterModalMenu" tabindex="-1" role="dialog"
              aria-labelledby="displayModalLabel" aria-hidden="true">
+        </div>
+
+        <!-- datatable  menu -->
+        <div class="modal fade bd-example-modal-sm" id="ExportDataModalMenu" tabindex="-1" role="dialog"
+             aria-labelledby="displayModalLabel" aria-hidden="true">
+        </div>
+
+        <div class="modal fade bd-example-modal-lg" id="ExportDataTableModalMenu" tabindex="-1" role="dialog"
+             aria-labelledby="displayModalLabel" aria-hidden="true">
+
+            <div id="exportData_datatableDiv">aaaaaaaaa</div>
         </div>
 
 

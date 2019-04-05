@@ -48,6 +48,14 @@ var binder=(function(){
           console.log("graphfilter.html loaded")
       })
 
+      $("#ExportDataModalMenu").load("htmlSnippets/exportDataModal.html", function () {
+          console.log("exportDataModal.html loaded")
+      })
+
+
+
+
+
       $("#displayModalContent").load("htmlSnippets/graph/displayModal.html", function () {
           console.log("graphDisplayModal.html loaded")
           $("#myRange").on('input', function() {
