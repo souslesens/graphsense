@@ -14,6 +14,7 @@
     <!-- tree CSS -->
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
 
+    <!-- main CSS -->
     <link rel="stylesheet" type="text/css" href="css/main.css">
 
 
@@ -124,14 +125,12 @@
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
 
-
+            //toggle to show the left menu
             $('#showTreeButton').on('click', function () {
                 $('#sidebar, #content').toggleClass('active');
                 $('.collapse.in').toggleClass('in');
                 $('a[aria-expanded=true]').attr('aria-expanded', 'false');
             });
-
-
         });
 
 
@@ -151,63 +150,73 @@
             <span class="graphIcon"></span>
             <h3>Sous le Sens</h3>
         </div>
-        <div>
-
-            <div class="input-group">
-                <input type="text" id="tree_searchNodeValue" class="form-control border-0 small"
-                       style="background-color: #d4d3d6;"
-                       placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="button"
-                            onclick="Tree.searchNodes($('#tree_searchNodeValue').val())">
-                        <i class="fas fa-search fa-sm"></i>
-                    </button>
-                    <button class="btn btn-primary" type="button"
-                            onclick="Tree.searchNodesDialog($('#tree_searchNodeValue').val())">
-                        <i class="fas fa-search fa-sm"></i>
-                    </button>
-                </div>
-            </div>
-
-        </div>
         <!-- Divider -->
-        <hr class="sidebar-divider">
-        <div class="modal-body">
-            <div class="form-row">
-                <label class="col-form-label col-ml-4" for="tree_labelSelect">tree label</label>
-                <div class="col-sm-8">
-                    <select class="form-control " id="tree_labelSelect"
-                            onchange="Tree.drawNodeHierarchyTree($(this).val())">
+        <hr class="sidebar-divider"/>
+       
+        <ul class="list-unstyled components">
+            <li class="active">
+                <a href="#searchSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Search Tree Menu</a>
+                <ul class="collapse list-unstyled" id="searchSubMenu" style="background-color: #0468ff">
+                    <li>
+                        <div class="modal-body">
+                            <label for="tree_searchNodeValue">Search by name :</label>
+                            <div class="input-group">
+                                <input type="text" id="tree_searchNodeValue" class="form-control border-0 small" style="background-color: #d4d3d6;" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button"
+                                            onclick="Tree.searchNodes($('#tree_searchNodeValue').val())">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                    <li>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button" onclick="Tree.searchNodesDialog($('#tree_searchNodeValue').val())">Search by criteria
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <!-- Tree filter -->
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="tree_labelSelect">Select a filter tree :</label>
+                                <select class="form-control " id="tree_labelSelect" onchange="Tree.drawNodeHierarchyTree($(this).val())">
+                                </select>
+                            </div>
+                        </div>
 
-                    </select>
-                </div>
-            </div>
-        </div>
-        <hr class="sidebar-divider">
+                    </li>
+                    <li class="active">
+                        <div class="row" id="treeContainerDiv" style="margin-left: 15px;margin-right: 5px;" ></div>
+                        <div class="row" style="margin-top:10px;margin-left:130px;" >
+                            <button class='btn btn-info d-none' id="tree_addToselectionButton" onclick="Tree.addSelectionToQuery()">
+                                    <span class="graphIconButton"></span>&nbsp;Add to query
+                            </button>
+                        </div>
+                    </li>
+                </ul>
 
+            </li>
+        </ul> 
+        <hr class="sidebar-divider">
 
         <ul class="list-unstyled components">
             <li class="active">
-                <div class="row" id="treeContainerDiv"></div>
+                <a href="#nodeInfoSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Node Info</a>
+                <ul class="collapse list-unstyled" id="nodeInfoSubMenu" style="background-color: #0468ff">
+                    <li>
+                        <div id="graph_nodeInfosDiv" class="modal-body d-none">
+                    </li>
+                </ul>
             </li>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <button class='btn btn-info d-none' id="tree_addToselectionButton" onclick="Tree.addSelectionToQuery()">
-                <span class="graphIconButton"></span>&nbsp;Add to query
-            </button>
-
-            <div class="alert alert-success d-none"  id="tree_alertDiv" role="alert"></div>
-
-
         </ul>
-
-        <hr class="sidebar-divider">
-        <div id="graph_nodeInfosDiv" class="modal-body d-none">
-
-        </div>
-
-
-
 
     </nav>
 

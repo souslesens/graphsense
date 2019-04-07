@@ -61,8 +61,8 @@ var UI_query = (function () {
             '        <div class="card-body ">\n' +
             '            <p class="card-text"><small> ' + queryObject.text + '</small></p>\n' +
             '        </div>\n' +
-            '<div class="form-check">\n' +
-            '    <input type="checkbox"  checked="checked" class="form-check-input" id="query_filterCardInResult">\n' +//à completer PB!!!!
+            '<div class="form-check" style="align:center">\n' +
+            '    <input type="checkbox" checked="checked" class="form-check-input" id="query_filterCardInResult">\n' +//à completer PB!!!!
             '    <label class="form-check-label" for="query_filterCardInResult">In Result</label>\n' +
             '</div>'
 
