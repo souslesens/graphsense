@@ -54,18 +54,17 @@ var UI_query = (function () {
 
         var html = '<div class="card border-primary mb-3" id="query_filterCard_' + index + '" >\n' +
             '            <div class="card-header text-white  bg-primary">' + queryObject.label + '\n' +
-            '        <button type="button" onclick="UI_query.removeFilterCard(' + index + ')" class="close pull-right" aria-label="Close">\n' +
-            '            <span aria-hidden="true">&times;</span>\n' +
-            '        </button>\n' +
-            '        </div>\n' +
-            '        <div class="card-body ">\n' +
-            '            <p class="card-text"><small> ' + queryObject.text + '</small></p>\n' +
-            '        </div>\n' +
-            '<div class="form-check" style="align:center">\n' +
-            '    <input type="checkbox" checked="checked" class="form-check-input" id="query_filterCardInResult">\n' +//à completer PB!!!!
-            '    <label class="form-check-label" for="query_filterCardInResult">In Result</label>\n' +
-            '</div>'
-
+            '               <button type="button" onclick="UI_query.removeFilterCard(' + index + ')" class="close pull-right" aria-label="Close">\n' +
+            '                   <span aria-hidden="true">&times;</span>\n' +
+            '               </button>\n' +
+            '            </div>\n' +
+            '            <div class="card-body ">\n' +
+            '               <p class="card-text"><small> ' + queryObject.text + '</small></p>\n' +
+            '           </div>\n' +
+            '       <div class="form-check" style="text-align:center" >\n' +
+            '           <input type="checkbox" checked="checked" class="form-check-input" id="query_filterCardInResult">\n' +//à completer PB!!!!
+            '           <label class="form-check-label" for="query_filterCardInResult">In Result</label>\n' +
+            '       </div>' +
         '</div>';
 
 
