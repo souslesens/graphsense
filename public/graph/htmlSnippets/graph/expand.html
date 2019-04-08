@@ -10,16 +10,19 @@
 
             <form>
                 <div class="form-row">
-                    <label class="col-form-label col-ml-3" for="graphExpandfromLabelSelect"
-                          >From Label</label>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
+                        <label class="col-form-label" for="graphExpandfromLabelSelect">From Label</label>
+                    </div>    
+                    <div class="col-sm-4">
                         <select class="form-control " id="graphExpandfromLabelSelect"  onchange="GraphExpand.setTargetLabel($(this).val())">
 
                         </select>
                     </div>
+                    <div class="col-sm-2">
+                        <label class="col-form-label" for="graphExpandToLabelSelect">To Label</label>
+                    </div>
 
-                    <label class="col-form-label col-ml-3" for="graphExpandToLabelSelect">To Label</label>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <select class="form-control" id="graphExpandToLabelSelect">
 
                         </select>

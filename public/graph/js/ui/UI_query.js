@@ -13,7 +13,8 @@ var UI_query = (function () {
                     " value='" + label + "'" +
                     " onclick='UI_query.showQueryCardParamsDialog($(this).val())'" +
                     " style='background-color: " + color + "'" +
-                    " class='btn btn_query_label' data-toggle='modal'" +
+                    //" class='btn btn_query_label' data-toggle='modal'" +
+                    " class='btn btn-dark' data-toggle='modal'" +
                     " data-target='#dbQueryFilterLabelModal'>"
                     + label +
                     " <span class='badge badge-pill badge-light'>" + count + "</span></button>";
