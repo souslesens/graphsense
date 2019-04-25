@@ -31,7 +31,7 @@ var Layouts=(function(){
             }
 
             if (keysToExclude.indexOf(key) < 0 && orderedKeys.indexOf(key) < 0)
-                str += "<i>" + key + "</i> : " + obj[key] + "<br>";
+                str += "<b>" + key + "</b> : " + obj[key] + "<br>";
         }
 
         str += "<br> NeoId:" +obj.id;

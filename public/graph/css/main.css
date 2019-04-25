@@ -219,7 +219,7 @@ ul ul a {
     Icon
 ----------------------------------------------------- */
 .graphIcon {
-    background: url('../img/Schema.png') no-repeat;
+    background: url('../img/graph.png') no-repeat;
     background-size: 40px;
     float: left;
     width: 40px;
@@ -229,7 +229,7 @@ ul ul a {
   }
 
 .graphIconButton {
-    background: url('../img/Schema.png') no-repeat;
+    background: url('../img/graph.png') no-repeat;
     background-size: 25px;
     float: left;
     width: 25px;

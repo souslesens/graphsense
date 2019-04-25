@@ -230,6 +230,11 @@ var UI_query = (function () {
 
     }
 
+    self.restoreQueryObjs=function(queryObjs){
+
+    }
+
+
     return self;
 
 })()

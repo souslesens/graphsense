@@ -64,7 +64,7 @@ a:focus {
 }
 
 #sidebar {
-    width: 250px;
+    width: 300px;
     position: fixed;
     top: 0;
     left: 0;
@@ -76,7 +76,7 @@ a:focus {
 }
 
 #sidebar.active {
-    margin-left: -250px;
+    margin-left: -300px;
 }
 
 #sidebar .sidebar-header {
@@ -144,9 +144,8 @@ ul ul a {
 ----------------------------------------------------- */
 
 #content {
-    width: calc(100% - 250px);
+    width: calc(100% - 300px);
     padding: 0px;
-    min-height: 100vh;
     transition: all 0.3s;
     position: absolute;
     top: 0;
@@ -157,13 +156,15 @@ ul ul a {
     width: 100%;
 }
 
+
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
 
 @media (max-width: 768px) {
     #sidebar {
-        margin-left: -250px;
+        margin-left: -300px;
     }
     #sidebar.active {
         margin-left: 0;
@@ -172,7 +173,7 @@ ul ul a {
         width: 100%;
     }
     #content.active {
-        width: calc(100% - 250px);
+        width: calc(100% - 300px);
     }
     #sidebarCollapse span {
         display: none;
@@ -219,7 +220,7 @@ ul ul a {
     Icon
 ----------------------------------------------------- */
 .graphIcon {
-    background: url('../img/Schema.png') no-repeat;
+    background: url('../img/graph.png') no-repeat;
     background-size: 40px;
     float: left;
     width: 40px;
@@ -229,7 +230,7 @@ ul ul a {
   }
 
 .graphIconButton {
-    background: url('../img/Schema.png') no-repeat;
+    background: url('../img/graph.png') no-repeat;
     background-size: 25px;
     float: left;
     width: 25px;
@@ -238,7 +239,7 @@ ul ul a {
   }
 
   .tableIconButton {
-    background: url('../img/table.png') no-repeat;
+    background: url('../img/graph.png') no-repeat;
     background-size: 25px;
     float: left;
     width: 25px;

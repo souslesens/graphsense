@@ -380,9 +380,13 @@ var visjsGraph = (function () {
                        //  console.log('graph loaded Event');
                    });*/
 
-            if (callback)
-                return callback(null, "ok")
+            if (callback) {
+                return callback(null,options);
+            }
         }
+
+
+
         self.outlineNodeEdges = function (nodeId) {
             self.edges.setOption({width: 1})
 
@@ -949,6 +953,8 @@ var visjsGraph = (function () {
             if (!options.history)
                 options.noHistory = true;
             options.fixed = true;
+
+            options.imported=true;
 
             self.draw("graphDiv", data, options);
 

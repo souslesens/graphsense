@@ -42,7 +42,7 @@ var neoToJstree = {
 
     generateTreeFromParentToChildrenRelType: function (label, relType, rootNeoId, callback) {
 
-        var match = "match(n:" + label + ")-[r:" + relType + "]-(m) where id(n)=" + rootNeoId + " return   n as parent ,m as child";
+        var match = "match(n:" + label + ")-[r:" + relType + "]-(m) where id(n)=" + rootNeoId + "  return   n as parent ,m as child";
         neoProxy.match(match, function (err, result) {
 
             if (err)

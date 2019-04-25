@@ -35,11 +35,17 @@ Tree = (function () {
                     }
                 );
                 self.tree.on('select', function (e, node, id) {
+                    if (onSelectFn)
+                        onSelectFn(id);
+
+                })
+                self.tree.on('checkboxChange', function (e, node, record, state) {
                     $("#tree_addToselectionButton").removeClass("d-none");
                     $(".alert").addClass("d-none");
                     if (onSelectFn)
-                        onSelectFn(id);
-                })
+                        onSelectFn(record.id);
+
+                });
 
                 if (expandAll)
                     self.tree.expandAll();
@@ -50,9 +56,9 @@ Tree = (function () {
         }
 
 
-        self.drawNodeHierarchyTree = function (key) {
+        self.drawNodeHierarchyTree = function (key,treedivId) {
 
-
+            this.treeDivId=treedivId;
             var treeParams = Config.trees[key];
             if (!treeParams)
                 return;
@@ -71,6 +77,9 @@ Tree = (function () {
                         var level = self.tree.parents(id).length;
                         //   var colors=["#E0E0E0","#D8D8D8","#D0D0D0","#C8C8C8","#C0C0C0","#B8B8B8"]
                         children.forEach(function (child) {
+                            if(child.text=="Root")
+                                return;
+                          // child.children=[{id:0,text:''}]
                             //  child.text="<span style='background-color: "+colors[level]+"'>"+child.text+"</span>"
                             self.tree.addNode(child, parent);
                         })
@@ -129,6 +138,10 @@ Tree = (function () {
         }
 
         self.addSelectionToQuery = function () {
+
+
+
+
 
             var checkedIds = self.tree.getCheckedNodes();
             if (checkedIds.length > Config.maxInIdsArrayLength)

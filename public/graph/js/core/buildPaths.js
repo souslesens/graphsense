@@ -617,7 +617,7 @@ var buildPaths = (function () {
 
                 }
 
-                    dataset.nodes.push(lineObj)
+                dataset.nodes.push(lineObj)
 
 
             }
@@ -787,11 +787,11 @@ var buildPaths = (function () {
                         uniqueRels.push(relNeo.id);
 
 
-                    var relObj = visJsDataProcessor.getVisjsRelFromNeoRel(fromNode.id, toNode.id, relNeo.id, relNeo.type, relNeo.neoAttrs, false, false);
+                        var relObj = visJsDataProcessor.getVisjsRelFromNeoRel(fromNode.id, toNode.id, relNeo.id, relNeo.type, relNeo.neoAttrs, false, false);
 
 
-                    visjsData.edges.push(relObj);
-                }
+                        visjsData.edges.push(relObj);
+                    }
                     /*  if (!relsCount[indexSymbol])
                           relsCount[indexSymbol] = 0
                       relsCount[indexSymbol] += 1*/
@@ -806,9 +806,9 @@ var buildPaths = (function () {
         }
         else
             visjsGraph.drawLegend(visjsData.labels, null);
-        visjsGraph.draw("graphDiv", visjsData, {}, function () {
+        visjsGraph.draw("graphDiv", visjsData, {}, function (err, result) {
             if (callback)
-                callback();
+                callback(err, result);
         });
 
     }
@@ -818,8 +818,9 @@ var buildPaths = (function () {
         // self.expandCollapse()
         var relsCount = {};
         GraphController.setGraphMessage("Working...")
-        self.drawGraph(self.currentDataset, function () {
-            Cache.addCurrentGraphToCache()
+        self.drawGraph(self.currentDataset, function (err, result) {
+            if (!result.imported)// on ne cahe pas deux fois le meme graphe
+                Cache.addCurrentGraphToCache(self.queryObjs)
             // self.updateResultCountDiv(relsCount);
             if (callback)
                 callback();
@@ -910,6 +911,10 @@ var buildPaths = (function () {
             self.currentDataset = self.prepareDataset(result);
             return buildPaths.displayGraph();
         })
+
+    }
+
+    self.transfomPathToVisjs=function(neoResult){
 
     }
 

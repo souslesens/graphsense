@@ -8,6 +8,15 @@ var binder=(function(){
   self.bindOnPageload=function() {
 
     var array=["circle","square"];
+
+
+
+      $(document).mousemove(function(event){
+          var x = event.pageX;
+          var y=event.pageY ;
+       context.mousePosition={x:x,y:y}
+      });
+
     common.fillSelectOptionsWithStringArray("graphParamsDialog_shapeSelect", array, true);
 
 

@@ -7,6 +7,7 @@ var
 
 
 self.initComponentsPositionAndSize=function(containerId){
+
     self.containerDims.w=$("#"+containerId).width();
     self.containerDims.h=$("#"+containerId).height()-$(".navbar").height() ;
     self.containerDims.x=$("#"+containerId).position("left") ;
