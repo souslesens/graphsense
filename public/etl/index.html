@@ -189,13 +189,12 @@
                 <img class="card-img-top" src="..." alt="Card image cap">
                 <div class="card-body">
                 <h5 class="card-title">Select Relation :</h5>
-                <ul class="list-group">
-                    <li class="list-group-item list-group-item-action active">Relation 1</li>
-                    <li class="list-group-item list-group-item-action">Relation 2</li>
-                    <li class="list-group-item list-group-item-action">Relation 3</li>
-                    <li class="list-group-item list-group-item-action">Relation 4</li>
-                    <li class="list-group-item list-group-item-action">Relation 5</li>
-                </ul>
+                <select class="form-control" id="selectNode" size="5">
+                    <option> Node 1</option>
+                    <option> Node 2</option>
+                    <option> Node 3</option>
+                    <option> Node 4</option>
+                </select>
                 <div class="btn-group" role="group" aria-label="Label buttons">
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#RelationModal">Add Relation</button>
                         <button type="button" class="btn btn-success">Edit Relation</button>
@@ -327,9 +326,28 @@
                             </div>
                         </div>
                         <div class="form-row">
-
                             <div class="col-md-6 mb-3">
                                 <h4>Source </h4>
+                                <label for="sourceColId">Select Node Source :</label>
+                                <select class="form-control" id="sourceColId">
+                                    <option>Node 1</option>
+                                    <option>Node 2</option>
+                                    <option>Node 3</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h4>Destination</h4>
+                                <label for="destinationColId">Select Node Destination :</label>
+                                <select class="form-control" id="destinationColId">
+                                    <option>Node 1</option>
+                                    <option>Node 2</option>
+                                    <option>Node 3</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
                                 <label for="sourceColId"> Id :</label>
                                 <select class="form-control" id="sourceColId">
                                     <option>col 1</option>
@@ -338,7 +356,6 @@
                                 </select>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <h4>Destination</h4>
                                 <label for="destinationColId"> Id :</label>
                                 <select class="form-control" id="destinationColId">
                                     <option>col 1</option>
