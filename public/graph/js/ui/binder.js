@@ -8,18 +8,13 @@ var binder=(function(){
   self.bindOnPageload=function() {
 
     var array=["circle","square"];
-
-
-
-      $(document).mousemove(function(event){
-          var x = event.pageX;
-          var y=event.pageY ;
-       context.mousePosition={x:x,y:y}
-      });
-
     common.fillSelectOptionsWithStringArray("graphParamsDialog_shapeSelect", array, true);
 
-
+      $(document).mousedown(function(event){
+          var x = event.pageX;
+          var y=event.pageY ;
+          context.mousePosition={x:x,y:y}
+      });
     $("#dbFilterCollapseMenu").load("htmlSnippets/query/queryFilter.html", function () {
         console.log("queryGraphFilter.html loaded");
         //loads for each label buttons to build a card for this label
@@ -40,7 +35,38 @@ var binder=(function(){
 
     })
 
+      //collapse navbar javascript
+      $('#sidebarCollapse').on('click', function () {
+          $('#sidebar').toggleClass('active');
+      });
+
+
+      /*   $("#sidebar").mCustomScrollbar({
+             theme: "minimal"
+         });*/
+
+      $('#sidebarCollapse').on('click', function () {
+          $('#sidebar, #content').toggleClass('active');
+          $('.collapse.in').toggleClass('in');
+          $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+
+      //toggle to show the left menu
+      $('#showTreeButton').on('click', function () {
+          $('#sidebar, #content').toggleClass('active');
+          $('.collapse.in').toggleClass('in');
+          $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+
+
       $("#GraphNodePopoverDiv").load("htmlSnippets/graph/nodePopover.html" , function () {
+
+      })
+
+      $("#GraphNodeInfoWrapperDiv").load("htmlSnippets/graph/nodeInfos.html" , function () {
+
+      })
+      $("#nodeInfosPopoverWrapperDiv").load("htmlSnippets/graph/nodeInfosPopover.html" , function () {
 
       })
 

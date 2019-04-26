@@ -583,6 +583,7 @@ var buildPaths = (function () {
 
         neoResult.forEach(function (line, index) {// define columns and structure objects by line
             var lineObj = {};
+            var currentNode;
             var currentRel = null;
             for (var key in line) {// each node type
                 var subLine = line[key];
@@ -591,7 +592,12 @@ var buildPaths = (function () {
                 if (key.indexOf("r") == 0) {// relation
                     if (relTypes.indexOf(subLine.type) < 0)
                         relTypes.push(subLine.type);
+
                     currentRel = {id: subLine._id, neoAttrs: subLine.properties, type: subLine.type};
+                    if(subLine._fromId==currentNode.id)
+                        currentRel.direction="normal"
+                    else
+                        currentRel.direction="inverse"
 
                 }
                 else {
@@ -612,12 +618,13 @@ var buildPaths = (function () {
 
                     var obj = visJsDataProcessor.getVisjsNodeFromNeoNode(subLine, false)
                     obj.incomingRelation = currentRel;
+                    currentNode=obj;
                     lineObj[key] = obj;
 
 
                 }
 
-                dataset.nodes.push(lineObj)
+                    dataset.nodes.push(lineObj)
 
 
             }
@@ -787,11 +794,11 @@ var buildPaths = (function () {
                         uniqueRels.push(relNeo.id);
 
 
-                        var relObj = visJsDataProcessor.getVisjsRelFromNeoRel(fromNode.id, toNode.id, relNeo.id, relNeo.type, relNeo.neoAttrs, false, false);
+                    var relObj = visJsDataProcessor.getVisjsRelFromNeoRel(fromNode.id, toNode.id, relNeo.id, relNeo.type, relNeo.neoAttrs, false, false);
 
 
-                        visjsData.edges.push(relObj);
-                    }
+                    visjsData.edges.push(relObj);
+                }
                     /*  if (!relsCount[indexSymbol])
                           relsCount[indexSymbol] = 0
                       relsCount[indexSymbol] += 1*/
@@ -806,9 +813,9 @@ var buildPaths = (function () {
         }
         else
             visjsGraph.drawLegend(visjsData.labels, null);
-        visjsGraph.draw("graphDiv", visjsData, {}, function (err, result) {
+        visjsGraph.draw("graphDiv", visjsData, {}, function () {
             if (callback)
-                callback(err, result);
+                callback();
         });
 
     }
@@ -818,9 +825,8 @@ var buildPaths = (function () {
         // self.expandCollapse()
         var relsCount = {};
         GraphController.setGraphMessage("Working...")
-        self.drawGraph(self.currentDataset, function (err, result) {
-            if (!result.imported)// on ne cahe pas deux fois le meme graphe
-                Cache.addCurrentGraphToCache(self.queryObjs)
+        self.drawGraph(self.currentDataset, function () {
+            Cache.addCurrentGraphToCache()
             // self.updateResultCountDiv(relsCount);
             if (callback)
                 callback();
@@ -902,19 +908,19 @@ var buildPaths = (function () {
 
     }
 
-    self.graphFromUniqueNode = function (nodeId) {
+    self.graphFromUniqueNode = function (nodeId,callback) {
 
         var cypher = "match (a)-[r1]-(b) where id(a) =" + nodeId + " RETURN DISTINCT(ID(a) +'-'+ ID(b)) as distinctIds,a , r1 , b LIMIT " + Config.maxResultSupported;
         Cypher.executeCypher(cypher, function (err, result) {
             if (err)
                 return console.log(err);
             self.currentDataset = self.prepareDataset(result);
+            if(callback)
+                return callback(err,result)
+
+
             return buildPaths.displayGraph();
         })
-
-    }
-
-    self.transfomPathToVisjs=function(neoResult){
 
     }
 

@@ -13,7 +13,8 @@ var UI_query = (function () {
                     " value='" + label + "'" +
                     " onclick='UI_query.showQueryCardParamsDialog($(this).val())'" +
                     " style='background-color: " + color + "'" +
-                    " class='btn btn_query_label' data-toggle='modal'" +
+                    //" class='btn btn_query_label' data-toggle='modal'" +
+                    " class='btn btn-dark' data-toggle='modal'" +
                     " data-target='#dbQueryFilterLabelModal'>"
                     + label +
                     " <span class='badge badge-pill badge-light'>" + count + "</span></button>";
@@ -41,36 +42,62 @@ var UI_query = (function () {
     }
 
 
-    self.addCardToQueryDeck = function (queryObject) {
+    self.addCardToQueryDeck = function (queryObject, index) {
         $('#dbQueryFilterLabelModal').modal('hide');
 
 
         if (!queryObject)
             queryObject = self.setContextQueryObjectParams();
-        var index = buildPaths.queryObjs.length;
+
+        if (!index)
+            index = buildPaths.queryObjs.length;
         buildPaths.queryObjs.push(JSON.parse(JSON.stringify(queryObject)));//clone
 
         self.setUIPermittedLabels(queryObject.label);
 
-        var html = '<div class="card border-primary mb-3" id="query_filterCard_' + index + '" >\n' +
-            '            <div class="card-header text-white  bg-primary">' + queryObject.label + '\n' +
-            '        <button type="button" onclick="UI_query.removeFilterCard(' + index + ')" class="close pull-right" aria-label="Close">\n' +
-            '            <span aria-hidden="true">&times;</span>\n' +
-            '        </button>\n' +
-            '        </div>\n' +
-            '        <div class="card-body ">\n' +
-            '            <p class="card-text"><small> ' + queryObject.text + '</small></p>\n' +
-            '        </div>\n' +
-            '<div class="form-check">\n' +
-            '    <input type="checkbox"  checked="checked" class="form-check-input" id="query_filterCardInResult">\n' +//à completer PB!!!!
-            '    <label class="form-check-label" for="query_filterCardInResult">In Result</label>\n' +
-            '</div>'
-
-        '</div>';
+        var html = '<div class="card border-primary mb-3" id="query_filterCard_' + index + '" >' +
+            '            <div class="card-header text-white  bg-primary">' + queryObject.label +
+            '               <button type="button" onclick="UI_query.removeFilterCard(' + index + ')" class="close pull-right" aria-label="Close">' +
+            '                   <span aria-hidden="true">&times;</span>  </button></div>' +
+            '            <div class="card-body ">' +
+            '               <p class="card-text"><small> ' + queryObject.text + '</small></p>' +
+            '           </div>\n' +
+            '       <div class="form-check" style="text-align:center" >' +
+            '           <input type="checkbox" checked="checked" class="form-check-input" id="query_filterCardInResult">' +//à completer PB!!!!
+            '           <label class="form-check-label" for="query_filterCardInResult">In Result</label>' +
+            '       </div>' +
+            '</div>';
 
 
         $("#query_cardDeck").append(html);
+        $("#query_filterCard_" + index).addClass("type_" + queryObject.label);
+
+
         $('#query_filterLabelDialogModal').modal('hide')
+        return index;
+
+    }
+
+    self.updateCardToQueryDeck = function (newQueryObject, index, boolOperator) {
+
+        if (true || boolOperator == "only") {
+
+            self.removeFilterCard(index);
+            self.addCardToQueryDeck(newQueryObject, index - 1);
+
+        }
+        if (boolOperator == "or") {
+
+            context.queryObject.nodeSetIds = context.queryObject.nodeSetIds.concat(queryObject.nodeSetIds);
+            context.queryObject.where = context.queryObject.where + " or " + queryObject.where;
+            var clauseText = " hierarchy (" + context.queryObject.nodeSetIds.length + " nodes)";
+            context.queryObject.text = clauseText;
+//to finish !!!!!!!!!!!!!!!!!!!!!
+        }
+
+        if (boolOperator == "and") {
+
+        }
 
 
     }
@@ -81,16 +108,16 @@ var UI_query = (function () {
 
     }
     self.setContextQueryObjectParams = function (targetDialogPrefix) {
-        if(!targetDialogPrefix)
-            targetDialogPrefix="query";
+        if (!targetDialogPrefix)
+            targetDialogPrefix = "query";
 
-        var label= $("#"+targetDialogPrefix+"_labelSelect").val();
-       if(context.queryObject.label  && context.queryObject.label!="")
-           label= context.queryObject.label;
+        var label = $("#" + targetDialogPrefix + "_labelSelect").val();
+        if (context.queryObject.label && context.queryObject.label != "")
+            label = context.queryObject.label;
 
-        var property = $("#"+targetDialogPrefix+"_propertySelect").val();
-        var operator = $("#"+targetDialogPrefix+"_operatorSelect").val();
-        var value = $("#"+targetDialogPrefix+"_valueInput").val();
+        var property = $("#" + targetDialogPrefix + "_propertySelect").val();
+        var operator = $("#" + targetDialogPrefix + "_operatorSelect").val();
+        var value = $("#" + targetDialogPrefix + "_valueInput").val();
 
         var inResult = true /// $("#query_filterCardInResult").prop("checked");  à completer !!!!
         var booleanOperatorStr = "";//booleanOperator || ""; à finir
@@ -151,7 +178,6 @@ var UI_query = (function () {
                 return MainController.error(err);
 
 
-
         })
 
     }
@@ -173,28 +199,27 @@ var UI_query = (function () {
     self.newQuery = function () {
         $(".btn_query_label").css("opacity", 1);
         $("#query_cardDeck").html("");
-      //  $("#dbFilterCollapseMenu").removeClass("d-none");
+        //  $("#dbFilterCollapseMenu").removeClass("d-none");
         buildPaths.queryObjs = [];
 
 
     }
     self.showQueryMenu = function () {
-       $("#dbFilterCollapseMenu").addClass("show");
+        $("#dbFilterCollapseMenu").addClass("show");
     }
 
     self.listPropertyValues = function (targetDialogPrefix) {
-        if(!targetDialogPrefix)
-            targetDialogPrefix="query";
+        if (!targetDialogPrefix)
+            targetDialogPrefix = "query";
         context.queryObject = {};
         var queryObj = self.setContextQueryObjectParams(targetDialogPrefix);
 
-        $("#"+targetDialogPrefix+"_operatorSelect").val("=");
-
+        $("#" + targetDialogPrefix + "_operatorSelect").val("=");
 
 
         var whereStr = "";
-       /* if (queryObj.value != "")
-            whereStr = "where n." + queryObj.property + "=~'(?i).*" + queryObj.value.trim() + ".*'";*/
+        /* if (queryObj.value != "")
+             whereStr = "where n." + queryObj.property + "=~'(?i).*" + queryObj.value.trim() + ".*'";*/
         var labelStr = ""
         if (queryObj.label)
             labelStr = ":" + queryObj.label
@@ -210,7 +235,7 @@ var UI_query = (function () {
                 html = "...cannot display all values enter the beginning of word"
             else {
                 result.splice(0, 0, {value: ""})
-                html = "<select style='width:150px' onchange=$('#"+targetDialogPrefix+"_valueInput').val($(this).val());$('#"+targetDialogPrefix+"_operatorSelect').val('=');$('#"+targetDialogPrefix+"_possibleValuesSpan').html('')\n >"
+                html = "<select style='width:150px' onchange=$('#" + targetDialogPrefix + "_valueInput').val($(this).val());$('#" + targetDialogPrefix + "_operatorSelect').val('=');$('#" + targetDialogPrefix + "_possibleValuesSpan').html('')\n >"
 
                 result.forEach(function (line) {
                     html += "<option>" + line.value + "</option>"
@@ -221,19 +246,14 @@ var UI_query = (function () {
 
             }
 
-            $("#"+targetDialogPrefix+"_possibleValuesSpan").html(html)
+            $("#" + targetDialogPrefix + "_possibleValuesSpan").html(html)
 
         })
 
     }
-    self.onPossibleValueSelected=function(){
+    self.onPossibleValueSelected = function () {
 
     }
-
-    self.restoreQueryObjs=function(queryObjs){
-
-    }
-
 
     return self;
 

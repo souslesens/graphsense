@@ -7,24 +7,25 @@
             </button>
         </div>
         <div class="modal-body">
-
-            <div class="form-row">
-                <label class="col-form-label col-ml-4" for="graphFilter_labelSelect" >Label</label>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label" for="graphFilter_labelSelect" >Label</label>
+                </div>
                 <div class="col-sm-8">
                     <select class="form-control " id="graphFilter_labelSelect" onchange="GraphFilter.setLabelPropertiesSelect($(this).val())">
-
                     </select>
                 </div>
             </div>
-            <div class="form-row">
-                <label class="col-form-label col-ml-4" for="graphFilter_propertySelect">Property(optional)</label>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label" for="graphFilter_propertySelect">Property(optional)</label>
+                </div>
                 <div class="col-sm-8">
                     <select class="form-control " id="graphFilter_propertySelect" onchange=" $('.graphFilter_propertyDiv').removeClass('d-none');">
-
                     </select>
                 </div>
-
             </div>
+
             <div id="query_possibleValuesDiv" class="form-group row graphFilter_propertyDiv d-none">
                 <legend class="col-form-label col-sm-4">  <button type="button" class="btn btn-primary" onclick="UI_query.listPropertyValues('graphFilter')" >List values</button></legend>
 
@@ -63,9 +64,9 @@
 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            Filter<button type="button"  onclick="GraphFilter.validateDialog('none')" class="btn btn-primary">None</button>
-            <button type="button"  onclick="GraphFilter.validateDialog('but')" class="btn btn-primary">But</button>
-            <button type="button"  onclick="GraphFilter.validateDialog('only')" class="btn btn-primary">Only</button>
+            Filter<button type="button"  onclick="GraphFilter.validateDialog('none')" class="btn btn-dark">None</button>
+            <button type="button"  onclick="GraphFilter.validateDialog('but')" class="btn btn-warning">But</button>
+            <button type="button"  onclick="GraphFilter.validateDialog('only')" class="btn btn-danger">Only</button>
 
         </div>
     </div>

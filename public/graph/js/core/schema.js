@@ -37,7 +37,6 @@ var Schema = (function () {
 
         self.currentGraph = null;
 
-
         self.schema = {
             defaultNodeNameProperty: "name",
             labels: {},

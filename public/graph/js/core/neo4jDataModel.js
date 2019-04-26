@@ -178,7 +178,9 @@ var DataModel = (function () {
             },
             function (callback) {
                 var where = "";
-                if (subGraph && subGraph != "") ;
+                if (subGraph && subGraph != "")
+                    where = " where n.subGraph='" + subGraph + "'";
+
                 var sql = "MATCH (n) " + where
                     + " return distinct labels(n) as labels_n,keys(n) as keys_n,count(n) as count_n";
 
@@ -221,10 +223,15 @@ var DataModel = (function () {
                     callback();
                 })
             }
+
+
+
+
             ,
             function (callback) {
                 var where = "";
-                if (subGraph && subGraph != "") ;
+                if (subGraph && subGraph != "")
+                    where = " where n.subGraph='" + subGraph + "'";
                 var sql = " match(n)-[r]-(m)" + where + " return distinct type(r)as relType,labels(n)[0] as startLabel,labels(m)[0] as endLabel,  keys(r) as relProperties"
                 Cypher.executeCypher(sql, function (err, data) {
 
@@ -237,14 +244,16 @@ var DataModel = (function () {
 
                         var relPropsObj = data[i];
                         var relationObjs = DataModel.allRelations[relPropsObj.relType];
-                        for (var j = 0; j < relationObjs.length; j++) {
-                            var relationObj = relationObjs[j];
+                        if(relationObjs) {
+                            for (var j = 0; j < relationObjs.length; j++) {
+                                var relationObj = relationObjs[j];
 
-                            if (relationObj && relationObj.direction == "normal" && relationObj.startLabel == relPropsObj.startLabel && relationObj.endLabel == relPropsObj.endLabel) {
-                                DataModel.allRelations[relPropsObj.relType][j].properties = relPropsObj.relProperties;
-                            }
-                            if (relationObj && relationObj.direction == "inverse" && relationObj.endLabel == relPropsObj.startLabel && relationObj.startLabel == relPropsObj.endLabel) {
-                                DataModel.allRelations[relPropsObj.relType][j].properties = relPropsObj.relProperties;
+                                if (relationObj && relationObj.direction == "normal" && relationObj.startLabel == relPropsObj.startLabel && relationObj.endLabel == relPropsObj.endLabel) {
+                                    DataModel.allRelations[relPropsObj.relType][j].properties = relPropsObj.relProperties;
+                                }
+                                if (relationObj && relationObj.direction == "inverse" && relationObj.endLabel == relPropsObj.startLabel && relationObj.startLabel == relPropsObj.endLabel) {
+                                    DataModel.allRelations[relPropsObj.relType][j].properties = relPropsObj.relProperties;
+                                }
                             }
                         }
 

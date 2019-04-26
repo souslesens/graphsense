@@ -30,13 +30,15 @@ var Config = {
 
 
     trees: {
-        "functionalClass": {
-            label: "functionalClass",
-            relType:"childOf"
+        "FunctionalClass": {
+            label: "FunctionalClass",
+            relType:"childOf",
+            rootSelector:"Name='Root'"
         },
-        "physicalClass": {
-            label: "physicalClass",
-            relType:"childOf"
+        "PhysicalClass": {
+            label: "PhysicalClass",
+            relType:"childOf",
+            rootSelector:"Name='Root'"
         },
     }
     ,

@@ -1,7 +1,7 @@
 var Layouts=(function(){
     var self={};
 
-    self.formatNodeInfo = function (obj) {
+    self.formatNodeDetailsInfo = function (obj) {
         var str = "";
         var imageBlog;
 
@@ -39,13 +39,62 @@ var Layouts=(function(){
 
     }
 
+    self.formatNodeRelationsInfo = function (dataSet,options) {
+        var str = "<ul>";
+
+        dataSet.forEach(function(relation){
+            var relStr;
+
+if(relation.r._fromId==relation.n._id)
+            relStr="   -"+relation.r.type+"->"+"["+relation.m.labels[0]+"]"+relation.m.properties[Schema.getNameProperty()];
+          else
+
+    relStr="   <-"+relation.r.type+"-"+"["+relation.m.labels[0]+"]"+relation.m.properties[Schema.getNameProperty()];
+
+
+            str += "<li>"+relStr+"</li>";
+        })
+        str += "</ul>";
+        return str;
+
+    }
+
+
+    self.formatNodeNeighboursInfo = function (dataSet,options) {
+        var str = "<ul>";
+
+        dataSet.forEach(function(relation){
+            var neighboursStr;
+            var targetNode;
+            if(relation.r._fromId==relation.n._id) {
+                neighboursStr = "[" + relation.m.labels[0] + "]" + relation.m.properties[Schema.getNameProperty()];
+                targetNode=relation.m._id;
+            }
+            else {
+                neighboursStr = "[" + relation.m.labels[0] + "]" + relation.m.properties[Schema.getNameProperty()];
+                targetNode=relation.m._id;
+            }
+
+            if(options && options.onNodeClick)
+                neighboursStr="<a href='javascript:"+options.onNodeClick+"("+targetNode+")'>"+neighboursStr+"</a>"
+
+
+            str += "<li>"+neighboursStr+"</li>";
+        })
+        str += "</ul>";
+        return str;
+
+
+
+
+    }
 
 
 
 
 
 
-    return self;
+        return self;
 
 
 })();

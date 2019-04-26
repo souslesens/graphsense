@@ -17,7 +17,6 @@ var GraphExpand = (function () {
     }
 
 
-
     self.expandFromUI = function () {
 
 
@@ -25,16 +24,14 @@ var GraphExpand = (function () {
         var sourceLabel = $('#graphExpandfromLabelSelect').val();
         var targetLabel = $('#graphExpandToLabelSelect').val();
 
-        if(sourceLabel=="")
-          return  self.alert("#graphExpand_alertDiv","Select a label to expand from")
-        if(targetLabel=="")
-            return  self.alert("#graphExpand_alertDiv","Select a label to expand to")
+        if (sourceLabel == "")
+            return self.alert("#graphExpand_alertDiv", "Select a label to expand from")
+        if (targetLabel == "")
+            return self.alert("#graphExpand_alertDiv", "Select a label to expand to")
 
         $('#GraphExpandModalMenu').modal('toggle')
 
-        var clusterLimit = ""+5;// parseInt($("#graphExpandClusterLimitInput").val());
-
-
+        var clusterLimit = "" + 5;// parseInt($("#graphExpandClusterLimitInput").val());
 
 
         var showAllNewNodesrelations = false;//$("#expand_showAllrelationsCbx").prop("checked");
@@ -77,11 +74,58 @@ var GraphExpand = (function () {
 
 
     }
+    self.expandFromTwoNodesShortestPath = function (id1, id2) {
+        var cypher = "MATCH (p1), (p2),path = shortestpath((p1)-[*]-(p2)) where ID(p1)=" + id1 + " and ID(p2)=" + id2 + "      return nodes(path) as nodes, relationships(path) as relations"
+
+        var newNodes = [];
+        var newEdges = [];
+        var newNodeIds = [];
+        var mArrayIds = [];
+        var nodes = visjsGraph.nodes._data;
+        var edges = visjsGraph.edges._data;
+
+        Cypher.executeCypher(cypher, function (err, result) {
+            if (err)
+                return console.log(err);
+            result = result[0];
+            result.nodes.forEach(function (node) {
+                mArrayIds.push(node._id)
+                if (!visjsGraph.nodes._data[node._id]) {
+
+                    if (newNodeIds.indexOf(node._id) < 0) {
+                        newNodeIds.push(node._id);
+
+                        var visjsNode = visJsDataProcessor.getVisjsNodeFromNeoNode(node, true);
+                        newNodes.push(visjsNode);
+                    }
+                }
+                var label = node.labels[0]
+                if (visjsGraph.legendLabels.indexOf(label) < 0)
+                    visjsGraph.legendLabels.push(label);
+
+            })
+            result.relations.forEach(function (rel) {
+                var from = rel._fromId;
+                var to = rel._toId;
+                var relId = rel._id
+                var relType = rel._type;
+                var relProps = rel.properties;
+
+                var visjsEdge = visJsDataProcessor.getVisjsRelFromNeoRel(from, to, relId, relType, relProps);
+                newEdges.push(visjsEdge);
 
 
+            })
+            var allRelTypes = [];// setEdgeColors(result);
+
+            visjsGraph.setGraphOpacity(0.1)
+            self.drawGraph(newNodes, newEdges );
+            visjsGraph.drawLegend(visjsGraph.legendLabels, allRelTypes);
 
 
+        })
 
+    }
 
 
     self.execute = function (cypher, clusterLimit, showAllNewNodesrelations, targetLabel) {
@@ -111,10 +155,10 @@ var GraphExpand = (function () {
                 return {min: clusterLimit, max: max};
             }
 
-            function  setEdgeColors(lines){
+            function setEdgeColors(lines) {
                 var newRelTypes = [];
-                var allRelTypes=[];
-                for(var key in context.edgeColors){
+                var allRelTypes = [];
+                for (var key in context.edgeColors) {
                     allRelTypes.push(key);
                 }
 
@@ -123,25 +167,17 @@ var GraphExpand = (function () {
                     if (newRelTypes.indexOf(relType) < 0)
                         newRelTypes.push(relType);
                 })
-                allRelTypes=allRelTypes.concat(newRelTypes);
+                allRelTypes = allRelTypes.concat(newRelTypes);
                 GraphController.setEdgeColors(allRelTypes);
                 return allRelTypes;
             }
 
 
-
-
-
-
-
-
-
             var sizeBounds = getSizeBounds()
-          //  var scaleSizefn = d3.scaleLinear().domain([sizeBounds.min, sizeBounds.max]).range([20, 100]);
+            //  var scaleSizefn = d3.scaleLinear().domain([sizeBounds.min, sizeBounds.max]).range([20, 100]);
             var scaleSizefn = d3.scale.linear().domain([sizeBounds.min, sizeBounds.max]).range([20, 100]);
             hasClusters = false;
-           var allRelTypes= setEdgeColors(result);
-
+            var allRelTypes = setEdgeColors(result);
 
 
             result.forEach(function (line) {
@@ -236,7 +272,7 @@ var GraphExpand = (function () {
             self.drawGraph(newNodes, newEdges, targetLabel);
 
 
-            visjsGraph.drawLegend(visjsGraph.legendLabels,allRelTypes);
+            visjsGraph.drawLegend(visjsGraph.legendLabels, allRelTypes);
 
             if (showAllNewNodesrelations) {
                 // create edges with nodes other than source node
@@ -438,9 +474,9 @@ var GraphExpand = (function () {
         $("#expandWhere_propertySelect").val("");
 
         var targetLabels = Schema.getPermittedLabels(label, true, true);
-        common.fillSelectOptionsWithStringArray("graphExpandToLabelSelect", targetLabels,true);
-        if(targetLabels.length==1)
-            $("#expand_labelsSelectTarget").prop("selectedIndex",0)
+        common.fillSelectOptionsWithStringArray("graphExpandToLabelSelect", targetLabels, true);
+        if (targetLabels.length == 1)
+            $("#expand_labelsSelectTarget").prop("selectedIndex", 0)
 
 
     }

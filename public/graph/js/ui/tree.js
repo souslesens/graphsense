@@ -1,14 +1,7 @@
 Tree = (function () {
         var self = {};
         self.tree;
-        self.selection = [];
-        self.selectionName = "";
-        self.currentNode;
-        self.initiated = false;
-        self.loadedNodes = [];
-        self.currentRootNeoId;
         self.currentType;
-        var currentDepth = 0;
         var treedivId = "treeDiv";
 
 
@@ -18,53 +11,55 @@ Tree = (function () {
         }
 
         self.setTree = function (treeJson, onSelectFn, expandAll) {
-            $("#tree_addToselectionButton").addClass("d-none");
-            $("#treeContainerDiv").load("htmlSnippets/tree.html", function () {
+            $(".tree_addToselectionButton").addClass("d-none");
+            // $("#treeContainerDiv").load("htmlSnippets/tree.html", function () {
 
 
-                // $('#' + treedivId+" ul").html("");
-                //   $('#' + treedivId).parent().height(500);
+            // $('#' + treedivId+" ul").html("");
+            //   $('#' + treedivId).parent().height(500);
 
-                self.tree = $('#' + treedivId).tree(
-                    {
-                        uiLibrary: 'bootstrap4',
-                        dataSource: treeJson,
-                        primaryKey: 'id',
-                        //   imageUrlField: 'flagUrl',
-                        checkboxes: true
-                    }
-                );
-                self.tree.on('select', function (e, node, id) {
-                    if (onSelectFn)
-                        onSelectFn(id);
+            self.tree = $('#' + treedivId).tree(
+                {
+                    uiLibrary: 'bootstrap4',
+                    dataSource: treeJson,
+                    primaryKey: 'id',
+                    //   imageUrlField: 'flagUrl',
+                    checkboxes: true
+                }
+            );
+            self.tree.on('select', function (e, node, id) {
 
-                })
-                self.tree.on('checkboxChange', function (e, node, record, state) {
-                    $("#tree_addToselectionButton").removeClass("d-none");
-                    $(".alert").addClass("d-none");
-                    if (onSelectFn)
-                        onSelectFn(record.id);
+                if (onSelectFn)
+                    onSelectFn(id);
 
-                });
+            });
 
-                if (expandAll)
-                    self.tree.expandAll();
-
+            self.tree.on('checkboxChange', function (e, $node, record, state) {
+                Tree.addSelectionToQuery()
+                /*   $("#treePopoverWrapperDiv").css("top", context.mousePosition.y).css("left", context.mousePosition.x);
+                   $("#treePopoverWrapperDiv").removeClass("d-none")
+                   $(".alert").addClass("d-none");*/
 
             })
+
+            if (expandAll)
+                self.tree.expandAll();
+
+
+            // })
 
         }
 
 
-        self.drawNodeHierarchyTree = function (key,treedivId) {
-
-            this.treeDivId=treedivId;
+        self.drawNodeHierarchyTree = function (key, _treedivId) {
+            treedivId = _treedivId;
+            self.currentType = key;
             var treeParams = Config.trees[key];
             if (!treeParams)
                 return;
 
 
-            self.getJsTreeFromRoot(treeParams.label, treeParams.relType, function (err, children) {
+            self.getJsTreeFromRoot(treeParams.label, treeParams.relType, treeParams.rootSelector, function (err, children) {
                 if (err)
                     return console.log(err);
 
@@ -77,9 +72,6 @@ Tree = (function () {
                         var level = self.tree.parents(id).length;
                         //   var colors=["#E0E0E0","#D8D8D8","#D0D0D0","#C8C8C8","#C0C0C0","#B8B8B8"]
                         children.forEach(function (child) {
-                            if(child.text=="Root")
-                                return;
-                          // child.children=[{id:0,text:''}]
                             //  child.text="<span style='background-color: "+colors[level]+"'>"+child.text+"</span>"
                             self.tree.addNode(child, parent);
                         })
@@ -120,18 +112,17 @@ Tree = (function () {
         }
 
 
-        self.getJsTreeFromRoot = function (label, relType, callback) {
-            self.currentType = label;
-            self.currentRootNeoId = relType;
-            self.loadedNodes = [];
+        self.getJsTreeFromRoot = function (label, relType, rootSelector, callback) {
+
+            var relType = relType;
             $(".alert").addClass("d-none");
 
-            var cypher = "Match (n:" + label + ") where n.name='Root' return id(n) as id";
+            var cypher = "Match (n:" + label + ") where n." + rootSelector + " and n.subGraph='" + context.subGraph + "'  return id(n) as id";
             Cypher.executeCypher(cypher, function (err, result) {
                 if (err)
                     return console.log(err);
-                self.currentRootNeoId = result[0].id;
-                self.getNodes(label, relType, self.currentRootNeoId, callback)
+                var currentRootNeoId = result[0].id;
+                self.getNodes(label, relType, currentRootNeoId, callback)
 
             })
 
@@ -140,30 +131,44 @@ Tree = (function () {
         self.addSelectionToQuery = function () {
 
 
-
-
-
             var checkedIds = self.tree.getCheckedNodes();
             if (checkedIds.length > Config.maxInIdsArrayLength)
                 return MainController.alert("too many nodes selected : max " + Config.maxInIdsArrayLength);
 
 
-            context.queryObject = {};
+            var queryObject = {};
             var clauseText = " hierarchy (" + checkedIds.length + " nodes)";
-            context.queryObject.label = self.currentType;
-            context.queryObject.text = clauseText;
-            context.queryObject.type = "nodeSet-plugin-" + self.currentType;
-            context.queryObject.where = buildPaths.getWhereClauseFromArray("_id", checkedIds, "n");
-            context.queryObject.nodeSetIds = checkedIds;
-            context.queryObject.inResult = true;
-            UI_query.addCardToQueryDeck(context.queryObject);
+            queryObject.label = self.currentType;
+            queryObject.text = clauseText;
+            queryObject.type = "nodeSet-plugin-" + self.currentType;
+            queryObject.where = buildPaths.getWhereClauseFromArray("_id", checkedIds, "n");
+            queryObject.nodeSetIds = checkedIds;
+            queryObject.inResult = true;
+
+
+            var cardId = $(".card.type_" + self.currentType).attr("id");
+
+
+            if (cardId) {//update
+                var index = parseInt(cardId.substring(cardId.lastIndexOf("_") + 1))
+                UI_query.updateCardToQueryDeck(queryObject, index, "only")
+
+            }
+            else {//new
+
+
+                UI_query.addCardToQueryDeck(queryObject);
+
+
+            }
             UI_query.showQueryMenu()
 
 
         }
 
 
-        self.searchNodes = function (value) {
+        self.searchNodes = function (value, _treedivId) {
+            treedivId = _treedivId;
             if (value.length < 2)
                 return;
             var cypher
@@ -179,7 +184,7 @@ Tree = (function () {
                     totalLength += line.ids.length;
                 })
                 if (totalLength > Config.maxInIdsArrayLength)
-                    return MainController.alert("too many results : " +totalLength + "  maximum allowed " + Config.maxInIdsArrayLength);
+                    return MainController.alert("too many results : " + totalLength + "  maximum allowed " + Config.maxInIdsArrayLength);
 
                 var treeData = []
                 result.forEach(function (line, indexLine) {
@@ -201,14 +206,15 @@ Tree = (function () {
 
                 })
                 self.tree = "";
+                self.currentType = "search";
                 self.setTree(treeData, null);
                 UI_query.showQueryMenu();
             })
 
 
         }
-        self.searchNodesDialog = function (value) {
-
+        self.searchNodesDialog = function (value, _treedivId) {
+            treedivId = _treedivId;
             var allProperties = Schema.getAllProperties();
 
 

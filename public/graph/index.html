@@ -14,6 +14,7 @@
     <!-- tree CSS -->
     <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
 
+    <!-- main CSS -->
     <link rel="stylesheet" type="text/css" href="css/main.css">
 
 
@@ -43,7 +44,7 @@
 
     <!---------- scripts others ----------->
     <script type="text/javascript" src="js/others/async.js"></script>
-   <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>-->
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.11/d3.min.js"></script>-->
     <script type="text/javascript" src="js/others/d3.js"></script>
     <script type="text/javascript" src="js/others/hex-to-rgba.js"></script>
 
@@ -55,7 +56,8 @@
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.6/b-html5-1.5.6/b-print-1.5.6/fc-3.2.5/fh-3.1.4/r-2.2.2/rr-1.2.4/datatables.min.js"></script>    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/b-html5-1.5.6/fc-3.2.5/fh-3.1.4/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.6/b-html5-1.5.6/b-print-1.5.6/fc-3.2.5/fh-3.1.4/r-2.2.2/rr-1.2.4/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.18/b-1.5.6/b-colvis-1.5.6/b-html5-1.5.6/fc-3.2.5/fh-3.1.4/datatables.min.js"></script>
     <!---------- end datatables ----------->
 
     <!---------- scripts souslesens ----------->
@@ -74,16 +76,18 @@
     <script type="text/javascript" src="js/ui/config.js"></script><!--  app global params  -->
     <script type="text/javascript" src="js/ui/mainController.js"></script> <!--  global  controller  -->
     <script type="text/javascript" src="js/ui/graphController.js"></script>
+    <script type="text/javascript" src="js/ui/nodeInfosController.js"></script>
+
 
     <!--   controllers for  operations on graph -->
+
     <script type="text/javascript" src="js/ui/graphFilter.js"></script>
     <script type="text/javascript" src="js/ui/graphHighlight.js"></script>
     <script type="text/javascript" src="js/ui/graphExpand.js"></script>
     <script type="text/javascript" src="js/ui/tree.js"></script>
-
+    <!--   <script type="text/javascript" src="js/ui/treeClass.js"></script>-->
     <script type="text/javascript" src="js/ui/layouts.js"></script>
     <script type="text/javascript" src="js/ui/exportData.js"></script>
-
 
 
     <script type="text/javascript" src="js/ui/context.js"></script><!--  object containing contextual objects  -->
@@ -109,28 +113,6 @@
             MainController.init();
 
 
-            //collapse navbar javascript
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-            });
-
-
-         /*   $("#sidebar").mCustomScrollbar({
-                theme: "minimal"
-            });*/
-
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar, #content').toggleClass('active');
-                $('.collapse.in').toggleClass('in');
-                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-            });
-
-
-            $('#showTreeButton').on('click', function () {
-                $('#sidebar, #content').toggleClass('active');
-                $('.collapse.in').toggleClass('in');
-                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
-            });
 
 
         });
@@ -152,67 +134,63 @@
             <span class="graphIcon"></span>
             <h3>Sous le Sens</h3>
         </div>
-        <div>
-
-            <div class="input-group">
-                <input type="text" id="tree_searchNodeValue" class="form-control border-0 small"
-                       style="background-color: #d4d3d6;"
-                       placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="button"
-                            onclick="Tree.searchNodes($('#tree_searchNodeValue').val())">
-                        <i class="fas fa-search fa-sm"></i>
-                    </button>
-                    <button class="btn btn-primary" type="button"
-                            onclick="Tree.searchNodesDialog($('#tree_searchNodeValue').val())">
-                        <i class="fas fa-search fa-sm"></i>
-                    </button>
-                </div>
-            </div>
-
-        </div>
         <!-- Divider -->
-        <hr class="sidebar-divider">
-        <div class="modal-body">
-            <div class="form-row">
-                <label class="col-form-label col-ml-4" for="tree_labelSelect">tree label</label>
-                <div class="col-sm-8">
-                    <select class="form-control " id="tree_labelSelect"
-                            onchange="Tree.drawNodeHierarchyTree($(this).val())">
-
-                    </select>
-                </div>
-            </div>
-        </div>
-        <hr class="sidebar-divider">
-
+        <hr class="sidebar-divider"/>
 
         <ul class="list-unstyled components">
             <li class="active">
-                <div class="row" id="treeContainerDiv"></div>
+                <a href="#searchSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Search</a>
+                <ul class="collapse list-unstyled" id="searchSubMenu" style="background-color: #0468ff">
+                    <li>
+                        <div class="modal-body">
+                            <label for="tree_searchNodeValue">Search by name :</label>
+                            <div class="input-group">
+                                <input type="text" id="tree_searchNodeValue" class="form-control border-0 small" style="background-color: #d4d3d6;" placeholder="Search for..." aria-label="Search"
+                                       aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button"
+                                            onclick=" Tree.searchNodes($('#tree_searchNodeValue').val(),'search_treeContainerDiv')">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
+
+                            </div>
+
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="button"
+                                            onclick="Tree.searchNodesDialog($('#tree_searchNodeValue').val(),'search_treeContainerDiv')">Advanced Search ...
+                                    </button>
+                                </div>
+
+                            </div>
+                            <div class="row" id="search_treeContainerDiv" style="margin-left: 15px;margin-right: 5px;"></div>
+
+                        </div>
+                    </li>
+                </ul>
             </li>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <button class='btn btn-info d-none' id="tree_addToselectionButton" onclick="Tree.addSelectionToQuery()">
-                <span class="graphIconButton"></span>&nbsp;Add to query
-            </button>
+        </ul>
+        <hr class="sidebar-divider"/>
+        <ul class="list-unstyled components">
+            <li>
+                <a href="#hierarchySubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">TreeViews</a>
+                <ul class="collapse list-unstyled" id="hierarchySubMenu" style="background-color: #0468ff">
 
-            <div class="alert alert-success d-none"  id="tree_alertDiv" role="alert"></div>
+                    <li>
+                        <div class="input-group">
 
+                            <select class="form-control " id="tree_labelSelect" onchange="Tree.drawNodeHierarchyTree($(this).val(),'hierarchy_treeContainerDiv')"></select>
+                        </div>
+
+                        <div class="row" id="hierarchy_treeContainerDiv" style="margin-left: 15px;margin-right: 5px;"></div>
+
+                    </li>
+                </ul>
 
         </ul>
 
-        <hr class="sidebar-divider">
-        <div id="graph_nodeInfosDiv" class="modal-body d-none" style="max-height: 300px;overflow: auto;font-size:12px">
-
-        </div>
     </nav>
-
-
-
-
-
-
 
     <!-- Page Content  -->
     <div id="content">
@@ -220,17 +198,6 @@
         <!--  <nav class="navbar navbar-expand-lg navbar-light bg-white topbar static-top shadow">
               <div class="container-fluid">
 
-                  <form class="form-inline my-2 my-lg-0">
-                      <div class="input-group">
-                          <input type="text" class="form-control border-0 small" style="background-color: #d4d3d6;"
-                                 placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                          <div class="input-group-append">
-                              <button class="btn btn-primary" type="button">
-                                  <i class="fas fa-search fa-sm"></i>
-                              </button>
-                          </div>
-                      </div>
-                  </form>
 
                   <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -248,32 +215,37 @@
                       </ul>
                   </div>
               </div>
-          </nav>
-          -->
+          </nav>--><div class="alert alert-warning  alert-dismissible  d-none" role="alert">
+        <div id="alert-warning-content"></div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
 
         <div class="sidebar-divider2"></div>
         <!-- icon menu navbar -->
         <nav class="navbar navbar-expand-lg navbar-light">
 
             <ul class="navbar-nav mr-auto">
-
+                <li class="nav-item">
+                    <a class="navbar-brand" id="showTreeButton" href="#">
+                        <img src="img/advancedSearch.png" width="40" height="40" alt="Filter">
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a class="navbar-brand" data-toggle="collapse" href="#dbFilterCollapseMenu" aria-expanded="false"
                        data-target="#dbFilterCollapseMenu">
                         <img src="img/cube.png" width="40" height="40" alt="Filter">
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" id="showTreeButton" href="#">
-                        <img src="img/tree.png" width="40" height="40" alt="Filter">
-                    </a>
-                </li>
+
 
             </ul>
 
             <ul id="#navbar_graph" class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphExpandModalMenu"  onclick="GraphExpand.initSourceLabel(visjsGraph.legendLabels)">
+                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphExpandModalMenu" onclick="GraphExpand.initSourceLabel(visjsGraph.legendLabels)">
                         <img src="img/expandLabel.png" width="40" height="40" alt="">
                     </a>
                 </li>
@@ -284,24 +256,21 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="navbar-brand" href="#"  onclick="GraphFilter.initDialog()">
+                    <a class="navbar-brand" href="#" onclick="GraphFilter.initDialog()">
                         <img src="img/filter.png" width="40" height="40" alt="Tag">
                     </a>
                 </li>
-                <li class="nav-item" >
-                    <a class="navbar-brand d-none" href="#"   id="graphCache_previousGraphButton" onclick="Cache.restorePreviousGraph()">
+                <li class="nav-item">
+                    <a class="navbar-brand d-none" href="#" id="graphCache_previousGraphButton" onclick="Cache.restorePreviousGraph()">
                         <img src="img/previous.jpg" width="40" height="40" alt="Tag">
                     </a>
                 </li>
 
-                <li class="nav-item" >
-                    <a class="navbar-brand d-none"  id="graphCache_nextGraphButton" href="#"  onclick="Cache.restoreNextGraph()">
+                <li class="nav-item">
+                    <a class="navbar-brand d-none" id="graphCache_nextGraphButton" href="#" onclick="Cache.restoreNextGraph()">
                         <img src="img/next.jpg" width="40" height="40" alt="Tag">
                     </a>
                 </li>
-
-
-
 
 
             </ul>
@@ -387,6 +356,8 @@
                 </div>
             </div>
 
+
+
             <div id="graph_legendDiv"></div>
             <div id="graph_infosDiv" style="font-size: 8px"></div>
             <div id="graphCommentDiv" style="position: absolute;background-color: white;margin: 2px;padding: 2px"></div>
@@ -397,9 +368,17 @@
 
     </div>
 
-    <div id="GraphNodePopoverDiv" class="d-none" style="position:absolute "></div>
-
     <!-- end of Page Content -->
+
+</div>
+
+<div id="GraphNodePopoverDiv" class="d-none" style="position:relative "></div>
+
+
+<div class="modal fade bd-example-modal-sm" id="GraphNodeInfoWrapperDiv" tabindex="-1" role="dialog"
+     aria-labelledby="displayModalLabel" aria-hidden="true">
+</div>
+<div id="nodeInfosPopoverWrapperDiv" class="d-none" style="position:relative">
 
 </div>
 
