@@ -18,6 +18,7 @@ Tree = (function () {
         }
 
         self.setTree = function (treeJson, onSelectFn, expandAll) {
+            // faire disparaitre le bouton
             $("#tree_addToselectionButton").addClass("d-none");
             $("#treeContainerDiv").load("htmlSnippets/tree.html", function () {
 
@@ -30,10 +31,10 @@ Tree = (function () {
                         uiLibrary: 'bootstrap4',
                         dataSource: treeJson,
                         primaryKey: 'id',
-                        //   imageUrlField: 'flagUrl',
                         checkboxes: true
                     }
                 );
+                
                 self.tree.on('select', function (e, node, id) {
                     $("#tree_addToselectionButton").removeClass("d-none");
                     $(".alert").addClass("d-none");
