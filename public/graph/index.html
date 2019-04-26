@@ -27,7 +27,7 @@
             crossorigin="anonymous"></script>
 
 
-    <script type="text/javascript" src="js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../jsCommon/jquery/jquery.min.js"></script>
 
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -113,8 +113,6 @@
             MainController.init();
 
 
-
-
         });
 
 
@@ -156,15 +154,15 @@
 
                             </div>
 
-                            <div class="input-group">
+                       <!--     <div class="input-group">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="button"
                                             onclick="Tree.searchNodesDialog($('#tree_searchNodeValue').val(),'search_treeContainerDiv')">Advanced Search ...
                                     </button>
                                 </div>
 
-                            </div>
-                            <div class="row" id="search_treeContainerDiv" style="margin-left: 15px;margin-right: 5px;"></div>
+                            </div>-->
+                            <div class="row" id="search_treeContainerDiv" style="width: 270px; height:500px; overflow:auto;margin-left: 5px;margin-right: 5px;"></div>
 
                         </div>
                     </li>
@@ -195,36 +193,16 @@
     <!-- Page Content  -->
     <div id="content">
 
-        <!--  <nav class="navbar navbar-expand-lg navbar-light bg-white topbar static-top shadow">
-              <div class="container-fluid">
 
-
-                  <div class="topbar-divider d-none d-sm-block"></div>
-
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                      <ul class="nav navbar-nav ml-auto">
-                          <li class="nav-item active">
-                              <a class="nav-link" href="login.html">Login</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">Admin</a>
-                          </li>
-                          <li class="nav-item">
-                              <a class="nav-link" href="#">About</a>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-          </nav>--><div class="alert alert-warning  alert-dismissible  d-none" role="alert">
-        <div id="alert-warning-content"></div>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-
-
-        <div class="sidebar-divider2"></div>
         <!-- icon menu navbar -->
+   <!--     <div id="mainAlertWrapperDiv" >
+            <div class="alert alert-primary hide" role="alert">
+                <span id="alertMessageDiv" style="min-height:40px; width: 100%"></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>-->
         <nav class="navbar navbar-expand-lg navbar-light">
 
             <ul class="navbar-nav mr-auto">
@@ -293,6 +271,15 @@
                         <img src="img/fullScreen.png" width="40" height="40" alt="">
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#adminModalMenu">
+                        <img src="img/parameters.png" width="40" height="40" alt="Tag">
+                    </a>
+                </li>
+
+
+
             </ul>
         </nav>
 
@@ -330,6 +317,12 @@
         </div>
 
 
+        <!-- Graph Filter Collaspse menu -->
+        <div class="modal fade bd-example-modal-lg" id="adminModalMenu" tabindex="-1" role="dialog"
+             aria-labelledby="displayModalLabel" aria-hidden="true">
+        </div>
+
+
         <!-- DB Filter Collaspse menu -->
         <div class="collapse navbar-collapse" id="dbFilterCollapseMenu">
             <!--loaded by binder.bindOnPageload()-->
@@ -357,7 +350,6 @@
             </div>
 
 
-
             <div id="graph_legendDiv"></div>
             <div id="graph_infosDiv" style="font-size: 8px"></div>
             <div id="graphCommentDiv" style="position: absolute;background-color: white;margin: 2px;padding: 2px"></div>
@@ -381,6 +373,22 @@
 <div id="nodeInfosPopoverWrapperDiv" class="d-none" style="position:relative">
 
 </div>
+
+
+
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="genericMessageModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+           <div id="genericMessageDiv"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="genericMessageModalOkButton" >OK</button>
+                <button type="button" class="btn btn-primary" onclick="$('#genericMessageModal').modal('hide')">X</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert" role="alert" id="result"></div>
 
 
 </body>

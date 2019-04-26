@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sous le sens</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Multiselect - Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.2/multiple-select.min.css">
+
+    <script type="text/javascript" src="../graph/js/jquery/jquery.min.js"></script>
+
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+
+
+
+    <!-- Multiselect - Latest compiled and minified JavaScript -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.2/multiple-select.min.js"></script>
+
+    <style type="text/css">
+        .navbar{
+            margin-top: 20px;
+        }
+    </style>
+
+    <script>
+    </script>
+
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Page Content  -->
+    <div id="content">
+        <nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">Sous le sens ETL</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" data-toggle="collapse" href="#collapseDataset" aria-expanded="false" aria-controls="collapseDataset">Dataset <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#collapseRequest" aria-expanded="false" aria-controls="collapseRequest">Request</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownNeoDbMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Neo4j Database</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownNeoDbMenuLink">
+                            <a class="dropdown-item" href="#">Import Neo Database</a>
+                            <a class="dropdown-item" href="#">Export Neo Database</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Load ETL Json file</a>
+                    </li>
+                </ul>
+            </div>
+
+            <form class="form-inline">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="subGraphDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Load Neo4j Subgraph
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="subGraphDropdownMenuButton">
+                        <a class="dropdown-item" href="#">Subgraph 1</a>
+                        <a class="dropdown-item" href="#">Subgraph 2</a>
+                        <a class="dropdown-item" href="#">Subgraph 3</a>
+                    </div>
+                </div>
+            </form>
+        </nav>
+
+        <!-- Dataset Collapse Menu-->
+        <div class="collapse" id="collapseDataset">
+            <div class="card card-body">
+                <form>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+
+                            <label for="inputTypeSelect">Select Dataset :</label>
+
+                            <select class="form-control" id="selectLabel" size="5">
+                                <option>Dataset 1.csv</option>
+                                <option>Dataset 2.csv</option>
+                                <option>Dataset 3.csv</option>
+                            </select>
+
+
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="btn-group" role="group" aria-label="Label buttons">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#datasetModal">Add Dataset</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#datasetModal">Update Dataset</button>
+                                <button type="button" class="btn btn-primary">Remove Dataset</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- Dataset Collapse Menu-->
+        <div class="collapse" id="collapseRequest">
+            <div class="card card-body">
+                <form>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="inputTypeSelect">Node Request :</label>
+
+                            <select class="form-control" id="selectLabel" size="5">
+                                <option>Node Request 1 </option>
+                                <option>Node Request 2</option>
+                                <option>Node Request 3</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="inputTypeSelect">Relation Request :</label>
+
+                            <select class="form-control" id="selectLabel" size="5">
+                                <option>Relation Request 1 </option>
+                                <option>Relation Request 2</option>
+                                <option>Relation Request 3</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-3 mb-3">
+                            <button type="button" class="btn btn-primary">Execute Selected Node Request</button>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <button type="button" class="btn btn-primary">Execute all Node Requests</button>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <button type="button" class="btn btn-primary">Execute Selected Relation Request</button>
+                            <button type="button" class="btn btn-primary">Execute all Relation Requests</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+
+        <div class="card-group">
+            <div class="card">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title" for="selectNode">Select Node :</h5>
+                    <select class="form-control" id="selectNode" size="5">
+                        <option> Node 1</option>
+                        <option> Node 2</option>
+                        <option> Node 3</option>
+                        <option> Node 4</option>
+                    </select>
+                    <div class="btn-group" role="group" aria-label="Label buttons">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#LabelModal">Add Node</button>
+                        <button type="button" class="btn btn-primary">Edit Node</button>
+                        <button type="button" class="btn btn-primary">Remove Node</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <img class="card-img-top" src="..." alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Select Relation :</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item list-group-item-action active">Relation 1</li>
+                        <li class="list-group-item list-group-item-action">Relation 2</li>
+                        <li class="list-group-item list-group-item-action">Relation 3</li>
+                        <li class="list-group-item list-group-item-action">Relation 4</li>
+                        <li class="list-group-item list-group-item-action">Relation 5</li>
+                    </ul>
+                    <div class="btn-group" role="group" aria-label="Label buttons">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#RelationModal">Add Relation</button>
+                        <button type="button" class="btn btn-success">Edit Relation</button>
+                        <button type="button" class="btn btn-success">Remove Relation</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- end of Card Group -->
+
+
+        <!-- Dataset Modal -->
+        <div class="modal fade" id="datasetModal" tabindex="-1" role="dialog" aria-labelledby="datasetModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="datasetModalLabel">New Dataset</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save label</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Node Modal -->
+        <div class="modal fade" id="LabelModal" tabindex="-1" role="dialog" aria-labelledby="LabelModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="LabelModalLabel">New Label</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="selectDataset">Select Dataset :</label>
+                                    <select class="form-control" id="selectDataset">
+                                        <option>Dataset 1.csv</option>
+                                        <option>Dataset 2.csv</option>
+                                        <option>Dataset 3.csv</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="labelName">Label Name :</label>
+                                    <input type="text" id="labelName" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="selectColId"> Id :</label>
+                                    <select class="form-control" id="selectColId">
+                                        <option>col 1</option>
+                                        <option>col 2</option>
+                                        <option>col 3</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="selectColName"> Name :</label>
+                                    <select class="form-control" id="selectColName">
+                                        <option>col 1</option>
+                                        <option>col 2</option>
+                                        <option>col 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="selectProperties">Select Properties :</label>
+                                    <select class="form-control" id="selectProperties" multiple="multiple">
+                                        <option value="col1">Col 1</option>
+                                        <option value="col2">Col 2</option>
+                                        <option value="col3">Col 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="requestName">Request :</label>
+                                    <input type="text" id="requestName" placeholder="SaveRequest_Label1" aria-label="SaveRequest_Label1" class="form-control" />
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Add/Update Label</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Node Modal -->
+        <div class="modal fade" id="RelationModal" tabindex="-1" role="dialog" aria-labelledby="RelationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="LabelModalLabel">New/Update Relation</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="selectDataset">Select Dataset :</label>
+                                    <select class="form-control" id="selectDataset">
+                                        <option>Dataset 1.csv</option>
+                                        <option>Dataset 2.csv</option>
+                                        <option>Dataset 3.csv</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+
+                                <div class="col-md-6 mb-3">
+                                    <h4>Source </h4>
+                                    <label for="sourceColId"> Id :</label>
+                                    <select class="form-control" id="sourceColId">
+                                        <option>col 1</option>
+                                        <option>col 2</option>
+                                        <option>col 3</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <h4>Destination</h4>
+                                    <label for="destinationColId"> Id :</label>
+                                    <select class="form-control" id="destinationColId">
+                                        <option>col 1</option>
+                                        <option>col 2</option>
+                                        <option>col 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="requestName">Request :</label>
+                                    <input type="text" id="requestName" placeholder="SaveRequest_Relation1" aria-label="SaveRequest_Relation1" class="form-control" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Add/Update Label</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of Page Content -->
+
+
+</div>
+
+
+</body>
+</html>

@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('souslesens:server');
 var http = require('http');
+var socket = require('../routes/socket.js');
 
 /**
  * Get port from environment and store in Express.
@@ -48,6 +49,22 @@ function normalizePort(val) {
 
   return false;
 }
+
+var io = require('socket.io').listen(server);
+
+io.on('connection', function(client) {
+    socket.stuff(client, io);
+    console.log('Client connected...');
+
+
+    client.on('join', function(data) {
+        console.log(data);
+        client.emit('messages', 'Hello from server');
+    });
+
+});
+
+
 
 /**
  * Event listener for HTTP server "error" event.

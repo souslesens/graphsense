@@ -87,6 +87,13 @@ var binder=(function(){
           console.log("exportDataModal.html loaded")
       })
 
+      $("#adminModalMenu").load("htmlSnippets/admin.html", function () {
+          console.log("exportDataModal.html loaded")
+      })
+
+
+
+
 
 
 

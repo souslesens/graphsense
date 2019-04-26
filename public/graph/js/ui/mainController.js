@@ -44,10 +44,35 @@ var MainController = (function () {
     }
 
     self.alert=function(message){
-        $(".alert-warning").removeClass("d-none")
-        $("#alert-warning-content").html(message);
+        return;
+      //  $("#mainAlertWrapperDiv").removeClass("d-none");
+
+        $("#mainAlertWrapperDiv").alert();
+
+        $("#alertMessageDiv").html(message);
 
     }
+    self.alertClose=function(message){
+        $("#mainAlertWrapperDiv").alert("close")
+
+        $("#alertMessageDiv").html("");
+        $("#mainAlertWrapperDiv").addClass("d-none");
+
+
+    }
+
+    self.openDialog=function(content,validateFn){
+
+        $("#genericMessageDiv").html(content);
+        $("#genericMessageModal").modal('show');
+        if(validateFn)
+            $("#genericMessageModalOkButton").bind("click", function(){
+                validateFn();
+            })
+
+    }
+
+
 
 
 

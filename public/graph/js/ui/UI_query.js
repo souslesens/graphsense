@@ -70,7 +70,7 @@ var UI_query = (function () {
 
 
         $("#query_cardDeck").append(html);
-        $("#query_filterCard_" + index).addClass("type_" + queryObject.label);
+        $("#query_filterCard_" + index).addClass("type_" + queryObject.type);
 
 
         $('#query_filterLabelDialogModal').modal('hide')
@@ -173,7 +173,7 @@ var UI_query = (function () {
 
     self.displayTable = function () {
         $("#dbFilterCollapseMenu").removeClass("show");
-        buildPaths.executeQuery("dataTable", function (err, result) {
+        buildPaths.executeQuery("dataTable",{}, function (err, result) {
             if (err)
                 return MainController.error(err);
 
@@ -184,7 +184,7 @@ var UI_query = (function () {
 
     self.displayGraph = function () {
 
-        buildPaths.executeQuery("graph", function (err, result) {
+        buildPaths.executeQuery("graph",{}, function (err, result) {
             if (err)
                 return MainController.error(err);
             $("#dbFilterCollapseMenu").removeClass("show");

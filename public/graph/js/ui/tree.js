@@ -2,6 +2,8 @@ Tree = (function () {
         var self = {};
         self.tree;
         self.currentType;
+        self.searchIncrement=0;
+        self.checkboxChangeTimeStamp=0;
         var treedivId = "treeDiv";
 
 
@@ -12,11 +14,12 @@ Tree = (function () {
 
         self.setTree = function (treeJson, onSelectFn, expandAll) {
             $(".tree_addToselectionButton").addClass("d-none");
-            // $("#treeContainerDiv").load("htmlSnippets/tree.html", function () {
 
+         if( self.tree) {
+             self.tree.destroy()
+             self.tree.disableAll()
 
-            // $('#' + treedivId+" ul").html("");
-            //   $('#' + treedivId).parent().height(500);
+         }
 
             self.tree = $('#' + treedivId).tree(
                 {
@@ -35,13 +38,15 @@ Tree = (function () {
             });
 
             self.tree.on('checkboxChange', function (e, $node, record, state) {
-                Tree.addSelectionToQuery()
+             //   if((e.timeStamp-self.checkboxChangeTimeStamp)>500)//avoid repetition intempestive
+                Tree.addSelectionToQuery(state)
+                self.checkboxChangeTimeStamp=e.timeStamp;
                 /*   $("#treePopoverWrapperDiv").css("top", context.mousePosition.y).css("left", context.mousePosition.x);
                    $("#treePopoverWrapperDiv").removeClass("d-none")
                    $(".alert").addClass("d-none");*/
 
             })
-
+            self.tree.reload()
             if (expandAll)
                 self.tree.expandAll();
 
@@ -128,25 +133,32 @@ Tree = (function () {
 
         }
 
-        self.addSelectionToQuery = function () {
+        self.addSelectionToQuery = function (state) {
 
 
             var checkedIds = self.tree.getCheckedNodes();
             if (checkedIds.length > Config.maxInIdsArrayLength)
                 return MainController.alert("too many nodes selected : max " + Config.maxInIdsArrayLength);
-
+            var ids=[];
+            if(state=="checked") {
+                checkedIds.forEach(function (id) {
+                    if (id > -1)//parents label in search tree
+                        ids.push(id)
+                })
+            }
 
             var queryObject = {};
-            var clauseText = " hierarchy (" + checkedIds.length + " nodes)";
-            queryObject.label = self.currentType;
+            var clauseText = " set (" + ids.length + " nodes)";
+            queryObject.label = null;
             queryObject.text = clauseText;
-            queryObject.type = "nodeSet-plugin-" + self.currentType;
-            queryObject.where = buildPaths.getWhereClauseFromArray("_id", checkedIds, "n");
-            queryObject.nodeSetIds = checkedIds;
+            queryObject.cardTitle = clauseText;
+            queryObject.type = "nodeSet" + self.currentType;
+            queryObject.where = buildPaths.getWhereClauseFromArray("_id", ids, "n");
+            queryObject.nodeSetIds = ids;
             queryObject.inResult = true;
 
 
-            var cardId = $(".card.type_" + self.currentType).attr("id");
+            var cardId = $(".type_nodeSet" + self.currentType).attr("id");
 
 
             if (cardId) {//update
@@ -168,14 +180,20 @@ Tree = (function () {
 
 
         self.searchNodes = function (value, _treedivId) {
+
             treedivId = _treedivId;
             if (value.length < 2)
                 return;
             var cypher
             if (value.indexOf("match") == 0)
                 cypher = value;
-            else
-                cypher = "match(n) where n.name=~'(?i).*" + value + ".*' return labels(n)[0] as label , collect(id(n)) as ids, collect(n." + Config.defaultNodeNameProperty + ") as names limit " + Config.maxListDisplayLimit;
+            else {
+                var whereSubGraph="";
+                if(context.subGraph && context.subGraph!="")
+                    whereSubGraph=" and n.subGraph='"+context.subGraph+"' "
+                cypher = "match(n) where n.name=~'(?i).*" + value + ".*' "+whereSubGraph+" return labels(n)[0] as label , collect(id(n)) as ids, collect(n." + Config.defaultNodeNameProperty + ") as names limit " + Config.maxListDisplayLimit;
+
+            }
             Cypher.executeCypher(cypher, function (err, result) {
                 if (err)
                     return console.log(err);
@@ -205,8 +223,16 @@ Tree = (function () {
 
 
                 })
-                self.tree = "";
-                self.currentType = "search";
+              //  self.tree = "";
+                self.searchIncrement+=1;
+                self.currentType = "search-"+self.searchIncrement;
+
+              /*  children.forEach(function (child) {
+                    //  child.text="<span style='background-color: "+colors[level]+"'>"+child.text+"</span>"
+                    self.tree.addNode(child, parent);
+                })*/
+
+
                 self.setTree(treeData, null);
                 UI_query.showQueryMenu();
             })

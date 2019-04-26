@@ -2,8 +2,138 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0b8677d-dbc9-4124-b08c-92f03bd70409" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/index.html" afterPath="$PROJECT_DIR$/public/graphPJ/index.html" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/core/schema.js" afterPath="$PROJECT_DIR$/public/graphPJ/js/core/schema.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/bin/transform/xlsxToNeo..js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/bin/xlsxToNeoLoader..js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/css/d3.css" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/htmlSnippets/adminDialog.html" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/htmlSnippets/exportGraphDbDialog.html" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/htmlSnippets/importGraphDbDialog.html" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/htmlSnippets/importNodesDialog.html" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/htmlSnippets/importRelationsDialog.html" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/htmlSnippets/neoDbDialog.html" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/htmlSnippets/savedQueriesDialog.html" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/images/waitAnimated.gif" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/import.html" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/index.html" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/indexOld.html" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/js/admin.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/js/admin2.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/js/context.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/js/export.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/js/graph.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/js/importNeo.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/js/mainController.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/js/others/socket.io.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/js/requests.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/js/ui.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/graph/htmlSnippets/admin.html" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/bin/importDataIntoNeo4j.js" afterPath="$PROJECT_DIR$/bin/importDataIntoNeo4j.js" />
+      <change beforePath="$PROJECT_DIR$/bin/www" afterPath="$PROJECT_DIR$/bin/www" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
+      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change beforePath="$PROJECT_DIR$/public/graph/css/main.css" afterPath="$PROJECT_DIR$/public/graph/css/main.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/index.html" afterPath="$PROJECT_DIR$/public/graph/index.html" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/core/buildPaths.js" afterPath="$PROJECT_DIR$/public/graph/js/core/buildPaths.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/core/schema.js" afterPath="$PROJECT_DIR$/public/graph/js/core/schema.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/AUTHORS.txt" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/AUTHORS.txt" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/LICENSE.txt" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/LICENSE.txt" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/colorPicker/css/bootstrap-colorpicker-plus.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/colorPicker/css/bootstrap-colorpicker-plus.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/colorPicker/css/bootstrap-colorpicker-plus.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/colorPicker/css/bootstrap-colorpicker-plus.min.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/colorPicker/css/bootstrap-colorpicker.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/colorPicker/css/bootstrap-colorpicker.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/colorPicker/css/bootstrap-colorpicker.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/colorPicker/css/bootstrap-colorpicker.min.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/colorPicker/img/bootstrap-colorpicker/alpha-horizontal.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/colorPicker/img/bootstrap-colorpicker/alpha-horizontal.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/colorPicker/img/bootstrap-colorpicker/alpha.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/colorPicker/img/bootstrap-colorpicker/alpha.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/colorPicker/img/bootstrap-colorpicker/hue-horizontal.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/colorPicker/img/bootstrap-colorpicker/hue-horizontal.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/colorPicker/img/bootstrap-colorpicker/hue.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/colorPicker/img/bootstrap-colorpicker/hue.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/colorPicker/img/bootstrap-colorpicker/saturation.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/colorPicker/img/bootstrap-colorpicker/saturation.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/colorPicker/js/bootstrap-colorpicker-plus.js" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/colorPicker/js/bootstrap-colorpicker-plus.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/colorPicker/js/bootstrap-colorpicker-plus.min.js" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/colorPicker/js/bootstrap-colorpicker-plus.min.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/colorPicker/js/bootstrap-colorpicker.js" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/colorPicker/js/bootstrap-colorpicker.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/colorPicker/js/bootstrap-colorpicker.min.js" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/colorPicker/js/bootstrap-colorpicker.min.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/css/classic-min.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/css/classic-min.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/css/classic.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/css/classic.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/css/iThing-min.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/css/iThing-min.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/css/iThing.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/css/iThing.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/css/icons-classic/label.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/css/icons-classic/label.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/css/icons-classic/resultset_next.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/css/icons-classic/resultset_next.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/css/icons-classic/resultset_previous.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/css/icons-classic/resultset_previous.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/external/jquery/jquery.js" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/external/jquery/jquery.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/images/ui-icons_444444_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/images/ui-icons_444444_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/images/ui-icons_555555_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/images/ui-icons_555555_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/images/ui-icons_777620_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/images/ui-icons_777620_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/images/ui-icons_777777_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/images/ui-icons_777777_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/images/ui-icons_cc0000_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/images/ui-icons_cc0000_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/images/ui-icons_ffffff_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/images/ui-icons_ffffff_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/jQDateRangeSlider-min.js" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/jQDateRangeSlider-min.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/jquery-migrate-3.0.0.min.js" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/jquery-migrate-3.0.0.min.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/jquery-ui.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/jquery-ui.min.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/jquery-ui.min.js" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/jquery-ui.min.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/jquery-ui.structure.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/jquery-ui.structure.min.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/jquery-ui.theme.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/jquery-ui.theme.min.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/jquery.min.js" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/jquery.min.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/jquery.splitter.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/jquery.splitter.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/jquery.splitter.js" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/jquery.splitter.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/external/jquery/jquery.js" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/external/jquery/jquery.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/images/ui-bg_glass_100_f5f0e5_1x400.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/images/ui-bg_glass_100_f5f0e5_1x400.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/images/ui-bg_glass_25_cb842e_1x400.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/images/ui-bg_glass_25_cb842e_1x400.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/images/ui-bg_glass_70_ede4d4_1x400.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/images/ui-bg_glass_70_ede4d4_1x400.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/images/ui-bg_highlight-hard_100_f4f0ec_1x100.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/images/ui-bg_highlight-hard_100_f4f0ec_1x100.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/images/ui-bg_highlight-hard_65_fee4bd_1x100.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/images/ui-bg_highlight-hard_65_fee4bd_1x100.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/images/ui-bg_highlight-hard_75_f5f5b5_1x100.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/images/ui-bg_highlight-hard_75_f5f5b5_1x100.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/images/ui-bg_inset-soft_100_f4f0ec_1x100.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/images/ui-bg_inset-soft_100_f4f0ec_1x100.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/images/ui-icons_c47a23_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/images/ui-icons_c47a23_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/images/ui-icons_cb672b_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/images/ui-icons_cb672b_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/images/ui-icons_f08000_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/images/ui-icons_f08000_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/images/ui-icons_f35f07_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/images/ui-icons_f35f07_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/images/ui-icons_ff7519_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/images/ui-icons_ff7519_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/images/ui-icons_ffffff_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/images/ui-icons_ffffff_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/jquery-ui.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/jquery-ui.min.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/jquery-ui.min.js" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/jquery-ui.min.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/jquery-ui.structure.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/jquery-ui.structure.min.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_humanity/jquery-ui.theme.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_humanity/jquery-ui.theme.min.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/external/jquery/jquery.js" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/external/jquery/jquery.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/images/ui-bg_diamond_10_4f4221_10x8.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/images/ui-bg_diamond_10_4f4221_10x8.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/images/ui-bg_diamond_20_372806_10x8.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/images/ui-bg_diamond_20_372806_10x8.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/images/ui-bg_diamond_25_675423_10x8.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/images/ui-bg_diamond_25_675423_10x8.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/images/ui-bg_diamond_25_d5ac5d_10x8.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/images/ui-bg_diamond_25_d5ac5d_10x8.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/images/ui-bg_diamond_8_261803_10x8.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/images/ui-bg_diamond_8_261803_10x8.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/images/ui-bg_diamond_8_443113_10x8.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/images/ui-bg_diamond_8_443113_10x8.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/images/ui-bg_highlight-hard_65_fee4bd_1x100.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/images/ui-bg_highlight-hard_65_fee4bd_1x100.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/images/ui-icons_070603_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/images/ui-icons_070603_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/images/ui-icons_e8e2b5_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/images/ui-icons_e8e2b5_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/images/ui-icons_e9cd86_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/images/ui-icons_e9cd86_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/images/ui-icons_efec9f_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/images/ui-icons_efec9f_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/images/ui-icons_f2ec64_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/images/ui-icons_f2ec64_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/images/ui-icons_f9f2bd_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/images/ui-icons_f9f2bd_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/images/ui-icons_ff7519_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/images/ui-icons_ff7519_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/jquery-ui.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/jquery-ui.min.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/jquery-ui.min.js" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/jquery-ui.min.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/jquery-ui.structure.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/jquery-ui.structure.min.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_swanky/jquery-ui.theme.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_swanky/jquery-ui.theme.min.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/external/jquery/jquery.js" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/external/jquery/jquery.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/images/ui-bg_diagonals-thick_18_b81900_40x40.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/images/ui-bg_diagonals-thick_18_b81900_40x40.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/images/ui-bg_diagonals-thick_20_666666_40x40.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/images/ui-bg_diagonals-thick_20_666666_40x40.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/images/ui-bg_glass_100_f6f6f6_1x400.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/images/ui-bg_glass_100_f6f6f6_1x400.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/images/ui-bg_glass_100_fdf5ce_1x400.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/images/ui-bg_glass_100_fdf5ce_1x400.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/images/ui-bg_glass_65_ffffff_1x400.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/images/ui-bg_glass_65_ffffff_1x400.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/images/ui-bg_gloss-wave_35_f6a828_500x100.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/images/ui-bg_gloss-wave_35_f6a828_500x100.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/images/ui-bg_highlight-soft_100_eeeeee_1x100.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/images/ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/images/ui-bg_highlight-soft_75_ffe45c_1x100.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/images/ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/images/ui-icons_222222_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/images/ui-icons_222222_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/images/ui-icons_228ef1_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/images/ui-icons_228ef1_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/images/ui-icons_ef8c08_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/images/ui-icons_ef8c08_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/images/ui-icons_ffd27a_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/images/ui-icons_ffd27a_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/images/ui-icons_ffffff_256x240.png" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/images/ui-icons_ffffff_256x240.png" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/jquery-ui.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/jquery-ui.min.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/jquery-ui.min.js" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/jquery-ui.min.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/jquery-ui.structure.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/jquery-ui.structure.min.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/jquery/theme_ui_lightness/jquery-ui.theme.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/jquery/theme_ui_lightness/jquery-ui.theme.min.css" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/UI_query.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/UI_query.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/binder.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/binder.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/mainController.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/mainController.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/tree.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/tree.js" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" afterPath="$PROJECT_DIR$/routes/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -17,119 +147,62 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="nodeInfosPopover.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/graphPJ/htmlSnippets/graph/nodeInfosPopover.html">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/graph/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="5" column="35" lean-forward="false" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+            <state relative-caret-position="425">
+              <caret line="271" column="24" lean-forward="true" selection-start-line="271" selection-start-column="24" selection-end-line="271" selection-end-column="24" />
               <folding>
-                <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/graphPJ/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="359" column="0" lean-forward="false" selection-start-line="359" selection-start-column="0" selection-end-line="359" selection-end-column="0" />
-              <folding>
+                <element signature="n#style#0;n#div#1;n#div#0;n#li#0;n#ul#0;n#li#0;n#ul#0;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="neo4jDataModel.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/graphPJ/js/core/neo4jDataModel.js">
+      <file leaf-file-name="tree.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/graph/js/ui/tree.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="228" column="0" lean-forward="false" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="schema.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/graphPJ/js/core/schema.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="37" column="33" lean-forward="false" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="nodePopover.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/graphPJ/htmlSnippets/graph/nodePopover.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="5" column="5" lean-forward="false" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
+            <state relative-caret-position="342">
+              <caret line="19" column="35" lean-forward="true" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
               <folding>
-                <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <marker date="1556310681951" expanded="true" signature="7406:7456" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nodeInfos.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/graphPJ/htmlSnippets/graph/nodeInfos.html">
+      <file leaf-file-name="main.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/graph/css/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="27" column="35" lean-forward="false" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
+            <state relative-caret-position="771">
+              <caret line="289" column="0" lean-forward="false" selection-start-line="289" selection-start-column="0" selection-end-line="289" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="graphController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/graphPJ/js/ui/graphController.js">
+      <file leaf-file-name="buildPaths.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/graph/js/core/buildPaths.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="51" column="43" lean-forward="false" selection-start-line="51" selection-start-column="43" selection-end-line="51" selection-end-column="43" />
+            <state relative-caret-position="161">
+              <caret line="211" column="23" lean-forward="false" selection-start-line="211" selection-start-column="23" selection-end-line="211" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nodeInfosController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/graphPJ/js/ui/nodeInfosController.js">
+      <file leaf-file-name="UI_query.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/graph/js/ui/UI_query.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="visJsGraph.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/graphPJ/js/core/visJsGraph.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="1168" column="0" lean-forward="false" selection-start-line="1168" selection-start-column="0" selection-end-line="1168" selection-end-column="0" />
+            <state relative-caret-position="506">
+              <caret line="71" column="42" lean-forward="true" selection-start-line="71" selection-start-column="42" selection-end-line="71" selection-end-column="42" />
               <folding>
-                <marker date="1556264935038" expanded="true" signature="13808:13883" ph="..." />
-                <marker date="1556264935038" expanded="true" signature="13885:13891" ph=" " />
-                <marker date="1556264935038" expanded="true" signature="13891:13897" ph=" " />
-                <marker date="1556264935038" expanded="true" signature="13897:13903" ph=" " />
-                <marker date="1556264935038" expanded="true" signature="13932:13947" ph="..." />
-                <marker date="1556264935038" expanded="true" signature="14283:14355" ph="..." />
-                <marker date="1556264935038" expanded="true" signature="14357:14363" ph=" " />
-                <marker date="1556264935038" expanded="true" signature="14363:14369" ph=" " />
-                <marker date="1556264935038" expanded="true" signature="14369:14375" ph=" " />
-                <marker date="1556264935038" expanded="true" signature="14404:14419" ph="..." />
+                <marker date="1556308889123" expanded="true" signature="589:607" ph="..." />
+                <marker date="1556308889123" expanded="true" signature="2424:2431" ph="×" />
+                <marker date="1556308889123" expanded="true" signature="2696:2713" ph="..." />
+                <marker date="1556308889123" expanded="true" signature="8393:8404" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="layouts.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/graphPJ/js/ui/layouts.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="648">
-              <caret line="69" column="44" lean-forward="true" selection-start-line="69" selection-start-column="44" selection-end-line="69" selection-end-column="44" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -139,28 +212,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>pop</find>
-      <find>#content</find>
-      <find>&quot;content</find>
-      <find>graphDiv</find>
-      <find>.height(</find>
-      <find>cont</find>
-      <find>showTreeButton</find>
-      <find>content</find>
-      <find>cli</find>
-      <find>click</find>
-      <find>generateTreeFromParentToChildrenRelType</find>
-      <find>getJsTreeFromRoot</find>
-      <find>onSelectFn</find>
-      <find>addSelectionToQuery</find>
-      <find>currentType</find>
       <find>.modal-dialog</find>
       <find>query_filterLabelDialogModal</find>
       <find>modal</find>
@@ -175,7 +233,22 @@
       <find>formatNodeInfo</find>
       <find>graphNode_</find>
       <find>setGraphOpacity</find>
+      <find>admin</find>
+      <find>currentType</find>
+      <find>displayGraph</find>
+      <find>drawGraph</find>
+      <find>executeQuery</find>
+      <find>buildQuery</find>
+      <find>curentNodesDistance</find>
+      <find>neo</find>
+      <find>stuff</find>
+      <find>conn</find>
+      <find>socket</find>
+      <find>jque</find>
+      <find>addSelectionToQuery</find>
       <find>alert</find>
+      <find>query_displayGraphButton</find>
+      <find>tree</find>
     </findStrings>
     <replaceStrings>
       <replace>ui</replace>
@@ -209,6 +282,7 @@
     <dirStrings>
       <dir>D:\GitHub\souslesens</dir>
       <dir>D:\GitHub\souslesens\public\graphPJ</dir>
+      <dir>D:\GitHub\souslesens\public\graph</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -217,15 +291,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/public/graph/htmlSnippets/graph/nodePopover.html" />
-        <option value="$PROJECT_DIR$/public/graph/js/ui/grahHighlight.js" />
-        <option value="$PROJECT_DIR$/public/graph/js/ui/config.js" />
-        <option value="$PROJECT_DIR$/public/graph/htmlSnippets/graph/highlight.html" />
-        <option value="$PROJECT_DIR$/public/graph/js/core/common.js" />
-        <option value="$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilterLabelModal.html" />
-        <option value="$PROJECT_DIR$/public/graph/js/ui/graphHighlight.js" />
-        <option value="$PROJECT_DIR$/public/graph/js/core/visjsDataProcessor.js" />
-        <option value="$PROJECT_DIR$/public/graph/htmlSnippets/graph/filter.html" />
         <option value="$PROJECT_DIR$/public/graph/js/ui/graphFilter.js" />
         <option value="$PROJECT_DIR$/public/graph/htmlSnippets/exportDataDialog.html" />
         <option value="$PROJECT_DIR$/public/graph/js/ui/exportDataController.js" />
@@ -236,24 +301,17 @@
         <option value="$PROJECT_DIR$/public/graph/htmlSnippets/graph/expand.html" />
         <option value="$PROJECT_DIR$/public/graph/js/core/visJsGraph.js" />
         <option value="$PROJECT_DIR$/public/graph/js/core/cache.js" />
-        <option value="$PROJECT_DIR$/public/graph/js/ui/UI_query.js" />
         <option value="$PROJECT_DIR$/public/graph/js/ui/layouts.js" />
         <option value="$PROJECT_DIR$/public/graph/htmlSnippets/exportDataModal.html" />
-        <option value="$PROJECT_DIR$/public/graph/css/main.css" />
         <option value="$PROJECT_DIR$/public/graphPJ/js/ui/treeClass.js" />
-        <option value="$PROJECT_DIR$/public/graph/js/ui/binder.js" />
-        <option value="$PROJECT_DIR$/public/graph/index.html" />
         <option value="$PROJECT_DIR$/public/graph/js/ui/graphController.js" />
-        <option value="$PROJECT_DIR$/public/graph/js/ui/mainController.js" />
         <option value="$PROJECT_DIR$/public/graphPJ/css/main.css" />
         <option value="$PROJECT_DIR$/public/graphPJ/js/ui/mainController.js" />
         <option value="$PROJECT_DIR$/public/graphPJ/js/ui/context.js" />
         <option value="$PROJECT_DIR$/public/graphPJ/js/ui/config.js" />
         <option value="$PROJECT_DIR$/bin/transform/neoToJsTree..js" />
-        <option value="$PROJECT_DIR$/public/graph/js/ui/tree.js" />
         <option value="$PROJECT_DIR$/public/graphPJ/js/ui/UI_query.js" />
         <option value="$PROJECT_DIR$/public/graphPJ/js/ui/tree.js" />
-        <option value="$PROJECT_DIR$/public/graph/js/core/buildPaths.js" />
         <option value="$PROJECT_DIR$/public/graph/js/ui/graphExpand.js" />
         <option value="$PROJECT_DIR$/public/graphPJ/js/ui/graphExpand.js" />
         <option value="$PROJECT_DIR$/public/graphPJ/htmlSnippets/graph/nodePopover.html" />
@@ -268,6 +326,22 @@
         <option value="$PROJECT_DIR$/public/graphPJ/js/core/neo4jDataModel.js" />
         <option value="$PROJECT_DIR$/public/graphPJ/index.html" />
         <option value="$PROJECT_DIR$/public/graphPJ/js/core/schema.js" />
+        <option value="$PROJECT_DIR$/public/graph/js/core/schema.js" />
+        <option value="$PROJECT_DIR$/public/graph/htmlSnippets/graph/admin.html" />
+        <option value="$PROJECT_DIR$/public/graph/js/ui/binder.js" />
+        <option value="$PROJECT_DIR$/public/graph/htmlSnippets/admin.html" />
+        <option value="$PROJECT_DIR$/public/graph/js/ui/mainController.js" />
+        <option value="$PROJECT_DIR$/public/etl/import.html" />
+        <option value="$PROJECT_DIR$/routes/index.js" />
+        <option value="$PROJECT_DIR$/bin/importDataIntoNeo4j.js" />
+        <option value="$PROJECT_DIR$/bin/www" />
+        <option value="$PROJECT_DIR$/bin/transform/xlsxToNeo..js" />
+        <option value="$PROJECT_DIR$/public/etl/index.html" />
+        <option value="$PROJECT_DIR$/public/graph/js/ui/UI_query.js" />
+        <option value="$PROJECT_DIR$/public/graph/js/core/buildPaths.js" />
+        <option value="$PROJECT_DIR$/public/graph/js/ui/tree.js" />
+        <option value="$PROJECT_DIR$/public/graph/css/main.css" />
+        <option value="$PROJECT_DIR$/public/graph/index.html" />
       </list>
     </option>
   </component>
@@ -330,6 +404,68 @@
             <path>
               <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
               <item name="souslesens" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="etl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
+              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="etl" type="462c0819:PsiDirectoryNode" />
+              <item name="htmlSnippets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
+              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="graph" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
+              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="graph" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
+              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="graph" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
+              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="graph" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
+              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="graph" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
+              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="jsCommon" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
+              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="jsCommon" type="462c0819:PsiDirectoryNode" />
+              <item name="jquery" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
+              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
               <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -352,18 +488,18 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\GitHub\souslesens\public\graphPJ\img" />
       <recent name="D:\GitHub\souslesens\public\graph\img" />
-      <recent name="D:\GitHub\souslesens\public\graphPJ\js\ui" />
-      <recent name="D:\GitHub\souslesens\public\graph\js\ui" />
-      <recent name="D:\GitHub\souslesens\public\graph\js\core" />
+      <recent name="D:\GitHub\souslesens\public\graph\htmlSnippets\graph" />
+      <recent name="D:\GitHub\souslesens\public" />
+      <recent name="D:\GitHub\souslesens\bin\transform" />
+      <recent name="D:\GitHub\souslesens\bin" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\GitHub\souslesens\public\jsCommon" />
+      <recent name="D:\GitHub\souslesens\public\graph\htmlSnippets" />
       <recent name="D:\GitHub\souslesens\public\graph\js\ui" />
       <recent name="D:\GitHub\souslesens\public\graph\js\core" />
       <recent name="D:\GitHub\souslesens\public\graph\htmlSnippets\query" />
-      <recent name="D:\GitHub\souslesens\public\graph\htmlSnippets\graph" />
-      <recent name="D:\GitHub\souslesens\public" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -401,12 +537,12 @@
       <workItem from="1554909910091" duration="16192000" />
       <workItem from="1555660162897" duration="1502000" />
       <workItem from="1555694566751" duration="1346000" />
-      <workItem from="1556036982626" duration="49798000" />
+      <workItem from="1556036982626" duration="68776000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="224749000" />
+    <option name="totallyTimeSpent" value="243727000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -423,7 +559,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973656" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17173913" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -442,14 +578,14 @@
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973656" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973656" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24973656" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24973656" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17173913" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -467,12 +603,12 @@
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/public/graphPJ/js/ui/graphController.js</url>
+          <url>file://$PROJECT_DIR$/public/graph/js/ui/graphController.js</url>
           <line>12</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/public/graphPJ/js/ui/graphController.js</url>
+          <url>file://$PROJECT_DIR$/public/graph/js/ui/graphController.js</url>
           <line>10</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="3" />
@@ -484,94 +620,23 @@
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/public/graphPJ/js/ui/layouts.js</url>
+          <url>file://$PROJECT_DIR$/public/graph/js/ui/layouts.js</url>
           <line>81</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/public/graphPJ/js/core/neo4jDataModel.js</url>
+          <url>file://$PROJECT_DIR$/public/graph/js/core/neo4jDataModel.js</url>
           <line>173</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="11" />
+      <option name="time" value="14" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1972">
-          <caret line="48" column="12" lean-forward="true" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/core/visjsDataProcessor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2342">
-          <caret line="343" column="47" lean-forward="true" selection-start-line="343" selection-start-column="47" selection-end-line="343" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/graphFilter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/others/hex-to-rgba.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="764">
-          <caret line="73" column="0" lean-forward="true" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/core/myDataTable.js" />
-    <entry file="file://$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilter.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/context.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="26" lean-forward="true" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.es5.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="1101" column="4" lean-forward="false" selection-start-line="1101" selection-start-column="4" selection-end-line="1101" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/core/visJsGraph.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5976">
-          <caret line="383" column="46" lean-forward="false" selection-start-line="383" selection-start-column="46" selection-end-line="383" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/core/cache.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="38" column="33" lean-forward="true" selection-start-line="38" selection-start-column="33" selection-end-line="38" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/core/common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1014">
-          <caret line="387" column="21" lean-forward="true" selection-start-line="387" selection-start-column="21" selection-end-line="387" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/graph/js/ui/exportData.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1782">
@@ -608,7 +673,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/htmlSnippets/tree.html">
+    <entry file="file://$PROJECT_DIR$/public/graph/htmlSnippets/tree.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="105" />
@@ -627,26 +692,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="864">
           <caret line="126" column="0" lean-forward="true" selection-start-line="126" selection-start-column="0" selection-end-line="126" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#input#0;n#div#0;n#div#1;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#3;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#2;n#div#9;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#3;n#div#9;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#4;n#div#9;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="158" column="0" lean-forward="true" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/js/ui/mainController.js">
+    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/mainController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="134">
           <caret line="11" column="9" lean-forward="false" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
@@ -658,18 +708,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="5" column="28" lean-forward="false" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="28" />
-          <folding>
-            <marker date="1556181422604" expanded="true" signature="589:607" ph="..." />
-            <marker date="1556181422604" expanded="true" signature="2325:2332" ph="×" />
-            <marker date="1556181422604" expanded="true" signature="7409:7420" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/js/ui/context.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="12" column="37" lean-forward="false" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -682,23 +720,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/mainController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="22" column="37" lean-forward="false" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="66" column="68" lean-forward="false" selection-start-line="66" selection-start-column="29" selection-end-line="66" selection-end-column="68" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/js/ui/config.js">
+    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="540">
           <caret line="33" column="37" lean-forward="true" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
@@ -718,16 +740,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
           <caret line="159" column="36" lean-forward="true" selection-start-line="145" selection-start-column="9" selection-end-line="159" selection-end-column="36" />
-          <folding>
-            <marker date="1556092434826" expanded="true" signature="6763:6813" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/js/ui/tree.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="160" column="0" lean-forward="true" selection-start-line="160" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -748,7 +760,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/js/ui/graphFilter.js">
+    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/graphFilter.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="624">
           <caret line="70" column="30" lean-forward="false" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="30" />
@@ -764,7 +776,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/js/ui/UI_graph.js">
+    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/UI_graph.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -772,20 +784,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/js/ui/UI_query.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="45" column="35" lean-forward="false" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="35" />
-          <folding>
-            <marker date="1556094346363" expanded="true" signature="589:607" ph="..." />
-            <marker date="1556094346363" expanded="true" signature="2424:2431" ph="×" />
-            <marker date="1556094346363" expanded="true" signature="2696:2713" ph="..." />
-            <marker date="1556094346363" expanded="true" signature="8388:8399" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/htmlSnippets/graph/filter.html">
+    <entry file="file://$PROJECT_DIR$/public/graph/htmlSnippets/graph/filter.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-504">
           <caret line="8" column="32" lean-forward="true" selection-start-line="1" selection-start-column="3" selection-end-line="8" selection-end-column="32" />
@@ -793,7 +792,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/js/ui/graphExpand.js">
+    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/graphExpand.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="245">
           <caret line="63" column="4" lean-forward="false" selection-start-line="63" selection-start-column="4" selection-end-line="63" selection-end-column="4" />
@@ -801,31 +800,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/js/core/buildPaths.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="598" column="24" lean-forward="false" selection-start-line="598" selection-start-column="24" selection-end-line="598" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/js/ui/binder.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="65" column="61" lean-forward="false" selection-start-line="65" selection-start-column="61" selection-end-line="65" selection-end-column="61" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/js/ui/graphController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="51" column="43" lean-forward="false" selection-start-line="51" selection-start-column="43" selection-end-line="51" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/htmlSnippets/graph/nodeInfos.html">
+    <entry file="file://$PROJECT_DIR$/public/graph/htmlSnippets/graph/nodeInfos.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="27" column="35" lean-forward="false" selection-start-line="27" selection-start-column="35" selection-end-line="27" selection-end-column="35" />
@@ -833,17 +808,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/htmlSnippets/graph/nodePopover.html">
+    <entry file="file://$PROJECT_DIR$/public/graph/htmlSnippets/graph/nodePopover.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="5" column="5" lean-forward="false" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
           <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/js/core/visJsGraph.js">
+    <entry file="file://$PROJECT_DIR$/public/graph/js/core/visJsGraph.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="354">
           <caret line="1168" column="0" lean-forward="false" selection-start-line="1168" selection-start-column="0" selection-end-line="1168" selection-end-column="0" />
@@ -862,17 +837,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/htmlSnippets/graph/nodeInfosPopover.html">
+    <entry file="file://$PROJECT_DIR$/public/graph/htmlSnippets/graph/nodeInfosPopover.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="5" column="35" lean-forward="false" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
           <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/js/ui/nodeInfosController.js">
+    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/layouts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="69" column="44" lean-forward="false" selection-start-line="69" selection-start-column="44" selection-end-line="69" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/xlsxToNeoLoader..js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/etl/js/ui.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/graphController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="48" column="49" lean-forward="false" selection-start-line="48" selection-start-column="49" selection-end-line="48" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/nodeInfosController.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
@@ -880,37 +887,177 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/js/ui/layouts.js">
+    <entry file="file://$PROJECT_DIR$/public/graph/js/core/schema.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="69" column="44" lean-forward="true" selection-start-line="69" selection-start-column="44" selection-end-line="69" selection-end-column="44" />
+        <state relative-caret-position="346">
+          <caret line="98" column="47" lean-forward="true" selection-start-line="98" selection-start-column="47" selection-end-line="98" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/index.html">
+    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/context.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="359" column="0" lean-forward="false" selection-start-line="359" selection-start-column="0" selection-end-line="359" selection-end-column="0" />
+        <state relative-caret-position="216">
+          <caret line="12" column="37" lean-forward="false" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/binder.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="78" column="54" lean-forward="false" selection-start-line="78" selection-start-column="54" selection-end-line="78" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/graph/htmlSnippets/admin.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="56" lean-forward="false" selection-start-line="11" selection-start-column="56" selection-end-line="11" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/mainController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="62" column="0" lean-forward="false" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/graph/js/core/neo4jDataModel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3726">
+          <caret line="51" column="61" lean-forward="false" selection-start-line="51" selection-start-column="61" selection-end-line="51" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/etl/import.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="12" lean-forward="false" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/etl/indexOld.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="28" column="6" lean-forward="true" selection-start-line="28" selection-start-column="6" selection-end-line="28" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="25" column="72" lean-forward="false" selection-start-line="25" selection-start-column="72" selection-end-line="25" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/nodejs/8.10.0/core-modules/module.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="546" column="14" lean-forward="false" selection-start-line="546" selection-start-column="14" selection-end-line="546" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/importDataIntoNeo4j.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="29" column="44" lean-forward="true" selection-start-line="29" selection-start-column="44" selection-end-line="29" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/www">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="44" lean-forward="false" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/socket.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="6" column="4" lean-forward="false" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/transform/xlsxToNeo..js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="10" lean-forward="false" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/etl/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="31" lean-forward="true" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
           <folding>
-            <element signature="n#style#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#10486#10493#1" expanded="false" />
+            <element signature="e#11775#11782#1" expanded="false" />
+            <element signature="e#16022#16029#1" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/js/core/neo4jDataModel.js">
+    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/UI_query.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="228" column="0" lean-forward="false" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
+        <state relative-caret-position="506">
+          <caret line="71" column="42" lean-forward="true" selection-start-line="71" selection-start-column="42" selection-end-line="71" selection-end-column="42" />
+          <folding>
+            <marker date="1556308889123" expanded="true" signature="589:607" ph="..." />
+            <marker date="1556308889123" expanded="true" signature="2424:2431" ph="×" />
+            <marker date="1556308889123" expanded="true" signature="2696:2713" ph="..." />
+            <marker date="1556308889123" expanded="true" signature="8393:8404" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/graph/js/core/buildPaths.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="211" column="23" lean-forward="false" selection-start-line="211" selection-start-column="23" selection-end-line="211" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graphPJ/js/core/schema.js">
+    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/tree.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="37" column="33" lean-forward="false" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
+        <state relative-caret-position="342">
+          <caret line="19" column="35" lean-forward="true" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
+          <folding>
+            <marker date="1556310681951" expanded="true" signature="7406:7456" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/graph/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="771">
+          <caret line="289" column="0" lean-forward="false" selection-start-line="289" selection-start-column="0" selection-end-line="289" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/graph/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="271" column="24" lean-forward="true" selection-start-line="271" selection-start-column="24" selection-end-line="271" selection-end-column="24" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#div#0;n#li#0;n#ul#0;n#li#0;n#ul#0;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

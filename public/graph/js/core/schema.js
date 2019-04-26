@@ -79,11 +79,7 @@ var Schema = (function () {
 
 
         self.createSchema = function (subGraph, callback) {
-            if (typeof dialog !== 'undefined') {
-                $("#dialog").html("this schema is regenerating : this can last more than one minute...<br> <img id=\"waitImg\" src=\"images/waitAnimated.gif\" width=\"40px\" \>")
-                dialog.dialog({title: ""});
-                dialog.dialog("open");
-            }
+         MainController.alert("generating subgraph schema");
 
 
             // location.reload()
@@ -101,10 +97,8 @@ var Schema = (function () {
 
 
                     Schema.initSchema(_schema);
-                    if (typeof dialog !== 'undefined') {
-                        $("#dialog").html("new schema is ready : reload page to use it")
-                        dialog.dialog("close");
-                    }
+                    MainController.alertClose()
+
 
                     if (callback)
                         return callback(null, Schema.schema)

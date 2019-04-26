@@ -1,0 +1,24 @@
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="displayModalLabel">Administration</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+
+            <button type="button" onclick="Schema.createSchema(context.subGraph);$('#adminModalMenu').addClass('d-none')"
+                    class="btn btn-primary">Reset Schema
+            </button>
+        </div>
+        <div class="modal-footer">
+            <button type="button" onclick="GraphExpand.expandFromUI()"
+                    class="btn btn-primary">Expand
+            </button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+
+    </div>
+</div>
+        

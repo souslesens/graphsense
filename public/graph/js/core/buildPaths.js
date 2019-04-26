@@ -8,6 +8,8 @@ var buildPaths = (function () {
     self.queryObjs = [];
     self.isEditing = false;
     self.currentCypher = "";
+    self.currentNodesDistance=1;
+
 
 
     var cardCliked = false;
@@ -179,22 +181,19 @@ var buildPaths = (function () {
         return false;
 
     }
-    self.executeQuery = function (type, callback) {
+    self.executeQuery = function (type,options, callback) {
 
-        /*   if (false && self.checkQueryExceedsLimits())
-               return alert("query too large. put  conditions on nodes or relations")
+       if(!options)
+           options={};
+    if(!options.nodesDistance){
+        self.currentNodesDistance=1;
+    }
 
-           $("#searchDialog_previousPanelButton").css('visibility', 'visible');
-           var countResults = self.countResults();
-
-           if (!currentSetType) {
-               $("#buildPath_moreParamsDiv").css('visibility', 'hidden')
-           }*/
 
 
         var uiCypher = $('#buildPaths_cypherTA').val();
         if (true || uiCypher == "") {
-            self.currentCypher = self.buildQuery(type);
+            self.currentCypher = self.buildQuery(type,options);
             $('#buildPaths_cypherTA').val(self.currentCypher);
         }
         else {
@@ -208,8 +207,12 @@ var buildPaths = (function () {
                 console.log("ERROR " + self.currentCypher)
                 return $("#buildPaths_resultDiv").html(err)
             }
-            if (result.length == 0)
-                return $("#buildPaths_resultDiv").html("no result")
+            if (result.length == 0) {
+                MainController.openDialog("no result found. Increase nodes distance ? ", buildPaths.increaseNodeDistance);
+                return ;
+            }
+         //   return $("#buildPaths_resultDiv").html("no result");
+
             if (false && result.length > Config.graphMaxDataLengthToDisplayGraphDirectly)
                 return $("#buildPaths_resultDiv").html("too many results" + result.length);
 
@@ -403,7 +406,13 @@ var buildPaths = (function () {
     }
 
 
-    self.buildQuery = function (type, returnQueryObj) {
+    self.buildQuery = function (type, options) {
+
+        if(!options)
+            options={};
+
+
+
         if (self.queryObjs.length == 0)
             return console.log("self.queryObjs is empty")
 
@@ -452,12 +461,17 @@ var buildPaths = (function () {
             var labelStr = "";
             if (queryObject.label)
                 labelStr = ":" + queryObject.label;
+
             if (index == 0) {
 
                 matchCypher = "(" + symbol + labelStr + ")";
             } else {
+                var distanceStr = "";
+                if (options.nodesDistance > 1)
+                    distanceStr = "*.." + options.nodesDistance;
 
-                matchCypher += "-[r" + index + relType + "]-"
+
+                matchCypher += "-[r" + index + distanceStr + relType + "]-"
                 matchCypher += "(" + symbol + labelStr + ")";
                 cypherObj.return.push("r" + index);
 
@@ -560,7 +574,7 @@ var buildPaths = (function () {
 
             }
         }
-        if (returnQueryObj)
+        if (options.returnQueryObj)
             return {
                 match: cypherObj.match.cypher,
                 where: cypherObj.whereNode.cypher,
@@ -594,10 +608,10 @@ var buildPaths = (function () {
                         relTypes.push(subLine.type);
 
                     currentRel = {id: subLine._id, neoAttrs: subLine.properties, type: subLine.type};
-                    if(subLine._fromId==currentNode.id)
-                        currentRel.direction="normal"
+                    if (subLine._fromId == currentNode.id)
+                        currentRel.direction = "normal"
                     else
-                        currentRel.direction="inverse"
+                        currentRel.direction = "inverse"
 
                 }
                 else {
@@ -618,13 +632,13 @@ var buildPaths = (function () {
 
                     var obj = visJsDataProcessor.getVisjsNodeFromNeoNode(subLine, false)
                     obj.incomingRelation = currentRel;
-                    currentNode=obj;
+                    currentNode = obj;
                     lineObj[key] = obj;
 
 
                 }
 
-                    dataset.nodes.push(lineObj)
+                dataset.nodes.push(lineObj)
 
 
             }
@@ -794,11 +808,11 @@ var buildPaths = (function () {
                         uniqueRels.push(relNeo.id);
 
 
-                    var relObj = visJsDataProcessor.getVisjsRelFromNeoRel(fromNode.id, toNode.id, relNeo.id, relNeo.type, relNeo.neoAttrs, false, false);
+                        var relObj = visJsDataProcessor.getVisjsRelFromNeoRel(fromNode.id, toNode.id, relNeo.id, relNeo.type, relNeo.neoAttrs, false, false);
 
 
-                    visjsData.edges.push(relObj);
-                }
+                        visjsData.edges.push(relObj);
+                    }
                     /*  if (!relsCount[indexSymbol])
                           relsCount[indexSymbol] = 0
                       relsCount[indexSymbol] += 1*/
@@ -839,7 +853,7 @@ var buildPaths = (function () {
         var limit = $("#searchDialog_AlgorithmsResultSize").val();
         var sourceIndex = $("#buildPath_StatSourceLabelSelect").val();
         var targetIndex = $("#buildPath_StatTargetLabelSelect").val();
-        var queryObj = self.buildQuery("count", true);
+        var queryObj = self.buildQuery("count", {returnQueryObj:true});
 
         $("#dialog").dialog("close");
         var sourceSymbol = alphabet.charAt(sourceIndex);
@@ -908,19 +922,25 @@ var buildPaths = (function () {
 
     }
 
-    self.graphFromUniqueNode = function (nodeId,callback) {
+    self.graphFromUniqueNode = function (nodeId, callback) {
 
         var cypher = "match (a)-[r1]-(b) where id(a) =" + nodeId + " RETURN DISTINCT(ID(a) +'-'+ ID(b)) as distinctIds,a , r1 , b LIMIT " + Config.maxResultSupported;
         Cypher.executeCypher(cypher, function (err, result) {
             if (err)
                 return console.log(err);
             self.currentDataset = self.prepareDataset(result);
-            if(callback)
-                return callback(err,result)
+            if (callback)
+                return callback(err, result)
 
 
             return buildPaths.displayGraph();
         })
+
+    }
+
+    self.increaseNodeDistance = function () {
+        self.currentNodesDistance+=1;
+        self.executeQuery("graph",{nodesDistance:self.currentNodesDistance})
 
     }
 
