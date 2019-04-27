@@ -50,8 +50,8 @@ var UI_query = (function () {
             queryObject = self.setContextQueryObjectParams();
 
 
-        if(!queryObject.title)
-            queryObject.title=queryObject.label;
+        if(!queryObject.cardTitle)
+            queryObject.cardTitle=queryObject.label;
         if (!index)
             index = buildPaths.queryObjs.length;
         buildPaths.queryObjs.push(JSON.parse(JSON.stringify(queryObject)));//clone
@@ -60,7 +60,7 @@ var UI_query = (function () {
         self.setUIPermittedLabels(queryObject.label);
 
         var html = '<div class="card border-primary mb-3" id="query_filterCard_' + index + '" >' +
-            '            <div class="card-header text-white  bg-primary">' + queryObject.title +
+            '            <div class="card-header text-white  bg-primary">' + queryObject.cardTitle +
             '               <button type="button" onclick="UI_query.removeFilterCard(' + index + ')" class="close pull-right" aria-label="Close">' +
             '                   <span aria-hidden="true">&times;</span>  </button></div>' +
             '            <div class="card-body ">' +

@@ -162,7 +162,7 @@
                                 </div>
 
                             </div>-->
-                            <div class="row" id="search_treeContainerDiv" style="width: 270px; height:500px; overflow:auto;margin-left: 5px;margin-right: 5px;"></div>
+                            <div class="row" id="search_treeContainerDiv" style="font-size: 14px; width: 270px; height:500px; overflow:auto;margin-left: 5px;margin-right: 5px;"></div>
 
                         </div>
                     </li>
@@ -181,7 +181,7 @@
                             <select class="form-control " id="tree_labelSelect" onchange="Tree.drawNodeHierarchyTree($(this).val(),'hierarchy_treeContainerDiv')"></select>
                         </div>
 
-                        <div class="row" id="hierarchy_treeContainerDiv" style="margin-left: 15px;margin-right: 5px;"></div>
+                        <div class="row" id="hierarchy_treeContainerDiv" style="font-size: 14px; width: 270px; height:500px; overflow:auto;margin-left: 5px;margin-right: 5px;"></div>
 
                     </li>
                 </ul>
@@ -381,8 +381,8 @@
         <div class="modal-content">
            <div id="genericMessageDiv"  style="min-height: 200px"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="genericMessageModalOkButton" >OK</button>
-                <button type="button" class="btn btn-primary" onclick="$('#genericMessageModal').modal('hide')">X</button>
+                <button type="button" class="btn btn-primary" id="genericMessageModalOkButton" >OK</button>
+                <button type="button" class="btn btn-secondary" onclick="$('#genericMessageModal').modal('hide')">X</button>
             </div>
         </div>
     </div>

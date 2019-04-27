@@ -47,7 +47,7 @@ var MainController = (function () {
         MainController.openDialog(message);
 
     }
-    self.alertClose=function(message){
+    self.alertClose=function(){
         $("#genericMessageModal").modal('hide');
 
 
@@ -65,6 +65,11 @@ var MainController = (function () {
         }else {
             $("#genericMessageModalOkButton").addClass("d-none")
         }
+
+    }
+    self.closeDialog=function(){
+        self.alertClose();
+
 
     }
 

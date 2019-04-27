@@ -855,7 +855,7 @@ visjsGraph.clearGraph();
         var targetIndex = $("#buildPath_StatTargetLabelSelect").val();
         var queryObj = self.buildQuery("count", {returnQueryObj:true});
 
-        $("#dialog").dialog("close");
+
         var sourceSymbol = alphabet.charAt(sourceIndex);
         var targetSymbol = alphabet.charAt(targetIndex);
         var sourceLabel = self.queryObjs[sourceIndex].label;
@@ -940,7 +940,7 @@ visjsGraph.clearGraph();
 
     self.drawShortestPathesDialog = function () {
         self.currentNodesDistance+=1;
-        MainController.openDialog("no result found. Try shortestPaths algorithm with distance "+ self.currentNodesDistance+" ? ", buildPaths.drawShortestPathes);
+        MainController.openDialog("no relations found. Try shortestPaths algorithm with distance "+ self.currentNodesDistance+" ? ", buildPaths.drawShortestPathes);
     }
     self.drawShortestPathes = function () {
 
@@ -962,13 +962,14 @@ visjsGraph.clearGraph();
         var edges = visjsGraph.edges._data;
 
         Cypher.executeCypher(cypher, function (err, result) {
+
             if (err)
                 return console.log(err);
             if( result.length==0 ){
                 if(self.currentNodesDistance<3)
                    return self.drawShortestPathesDialog();
                 else
-                   return MainController.openDialog("no result found under  distance "+self.currentNodesDistance);
+                   return MainController.openDialog("no relations found  with  distance "+self.currentNodesDistance);
 
             }
 
@@ -1003,9 +1004,12 @@ visjsGraph.clearGraph();
 
             })
 
-            self.drawGraph(newNodes, newEdges );
             visjsGraph.draw("graphDiv",{nodes:newNodes,edges:newEdges})
             visjsGraph.drawLegend(labels, null);
+            MainController.closeDialog();
+            $('#query_filterLabelDialogModal').modal('hide');
+
+            $("#dbFilterCollapseMenu").removeClass("show");
 
 
 
