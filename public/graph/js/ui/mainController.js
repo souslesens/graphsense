@@ -44,19 +44,11 @@ var MainController = (function () {
     }
 
     self.alert=function(message){
-        return;
-      //  $("#mainAlertWrapperDiv").removeClass("d-none");
-
-        $("#mainAlertWrapperDiv").alert();
-
-        $("#alertMessageDiv").html(message);
+        MainController.openDialog(message);
 
     }
     self.alertClose=function(message){
-        $("#mainAlertWrapperDiv").alert("close")
-
-        $("#alertMessageDiv").html("");
-        $("#mainAlertWrapperDiv").addClass("d-none");
+        $("#genericMessageModal").modal('hide');
 
 
     }
@@ -65,10 +57,14 @@ var MainController = (function () {
 
         $("#genericMessageDiv").html(content);
         $("#genericMessageModal").modal('show');
-        if(validateFn)
-            $("#genericMessageModalOkButton").bind("click", function(){
+        if(validateFn) {
+            $("#genericMessageModalOkButton").removeClass("d-none")
+            $("#genericMessageModalOkButton").bind("click", function () {
                 validateFn();
             })
+        }else {
+            $("#genericMessageModalOkButton").addClass("d-none")
+        }
 
     }
 

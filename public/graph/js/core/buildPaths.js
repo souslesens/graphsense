@@ -208,7 +208,7 @@ var buildPaths = (function () {
                 return $("#buildPaths_resultDiv").html(err)
             }
             if (result.length == 0) {
-                MainController.openDialog("no result found. Increase nodes distance ? ", buildPaths.increaseNodeDistance);
+              self.drawShortestPathesDialog();
                 return ;
             }
          //   return $("#buildPaths_resultDiv").html("no result");
@@ -782,7 +782,7 @@ var buildPaths = (function () {
 
     self.drawGraph = function (dataset, callback) {
 
-
+visjsGraph.clearGraph();
         var visjsData = {nodes: [], edges: [], labels: []};
         visjsData.labels = dataset.labels;
         var uniqueNodes = [];
@@ -938,9 +938,78 @@ var buildPaths = (function () {
 
     }
 
-    self.increaseNodeDistance = function () {
+    self.drawShortestPathesDialog = function () {
         self.currentNodesDistance+=1;
-        self.executeQuery("graph",{nodesDistance:self.currentNodesDistance})
+        MainController.openDialog("no result found. Try shortestPaths algorithm with distance "+ self.currentNodesDistance+" ? ", buildPaths.drawShortestPathes);
+    }
+    self.drawShortestPathes = function () {
+
+
+        var cypherObj=self.buildQuery("graph",{nodesDistance:self.currentNodesDistance,returnQueryObj:self.currentNodesDistance});
+
+        var cypher= " MATCH p=(" + cypherObj.match + ") " + cypherObj.where
+        cypher+="WITH * MATCH path = allShortestPaths( (a)-[*.."+ self.currentNodesDistance+"]-(b) )RETURN nodes(path) as nodes, relationships(path) as relations" +
+            " limit "+ Config.maxResultSupported;
+
+        console.log(cypher)
+
+
+        var newNodes = [];
+        var newEdges = [];
+        var newNodeIds = [];
+        var mArrayIds = [];
+        var nodes = visjsGraph.nodes._data;
+        var edges = visjsGraph.edges._data;
+
+        Cypher.executeCypher(cypher, function (err, result) {
+            if (err)
+                return console.log(err);
+            if( result.length==0 ){
+                if(self.currentNodesDistance<3)
+                   return self.drawShortestPathesDialog();
+                else
+                   return MainController.openDialog("no result found under  distance "+self.currentNodesDistance);
+
+            }
+
+            result = result[0];
+            var labels=[];
+            result.nodes.forEach(function (node) {
+
+
+
+                    if (newNodeIds.indexOf(node._id) < 0) {
+                        newNodeIds.push(node._id);
+
+                        var visjsNode = visJsDataProcessor.getVisjsNodeFromNeoNode(node, true);
+                        newNodes.push(visjsNode);
+                    }
+
+                var label = node.labels[0]
+                if (labels.indexOf(label) < 0)
+                    labels.push(label);
+
+            })
+            result.relations.forEach(function (rel) {
+                var from = rel._fromId;
+                var to = rel._toId;
+                var relId = rel._id
+                var relType = rel._type;
+                var relProps = rel.properties;
+
+                var visjsEdge = visJsDataProcessor.getVisjsRelFromNeoRel(from, to, relId, relType, relProps);
+                newEdges.push(visjsEdge);
+
+
+            })
+
+            self.drawGraph(newNodes, newEdges );
+            visjsGraph.draw("graphDiv",{nodes:newNodes,edges:newEdges})
+            visjsGraph.drawLegend(labels, null);
+
+
+
+        })
 
     }
 

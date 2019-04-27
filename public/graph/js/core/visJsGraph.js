@@ -1259,6 +1259,11 @@ self.deleteRelation = function (edgeId) {
     self.edges.remove(edgeId);
 }
 
+self.clearGraph=function(){// comment ca marche  bad doc???
+   // DataSet.clear();
+   // self.edges.clear();
+}
+
 
 self.dragRect = function (action, x, y) {// pas au point
     return;
