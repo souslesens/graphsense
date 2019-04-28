@@ -49,11 +49,11 @@ var mainController = (function () {
         $("#graphDiv").width((totalWidth - (split + accordionWidth + 50))).height(totalHeight / 3 * 2);
         $("#accordionPanel").css("left", split).width((accordionWidth)).height(totalHeight / 3 * 2);
         $(".splitter_panel").width(totalWidth - split).height(totalHeight - 10);
-        $('#main').width("100%").height("100%").split({
+      /*  $('#main').width("100%").height("100%").split({
             orientation: 'vertical',
             limit: 100,
             position: (split) + 5
-        });
+        });*/
 
 
     }

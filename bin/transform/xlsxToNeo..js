@@ -83,7 +83,7 @@ var xlsxToNeo = {
             if (j <= 90)
                 colName = String.fromCharCode(j);
             else
-                colName = "A" + String.fromCharCode(j - 25);
+                colName = "A" + String.fromCharCode(j - 26);
 
 
             colNames.push(colName);
@@ -332,7 +332,7 @@ if (false) {
 
     var mappingRequestsPath = "D:\\Total\\quantum\\avril2019\\mappingRequests.json";
 
-    xlsxToNeo.toNeo("quantum-04-22", sourcexlsxFile, mappingRequestsPath, sheetNames);
+    xlsxToNeo.toNeo("quantum-04-22", sourcexlsxFile, mappingRequestsPath, ["tblFunctionalClass"]);
 
 
 }

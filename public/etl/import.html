@@ -14,9 +14,9 @@
             socket.emit('join', 'Hello World from client');
         });
         socket.on('messages', function (message) {
-if(message.result)
-    message=message.result
-                $("#message").append(message+"<br>");
+            if (message.result)
+                message = message.result
+            $("#message").append(message + "<br>");
 
 
         })
@@ -39,7 +39,7 @@ if(message.result)
 
                 return false;
             }
-            else{
+            else {
                 $("#message").html("import en cours");
                 return true;
             }
@@ -50,16 +50,19 @@ if(message.result)
 
     </script>
     <style>
-body{
-    font-family: Verdana;
-    font-size: 14px;
-    margin :2px;
-}
-        #message{
+        body {
+            font-family: Verdana;
+            font-size: 14px;
+            margin: 2px;
+        }
+
+        #message {
             border: #261803 solid 1px;
-            max-width:800px;
+            max-width: 800px;
             color: #0a6aa1;
             font-size: 12px;
+            max-height: 500px;
+            overflow: auto;
         }
 
     </style>
@@ -70,7 +73,7 @@ body{
     <input type="file" accept=".xlsx" name="xlsx" id="xlsx" class='exportNeo' value="select xlsx..."/><br><br>
     <input type="file" accept=".json" name="mappings" id="mappings" class='exportNeo' value="select mappings files..."/><br><br>
     subGraph<input name="subGraph" id="subGraph">&nbsp;
-    <input type="checkbox" name="replaceSubGraphCbx"  id="replaceSubGraphCbx"  checked="checked">replace if exists<br><br>
+    <input type="checkbox" name="replaceSubGraphCbx" id="replaceSubGraphCbx" checked="checked">replace if exists<br><br>
     <button> importer</button>
 
 </form>

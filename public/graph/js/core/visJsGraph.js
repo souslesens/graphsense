@@ -103,6 +103,8 @@ var visjsGraph = (function () {
 
         if (Object.keys(self.edges).length > 1000)
             options.layout = {improvedLayout: false}
+        if (Object.keys(self.nodes).length > 1000)
+            options.layout = {improvedLayout: false}
 
         if (_options.fixed) {
             options.physics = {}
@@ -143,7 +145,8 @@ var visjsGraph = (function () {
     self.setStabilisationTimeOut = function (nodesLength) {
         var x = (Math.log(self.nodes.length * 2) * Math.LOG10E) + 1;
 
-        stopPhysicsTimeout = Math.pow(10, x);
+       // stopPhysicsTimeout = Math.pow(10, x);
+        stopPhysicsTimeout =x*1000
 
         console.log("stopPhysicsTimeout " + stopPhysicsTimeout)
 
@@ -151,6 +154,10 @@ var visjsGraph = (function () {
 
 
     self.draw = function (divId, visjsData, _options, callback) {
+if(!_options){
+    _options={}
+}
+
         self.lastClikedNodeIds = [];
         {// initialisation
             var t0 = new Date();
@@ -382,7 +389,7 @@ var visjsGraph = (function () {
                    onVisjsGraphReady();
                    //  console.log('graph loaded Event');
                });*/
-
+        document.addEventListener('mousewheel', this, {passive: true});//https://github.com/almende/vis/issues/4016
         if (callback)
             return callback(null, "ok")
     }

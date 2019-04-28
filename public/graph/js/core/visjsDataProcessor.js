@@ -41,7 +41,7 @@ var visJsDataProcessor = (function () {
                             continue;
 
                     }
-                    var hideLabel = true ;//|| resultArray.length < Config.showLabelsMaxNumOfNodes || !options || !options.clusterIntermediateNodes || options.showNodesLabel;
+                    var hideLabel = true;//|| resultArray.length < Config.showLabelsMaxNumOfNodes || !options || !options.clusterIntermediateNodes || options.showNodesLabel;
                     var neoId = nodes[j]._id;
                     var rel = rels[0];
                     if (!nodesMap[neoId]) {
@@ -144,9 +144,9 @@ var visJsDataProcessor = (function () {
                 id: neoId,
                 children: [],
                 neoAttrs: nodeNeoProps,
-              // value: 2,
+                // value: 2,
                 size: Config.visjs.defaultNodeSize,
-                font:{size: Config.visjs.defaultTextSize},
+                font: {size: Config.visjs.defaultTextSize},
 
 
             }
@@ -156,11 +156,10 @@ var visJsDataProcessor = (function () {
 
             if (!hideLabel) {
                 nodeObj.label = labelVisjs;
-               // nodeObj.title = labelVisjs;
+                // nodeObj.title = labelVisjs;
             }
 
-                nodeObj.hiddenLabel = labelVisjs;
-
+            nodeObj.hiddenLabel = labelVisjs;
 
 
             nodeObj.initialColor = nodeObj.color;
@@ -230,8 +229,8 @@ var visJsDataProcessor = (function () {
 
 
             var color = "#99d";//linkColors[rel];
-            if(context.edgeColors[type])
-                color=context.edgeColors[type];
+            if (context.edgeColors[type])
+                color = context.edgeColors[type];
             var relObj = {
                 from: from,
                 to: to,
@@ -239,10 +238,9 @@ var visJsDataProcessor = (function () {
                 neoId: id,
                 neoAttrs: props,
                 color: color,
-             //   width: 1
+                //   width: 1
                 // font:{background:color},
             }
-
 
 
             if (outline) {
@@ -340,16 +338,16 @@ var visJsDataProcessor = (function () {
                     comparison = "\"" + data.neoAttrs[property] + "\".match(/.*" + value + ".*/i)";
                 else {
                     if (operator == "=")
-                        operator="==";
+                        operator = "==";
                     if (common.isNumber(value))
                         value = value;
                     else
                         value = "'" + value + "'"
-                    var predicate=data.neoAttrs[property];
-                    if(typeof predicate=="string")
-                        predicate="'"+predicate+"'"
+                    var predicate = data.neoAttrs[property];
+                    if (typeof predicate == "string")
+                        predicate = "'" + predicate + "'"
 
-                    comparison = predicate+ operator + value;
+                    comparison = predicate + operator + value;
                 }
                 var result = eval(comparison)
                 return result;
@@ -442,6 +440,85 @@ var visJsDataProcessor = (function () {
                 }
                 for (var i = 0; i < visjsData.edges.length; i++) {
                     var countRels = dataModel.DBstats.relations[visjsData.edges[i].label].countRel;
+                    //  visjsData.edges[i].value=countRels;
+                    visjsData.edges[i].count = countRels;
+                    visjsData.edges[i].name = visjsData.edges[i].label;
+                    visjsData.edges[i].label += " (" + countRels + ")";
+
+                }
+
+
+            }
+            return visjsData;
+
+        }
+
+
+        self.toutlesensSchemaToVisjs = function (schema, id) {
+
+            function makeNode(label) {
+
+                var visNode = {
+                    label: label,
+                    type: "schema",
+                    neoAttrs: schema.labels[label],
+                    labelNeo: "label",// because visjs where label is the node name
+                    // color: "lightBlue",
+                    color: context.nodeColors[label],
+                    myId: id,
+                    shape: "box",
+                    id: id++,
+                    children: [],
+                    neoAttrs: {},
+                    font: {stroke: "black", "font-size": "14px"},
+                    endRel: 0
+                }
+                nodesMap[label] = visNode;
+                visjsData.nodes.push(visNode);
+
+            }
+
+            visjsData = {nodes: [], edges: [], labels: []};
+            var nodesMap = {}
+            var id = 0;
+            for (var key in schema.relations) {
+                var relation = schema.relations[key];
+                if (!nodesMap[relation.startLabel])
+                    makeNode(relation.startLabel)
+                if (!nodesMap[relation.endLabel])
+                    makeNode(relation.endLabel)
+
+                var relObj = {
+                    from: nodesMap[relation.startLabel].id,
+                    to: nodesMap[relation.endLabel].id,
+                    type: "relation",
+                    neoId: id++,
+                    neoAttrs: {},
+                    color: "green",
+                    label: relation.type,
+                    font: {stroke: "black", "font-size": "14px"},
+                    arrows: {to: {scaleFactor: 0.5}}
+                    // font:{background:color},
+                }
+                visjsData.edges.push(relObj);
+            }
+//nodes without relations
+            for (var key in schema.labels) {
+                if (!nodesMap[key]) {
+                    makeNode(key);
+                }
+            }
+
+            if (DataModel.DBstats) {
+                for (var i = 0; i < visjsData.nodes.length; i++) {
+                    var countNodes = DataModel.DBstats.nodes[visjsData.nodes[i].label];
+                    visjsData.nodes[i].count = countNodes;
+                    visjsData.nodes[i].name = visjsData.nodes[i].label;
+                    visjsData.nodes[i].label += " (" + countNodes + ")";
+
+                }
+                for (var i = 0; i < visjsData.edges.length; i++) {
+                    var countRels = DataModel.DBstats.relations[visjsData.edges[i].label].countRel;
                     //  visjsData.edges[i].value=countRels;
                     visjsData.edges[i].count = countRels;
                     visjsData.edges[i].name = visjsData.edges[i].label;
