@@ -1,7 +1,6 @@
 var buildPaths = (function () {
     var self = {};
     self.currentDataset;
-    var currentDivIndex = -1;
     var alphabet = "abcdefghijklmno";
     var currentSetType;
 
@@ -53,31 +52,8 @@ var buildPaths = (function () {
         $('#buildPaths_cypherTA').css('visibility', visibility);
         $('#buildPaths_cypherTA').val(self.currentCypher)
     }
-    self.onUnSelectNodeDiv = function () {
-        self.currentDivIndex = -1
-        if (cardCliked) {
-            cardCliked = false;
-            return;
 
-        }
-        currentDivIndex = -1;
-        var index = self.queryObjs.length - 1;
-        var label = null;
-        if (index > -1)
-            label = self.queryObjs[index].label;
-
-        searchNodes.resetQueryClauses();
-        searchNodes.setUIPermittedLabels(null);
-
-
-        $(".buildPaths-nodeDiv ").removeClass("buildPaths-nodeDivSelected")
-        $("#mainAccordion").accordion("option", "active", 0);
-        $("#searchDialog_booleanOperatorsDiv").css('visibility', 'hidden');
-
-
-    }
     self.onSelectNodeDiv = function (index) {
-        currentDivIndex = index;
         if (self.queryObjs[index].type && self.queryObjs[index].type.indexOf("nodeSet") == 0)
             return;
 
@@ -124,18 +100,7 @@ var buildPaths = (function () {
         }
     }
 
-    self.clear = function () {
-        self.queryObjs = [];
-        globalHtml = "";
-        currentDivIndex = -1;
-        $("#buildPaths_cypherTA").text("")
-        self.currentCypher = "";
-        $("#buildGraphDiv").html("")
-        //  $("#buildPaths_matchNodesWrapper").html("")
-        globalHtml = ""
 
-
-    }
     self.showMoreParams = function (type) {
         currentSetType = type;
         var labels = [];
@@ -182,14 +147,11 @@ var buildPaths = (function () {
 
     }
     self.executeQuery = function (type,options, callback) {
+        visjsGraph.clearGraph();
 
        if(!options)
            options={};
-    if(!options.nodesDistance){
         self.currentNodesDistance=1;
-    }
-
-
 
         var uiCypher = $('#buildPaths_cypherTA').val();
         if (true || uiCypher == "") {
@@ -200,9 +162,9 @@ var buildPaths = (function () {
             self.currentCypher = $('#buildPaths_cypherTA').val();
 
         }
-
+        MainController.showSpinner(true);
         Cypher.executeCypher(self.currentCypher, function (err, result) {
-
+            MainController.showSpinner(false);
             if (err) {
                 console.log("ERROR " + self.currentCypher)
                 return $("#buildPaths_resultDiv").html(err)
@@ -782,7 +744,7 @@ var buildPaths = (function () {
 
     self.drawGraph = function (dataset, callback) {
 
-visjsGraph.clearGraph();
+
         var visjsData = {nodes: [], edges: [], labels: []};
         visjsData.labels = dataset.labels;
         var uniqueNodes = [];
@@ -948,7 +910,7 @@ visjsGraph.clearGraph();
         var cypherObj=self.buildQuery("graph",{nodesDistance:self.currentNodesDistance,returnQueryObj:self.currentNodesDistance});
 
         var cypher= " MATCH p=(" + cypherObj.match + ") " + cypherObj.where
-        cypher+="WITH * MATCH path = allShortestPaths( (a)-[*.."+ self.currentNodesDistance+"]-(b) )RETURN nodes(path) as nodes, relationships(path) as relations" +
+        cypher+=" WITH * MATCH path = allShortestPaths( (a)-[*.."+ self.currentNodesDistance+"]-(b) )RETURN nodes(path) as nodes, relationships(path) as relations" +
             " limit "+ Config.maxResultSupported;
 
         console.log(cypher)

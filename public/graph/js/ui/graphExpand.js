@@ -75,7 +75,7 @@ var GraphExpand = (function () {
 
     }
     self.expandFromTwoNodesShortestPath = function (id1, id2) {
-        var cypher = "MATCH (p1), (p2),path = shortestpath((p1)-[*]-(p2)) where ID(p1)=" + id1 + " and ID(p2)=" + id2 + "      return nodes(path) as nodes, relationships(path) as relations"
+        var cypher = "MATCH (p1), (p2),path = allShortestPaths((p1)-[*]-(p2)) where ID(p1)=" + id1 + " and ID(p2)=" + id2 + "      return nodes(path) as nodes, relationships(path) as relations"
 
         var newNodes = [];
         var newEdges = [];

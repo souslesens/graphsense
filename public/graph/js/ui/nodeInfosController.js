@@ -15,6 +15,7 @@ var nodeInfosController = (function () {
             if (err)
                 return console.log(err);
 
+            result[0].n.properties.neoId=result[0].n._id
             var nodeTitle="[" + result[0].n.labels[0] + "]" + result[0].n.properties[Schema.getNameProperty()]
             $("#graphNodeInfos_title").html(nodeTitle);
 

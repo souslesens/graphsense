@@ -5,17 +5,16 @@ var MainController = (function () {
     self.init = function () {
 
 
-      GraphController.initComponentsPositionAndSize("content")
+        GraphController.initComponentsPositionAndSize("content")
 
         $("#navbar_graph").addClass("d-none");
         self.initSubGraph();
-       // $('#sidebar').toggleClass('active');
-        Schema.load(context.subGraph,function(err,result){
+        // $('#sidebar').toggleClass('active');
+        Schema.load(context.subGraph, function (err, result) {
             binder.bindOnPageload();
             self.iniTrees()
 
         });
-
 
 
     }
@@ -28,54 +27,55 @@ var MainController = (function () {
             context.subGraphsubGraph = Config.defaultSubGraph;
     }
 
-    self.iniTrees=function(){
+    self.iniTrees = function () {
 
 
-            var treekeys = Object.keys(Config.trees)
-            common.fillSelectOptionsWithStringArray("tree_labelSelect", treekeys, true);
+        var treekeys = Object.keys(Config.trees)
+        common.fillSelectOptionsWithStringArray("tree_labelSelect", treekeys, true);
 
-      /*  Config.simpleSearchTree=new Tree("search_treeContainerDiv");
-        Config.hierarchyTree=new Tree("hierarchy_treeContainerDiv");*/
-
-
-
+        /*  Config.simpleSearchTree=new Tree("search_treeContainerDiv");
+          Config.hierarchyTree=new Tree("hierarchy_treeContainerDiv");*/
 
 
     }
 
-    self.alert=function(message){
+    self.alert = function (message) {
         MainController.openDialog(message);
 
     }
-    self.alertClose=function(){
+    self.alertClose = function () {
         $("#genericMessageModal").modal('hide');
 
 
     }
 
-    self.openDialog=function(content,validateFn){
+    self.openDialog = function (content, validateFn) {
 
         $("#genericMessageDiv").html(content);
         $("#genericMessageModal").modal('show');
-        if(validateFn) {
+        if (validateFn) {
             $("#genericMessageModalOkButton").removeClass("d-none")
             $("#genericMessageModalOkButton").bind("click", function () {
                 validateFn();
             })
-        }else {
+        } else {
             $("#genericMessageModalOkButton").addClass("d-none")
         }
 
     }
-    self.closeDialog=function(){
+    self.closeDialog = function () {
         self.alertClose();
 
 
     }
 
-
-
-
+    self.showSpinner=function(state)
+    {
+        if (state === false)
+            $("#waitSpinnerDiv").addClass("d-none")
+        else
+            $("#waitSpinnerDiv").removeClass("d-none")
+    }
 
 
     return self;

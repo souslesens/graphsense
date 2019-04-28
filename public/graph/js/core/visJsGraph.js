@@ -1260,6 +1260,9 @@ self.deleteRelation = function (edgeId) {
 }
 
 self.clearGraph=function(){// comment ca marche  bad doc???
+if(self.network)
+   self.network.destroy();
+    $("#graph_legendDiv").html("");
    // DataSet.clear();
    // self.edges.clear();
 }

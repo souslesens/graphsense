@@ -44,7 +44,10 @@ var UI_query = (function () {
 
     self.addCardToQueryDeck = function (queryObject, index) {
         $('#dbQueryFilterLabelModal').modal('hide');
-
+        if(!index && context.currentQueryCardIndex>-1){
+            return self.updateCardToQueryDeck(queryObject,context.currentQueryCardIndex)
+        }
+        context.currentQueryCardIndex=-1;
 
         if (!queryObject)
             queryObject = self.setContextQueryObjectParams();
@@ -59,7 +62,7 @@ var UI_query = (function () {
 
         self.setUIPermittedLabels(queryObject.label);
 
-        var html = '<div class="card border-primary mb-3" id="query_filterCard_' + index + '" >' +
+        var html = '<div class="card border-primary mb-3" onclick="UI_query.onCardClick('+index+')"; id="query_filterCard_' + index + '" >' +
             '            <div class="card-header text-white  bg-primary">' + queryObject.cardTitle +
             '               <button type="button" onclick="UI_query.removeFilterCard(' + index + ')" class="close pull-right" aria-label="Close">' +
             '                   <span aria-hidden="true">&times;</span>  </button></div>' +
@@ -176,6 +179,7 @@ var UI_query = (function () {
     }
 
     self.displayTable = function () {
+        context.currentQueryCardIndex=-1;
         $("#dbFilterCollapseMenu").removeClass("show");
         buildPaths.executeQuery("dataTable",{}, function (err, result) {
             if (err)
@@ -187,7 +191,7 @@ var UI_query = (function () {
     }
 
     self.displayGraph = function () {
-
+        context.currentQueryCardIndex=-1;
         buildPaths.executeQuery("graph",{}, function (err, result) {
             if (err)
                 return MainController.error(err);
@@ -257,6 +261,10 @@ var UI_query = (function () {
     }
     self.onPossibleValueSelected = function () {
 
+    }
+
+    self.onCardClick=function(index){
+        context.currentQueryCardIndex=index;
     }
 
     return self;

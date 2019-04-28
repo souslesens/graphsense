@@ -34,7 +34,7 @@ var Layouts=(function(){
                 str += "<b>" + key + "</b> : " + obj[key] + "<br>";
         }
 
-        str += "<br> NeoId:" +obj.id;
+        str += "<br> NeoId:" +obj.neoId;
         return str;
 
     }

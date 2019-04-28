@@ -11,7 +11,8 @@ var context = (function () {
     self.currentNode = {};
     self.cypherMatchOptions = {}
     self.currentRelations = {types: [], props: []}
-    self.mousePosition={x:0,y:0}
+    self.mousePosition={x:0,y:0};
+    self.currentQueryCardIndex;
 
 
 

@@ -1,6 +1,7 @@
 var Cypher=(function(){
     var self={};
     self.neo4jProxyUrl = "../../../neo";
+
     self.executeCypher = function (cypher, callback) {
         console.log(cypher);
         var payload = {match: cypher};
@@ -10,6 +11,7 @@ var Cypher=(function(){
             data: payload,
             dataType: "json",
             success: function (data, textStatus, jqXHR) {
+
              //   savedQueries.addToCurrentSearchRun(cypher,callback || null);
                 callback(null, data)
             }, error: function (err) {
