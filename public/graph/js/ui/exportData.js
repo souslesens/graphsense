@@ -10,11 +10,12 @@ var ExportData = (function () {
         var properties = []
         data.forEach(function (line) {
             for (var key in line) {
-                if (properties.indexOf(key) < 0)
+                if (properties.indexOf(key) < 0 )
                     properties.push(key);
             }
         })
-        var html = "<input type=checkbox onchange=ExportData.swithCbxSelectAll($(this))>select all<br>";
+        var html = "<input type=checkbox onchange=ExportData.swithCbxSelectAll($(this))>select all";
+        html+="<ul>"
         properties.forEach(function (prop) {
             var checked = "";
             if (prop == "connectedTo" || prop == Schema.schema.defaultNodeNameProperty)
@@ -22,8 +23,9 @@ var ExportData = (function () {
             if (prop == "label")
                 checked = "checked='checked'"
 
-            html += "<br><input type=checkbox class='exportData_propcbx' value='" + prop + "'" + checked + "> " + prop;
+            html += "<li><input type=checkbox class='exportData_propcbx' value='" + prop + "'" + checked + "> " + prop+"</li>"
         })
+        html+="</ul>"
         $("#exportData_DatatablecbxsDiv").html(html);
 
 
@@ -40,7 +42,7 @@ var ExportData = (function () {
 
 
     self.execute = function () {
-
+$("#ExportDataModalMenu").modal("hide")
         var checkedProperties = [];
         $(".exportData_propcbx").each(function (index, cbx) {
             if ($(this).prop("checked")) {

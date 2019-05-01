@@ -12,7 +12,8 @@ var MainController = (function () {
         // $('#sidebar').toggleClass('active');
         Schema.load(context.subGraph, function (err, result) {
             binder.bindOnPageload();
-            self.iniTrees()
+            self.iniTrees();
+            UI_graph.showSchema(context.subGraph)
 
         });
 

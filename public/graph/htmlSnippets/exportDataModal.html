@@ -1,12 +1,12 @@
 <style>
-
-
-
+    .modal-mymedium{
+        width:400px;
+    }
 
 </style>
 
 
-<div class="modal-dialog modal-lg" role="document">
+<div class="modal-dialog modal-mymedium" role="document">
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="exportDataModalLabel">Export Data Menu</h5>
@@ -22,7 +22,7 @@
                             <button class="btn btn-link" type="button" data-toggle="collapse"
                                     data-target="#exportData_datableDialogDiv"
                                     aria-expanded="true" aria-controls="collapseOne">
-                                Datatable
+                                Datatable Display Properties
                             </button>
                         </h5>
                     </div>
@@ -31,12 +31,11 @@
                          data-parent="#accordionExample">
                         <form>
                             <div class="form-row d-flex justify-content-center">
-                            <label class="col-form-label col-ml-3" for="exportData_statisticsTypeSelect"
-                                   onchange="GraphExpand.setTargetLabel($(this).val())">Display Properties</label>
-                            <div class="col-sm-3 ">
-                                <div id="exportData_DatatablecbxsDiv" style="max-height: 250px;overflow: auto">
+
+                                <div >
+                                    <div id="exportData_DatatablecbxsDiv" style="max-height: 250px;width:360px;overflow: auto">
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                         </form>
 
@@ -56,39 +55,38 @@
                         <div id="exportData_statisticsDialogDiv" class="collapse hide" aria-labelledby="headingOne"
                              data-parent="#accordionExample">
                             <div class="d-flex justify-content-center">
-                            <form>
-                                <div class="form-row">
-                                    <label class="col-form-label col-ml-3" for="exportData_statisticsTypeSelect"
-                                           onchange="GraphExpand.setTargetLabel($(this).val())">Type</label>
-                                    <div class="col-sm-3">
-                                        <select class="form-control " id="exportData_statisticsTypeSelect">
+                                <form>
+                                    <div class="form-row">
+                                        <label class="col-form-label col-ml-3" for="exportData_statisticsTypeSelect"
+                                               onchange="GraphExpand.setTargetLabel($(this).val())">Type</label>
+                                        <div class="col-sm-3">
+                                            <select class="form-control " id="exportData_statisticsTypeSelect">
 
-                                            <option value="relationsRanking"> relationsRanking</option>
-                                        </select>
+                                                <option value="relationsRanking"> relationsRanking</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-row">
-                                    <label class="col-form-label col-ml-3" for="exportData_statisticsSourceLabelSelect"
-                                           onchange="GraphExpand.setTargetLabel($(this).val())">Source Label</label>
-                                    <div class="col-sm-3">
-                                        <select class="form-control " id="exportData_statisticsSourceLabelSelect">
+                                    <div class="form-row">
+                                        <label class="col-form-label col-ml-3" for="exportData_statisticsSourceLabelSelect"
+                                               onchange="GraphExpand.setTargetLabel($(this).val())">Source Label</label>
+                                        <div class="col-sm-3">
+                                            <select class="form-control " id="exportData_statisticsSourceLabelSelect">
 
-                                        </select>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-row">
-                                    <label class="col-form-label col-ml-3" for="exportData_statisticsTargetLabelSelect"
-                                           onchange="GraphExpand.setTargetLabel($(this).val())">Target Label</label>
-                                    <div class="col-sm-3">
-                                        <select class="form-control " id="exportData_statisticsTargetLabelSelect">
+                                    <div class="form-row">
+                                        <label class="col-form-label col-ml-3" for="exportData_statisticsTargetLabelSelect"
+                                               onchange="GraphExpand.setTargetLabel($(this).val())">Target Label</label>
+                                        <div class="col-sm-3">
+                                            <select class="form-control " id="exportData_statisticsTargetLabelSelect">
 
-                                        </select>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
 
 
-
-                            </form>
+                                </form>
                             </div>
 
                         </div>
@@ -101,7 +99,7 @@
                 <div class="modal-footer">
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" onclick="ExportData.execute()" class="btn btn-primary">Expand </button>
+                    <button type="button" onclick="ExportData.execute()" class="btn btn-primary">OK</button>
                 </div>
 
             </div>

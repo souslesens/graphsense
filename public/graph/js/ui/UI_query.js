@@ -264,7 +264,10 @@ var UI_query = (function () {
     }
 
     self.onCardClick=function(index){
+
         context.currentQueryCardIndex=index;
+
+       // self.showQueryCardParamsDialog()
     }
 
     return self;

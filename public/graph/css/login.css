@@ -6308,7 +6308,7 @@ a.close.disabled {
     height: calc(100vh - 3.5rem);
   }
   .modal-sm {
-    max-width: 300px;
+    max-width: 500px;
   }
 }
 

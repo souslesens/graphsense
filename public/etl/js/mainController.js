@@ -37,6 +37,9 @@ var mainController = (function () {
         })
 
 
+
+
+
     }
 
     self.initDimensions = function () {
