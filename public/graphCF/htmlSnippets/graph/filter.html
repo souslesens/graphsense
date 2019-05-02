@@ -1,0 +1,73 @@
+<div class="modal-dialog" role="document" id="graphFilter_dialogDiv">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="displayModalLabel">Filter Graph  Menu</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label" for="graphFilter_labelSelect" >Label</label>
+                </div>
+                <div class="col-sm-8">
+                    <select class="form-control " id="graphFilter_labelSelect" onchange="GraphFilter.setLabelPropertiesSelect($(this).val())">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    <label class="col-form-label" for="graphFilter_propertySelect">Property(optional)</label>
+                </div>
+                <div class="col-sm-8">
+                    <select class="form-control " id="graphFilter_propertySelect" onchange=" $('.graphFilter_propertyDiv').removeClass('d-none');">
+                    </select>
+                </div>
+            </div>
+
+            <div id="query_possibleValuesDiv" class="form-group row graphFilter_propertyDiv d-none">
+                <legend class="col-form-label col-sm-4">  <button type="button" class="btn btn-primary" onclick="UI_query.listPropertyValues('graphFilter')" >List values</button></legend>
+
+                <div class="col-sm-8">
+                    <span id="graphFilter_possibleValuesSpan"></span>
+                </div>
+
+            </div>
+            <div class="form-group row graphFilter_propertyDiv " >
+                <legend class="col-form-label col-sm-4">Filter Type</legend>
+                <div class="col-sm-8">
+                    <select class="form-control" id="graphFilter_operatorSelect">
+                        <option value="contains">contains</option>
+                        <option value="=">=</option>
+                        <option value="!=">not equal</option>
+                        <option value=">">greater than</option>
+                        <option value="<">lesser than</option>
+                      <!--  <option value="notContains">not contains</option>
+                        <option value="exists">null</option>
+                        <option value="notExists">not null</option>-->
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row graphFilter_propertyDiv">
+                <label for="graphFilter_valueInput" class="col-form-label col-sm-4">Filter Value</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="graphFilter_valueInput"
+                           placeholder="enter value here...">
+                </div>
+            </div>
+
+
+            <div class="alert alert-success d-none"  id="graphFilter_alertDiv" role="alert"></div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            Filter<button type="button"  onclick="GraphFilter.validateDialog('none')" class="btn btn-dark">None</button>
+            <button type="button"  onclick="GraphFilter.validateDialog('but')" class="btn btn-warning">But</button>
+            <button type="button"  onclick="GraphFilter.validateDialog('only')" class="btn btn-danger">Only</button>
+
+        </div>
+    </div>
+</div>

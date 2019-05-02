@@ -1,0 +1,40 @@
+<div class="modal-dialog" role="document" id="graphHighlight_dialogDiv">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="displayModalLabel">Highlight graph property Menu</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label class="col-form-label" for="graphHighlight_labelSelect" >Label</label>
+                </div>
+                <div class="col-sm-9">
+                    <select class="form-control " id="graphHighlight_labelSelect" onchange="GraphHighlight.setLabelPropertiesSelect($(this).val())">
+
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label class="col-form-label" for="graphHighlight_propertySelect">Property</label>
+                </div>
+                <div class="col-sm-9">
+                    <select class="form-control " id="graphHighlight_propertySelect">
+
+                    </select>
+                </div>
+                <div class="alert alert-success d-none"  id="graphHighlight_alertDiv" role="alert"></div>
+            </div>                    
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button"  onclick="GraphHighlight.validateDialog()" class="btn btn-primary">Apply</button>
+        </div>
+    </div>
+</div>

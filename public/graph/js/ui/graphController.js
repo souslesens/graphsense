@@ -7,7 +7,7 @@ var  GraphController = (function () {
             self.initComponentsPositionAndSize = function (containerId) {
                 $("#content").height($(window).height())
                 self.containerDims.w = $("#" + containerId).width();
-                self.containerDims.h = $("#" + containerId).height() - $(".navbar").height() - 50;
+                self.containerDims.h = $("#" + containerId).height() - $(".navbar").height() - 150;
                 self.containerDims.x = $("#" + containerId).position("left");
                 self.containerDims.y = $("#" + containerId).position("top");
                 $("#graphDiv").width(self.containerDims.w - 20);

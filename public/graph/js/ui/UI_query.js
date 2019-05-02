@@ -62,19 +62,19 @@ var UI_query = (function () {
 
         self.setUIPermittedLabels(queryObject.label);
 
-        var html = '<div class="card border-primary mb-3" onclick="UI_query.onCardClick('+index+')"; id="query_filterCard_' + index + '" >' +
-            '            <div class="card-header text-white  bg-primary">' + queryObject.cardTitle +
-            '               <button type="button" onclick="UI_query.removeFilterCard(' + index + ')" class="close pull-right" aria-label="Close">' +
-            '                   <span aria-hidden="true">&times;</span>  </button></div>' +
-            '            <div class="card-body ">' +
-            '               <p class="card-text"><small> ' + queryObject.text + '</small></p>' +
+        var html = '<div class="card border-primary text-center card-accent-primary" onclick="UI_query.onCardClick('+index+')"; id="query_filterCard_' + index + '" >' +
+            '           <div class="card-header">' + queryObject.cardTitle +
+            '               <button type="button" onclick="UI_query.removeFilterCard(' + index + ')" class="close" aria-label="Close"' +
+            '                   <span aria-hidden="true">&times;</span></button></div>' +
+            '           <div class="card-body ">' +
+            '               <p class="card-text"><small class="text-muted">' + queryObject.text + '</small></p>' +
             '           </div>\n' +
-            '       <div class="form-check" style="text-align:center" >' +
-            '           <input type="checkbox" checked="checked" class="form-check-input" id="query_filterCardInResult">' +//à completer PB!!!!
-            '           <label class="form-check-label" for="query_filterCardInResult">In Result</label>' +
-            '       </div>' +
+            '           <div class="form-check" style="text-align:center" >' +
+            '               <input type="checkbox" checked="checked" class="form-check-input" id="query_filterCardInResult">' +//à completer PB!!!!
+            '               <label class="form-check-label" for="query_filterCardInResult">In Result</label>' +
+            '           </div>' +
             '</div>';
-
+          
 
         $("#query_cardDeck").append(html);
         $("#query_filterCard_" + index).addClass("type_" + queryObject.type);

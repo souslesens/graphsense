@@ -26,7 +26,6 @@ Tree = (function () {
                     uiLibrary: 'bootstrap4',
                     dataSource: treeJson,
                     primaryKey: 'id',
-                    //   imageUrlField: 'flagUrl',
                     checkboxes: true
                 }
             );
@@ -213,7 +212,8 @@ Tree = (function () {
                             text: result[indexLine].names[indexValue]
                         })
                     })
-                    var text = "<span style='margin :2px; border-radius: 5px;background-color: " + context.nodeColors[line.label] + "'>" + line.label + " (" + line.ids.length + ")" + "</span>"
+                    //var text = "<span style='margin :2px; border-radius: 5px;border:1px solid black; padding:5px; background-color: " + context.nodeColors[line.label] + "'>" + line.label + " (" + line.ids.length + ")" + "</span>"
+                    var text = "<span style='margin :2px; border-radius: 5px;border:1px solid black;padding: 5px; background-color: " + context.nodeColors[line.label] + "'>" + line.label + " <span class='badge badge-light'>" + line.ids.length + "</span>";
                     var node = {
                         id: -indexLine * 10000000,
                         text: text,

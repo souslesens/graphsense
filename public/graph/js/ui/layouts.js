@@ -8,11 +8,13 @@ var Layouts=(function(){
         var keysToExclude = ["name", "imageBlog", "subGraph", "myId"];
         var orderedKeys = [];
 
+        str = "<table class='table table-bordered'><thead><tr><th scope='col'>Property Name</th><th scope='col'>Property Value</th></tr></thead><tbody>";
         for (var i = 0; i < orderedKeys.length; i++) {
             var key = orderedKeys[i];
             if (obj[key])
-                str += "<i>" + key + "</i> : " + obj[key] + "<br>";
+                str += "<tr><th scope='row'>" + key + "</th><td>" + obj[key] + "</td></tr>";
         }
+        
         for (var key in obj) {  // to be finished
             if (key == "path") {
                 self.decodePath(obj[key]);
@@ -31,68 +33,78 @@ var Layouts=(function(){
             }
 
             if (keysToExclude.indexOf(key) < 0 && orderedKeys.indexOf(key) < 0)
-                str += "<b>" + key + "</b> : " + obj[key] + "<br>";
+                str += "<tr><th scope='row'>" + key + "</th><td>" + obj[key] + "</td></tr>";    
         }
-
+        str += "</tbody></table>";
         str += "<br> NeoId:" +obj.neoId;
         return str;
 
     }
 
-    self.formatNodeRelationsInfo = function (dataSet,options) {
-        var str = "<ul>";
+    self.formatNodeRelationsInfo = function (dataSet, options) {
+        //var str = "<ul>";
+        var str = "<table class='table table-bordered'><thead><tr><th scope='col'>Relation Name</th><th scope='col'>Direction</th><th scope='col'>Node Label</th><th scope='col'>Node Name</th></tr></thead><tbody>";
 
         dataSet.forEach(function(relation){
             var relStr;
 
-if(relation.r._fromId==relation.n._id)
-            relStr="   -"+relation.r.type+"->"+"["+relation.m.labels[0]+"]"+relation.m.properties[Schema.getNameProperty()];
-          else
+            var relationType  = relation.r.type;
+            var nodeType = relation.m.labels[0];
+            var nodeName = relation.m.properties[Schema.getNameProperty()];
+            var relationDirection ="";
 
-    relStr="   <-"+relation.r.type+"-"+"["+relation.m.labels[0]+"]"+relation.m.properties[Schema.getNameProperty()];
+            if(relation.r._fromId==relation.n._id)
+                relationDirection = "->"
+                //relStr="   -"+relation.r.type+"->"+"["+relation.m.labels[0]+"]"+ relation.m.properties[Schema.getNameProperty()];
+            else
+                relationDirection = "<-"
+                //relStr="   <-"+relation.r.type+"-"+"["+relation.m.labels[0]+"]"+relation.m.properties[Schema.getNameProperty()];
+                //str += "<li>"+relStr+"</li>";
+            str += "<tr><th scope='row'>" + relationType + "</th><td style='text-align:center'>" + relationDirection + "</td><td>" + nodeType + "</td><td>" + nodeName + "</td></tr>";
 
+            })
 
-            str += "<li>"+relStr+"</li>";
-        })
-        str += "</ul>";
+        //str += "</ul>";
+        str += "</tbody></table>";
         return str;
-
     }
 
 
     self.formatNodeNeighboursInfo = function (dataSet,options) {
-        var str = "<ul>";
+        //var str = "<ul>";
+        var str = "<table class='table table-bordered'><thead><tr><th scope='col'>Node Label</th><th scope='col'>Node Value</th></tr></thead><tbody>";
 
         dataSet.forEach(function(relation){
-            var neighboursStr;
+            var nodeType;
+            var nodeValue;
             var targetNode;
             if(relation.r._fromId==relation.n._id) {
-                neighboursStr = "[" + relation.m.labels[0] + "]" + relation.m.properties[Schema.getNameProperty()];
+                nodeType = relation.m.labels[0];
+                nodeValue = relation.m.properties[Schema.getNameProperty()];
+                //neighboursStr = "[" + relation.m.labels[0] + "]" + relation.m.properties[Schema.getNameProperty()];
                 targetNode=relation.m._id;
             }
             else {
-                neighboursStr = "[" + relation.m.labels[0] + "]" + relation.m.properties[Schema.getNameProperty()];
-                targetNode=relation.m._id;
+                nodeType = relation.m.labels[0];
+                nodeValue = relation.m.properties[Schema.getNameProperty()];
+                //neighboursStr = "[" + relation.m.labels[0] + "]" + relation.m.properties[Schema.getNameProperty()];
+                targetNode = relation.m._id;
             }
 
-            if(options && options.onNodeClick)
-                neighboursStr="<a href='javascript:"+options.onNodeClick+"("+targetNode+")'>"+neighboursStr+"</a>"
+            if(options && options.onNodeClick) {
+                nodeValue = "<a href='javascript:"+options.onNodeClick+"("+targetNode+")'>"+nodeValue+"</a>"
+                //neighboursStr="<a href='javascript:"+options.onNodeClick+"("+targetNode+")'>"+neighboursStr+"</a>"
+            }
 
 
-            str += "<li>"+neighboursStr+"</li>";
+            //str += "<li>"+neighboursStr+"</li>";
+            str += "<tr><th scope='row'>" + nodeType + "</th><td>" + nodeValue + "</td></tr>";
+
         })
-        str += "</ul>";
+        //str += "</ul>";
+        str += "</tbody></table>";
         return str;
-
-
-
-
     }
-
-
-
-
-
 
         return self;
 
