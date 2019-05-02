@@ -8,8 +8,24 @@ var MainController = (function () {
         GraphController.initComponentsPositionAndSize("content")
 
         $("#navbar_graph").addClass("d-none");
+
+        self.loadSubGraphs();
         self.initSubGraph();
         // $('#sidebar').toggleClass('active');
+
+
+
+    }
+
+
+    self.initSubGraph = function (subGraph) {
+        if(!subGraph) {
+            var queryParams = common.getQueryParams(document.location.search);
+            context.subGraph = queryParams.subGraph;
+        }
+        else
+            context.subGraph = subGraph;
+
         Schema.load(context.subGraph, function (err, result) {
             binder.bindOnPageload();
             self.iniTrees();
@@ -20,14 +36,6 @@ var MainController = (function () {
 
     }
 
-
-    self.initSubGraph = function () {
-        var queryParams = common.getQueryParams(document.location.search);
-        context.subGraph = queryParams.subGraph;
-        if (!context.subGraphsubGraph)
-            context.subGraphsubGraph = Config.defaultSubGraph;
-    }
-
     self.iniTrees = function () {
 
 
@@ -36,6 +44,24 @@ var MainController = (function () {
 
         /*  Config.simpleSearchTree=new Tree("search_treeContainerDiv");
           Config.hierarchyTree=new Tree("hierarchy_treeContainerDiv");*/
+
+
+    }
+    self.loadSubGraphs = function () {
+        var match = "Match (n)  return distinct n.subGraph as subGraph order by subGraph";
+        Cypher.executeCypher(match, function (err, data) {
+            if (data && data.length > 0) {// } && results[0].data.length >
+                var subgraphs = []
+                for (var i = 0; i < data.length; i++) {
+                    var value = data[i].subGraph;
+                    subgraphs.push(value);
+                }
+
+                subgraphs.splice(0, 0, "");
+
+                common.fillSelectOptionsWithStringArray(mainMenu_subGraphSelect, subgraphs);
+            }
+        })
 
 
     }
@@ -70,8 +96,7 @@ var MainController = (function () {
 
     }
 
-    self.showSpinner=function(state)
-    {
+    self.showSpinner = function (state) {
         if (state === false)
             $("#waitSpinnerDiv").addClass("d-none")
         else

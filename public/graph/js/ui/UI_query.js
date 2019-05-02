@@ -191,6 +191,7 @@ var UI_query = (function () {
     }
 
     self.displayGraph = function () {
+        $("#navbar_graph_Graph_ul").removeClass("d-none");
         context.currentQueryCardIndex=-1;
         buildPaths.executeQuery("graph",{}, function (err, result) {
             if (err)
@@ -205,6 +206,7 @@ var UI_query = (function () {
 
 
     self.newQuery = function () {
+        $("#navbar_graph_Graph_ul").addClass("d-none");
         $(".btn_query_label").css("opacity", 1);
         $("#query_cardDeck").html("");
         //  $("#dbFilterCollapseMenu").removeClass("d-none");

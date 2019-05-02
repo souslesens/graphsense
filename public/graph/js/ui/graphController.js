@@ -10,8 +10,8 @@ var  GraphController = (function () {
                 self.containerDims.h = $("#" + containerId).height() - $(".navbar").height() - 150;
                 self.containerDims.x = $("#" + containerId).position("left");
                 self.containerDims.y = $("#" + containerId).position("top");
-                $("#graphDiv").width(self.containerDims.w - 20);
-                $("#graphDiv").height(self.containerDims.h);
+                $("#graphDiv").width(self.containerDims.w - 2);
+                $("#graphDiv").height(self.containerDims.h+30);
 
 
                 $("#graph_legendDiv").width(120).height(200).css("position", "absolute").css("top", self.containerDims.h - 200).css("left", 5).css("background", "none");

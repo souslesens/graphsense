@@ -150,7 +150,7 @@
                                     </button>
                                 </div>
                             </div>
-               
+
                             <div class="row" id="search_treeContainerDiv" style="font-size: 12px; width: 270px; height:400px; overflow:auto;margin-left: 0px;margin-right: 5px;background-color:white"></div>
 
                         </div>
@@ -190,7 +190,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
@@ -200,27 +200,24 @@
                         <a class="nav-link" href="#">Data (ETL)</a>
                     </li>
                     <li class="nav-item">
-                            <a class="nav-link" href="#">Login/Logout</a>
+                        <a class="nav-link" href="#">Login/Logout</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0" style="padding-right:10px;">
-                <label for="selectSubGraph" class=" mr-sm-2 col-form-label" style="color:white">Select sub graph :</label>
-                <select class="form-control my-2 my-sm-0" id="subGraphSelect">
-                    <option>Sub Graph 1</option>
-                    <option>Sub Graph 2</option>
-                    <option>Sub Graph 3</option>
-                    <option>...</option>
-                </select>
+                    <label for="mainMenu_subGraphSelect" class=" mr-sm-2 col-form-label" style="color:white">Select sub graph :</label>
+                    <select class="form-control my-2 my-sm-0" id="mainMenu_subGraphSelect" onchange="MainController.initSubGraph($(this).val())">
+
+                    </select>
                 </form>
             </div>
         </nav>
-      
+
 
         <!-- icon menu navbar -->
-       <nav class="navbar navbar-expand-lg navbar-light" style="padding-left:5px;">
+        <nav class="navbar navbar-expand-lg navbar-light" style="padding-left:5px;">
 
             <ul class="navbar-nav mr-auto">
-            <a class="navbar-brand" href="#" style="border-left: 2px solid blue;padding-left:5px;"> Request Data :</a>
+                <a class="navbar-brand" href="#" style="border-left: 2px solid blue;padding-left:5px;"> Requests :</a>
 
                 <li class="nav-item">
                     <a  id="showTreeButton" onmouseover="$(this).tooltip('show');" class="navbar-brand"  href="#"  data-toggle="tooltip" data-placement="bottom" title="Search Menu">
@@ -238,9 +235,9 @@
                     </div>
                 </li>
             </ul>
-           
-            <ul id="#navbar_graph" class="navbar-nav mr-auto">
-                <a class="navbar-brand" style="border-left: 2px solid red;padding-left:5px;" href="#">Request Graph :</a>
+
+            <ul id="navbar_graph_Graph_ul" class="navbar-nav mr-auto d-none"  >
+                <a class="navbar-brand" style="border-left: 2px solid red;padding-left:5px;" href="#">Graph :</a>
 
                 <li class="nav-item">
                     <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphExpandModalMenu" data-placement="bottom"  title="Expand Node Menu" onclick="GraphExpand.initSourceLabel(visjsGraph.legendLabels)" onmouseover="$(this).tooltip('show');">
@@ -253,10 +250,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="#" title="Filter Graph Menu" onclick="GraphFilter.initDialog()"></a>
+                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphFilterModalMenu" data-placement="bottom" title="HighLlight Node Menu"  onclick=onclick="GraphFilter.initDialog()" onmouseover="$(this).tooltip('show');">
                         <img src="img/filter.png" width="40" height="40" alt="Tag">
                     </a>
                 </li>
+                <!--   <li class="nav-item">
+                       <a class="navbar-brand" data-toggle="modal" data-target="#GraphFilterModalMenu" href="#" title="Filter Graph Menu" onclick="GraphFilter.initDialog()"></a>
+                           <img src="img/filter.png" width="40" height="40" alt="Tag">
+                       </a>
+                   </li>-->
                 <li class="nav-item">
                     <a class="navbar-brand d-none" href="#" id="graphCache_previousGraphButton" onclick="Cache.restorePreviousGraph()">
                         <img src="img/previous.jpg" width="40" height="40" alt="Tag">
@@ -270,7 +272,7 @@
             </ul>
 
             <ul id="#navbar_params" class="navbar-nav ml-auto" >
-                <a class="navbar-brand" href="#" style="border-left: 2px solid green;padding-left:5px;">Display Option :</a>
+                <a class="navbar-brand" href="#" style="border-left: 2px solid green;padding-left:5px;">Options :</a>
 
                 <li class="nav-item">
                     <a class="navbar-brand" href="#">
@@ -394,7 +396,7 @@
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="genericMessageModal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-           <div id="genericMessageDiv"  style="min-height: 200px"></div>
+            <div id="genericMessageDiv"  style="min-height: 200px"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="genericMessageModalOkButton" >OK</button>
                 <button type="button" class="btn btn-secondary" onclick="$('#genericMessageModal').modal('hide')">X</button>
