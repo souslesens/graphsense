@@ -63,6 +63,10 @@ var binder=(function(){
 
       })
 
+      $("#GraphRelationPopoverDiv").load("htmlSnippets/graph/relationPopover.html" , function () {
+
+      })
+
       $("#GraphNodeInfoWrapperDiv").load("htmlSnippets/graph/nodeInfos.html" , function () {
 
       })

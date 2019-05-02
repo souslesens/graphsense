@@ -240,6 +240,9 @@ var visjsGraph = (function () {
                         {physics: self.physics, edges: {smooth: {enabled: self.smooth}}}
                     );
 
+                    $("#GraphNodePopoverDiv").addClass("d-none")
+                    $("#GraphRelationPopoverDiv").addClass("d-none")
+
                 }
 
 
@@ -266,8 +269,9 @@ var visjsGraph = (function () {
                 else if (params.edges.length == 1) {
                     var edgeId = params.edges[0];
                     var edge = self.edges._data[edgeId];
-                    edge = self.nodes._data[context.currentNode.from]
-                    edge = self.nodes._data[context.currentNode.to];
+                    edge.fromNode=self.nodes._data[edge.from];
+                    edge.toNode=self.nodes._data[edge.to];
+                    var point = params.pointer.DOM;
                     GraphController.onEdgeClicked(edge, point)
 
 

@@ -4,6 +4,8 @@ var GraphExpand = (function () {
     self.initialDataset;
     self.expandedNodes = [];
 
+    self.expandedEdgeHashes = [];//fromId*toId to avoid direction pb
+
 
     hasClusters = false;
 
@@ -252,12 +254,14 @@ var GraphExpand = (function () {
 
                         var from = line.n._id;
                         var to = neoNode._id;
+
                         var relId = "" + Math.random();
                         var relType = line.relType;
                         var relProps = line.rel.properties;
 
                         var visjsEdge = visJsDataProcessor.getVisjsRelFromNeoRel(from, to, relId, relType, relProps);
-                        newEdges.push(visjsEdge);
+                      newEdges.push(visjsEdge);
+                        self.expandedEdgeHashes.push(from*to)
 
                     })
 
@@ -287,9 +291,13 @@ var GraphExpand = (function () {
 
                         line.mIds.forEach(function (mId) {
                             if (visjsGraph.nodes._data[mId]) {
-                                var relPId = "" + Math.random();
-                                var visjsEdge2 = visJsDataProcessor.getVisjsRelFromNeoRel(line.nId, mId, relPId, "expand2", {});
-                                newEdges2.push(visjsEdge2);
+
+                                if (self.expandedEdgeHashes.indexOf(mId * line.nId) < 0) {
+                                    self.expandedEdgeHashes.push(mId * line.nId)
+                                    var relPId = "" + Math.random();
+                                    var visjsEdge2 = visJsDataProcessor.getVisjsRelFromNeoRel(line.nId, mId, relPId, line.relType, {});
+                                    newEdges2.push(visjsEdge2);
+                                }
                             }
                         })
 

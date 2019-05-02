@@ -21,22 +21,34 @@ var  GraphController = (function () {
             }
 
 
+
+            self.showPopoverAtPosition=function(popoverDiv,point) {
+                var offset = $("#graphDiv").position()
+                var sidebarWidth = $("#sidebar").width()
+                $("#"+popoverDiv).css("top", offset.top + point.y).css("left", offset.left + sidebarWidth + point.x);
+                $("#"+popoverDiv).removeClass("d-none")
+            }
+
             self.onNodeClicked = function (node, point, options) {
                 if (options && options.ctrlKey) {
                     $("#popover-shortestPathLi").removeClass("d-none")
                 }
 
-
+                self.showPopoverAtPosition("GraphNodePopoverDiv",point);
                 var permittedLabels = Schema.getPermittedLabels(node.labelNeo, true, true);
                 common.fillSelectOptionsWithStringArray("graph_expandNodeLabelSelect", permittedLabels, true);
-                var offset = $("#graphDiv").position()
-                var sidebarWidth = $("#sidebar").width()
-                $("#GraphNodePopoverDiv").css("top", offset.top + point.y).css("left", offset.left + sidebarWidth + point.x);
+
+                $("#popover-node-name").html(node.neoAttrs.name)
                 $("#GraphNodePopoverDiv").removeClass("d-none")
 
             }
 
-            self.onEdgeClicked = function (node, point) {
+            self.onEdgeClicked = function (edge, point) {
+                $("#relation_popover-relType").html("Type : "+edge.type);
+                $("#relation_popover-from").html("From :"+ edge.fromNode.neoAttrs.name);
+                $("#relation_popover-to").html("To :"+ edge.toNode.neoAttrs.name);
+
+                self.showPopoverAtPosition("GraphRelationPopoverDiv",point);
 
             }
 

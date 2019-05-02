@@ -30,7 +30,9 @@ var UI_query = (function () {
         var properties = Schema.getLabelProperties(label);
 
         common.fillSelectOptionsWithStringArray("query_propertySelect", properties, true);
-        $("#query_propertySelect").val(Schema.getNameProperty())
+        $("#query_propertySelect").val(Schema.getNameProperty());
+
+        $("#queryModalLabel").html("Query Label > " +label)
 
         $("#query_validateQueryButton").bind('click', function (target) {
             $('#query_filterLabelDialogModal').modal('hide');
@@ -221,7 +223,7 @@ var UI_query = (function () {
     self.listPropertyValues = function (targetDialogPrefix) {
         if (!targetDialogPrefix)
             targetDialogPrefix = "query";
-        context.queryObject = {};
+      //  context.queryObject = {};
         var queryObj = self.setContextQueryObjectParams(targetDialogPrefix);
 
         $("#" + targetDialogPrefix + "_operatorSelect").val("=");
