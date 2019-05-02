@@ -2,83 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0b8677d-dbc9-4124-b08c-92f03bd70409" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/public/graph/css/main.css" afterPath="$PROJECT_DIR$/public/graph/css/main.css" />
-      <change beforePath="$PROJECT_DIR$/public/graph/htmlSnippets/admin.html" afterPath="$PROJECT_DIR$/public/graph/htmlSnippets/admin.html" />
-      <change beforePath="$PROJECT_DIR$/public/graph/htmlSnippets/graph/nodeInfos.html" afterPath="$PROJECT_DIR$/public/graph/htmlSnippets/graph/nodeInfos.html" />
-      <change beforePath="$PROJECT_DIR$/public/graph/index.html" afterPath="$PROJECT_DIR$/public/graph/index.html" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/core/visJsGraph.js" afterPath="$PROJECT_DIR$/public/graph/js/core/visJsGraph.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/UI_query.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/UI_query.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/graphController.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/graphController.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/mainController.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/mainController.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/nodeInfosController.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/nodeInfosController.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/tree.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/tree.js" />
-      <change beforePath="$PROJECT_DIR$/public/graphCF/htmlSnippets/query/queryFilter.html" afterPath="$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilter.html" />
-      <change beforePath="$PROJECT_DIR$/public/graphCF/js/ui/layouts.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/layouts.js" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/css/login.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/css/main.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/htmlSnippets/admin.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/htmlSnippets/exportDataModal.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/htmlSnippets/graph/displayModal.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/htmlSnippets/graph/expand.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/htmlSnippets/graph/filter.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/htmlSnippets/graph/highlight.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/htmlSnippets/graph/nodeInfos.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/htmlSnippets/graph/nodeInfosPopover.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/htmlSnippets/graph/nodePopover.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/htmlSnippets/query/queryFilterLabelModal.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/htmlSnippets/tree.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/FilterLabel.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/Schema.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/advancedSearch.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/brush.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/center.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/cube.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/display.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/expandLabel.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/filter.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/fit.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/fullScreen.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/graph.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/graphPopup/infos.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/label.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/next.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/parameters.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/previous.jpg" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/table.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/trash.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/img/tree.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/index.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/core/buildPaths.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/core/cache.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/core/common.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/core/cypher.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/core/neo4jDataModel.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/core/schema.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/core/searchNodes.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/core/visJsGraph.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/core/visjsDataProcessor.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/others/async.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/others/d3.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/others/hex-to-rgba.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/others/visjs/vis-network.min.css.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/others/visjs/visjs.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/ui/UI_graph.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/ui/UI_parameters.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/ui/UI_query.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/ui/binder.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/ui/config.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/ui/context.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/ui/exportData.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/ui/graphController.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/ui/graphExpand.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/ui/graphFilter.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/ui/graphHighlight.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/ui/layouts.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/ui/mainController.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/ui/nodeInfosController.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/js/ui/tree.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graphPJ/login.html" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/public/etl/js/context.js" afterPath="$PROJECT_DIR$/public/etl/js/context.js" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/core/visjsDataProcessor.js" afterPath="$PROJECT_DIR$/public/graph/js/core/visjsDataProcessor.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -112,16 +37,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ui.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/etl/js/ui.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="744">
-              <caret line="49" column="83" lean-forward="false" selection-start-line="39" selection-start-column="7" selection-end-line="49" selection-end-column="83" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/graph/index.html">
           <provider selected="true" editor-type-id="text-editor">
@@ -134,7 +49,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="visJsGraph.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="visJsGraph.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/graph/js/core/visJsGraph.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="745">
@@ -151,6 +66,16 @@
                 <marker date="1556783780308" expanded="true" signature="16151:16157" ph=" " />
                 <marker date="1556783780308" expanded="true" signature="16186:16201" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="context.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/etl/js/context.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="243">
+              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -175,11 +100,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="visjsDataProcessor.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="visjsDataProcessor.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/graph/js/core/visjsDataProcessor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="717">
-              <caret line="389" column="31" lean-forward="false" selection-start-line="389" selection-start-column="28" selection-end-line="389" selection-end-column="31" />
+            <state relative-caret-position="312">
+              <caret line="497" column="37" lean-forward="false" selection-start-line="497" selection-start-column="37" selection-end-line="497" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -222,7 +147,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>close</find>
       <find>none</find>
       <find>dbFilterCollapseMenu</find>
       <find>with</find>
@@ -252,6 +176,7 @@
       <find>create</find>
       <find>canvas</find>
       <find>scale</find>
+      <find>nodeColors</find>
     </findStrings>
     <replaceStrings>
       <replace>ui</replace>
@@ -295,7 +220,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/public/graphPJ/js/ui/mainController.js" />
         <option value="$PROJECT_DIR$/public/graphPJ/js/ui/context.js" />
         <option value="$PROJECT_DIR$/public/graphPJ/js/ui/config.js" />
         <option value="$PROJECT_DIR$/bin/transform/neoToJsTree..js" />
@@ -327,7 +251,6 @@
         <option value="$PROJECT_DIR$/public/graph/js/ui/context.js" />
         <option value="$PROJECT_DIR$/public/graph/js/core/cypher.js" />
         <option value="$PROJECT_DIR$/public/graph/js/ui/UI_graph.js" />
-        <option value="$PROJECT_DIR$/public/graph/js/core/visjsDataProcessor.js" />
         <option value="$PROJECT_DIR$/public/etl/import.html" />
         <option value="$PROJECT_DIR$/bin/transform/xlsxToNeo..js" />
         <option value="$PROJECT_DIR$/public/etl/js/mainController.js" />
@@ -346,6 +269,8 @@
         <option value="$PROJECT_DIR$/public/graph/htmlSnippets/admin.html" />
         <option value="$PROJECT_DIR$/public/graph/js/ui/graphController.js" />
         <option value="$PROJECT_DIR$/public/graph/js/core/visJsGraph.js" />
+        <option value="$PROJECT_DIR$/public/etl/js/context.js" />
+        <option value="$PROJECT_DIR$/public/graph/js/core/visjsDataProcessor.js" />
       </list>
     </option>
   </component>
@@ -529,12 +454,12 @@
       <workItem from="1555660162897" duration="1502000" />
       <workItem from="1555694566751" duration="1346000" />
       <workItem from="1556036982626" duration="76556000" />
-      <workItem from="1556435395476" duration="24617000" />
+      <workItem from="1556435395476" duration="26087000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="276124000" />
+    <option name="totallyTimeSpent" value="277594000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="2902" height="1582" extended-state="6" />
@@ -861,14 +786,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/etl/js/context.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/etl/indexOld.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="756">
@@ -1024,14 +941,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/core/visjsDataProcessor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="717">
-          <caret line="389" column="31" lean-forward="false" selection-start-line="389" selection-start-column="28" selection-end-line="389" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/graph/js/core/visJsGraph.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="745">
@@ -1048,6 +957,22 @@
             <marker date="1556783780308" expanded="true" signature="16151:16157" ph=" " />
             <marker date="1556783780308" expanded="true" signature="16186:16201" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/etl/js/context.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/graph/js/core/visjsDataProcessor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="497" column="37" lean-forward="false" selection-start-line="497" selection-start-column="37" selection-end-line="497" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>

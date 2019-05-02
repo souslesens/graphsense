@@ -511,14 +511,19 @@ var visJsDataProcessor = (function () {
 
             if (DataModel.DBstats) {
                 for (var i = 0; i < visjsData.nodes.length; i++) {
-                    var countNodes = DataModel.DBstats.nodes[visjsData.nodes[i].label];
+                    var countNodes = "?";
+                    if (DataModel.DBstats.nodes[visjsData.nodes[i].label])
+                        countNodes = DataModel.DBstats.nodes[visjsData.nodes[i].label];
                     visjsData.nodes[i].count = countNodes;
                     visjsData.nodes[i].name = visjsData.nodes[i].label;
                     visjsData.nodes[i].label += " (" + countNodes + ")";
 
                 }
                 for (var i = 0; i < visjsData.edges.length; i++) {
-                    var countRels = DataModel.DBstats.relations[visjsData.edges[i].label].countRel;
+                    var countRels = 0;
+                    if (DataModel.DBstats.relations[visjsData.edges[i].label] && DataModel.DBstats.relations[visjsData.edges[i].label].countRel) {
+                        countRels = DataModel.DBstats.relations[visjsData.edges[i].label].countRel;
+                    }
                     //  visjsData.edges[i].value=countRels;
                     visjsData.edges[i].count = countRels;
                     visjsData.edges[i].name = visjsData.edges[i].label;

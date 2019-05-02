@@ -2,7 +2,8 @@ var context = {
     subGraph: "",
     schema: {},
     storedRequestsParams: {},
-    serverUrl: "../../../"
+    serverUrl: "../../../",
+    nodeColors:{}
 
 
 }
