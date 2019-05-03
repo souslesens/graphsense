@@ -45,6 +45,7 @@ var UI_query = (function () {
 
 
     self.addCardToQueryDeck = function (queryObject, index) {
+
         $('#dbQueryFilterLabelModal').modal('hide');
         if(!index && context.currentQueryCardIndex>-1){
             return self.updateCardToQueryDeck(queryObject,context.currentQueryCardIndex)
@@ -63,7 +64,33 @@ var UI_query = (function () {
 
 
         self.setUIPermittedLabels(queryObject.label);
+        var color = Schema.schema.labels[queryObject.label].color;
 
+        var filterCardId  = 'query_filterCard_' + index;
+        var filterCardCollaspeId =  filterCardId + 'Collapse'
+
+        var html =  '<div class="card" onclick="UI_query.onCardClick('+index+')"; id="' + filterCardId + '"  style="width: 15rem;"> ' +
+                    '   <div class="card-header"  data-toggle="collapse" aria-expanded="false" aria-controls="' + filterCardCollaspeId + '" href="#' + filterCardCollaspeId + '">' +
+                    '       <a class="card-title" style="background-color:' + color + '">' +
+                    '           <span class="fa fa-chevron-down pull-right"></span> ' +
+                    '       </a>' +
+                    '        <span class="badge">' + queryObject.cardTitle + '</span> ' +
+
+                    '       <button type="button"  onclick="UI_query.removeFilterCard(' + index + ')" class="close" aria-label="Close"> ' +
+                    '           <span aria-hidden="true">&times;</span></button> ' +
+                    '       </div>' +
+                    '       <div id="' + filterCardCollaspeId + '" class="collapse" > ' +
+                    '       <div class="card-body text-center" style="padding:5px"> ' +
+                    '           <p class="card-text"><small class="text-muted">' + queryObject.text + '</small></p>' +
+                    '       </div> ' +
+                    '       <div class="form-check" style="text-align:center" >' +
+                    '               <input type="checkbox" checked="checked" class="form-check-input" id="query_filterCardInResult">' +//à completer PB!!!!
+                    '               <label class="form-check-label" for="query_filterCardInResult">In Result</label>' +
+                    '        </div>' +
+                    '  </div>' +
+                    '</div>'
+
+        /* 
         var html = '<div class="card border-primary text-center card-accent-primary" onclick="UI_query.onCardClick('+index+')"; id="query_filterCard_' + index + '" >' +
             '           <div class="card-header">' + queryObject.cardTitle +
             '               <button type="button" onclick="UI_query.removeFilterCard(' + index + ')" class="close" aria-label="Close"' +
@@ -76,7 +103,7 @@ var UI_query = (function () {
             '               <label class="form-check-label" for="query_filterCardInResult">In Result</label>' +
             '           </div>' +
             '</div>';
-          
+        */
 
         $("#query_cardDeck").append(html);
         $("#query_filterCard_" + index).addClass("type_" + queryObject.type);

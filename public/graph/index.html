@@ -113,6 +113,11 @@
 
 
         });
+
+        $("#query_newQueryButton").bind("click",function(){
+        UI_query.newQuery();
+
+    })
     </script>
 
 
@@ -219,6 +224,12 @@
                 <a class="navbar-brand" href="#" style="border-left: 2px solid blue;padding-left:5px;"> Requests :</a>
 
                 <li class="nav-item">
+                    <a  id="query_newQueryButton" onmouseover="$(this).tooltip('show');" class="navbar-brand"  href="#"  data-toggle="tooltip" data-placement="bottom" title="New Request">
+                        <img src="img/new.png" width="40" height="40" alt="Filter">
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a  id="showTreeButton" onmouseover="$(this).tooltip('show');" class="navbar-brand"  href="#"  data-toggle="tooltip" data-placement="bottom" title="Search Menu">
                         <img src="img/advancedSearch.png" width="40" height="40" alt="Filter">
                     </a>
@@ -226,6 +237,11 @@
                 <li class="nav-item">
                     <a id="filterNodeMenu" onmouseover="$(this).tooltip('show');" class="navbar-brand" data-toggle="collapse" href="#dbFilterCollapseMenu" aria-expanded="false" data-target="#dbFilterCollapseMenu" data-placement="bottom" title="Database Query Menu">
                         <img src="img/cube.png" width="40" height="40" alt="Filter">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a  onmouseover="$(this).tooltip('show');" class="navbar-brand"  href="#"  data-toggle="tooltip" data-placement="bottom" title="Save Request">
+                        <img src="img/save.png" width="40" height="40" alt="Filter">
                     </a>
                 </li>
                 <li class="nav-item">
@@ -358,6 +374,8 @@
 
         <div class="container-fluid">
 
+ 
+
             <!-- Content Row -->
             <div class="row">
                 <div id="graphDiv" class="col-12">
@@ -377,7 +395,6 @@
     </div>
 
     <!-- end of Page Content -->
-
 </div>
 
 <div id="GraphNodePopoverDiv" class="d-none" style="position:relative "></div>

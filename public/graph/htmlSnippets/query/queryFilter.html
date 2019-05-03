@@ -27,17 +27,19 @@
             </div>
             <div class="col-2 " >
                 <div class="d-flex align-items-end flex-column">
+                    <!-- replace by + icon button
                     <div class="p-1">
                         <button class='btn btn-primary' style="width:150px;"  id="query_newQueryButton">
                             <span class="newQueryIconButton"></span>New Query
                         </button>    
                     </div>
-                    <div class="p-1">
+                    -->
+                    <div class="p-3">
                         <button class='btn btn-primary' style="width:150px;" id="query_displayGraphButton" >
                             <span class="graphIconButton" > </span>Display Graph
                         </button>
                     </div>
-                    <div class="p-1">
+                    <div class="p-3">
                         <button class='btn btn-primary' style="width:150px;"  id="query_displayTableButton">
                             <span class="tableIconButton rounded-circle" ></span>Display Table
                         </button>
@@ -51,6 +53,7 @@
 </div>
 
 <script>
+    
     $("#query_displayTableButton").bind("click",function(){
         UI_query.displayTable();
 
@@ -61,9 +64,11 @@
 
     })
 
+    /*
     $("#query_newQueryButton").bind("click",function(){
         UI_query.newQuery();
 
     })
+    */
 
 </script>
