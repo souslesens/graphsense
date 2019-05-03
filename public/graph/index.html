@@ -114,8 +114,6 @@
 
 
         });
-
-
     </script>
 
 
@@ -138,7 +136,7 @@
         <ul class="list-unstyled components">
             <li class="active">
                 <a href="#searchSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Search</a>
-                <ul class="collapse list-unstyled" id="searchSubMenu" style="background-color: #0468ff">
+                <ul class="collapse list-unstyled" id="searchSubMenu"  >
                     <li>
                         <div class="modal-body">
                             <label for="tree_searchNodeValue">Search by name :</label>
@@ -147,22 +145,13 @@
                                        aria-describedby="basic-addon2">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="button"
-                                            onclick=" Tree.searchNodes($('#tree_searchNodeValue').val(),'search_treeContainerDiv')">
+                                            onclick="Tree.searchNodes($('#tree_searchNodeValue').val(),'search_treeContainerDiv')">
                                         <i class="fas fa-search fa-sm"></i>
                                     </button>
                                 </div>
-
                             </div>
-
-                       <!--     <div class="input-group">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary" type="button"
-                                            onclick="Tree.searchNodesDialog($('#tree_searchNodeValue').val(),'search_treeContainerDiv')">Advanced Search ...
-                                    </button>
-                                </div>
-
-                            </div>-->
-                            <div class="row" id="search_treeContainerDiv" style="font-size: 14px; width: 270px; height:500px; overflow:auto;margin-left: 5px;margin-right: 5px;"></div>
+               
+                            <div class="row" id="search_treeContainerDiv" style="font-size: 12px; width: 270px; height:400px; overflow:auto;margin-left: 0px;margin-right: 5px;background-color:white"></div>
 
                         </div>
                     </li>
@@ -172,48 +161,74 @@
         <hr class="sidebar-divider"/>
         <ul class="list-unstyled components">
             <li>
-                <a href="#hierarchySubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">TreeViews</a>
-                <ul class="collapse list-unstyled" id="hierarchySubMenu" style="background-color: #0468ff">
-
+                <a href="#hierarchySubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Custom TreeViews</a>
+                <ul class="collapse list-unstyled" id="hierarchySubMenu">
                     <li>
-                        <div class="input-group">
+                        <div class="modal-body">
+                            <label for="tree_searchNodeValue">Select a Tree class :</label>
+                            <div class="input-group">
+                                <select class="form-control " id="tree_labelSelect" onchange="Tree.drawNodeHierarchyTree($(this).val(),'hierarchy_treeContainerDiv')"></select>
+                            </div>
 
-                            <select class="form-control " id="tree_labelSelect" onchange="Tree.drawNodeHierarchyTree($(this).val(),'hierarchy_treeContainerDiv')"></select>
+                            <div class="row" id="hierarchy_treeContainerDiv" style="font-size: 14px; width: 270px; height:500px; overflow:auto;margin-left: 5px;margin-right: 5px;"></div>
                         </div>
-
-                        <div class="row" id="hierarchy_treeContainerDiv" style="font-size: 14px; width: 270px; height:500px; overflow:auto;margin-left: 5px;margin-right: 5px;"></div>
-
                     </li>
                 </ul>
-
         </ul>
 
+        <!-- Divider -->
+        <hr class="sidebar-divider"/>
     </nav>
 
     <!-- Page Content  -->
     <div id="content">
 
 
-        <!-- icon menu navbar -->
-   <!--     <div id="mainAlertWrapperDiv" >
-            <div class="alert alert-primary hide" role="alert">
-                <span id="alertMessageDiv" style="min-height:40px; width: 100%"></span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <!-- main menu navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">Sous le sens Menu</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Data (ETL)</a>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link" href="#">Login/Logout</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0" style="padding-right:10px;">
+                <label for="selectSubGraph" class=" mr-sm-2 col-form-label" style="color:white">Select sub graph :</label>
+                <select class="form-control my-2 my-sm-0" id="subGraphSelect">
+                    <option>Sub Graph 1</option>
+                    <option>Sub Graph 2</option>
+                    <option>Sub Graph 3</option>
+                    <option>...</option>
+                </select>
+                </form>
             </div>
-        </div>-->
-        <nav class="navbar navbar-expand-lg navbar-light">
+        </nav>
+      
+
+        <!-- icon menu navbar -->
+       <nav class="navbar navbar-expand-lg navbar-light" style="padding-left:5px;">
 
             <ul class="navbar-nav mr-auto">
+            <a class="navbar-brand" href="#" style="border-left: 2px solid blue;padding-left:5px;"> Request Data :</a>
+
                 <li class="nav-item">
-                    <a class="navbar-brand" id="showTreeButton" href="#">
+                    <a  id="showTreeButton" onmouseover="$(this).tooltip('show');" class="navbar-brand"  href="#"  data-toggle="tooltip" data-placement="bottom" title="Search Menu">
                         <img src="img/advancedSearch.png" width="40" height="40" alt="Filter">
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" data-toggle="collapse" href="#dbFilterCollapseMenu" aria-expanded="false"
-                       data-target="#dbFilterCollapseMenu">
+                    <a id="filterNodeMenu" onmouseover="$(this).tooltip('show');" class="navbar-brand" data-toggle="collapse" href="#dbFilterCollapseMenu" aria-expanded="false" data-target="#dbFilterCollapseMenu" data-placement="bottom" title="Database Query Menu">
                         <img src="img/cube.png" width="40" height="40" alt="Filter">
                     </a>
                 </li>
@@ -222,26 +237,23 @@
                         <span class="sr-only">Loading...</span>
                     </div>
                 </li>
-
-
-
-
             </ul>
-
+           
             <ul id="#navbar_graph" class="navbar-nav mr-auto">
+                <a class="navbar-brand" style="border-left: 2px solid red;padding-left:5px;" href="#">Request Graph :</a>
+
                 <li class="nav-item">
-                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphExpandModalMenu" onclick="GraphExpand.initSourceLabel(visjsGraph.legendLabels)">
+                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphExpandModalMenu" data-placement="bottom"  title="Expand Node Menu" onclick="GraphExpand.initSourceLabel(visjsGraph.legendLabels)" onmouseover="$(this).tooltip('show');">
                         <img src="img/expandLabel.png" width="40" height="40" alt="">
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphHighlightModalMenu" onclick="GraphHighlight.initDialog()">
+                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphHighlightModalMenu" data-placement="bottom" title="HighLlight Node Menu"  onclick="GraphHighlight.initDialog()" onmouseover="$(this).tooltip('show');">
                         <img src="img/brush.jpg" width="40" height="40" alt="Tag">
                     </a>
                 </li>
-
                 <li class="nav-item">
-                    <a class="navbar-brand" href="#" onclick="GraphFilter.initDialog()">
+                    <a class="navbar-brand" href="#" title="Filter Graph Menu" onclick="GraphFilter.initDialog()"></a>
                         <img src="img/filter.png" width="40" height="40" alt="Tag">
                     </a>
                 </li>
@@ -250,16 +262,16 @@
                         <img src="img/previous.jpg" width="40" height="40" alt="Tag">
                     </a>
                 </li>
-
                 <li class="nav-item">
                     <a class="navbar-brand d-none" id="graphCache_nextGraphButton" href="#" onclick="Cache.restoreNextGraph()">
                         <img src="img/next.jpg" width="40" height="40" alt="Tag">
                     </a>
                 </li>
-
-
             </ul>
-            <ul id="#navbar_params" class="navbar-nav mr-auto">
+
+            <ul id="#navbar_params" class="navbar-nav ml-auto" >
+                <a class="navbar-brand" href="#" style="border-left: 2px solid green;padding-left:5px;">Display Option :</a>
+
                 <li class="nav-item">
                     <a class="navbar-brand" href="#">
                         <img src="img/fit.png" width="40" height="40" alt="">
@@ -278,15 +290,11 @@
                         <img src="img/fullScreen.png" width="40" height="40" alt="">
                     </a>
                 </li>
-
                 <li class="nav-item">
                     <a class="navbar-brand" href="#" data-toggle="modal" data-target="#adminModalMenu">
                         <img src="img/parameters.png" width="40" height="40" alt="Tag">
                     </a>
                 </li>
-
-
-
             </ul>
         </nav>
 
@@ -351,7 +359,7 @@
 
             <!-- Content Row -->
             <div class="row">
-                <div id="graphDiv" class="col-xl-12">
+                <div id="graphDiv" class="col-12">
 
                 </div>
             </div>

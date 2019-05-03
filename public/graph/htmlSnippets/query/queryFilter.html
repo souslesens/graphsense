@@ -3,8 +3,9 @@
 
     <div class="card card-body">
         <h5 class="card-title">Select a node label to add a request filter</h5>
-        <div class="row" style="padding-top: 10px;">
-            <div class="col-sm-10">
+
+        <div class="row" style="padding-top: 1px;">
+            <div class="col-12">
 
                 <div class="d-flex justify-content-center">
                     <div class="btn-toolbar" role="toolbar">
@@ -13,27 +14,33 @@
                         </div>
                     </div>
                 </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10">
                 <div class="d-flex align-items-start flex-column" style="padding-top: 5px;">
                     <div class="card-deck" id="query_cardDeck">
                         <!-- loaded by  see UI_query.addCardToQueryDeck()-->
                     </div>
                 </div>
             </div>
-
-            <div class="col-sm-2 " >
+            <div class="col-2 " >
                 <div class="d-flex align-items-end flex-column">
                     <div class="p-1">
-                    <button class='btn btn-info' style="width:150px;"  id="query_newQueryButton">New Query</button>    
+                        <button class='btn btn-primary' style="width:150px;"  id="query_newQueryButton">
+                            <span class="newQueryIconButton"></span>New Query
+                        </button>    
                     </div>
                     <div class="p-1">
-                    <button class='btn btn-info' style="width:150px;" id="query_displayGraphButton" >
-                        <span class="graphIconButton" > </span>Display Graph
-                    </button>
+                        <button class='btn btn-primary' style="width:150px;" id="query_displayGraphButton" >
+                            <span class="graphIconButton" > </span>Display Graph
+                        </button>
                     </div>
                     <div class="p-1">
-                    <button class='btn btn-info' style="width:150px;"  id="query_displayTableButton">
-                        <span class="tableIconButton rounded-circle" ></span> Display Table
-                    </button>
+                        <button class='btn btn-primary' style="width:150px;"  id="query_displayTableButton">
+                            <span class="tableIconButton rounded-circle" ></span>Display Table
+                        </button>
                     </div>
                 </div>
             </div>

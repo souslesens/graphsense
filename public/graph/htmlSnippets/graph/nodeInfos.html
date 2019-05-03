@@ -5,16 +5,16 @@
 </style>
 
 
-<div class="modal-dialog" role="document" id="graphFilter_dialogDiv">
+<div id="graphFilter_dialogDiv" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="displayModalLabel">Node <span id="graphNodeInfos_title"></span></h5>
+            <h5 class="modal-title" id="displayModalLabel">Node Info : <span id="graphNodeInfos_title"></span></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
-            <ul class="nav nav-tabs" id="graphNodeInfos_tabs" role="tablist">
+            <ul class="nav nav-tabs nav-fill" id="graphNodeInfos_tabs" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#graphNodeInfos_tabs_Details" role="tab" aria-controls="home" aria-selected="true">Details</a>
                 </li>
@@ -25,15 +25,14 @@
                 <li class="nav-item">
                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#graphNodeInfos_tabs_Relations" role="tab" aria-controls="profile" aria-selected="false">Relations</a>
                 </li>
-              <li class="nav-item">
+               <li class="nav-item">
                     <a class="nav-link" id="settings-tab" data-toggle="tab" href="#graphNodeInfos_tabs_Similars" role="tab" aria-controls="settings" aria-selected="false">Similars</a>
                 </li>
             </ul>
 
             <div class="tab-content">
-                <div class="tab-pane active" id="graphNodeInfos_tabs_Details" role="tabpanel" aria-labelledby="home-tab">
+                <div class="tab-pane fade show active" id="graphNodeInfos_tabs_Details" role="tabpanel" aria-labelledby="home-tab">
                     <div id="graphNodeInfos_DetailsDiv" class="graphNodeInfos_tab"></div>
-
                 </div>
                 <div class="tab-pane" id="graphNodeInfos_tabs_Relations" role="tabpanel" aria-labelledby="profile-tab">
                     <div id="graphNodeInfos_RelationsDiv" class="graphNodeInfos_tab"></div>
