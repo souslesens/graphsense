@@ -1,4 +1,4 @@
-var Requests = (function () {
+var requests = (function () {
     var self = {};
     var localStorageKey = "SouslesensNeo4jImportParams";
     var allParams;
@@ -7,6 +7,7 @@ var Requests = (function () {
     self.init = function (_subGraph, callback) {
         subGraph = _subGraph;
         allParams = localStorage.getItem(localStorageKey)
+//console.log(allParams);
         if (!allParams) {
             allParams = {}
             allParams[subGraph] = {requests: {}};
@@ -108,12 +109,11 @@ var Requests = (function () {
             common.fillSelectOptionsWithStringArray(neoTargetLabel, context.labels);
 
         }
-        Requests.setSchemaFromRequests();
+        requests.setSchemaFromRequests();
         return;
 
     }
-
-    self.listStoredRequests = function (subGraph) {
+    self.listStoredRequests = function (subGraph, updateUI) {
         if (!allParams)
             self.init();
         var requests = []
@@ -130,6 +130,8 @@ var Requests = (function () {
                 return -1;
             return 0;
         });
+        if (updateUI)
+            common.fillSelectOptions(requestsSelect, requests, "label", "value", true)
 
         return requests;
     }

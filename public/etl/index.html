@@ -15,9 +15,12 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.2/multiple-select.min.css">
 
 
-
-
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+
+    <script src="../jsCommon/jquery/jquery.min.js"></script>
+    <script src="../jsCommon/jquery/jquery-ui.min.js"></script>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -26,23 +29,30 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             crossorigin="anonymous"></script>
 
-    <script src="../jsCommon/jquery/jquery.min.js"></script>
-    <script src="../jsCommon/jquery/jquery-ui.min.js"></script>
 
 
     <!-- Multiselect - Latest compiled and minified JavaScript -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.2/multiple-select.min.js"></script>
 
-    <script src="../graph/js/core/common.js"></script>
-    <script src="../graph/js/core/cypher.js"></script>
+    <script type="text/javascript" src="../jsCommon/cypher.js"></script>
+    <!--  access to description and logic of neo4j database  -->
+    <script type="text/javascript" src="../jsCommon/schema.js"></script>
+    <!--  access to description and logic of neo4j database  -->
+    <script type="text/javascript" src="../jsCommon/neo4jDataModel.js"></script>
+    <script type="text/javascript" src="../jsCommon/common.js"></script><!--  util methods generic -->
 
-    <script src="js/others/socket.io.js"></script>
-    <script src="../graph/js/others/async.js"></script>
-    <script src="js/others/download.js"></script>
-
+    <script src="../jsCommon/others/socket.io.js"></script>
+    <script src="../jsCommon/others/async.js"></script>
+    <script src="../jsCommon/others/download.js"></script>
 
 
     <script src="js/mainController.js"></script>
+    <script src="js/graph.js"></script>
+    <script src="js/requests.js"></script>
+    <script src="js/context.js"></script>
+
+
+    <!--
     <script src="js/binder.js"></script>
     <script src="js/export.js"></script>
     <script src="js/ui.js"></script>
@@ -50,15 +60,21 @@
     <script src="js/requests.js"></script>
     <script src="js/importNeo.js"></script>
     <script src="js/graph.js"></script>
+    -->
 
 
     <style type="text/css">
-        .navbar{
+        .navbar {
             margin-top: 20px;
         }
     </style>
 
     <script>
+        $(function () {
+            MainController.init0();
+
+
+        })
     </script>
 
 
@@ -98,15 +114,14 @@
 
             <form class="form-inline">
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="subGraphDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Load Neo4j Subgraph
+                    <button class="btn btn-secondary " type="button" onclick="graph.addSubGraph(mainMenu_subGraphSelect)">
+                        New Sub Graph
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="subGraphDropdownMenuButton">
-                        <a class="dropdown-item" href="#">Subgraph 1</a>
-                        <a class="dropdown-item" href="#">Subgraph 2</a>
-                        <a class="dropdown-item" href="#">Subgraph 3</a>
-                    </div>
+                    <select class="form-control my-2 my-sm-0" id="mainMenu_subGraphSelect" onchange="graph.initSubGraph($(this).val())">
+                    </select>
+
                 </div>
+
             </form>
         </nav>
 
@@ -117,9 +132,9 @@
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
 
-                            <label for="inputTypeSelect">Select Dataset :</label>
+                            <label for="mainMenu_datasetSelect">Select Dataset :</label>
 
-                            <select class="form-control" id="selectLabel" size="5">
+                            <select class="form-control" id="mainMenu_datasetSelect" size="5">
                                 <option>Dataset 1.csv</option>
                                 <option>Dataset 2.csv</option>
                                 <option>Dataset 3.csv</option>
@@ -148,19 +163,19 @@
                 <form>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label for="inputTypeSelect">Node Request :</label>
+                            <label for="mainMenu_nodeRequestSelect">Node Request :</label>
 
-                            <select class="form-control" id="selectLabel" size="5">
-                                <option>Node Request 1 </option>
+                            <select class="form-control" id="mainMenu_nodeRequestSelect" size="5">
+                                <option>Node Request 1</option>
                                 <option>Node Request 2</option>
                                 <option>Node Request 3</option>
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="inputTypeSelect">Relation Request :</label>
+                            <label for="mainMenu_relationRequestSelect">Relation Request :</label>
 
-                            <select class="form-control" id="selectLabel" size="5">
-                                <option>Relation Request 1 </option>
+                            <select class="form-control" id="mainMenu_relationRequestSelect" size="5">
+                                <option>Relation Request 1</option>
                                 <option>Relation Request 2</option>
                                 <option>Relation Request 3</option>
                             </select>
@@ -276,7 +291,7 @@
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <label for="labelName">Label Name :</label>
-                                    <input type="text" id="labelName" class="form-control" />
+                                    <input type="text" id="labelName" class="form-control"/>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -310,7 +325,7 @@
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <label for="requestName">Request :</label>
-                                    <input type="text" id="requestName" placeholder="SaveRequest_Label1" aria-label="SaveRequest_Label1" class="form-control" />
+                                    <input type="text" id="requestName" placeholder="SaveRequest_Label1" aria-label="SaveRequest_Label1" class="form-control"/>
                                 </div>
                             </div>
                         </form>
@@ -369,7 +384,7 @@
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <label for="requestName">Request :</label>
-                                    <input type="text" id="requestName" placeholder="SaveRequest_Relation1" aria-label="SaveRequest_Relation1" class="form-control" />
+                                    <input type="text" id="requestName" placeholder="SaveRequest_Relation1" aria-label="SaveRequest_Relation1" class="form-control"/>
                                 </div>
                             </div>
                         </form>

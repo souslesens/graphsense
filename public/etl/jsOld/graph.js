@@ -1,52 +1,11 @@
-var graph = (function () {
-    var self = {};
-
-
-    self.loadSubGraphs = function (subGraphSelect) {
-        var match = "Match (n)  return distinct n.subGraph as subGraph order by subGraph";
-        Cypher.executeCypher(match, function (err, data) {
-            if (data && data.length > 0) {// } && results[0].data.length >
-                var subgraphs = []
-                for (var i = 0; i < data.length; i++) {
-                    var value = data[i].subGraph;
-                    subgraphs.push(value);
-                }
-
-                subgraphs.splice(0, 0, "");
-
-                common.fillSelectOptionsWithStringArray(subGraphSelect, subgraphs);
-            }
-        })
+var graph=(function(){
+    var self={};
+    self.drawVisjsGraph=function(){
 
 
     }
 
-    self.initSubGraph = function (subGraph) {
-        context.subGraph = subGraph;
-        Requests.init(subGraph,UI.loadSubGraphSelects);
-    }
-
-
-    self.drawVisjsGraph = function () {
-
-
-    }
-
-    self.addSubGraph = function (subGraphSelect) {
-        var newSubGraph = prompt("New Subgraph name ");
-        if (!newSubGraph || newSubGraph.length == 0)
-            return;
-
-        $(subGraphSelect).append($('<option>', {
-            text: newSubGraph,
-            value: newSubGraph
-        }));
-
-        $(subGraphSelect).val(newSubGraph);
-        requests.init(newSubGraph);
-    }
-
-    self.deleteNeoSubGraph = function (subGraph) {
+  self.deleteNeoSubgraph=function (subGraph) {
         if (!subGraph)
             subGraph = $("#subGraphSelect").val();
         var ok = confirm("Voulez vous vraiment effacer le subGraph " + subGraph);
@@ -58,11 +17,11 @@ var graph = (function () {
             whereSubGraph = " where n.subGraph='" + subGraph + "'"
         var match = 'MATCH (n)-[r]-(m) ' + whereSubGraph + ' delete  r';
         Cypher.executeCypher(match, function (err, data) {
-            if (err)
+            if(err)
                 return $("#messageDiv").html(err);
             var match = 'MATCH (n)' + whereSubGraph + ' delete n';
             Cypher.executeCypher(match, function (err, data) {
-                if (err)
+                if(err)
                     return $("#messageDiv").html(err);
                 $("#messageDiv").html("subGraph=" + subGraph + "deleted");
                 $("#messageDiv").css("color", "red");
@@ -76,7 +35,7 @@ var graph = (function () {
             Schema.delete(subGraph);
         });
     }
-    self.deleteLabel = function () {
+    self.deleteLabel=function () {
         var label = $('#labelsSelect').val();
         var subGraph = $("#subGraphSelect").val();
         if (!label || label.length == 0) {
@@ -94,7 +53,7 @@ var graph = (function () {
                 + " return distinct labels(n)[0] as label";
             var match = "Match (n:" + label + ") " + whereSubGraph + " DETACH delete n";
             Cypher.executeCypher(match, function (err, data) {
-                if (err)
+                if(err)
                     return $("#messageDiv").html(err);
                 $("#messageDiv").html("nodes with label=" + label + "deleted");
                 $("#messageDiv").css("color", "green");
