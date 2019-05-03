@@ -201,7 +201,7 @@
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Data (ETL)</a>
+                        <a class="nav-link" href="#">Import Data</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Login/Logout</a>
@@ -210,10 +210,15 @@
                 <form class="form-inline my-2 my-lg-0" style="padding-right:10px;">
                     <label for="mainMenu_subGraphSelect" class=" mr-sm-2 col-form-label" style="color:white">Select sub graph :</label>
                     <select class="form-control my-2 my-sm-0" id="mainMenu_subGraphSelect" onchange="MainController.initSubGraph($(this).val())">
-
                     </select>
                 </form>
             </div>
+            <a class="navbar-brand" onmouseover="$(this).tooltip('show');" href="#" data-toggle="modal"  data-placement="bottom" data-target="#adminModalMenu" title="Display Schema Database">
+                <img src="img/Schema.png" width="35" height="35" alt="Tag" style="border-radius:30px">
+            </a>
+            <a class="navbar-brand" href="#" data-toggle="modal" data-target="#adminModalMenu">
+                <img src="img/parameters.png" width="40" height="40" alt="Tag" style="border-radius:30px">
+            </a>
         </nav>
 
 
@@ -307,11 +312,9 @@
                         <img src="img/fullScreen.png" width="40" height="40" alt="">
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#adminModalMenu">
-                        <img src="img/parameters.png" width="40" height="40" alt="Tag">
-                    </a>
-                </li>
+                
+                
+    
             </ul>
         </nav>
 
@@ -377,9 +380,8 @@
  
 
             <!-- Content Row -->
-            <div class="row">
-                <div id="graphDiv" class="col-12">
-
+            <div class="row"   >
+                <div id="graphDiv" class="col-12" >
                 </div>
             </div>
 
