@@ -28,31 +28,8 @@
 var serverParams={
     routesRootUrl:"",
     neo4jUrl: 'http://neo4j:souslesens@127.0.0.1:7474',
-    sourceUrl : "sourcedb://127.0.0.1:27017/",
-    sourceFetchSize:2000,
-    elasticFethSize:2000,
-    elasticUrl:'http://127.0.0.1:9200/',
-    // elasticUrl:'http://92.222.116.179:9200/',
-    elasticPort:9200,
-    uploadMaxSize:100*1000*1000, //100M
-    elasticsaerchMaxDocSizeForIndexing:10*1000*1000 ,//1Mo
-    elasticMaxFetch:10*1000,
-    mysqlConnections:{
-        bailletarchives: {
-            "host": "localhost",
-            "user": "root",
-            "password": "vi0lon",
-            "database": 'bailletarchives'
-        },
-        phototheque: {
-            "host": "localhost",
-            "user": "root",
-            "password": "vi0lon",
-            "database": 'phototheque'
-        }
 
 
-    }
 
 }
 

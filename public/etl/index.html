@@ -50,6 +50,7 @@
     <script src="js/graph.js"></script>
     <script src="js/requests.js"></script>
     <script src="js/context.js"></script>
+    <script src="js/UI.js"></script>
 
 
     <!--
@@ -85,6 +86,7 @@
 <div class="container">
 
     <!-- Page Content  -->
+    <div id="messageDiv" style="width:100%;height: 50px"></div>
     <div id="content">
         <nav class="navbar navbar-expand-lg navbar navbar-dark bg-primary">
             <a class="navbar-brand" href="#">Sous le sens ETL</a>
@@ -97,7 +99,7 @@
                         <a class="nav-link" data-toggle="collapse" href="#collapseDataset" aria-expanded="false" aria-controls="collapseDataset">Dataset <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#collapseRequest" aria-expanded="false" aria-controls="collapseRequest">Request</a>
+                        <a class="nav-link" data-toggle="collapse" href="#collapseRequest" aria-expanded="false" aria-controls="collapseRequest">Mapping</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownNeoDbMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Neo4j Database</a>
@@ -135,9 +137,7 @@
                             <label for="mainMenu_datasetSelect">Select Dataset :</label>
 
                             <select class="form-control" id="mainMenu_datasetSelect" size="5">
-                                <option>Dataset 1.csv</option>
-                                <option>Dataset 2.csv</option>
-                                <option>Dataset 3.csv</option>
+
                             </select>
 
 
@@ -163,34 +163,30 @@
                 <form>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
-                            <label for="mainMenu_nodeRequestSelect">Node Request :</label>
+                            <label for="mainMenu_nodeRequestSelect">Node Mapping :</label>
 
                             <select class="form-control" id="mainMenu_nodeRequestSelect" size="5">
-                                <option>Node Request 1</option>
-                                <option>Node Request 2</option>
-                                <option>Node Request 3</option>
+
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="mainMenu_relationRequestSelect">Relation Request :</label>
+                            <label for="mainMenu_relationRequestSelect">Relation Mapping :</label>
 
                             <select class="form-control" id="mainMenu_relationRequestSelect" size="5">
-                                <option>Relation Request 1</option>
-                                <option>Relation Request 2</option>
-                                <option>Relation Request 3</option>
+
                             </select>
                         </div>
                     </div>
 
                     <div class="form-row">
                         <div class="col-md-3 mb-3">
-                            <button type="button" class="btn btn-primary">Execute Selected Node Request</button>
+                            <button type="button" class="btn btn-primary">Execute Selected Node Mapping</button>
                         </div>
                         <div class="col-md-3 mb-3">
-                            <button type="button" class="btn btn-primary">Execute all Node Requests</button>
+                            <button type="button" class="btn btn-primary">Execute all Node Mapping</button>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <button type="button" class="btn btn-primary">Execute Selected Relation Request</button>
+                            <button type="button" class="btn btn-primary">Execute Selected Relation Mapping</button>
                             <button type="button" class="btn btn-primary">Execute all Relation Requests</button>
                         </div>
                     </div>
@@ -252,15 +248,22 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+
                     <div class="modal-body">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile">
-                            <label class="custom-file-label" for="customFile">Choose file</label>
+                            <form  name="uploadXlsxForm" enctype="multipart/form-data" action="/loadRemoteFileForNeo" method="post" target="votar">
+                              <!--  <label for="file-input">select file( .csv or .xls) :</label>-->
+                                <input type="file" accept=".xlsx, .csv" name="file" id="file-input" class='btn-secondary' value="select file( .csv or .xls)"/>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-primary" onclick="document.forms['uploadXlsxForm'].submit()"> import</button>
+
+                            </form>
+                          <!--  <input type="file" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">Choose file</label>-->
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save label</button>
+                      <!--  <button type="button" class="btn btn-primary">Save label</button>-->
                     </div>
                 </div>
             </div>
@@ -280,11 +283,32 @@
                         <form>
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="selectDataset">Select Dataset :</label>
-                                    <select class="form-control" id="selectDataset">
-                                        <option>Dataset 1.csv</option>
-                                        <option>Dataset 2.csv</option>
-                                        <option>Dataset 3.csv</option>
+                                    <label for="nodeMapping_DatasetSelect">Select Dataset :</label>
+                                    <select class="form-control" id="nodeMapping_DatasetSelect">
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="nodeMapping_ColIdSelect"> Id :</label>
+                                    <select class="form-control" id="nodeMapping_ColIdSelect">
+
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="nodeMapping_ColNameSelect"> Name :</label>
+                                    <select class="form-control" id="nodeMapping_ColNameSelect">
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label for="nodeMapping_ColPropertiesSelect">Select Properties :</label>
+                                    <select class="form-control" id="nodeMapping_ColPropertiesSelect" multiple="multiple">
+
                                     </select>
                                 </div>
                             </div>
@@ -295,37 +319,9 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="selectColId"> Id :</label>
-                                    <select class="form-control" id="selectColId">
-                                        <option>col 1</option>
-                                        <option>col 2</option>
-                                        <option>col 3</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="selectColName"> Name :</label>
-                                    <select class="form-control" id="selectColName">
-                                        <option>col 1</option>
-                                        <option>col 2</option>
-                                        <option>col 3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="selectProperties">Select Properties :</label>
-                                    <select class="form-control" id="selectProperties" multiple="multiple">
-                                        <option value="col1">Col 1</option>
-                                        <option value="col2">Col 2</option>
-                                        <option value="col3">Col 3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-12 mb-3">
-                                    <label for="requestName">Request :</label>
-                                    <input type="text" id="requestName" placeholder="SaveRequest_Label1" aria-label="SaveRequest_Label1" class="form-control"/>
+                                    <label for="requestName">Mapping Name :</label>
+                                    <input type="text" id="nodeMapping_requestName" placeholder="SaveRequest_Label1" aria-label="SaveRequest_Label1" class="form-control"/>
                                 </div>
                             </div>
                         </form>
@@ -352,11 +348,9 @@
                         <form>
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="selectDataset">Select Dataset :</label>
-                                    <select class="form-control" id="selectDataset">
-                                        <option>Dataset 1.csv</option>
-                                        <option>Dataset 2.csv</option>
-                                        <option>Dataset 3.csv</option>
+                                    <label for="relationMapping_DatasetSelect">Select Dataset :</label>
+                                    <select class="form-control" id="relationMapping_DatasetSelect">
+
                                     </select>
                                 </div>
                             </div>
@@ -364,26 +358,22 @@
 
                                 <div class="col-md-6 mb-3">
                                     <h4>Source </h4>
-                                    <label for="sourceColId"> Id :</label>
-                                    <select class="form-control" id="sourceColId">
-                                        <option>col 1</option>
-                                        <option>col 2</option>
-                                        <option>col 3</option>
+                                    <label for="relationMapping_ColIdSelect"> Id :</label>
+                                    <select class="form-control" id="relationMapping_ColIdSelect">
+
                                     </select>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <h4>Destination</h4>
-                                    <label for="destinationColId"> Id :</label>
-                                    <select class="form-control" id="destinationColId">
-                                        <option>col 1</option>
-                                        <option>col 2</option>
-                                        <option>col 3</option>
+                                    <label for="relationMapping_ColNameSelect"> Id :</label>
+                                    <select class="form-control" id="relationMapping_ColNameSelect">
+
                                     </select>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="requestName">Request :</label>
+                                    <label for="requestName">Mapping :</label>
                                     <input type="text" id="requestName" placeholder="SaveRequest_Relation1" aria-label="SaveRequest_Relation1" class="form-control"/>
                                 </div>
                             </div>
@@ -402,6 +392,6 @@
 
 </div>
 
-
+<iframe name="votar" style="display:none;"></iframe><!-- for response of submit form : stay on same page-->
 </body>
 </html>

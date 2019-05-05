@@ -143,29 +143,40 @@ Util = {
     },
 
 
-    getCsvFileSeparator :function (file,callback) {
+    getCsvStringSeparator: function (str) {
+        var separators = [",", "\t", ";"];
+        var p = str.indexOf("\n")
+        if (p < 0)
+            p = str.indexOf("\r")
+        if (p < 0) {
+            return null;
+        }
+        var firstLine = str.substring(0, p)
+        for (var k = 0; k < separators.length; k++) {
+            if (firstLine.indexOf(separators[k]) > 0)
+                return separators[k];
+        }
+    },
+
+
+    getCsvFileSeparator: function (file, callback) {
         var readStream = fs.createReadStream(file, {start: 0, end: 5000, encoding: 'utf8'});
         var separator = ",";
         readStream.on('data', function (chunk) {
-            var separators = [",", "\t", ";"];
-            var p = chunk.indexOf("\n")
-            if (p < 0)
-                p = chunk.indexOf("\r")
-            if (p < 0) {
+            var sep = util.getCsvStringSeparator(chunk);
+            if (!sep) {
                 readStream.destroy();
                 console.log("no line break or return in file")
                 return null;
             }
-            var firstLine = chunk.substring(0, p)
-            for (var k = 0; k < separators.length; k++) {
-                if (firstLine.indexOf(separators[k]) > 0)
-                    callback(separators[k]);
+            else {
+                readStream.destroy();
+                return callback(sep);
             }
 
 
-            readStream.destroy();
         }).on('end', function () {
-            var xx = 3
+
             return;
         })
             .on('close', function () {
@@ -175,7 +186,7 @@ Util = {
 
     },
 
-    normalizeHeader :function (headerArray, s) {
+    normalizeHeader: function (headerArray, s) {
         //   var   r = s.toLowerCase();
         var r = s;
         r = r.replace(/[\(\)'.]/g, "")
@@ -199,11 +210,11 @@ Util = {
         return r;
     }
 
-    }
-    /*var array=[128,1430,8324]
-    for(var i=0;i<array.length;i++){
-        var x=array[i]
-        console.log(x+"  "+Math.round(Math.log10(x)));
-    }*/
+}
+/*var array=[128,1430,8324]
+for(var i=0;i<array.length;i++){
+    var x=array[i]
+    console.log(x+"  "+Math.round(Math.log10(x)));
+}*/
 
-    module.exports = Util;
+module.exports = Util;

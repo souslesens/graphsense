@@ -19,9 +19,11 @@ var authentication = require("../bin/authentication..js")
 var neoToJstree=require("../bin/transform/neoToJsTree..js")
 
 var xlsxToNeoLoader=require("../bin/xlsxToNeoLoader..js")
-
+var fileToNeoLoader=require("../bin/fileToNeoLoader..js")
 
 var xlsxToNeo=require("../bin/transform/xlsxToNeo..js")
+var jsonDBStorage=require("../bin/jsonDBStorage..js")
+
 
 console.log("***********************serverParams.routesRootUrl " + serverParams.routesRootUrl + "*********")
 
@@ -417,6 +419,13 @@ router.post(serverParams.routesRootUrl + '/loadLocalCsvForNeo', function (req, r
     });
 
 });
+
+router.post(serverParams.routesRootUrl + '/loadRemoteFileForNeo', function (req, response) {
+    fileToNeoLoader.processForm(req, function (error, result) {
+        processResponse(response, error, result)
+    });
+
+});
 router.post(serverParams.routesRootUrl + '/loadLocalXLSXforNeo', function (req, response) {
     if(req.body.listSheets)
         xlsxToNeo.listSheets(req.body.filePath, function (error, result) {
@@ -435,6 +444,20 @@ router.post(serverParams.routesRootUrl + '/xlsxToNeoLoader', function (req, resp
         processResponse(response, error, result)
     });
 });
+
+router.post(serverParams.routesRootUrl + '/jsonDBStorage', function (req, response) {
+    if(req.body.getDatasetNames) {
+        jsonDBStorage.getDatasetNames(function (error, result) {
+            processResponse(response, error, result)
+        });
+    }
+    if(req.body.getMappingNames) {
+        jsonDBStorage.getMappingNames(function (error, result) {
+            processResponse(response, error, result)
+        });
+    }
+});
+
 
 
 

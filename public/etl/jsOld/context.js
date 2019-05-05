@@ -3,7 +3,9 @@ var context = {
     schema: {},
     storedRequestsParams: {},
     serverUrl: "../../../",
-    nodeColors:{}
+    nodeColors: {},
+    currentDataSet: null,
+
 
 
 }
