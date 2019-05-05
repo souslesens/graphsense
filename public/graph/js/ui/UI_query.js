@@ -67,19 +67,16 @@ var UI_query = (function () {
         var color = Schema.schema.labels[queryObject.label].color;
 
         var filterCardId  = 'query_filterCard_' + index;
-        var filterCardCollaspeId =  filterCardId + 'Collapse'
+        //var filterCardCollaspeId =  filterCardId + 'Collapse'
 
-        var html =  '<div class="card" onclick="UI_query.onCardClick('+index+')"; id="' + filterCardId + '"  style="width: 15rem;"> ' +
-                    '   <div class="card-header"  data-toggle="collapse" aria-expanded="false" aria-controls="' + filterCardCollaspeId + '" href="#' + filterCardCollaspeId + '">' +
-                    '       <a class="card-title" style="background-color:' + color + '">' +
-                    '           <span class="fa fa-chevron-down pull-right"></span> ' +
-                    '       </a>' +
+        var html =  '<div class="card" onclick="UI_query.onCardClick('+index+')" id="' + filterCardId + '" style="width: 15rem;"> ' +
+                    '   <div class="card-header">' +
+                    '       <div class="circle rounded-circle" style="padding-left:5px;background-color:' + color + '">&nbsp;</div> '+
                     '        <span class="badge">' + queryObject.cardTitle + '</span> ' +
-
                     '       <button type="button"  onclick="UI_query.removeFilterCard(' + index + ')" class="close" aria-label="Close"> ' +
                     '           <span aria-hidden="true">&times;</span></button> ' +
                     '       </div>' +
-                    '       <div id="' + filterCardCollaspeId + '" class="collapse" > ' +
+                    '       <div>' +
                     '       <div class="card-body text-center" style="padding:5px"> ' +
                     '           <p class="card-text"><small class="text-muted">' + queryObject.text + '</small></p>' +
                     '       </div> ' +
