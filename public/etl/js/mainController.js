@@ -6,7 +6,7 @@ var MainController = (function () {
     self.init0 = function () {
 
         graph.loadSubGraphs(mainMenu_subGraphSelect);
-        self.loadDatasetNames();
+        datasets.loadDatasetNames();
 
         self.initSocket();
 
@@ -42,7 +42,7 @@ var MainController = (function () {
 
             $("#waitImg").css("visibility", "hidden");
             if (typeof message == 'string') {
-                if (message.indexOf("listCsvFields") > 0) {
+              /*  if (message.indexOf("listCsvFields") > 0) {
                     var messageObj = JSON.parse(message);
                     ui.initImportDialogSelects(messageObj);
 
@@ -61,7 +61,7 @@ var MainController = (function () {
                 if (message.toLowerCase().indexOf("error") > -1)
                     color = "red";
                 $("#messageDiv").css("color", color);
-                $("#messageDiv").html(message);
+                $("#messageDiv").html(message);*/
 
             }
             else {
@@ -72,8 +72,8 @@ var MainController = (function () {
                     context.currentDataSource = message;
                     $("#datasetModal").modal("hide");
 
-                    context.datasets.push(message)
-                    UI.setDatasets(context.datasets);
+                    context.datasets.push(message.name)
+                    UI.setDatasets(context.datasets,message.name);
                     UI.setMappingFieldsFromHeader(message.header);
                 }
 
@@ -82,23 +82,7 @@ var MainController = (function () {
         })
     }
 
-    self.loadDatasetNames = function () {
-        var payload = {
-            jsonDBStorage: true,
-            getDatasetNames: true
-        }
-        self.callServer(self.jsonDBStoragePath,payload,function(err, result){
-           context.datasets=result;
-           var datasets=[];
-           result.forEach(function(line){
-               datasets.push({name:line})
-           })
-           UI.setDatasets(datasets);
 
-        })
-
-
-    }
 
 
     return self;

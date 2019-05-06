@@ -100,7 +100,7 @@ var fileToNeoLoader = {
                     var yy = headers;
 
 
-                    jsonDBStorage.writeDataset(fileName,{name:fileName,header: headers, data: dataArray})
+                    jsonDBStorage.writeDataset({name:fileName,header: headers, data: dataArray})
                     //  fs.writeFileSync(filePath, JSON.stringify({headers: headers, data: results}, null, 2));
                     var result = {
                         message: "file " + fileName + " loaded",

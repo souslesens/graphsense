@@ -26,16 +26,16 @@
  ******************************************************************************/
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync');
-const path=require("path");
+const path = require("path");
 
 
-const dbDataPath = path.resolve(__dirname,'../db/souslesensData.db');
-const dbMappingsPath =path.resolve(__dirname,'../db/mappings.db');
+const dbDataPath = path.resolve(__dirname, '../db/souslesensData.db');
+const dbMappingsPath = path.resolve(__dirname, '../db/mappings.db');
 
 
 var jsonDBStorage = {
 
-    getDataSetDb: function () {
+    getDatasetDb: function () {
         const adapter = new FileSync(dbDataPath)
         const db = low(adapter)
         return db;
@@ -50,61 +50,106 @@ var jsonDBStorage = {
 
 
     createDataDB: function () {
-        jsonDBStorage.getDataSetDb().defaults({files: {}})
+        jsonDBStorage.getDatasetDb().defaults({files: []})
             .write()
     },
 
     createMappingDB: function () {
 
-        jsonDBStorage.getMappingDb().defaults({mappings: {}})
+        jsonDBStorage.getMappingDb().defaults({mappings: []})
             .write()
     },
 
 
-    writeDataset: function (key,json) {
-       var db= jsonDBStorage.getDataSetDb();
-       var xx=  db.get('files');
+    writeDataset: function (json,callback) {
+        var db = jsonDBStorage.getDatasetDb();
+        var value = db.find({name:json.name}).value();
+        if(value)
+            db.remove({name: json.name}).write()
+
         db.get('files')
-            .set(key, json)
+            .push(json)
             .write()
+        if(callback)
+            return callback(null,"done")
     },
 
-    writeMapping: function (json) {
-        jsonDBStorage.getDataSetDb().get('mappings')
-            .set(key, json)
+    writeMapping: function (json,callback) {
+       var db= jsonDBStorage.getMappingDb().get('mappings')
+
+        var value = db.find({name:json.name}).value();
+        if(value)
+            db.remove({name: json.name}).write()
+
+            db.push(json)
             .write()
+        if(callback)
+            return callback(null,"done")
     },
 
-    getDataset: function (json) {
-       return  jsonDBStorage.getDataSetDb().get('files')
+    getDataset: function (json, callback) {
+        var query = json.query;
+        if (!json.query)
+            query = json;
+        var value = jsonDBStorage.getDatasetDb().get('files')
+            .find(query)
+            .value()
+
+        if (json.fields) {
+            value = jsonDBStorage.filterFields(value, json.fields)
+
+        }
+        return callback(null, value);
+    },
+
+    getMapping: function (json, callback) {
+        var query = json.query;
+        if (!json.query)
+            query = json;
+
+        var value = jsonDBStorage.getDatasetDb().get('mappings')
             .find(json)
             .value()
+
+        if (json.fields) {
+            value = jsonDBStorage.filterFields(value, json.fields)
+        }
+        return callback(null, value);
     },
 
-    getMapping: function (json) {
-       return  jsonDBStorage.getDataSetDb().get('mappings')
-            .find(json)
-            .value()
+    filterFields: function (obj, fields) {
+        var obj2 = {}
+        for (var key in obj) {
+            if (fields.indexOf(key) > -1)
+                obj2[key]=obj[key];
+        }
+        return obj2;
+
     },
 
 
     getDatasetNames: function (callback) {
-           var keys=jsonDBStorage.getDataSetDb().get('files').map('name') .value();
-           return callback(null,keys)
+        var keys = jsonDBStorage.getDatasetDb().get('files').map('name').value();
+        return callback(null, keys)
 
     },
 
     getMappingNames: function (callback) {
-        var keys=jsonDBStorage.getMappingDb().get('files').map('name') .value();
-        return callback(null,keys)
+        var keys = jsonDBStorage.getMappingDb().get('files').map('name').value();
+        return callback(null, keys)
     },
 
-   
-    
-    
-    
-    
-    
+    removeDataSet: function (datasetName, callback) {
+        jsonDBStorage.getDatasetDb().get('files')
+            .remove({name: datasetName})
+            .write()
+        return callback(null, "done")
+    },
+    removeMapping: function (mappingName, callback) {
+        jsonDBStorage.getMappingDb().get('mappings').remove({name: mappingName})
+            .write()
+        return callback(null, "done")
+    },
 
 
 }

@@ -16,13 +16,13 @@ var serverParams = require("../bin/serverParams.js")
 var socket = require('./socket.js');
 var fileSystemProxy = require("../bin/fileSystemProxy..js")
 var authentication = require("../bin/authentication..js")
-var neoToJstree=require("../bin/transform/neoToJsTree..js")
+var neoToJstree = require("../bin/transform/neoToJsTree..js")
 
-var xlsxToNeoLoader=require("../bin/xlsxToNeoLoader..js")
-var fileToNeoLoader=require("../bin/fileToNeoLoader..js")
+var xlsxToNeoLoader = require("../bin/xlsxToNeoLoader..js")
+var fileToNeoLoader = require("../bin/fileToNeoLoader..js")
 
-var xlsxToNeo=require("../bin/transform/xlsxToNeo..js")
-var jsonDBStorage=require("../bin/jsonDBStorage..js")
+var xlsxToNeo = require("../bin/transform/xlsxToNeo..js")
+var jsonDBStorage = require("../bin/jsonDBStorage..js")
 
 
 console.log("***********************serverParams.routesRootUrl " + serverParams.routesRootUrl + "*********")
@@ -64,26 +64,21 @@ router.post(serverParams.routesRootUrl + '/neo', function (req, response) {
     }
 
 
-
     if (req.body && req.body.generateTreeFromChildToParentRelType)
-        neoToJstree.generateTreeFromChildToParentRelType(req.body.label, req.body.relType, req.body.rootNeoId,  function (error, result) {
+        neoToJstree.generateTreeFromChildToParentRelType(req.body.label, req.body.relType, req.body.rootNeoId, function (error, result) {
             processResponse(response, error, result)
         });
     if (req.body && req.body.generateTreeFromParentToChildrenRelType)
-        neoToJstree.generateTreeFromParentToChildrenRelType(req.body.label, req.body.relType, req.body.rootNeoId,  function (error, result) {
+        neoToJstree.generateTreeFromParentToChildrenRelType(req.body.label, req.body.relType, req.body.rootNeoId, function (error, result) {
             processResponse(response, error, result)
         });
     if (req.body && req.body.generateAllDescendantsTreeFromChildToParentRelType)
-        neoToJstree. generateAllDescendantsTreeFromChildToParentRelType(req.body.label, req.body.relType, req.body.rootNeoId,req.body.depth , function (error, result) {
+        neoToJstree.generateAllDescendantsTreeFromChildToParentRelType(req.body.label, req.body.relType, req.body.rootNeoId, req.body.depth, function (error, result) {
             processResponse(response, error, result)
         });
 
 
-
-
 });
-
-
 
 
 router.post(serverParams.routesRootUrl + '/source', function (req, response) {
@@ -160,9 +155,6 @@ router.post(serverParams.routesRootUrl + '/elastic', function (req, response) {
         });
 
 
-
-
-
     else if (req.body && req.body.getAssociatedWords)
         elasticProxy.getAssociatedWords(req.body.indexName, req.body.word, req.body.size, req.body.options, function (error, result) {
             processResponse(response, error, result)
@@ -176,20 +168,20 @@ router.post(serverParams.routesRootUrl + '/elastic', function (req, response) {
             processResponse(response, error, result)
         });
     else if (req.body && req.body.indexCsvFile)
-        elasticProxy.indexCsvFile(  req.body.indexName, req.body.newIndex, req.body.file,  function (error, result) {
+        elasticProxy.indexCsvFile(req.body.indexName, req.body.newIndex, req.body.file, function (error, result) {
             processResponse(response, error, result)
         });
     else if (req.body && req.body.indexJsonFile)
-        elasticProxy.indexjsonFile( req.body.indexName,req.body.newIndex,  req.body.file  ,  function (error, result) {
+        elasticProxy.indexjsonFile(req.body.indexName, req.body.newIndex, req.body.file, function (error, result) {
             processResponse(response, error, result)
         });
 
     else if (req.body && req.body.indexSqlTable)
-        elasticProxy.indexSqlTable( req.body.connection,  req.body.sql,  req.body.elasticIndex,  req.body.elasticType,  function (error, result) {
+        elasticProxy.indexSqlTable(req.body.connection, req.body.sql, req.body.elasticIndex, req.body.elasticType, function (error, result) {
             processResponse(response, error, result)
         });
     else if (req.body && req.body.indexSqlTableInNewIndex)
-        elasticProxy.indexSqlTableInNewIndex( req.body.connection,  req.body.sql,  req.body.elasticIndex,req.body.settings,  req.body.elasticType,  function (error, result) {
+        elasticProxy.indexSqlTableInNewIndex(req.body.connection, req.body.sql, req.body.elasticIndex, req.body.settings, req.body.elasticType, function (error, result) {
             processResponse(response, error, result)
         });
 
@@ -249,16 +241,15 @@ router.post(serverParams.routesRootUrl + '/elastic', function (req, response) {
         });
 
 
-
 });
 router.post(serverParams.routesRootUrl + '/neo2Elastic', function (req, response) {
     if (req.body && req.body.indexNeoNodes2Elastic) {
-        neo2Elastic.indexNeoNodes2Elastic(req.body.subGraph,req.body.where,req.body.index, function (error, result) {
+        neo2Elastic.indexNeoNodes2Elastic(req.body.subGraph, req.body.where, req.body.index, function (error, result) {
             processResponse(response, error, result)
         });
     }
     else if (req.body && req.body.elasticQuery2NeoNodes) {
-        neo2Elastic.elasticQuery2NeoNodes(req.body.index,req.body.queryString,req.body.resultSize, function (error, result) {
+        neo2Elastic.elasticQuery2NeoNodes(req.body.index, req.body.queryString, req.body.resultSize, function (error, result) {
             processResponse(response, error, result)
         });
     }
@@ -312,7 +303,7 @@ router.post(serverParams.routesRootUrl + '/http', function (req, response) {
             processResponse(response, error, result)
         });
     if (req.body && req.body.post)
-        httpProxy.post(req.body.url,req.body.port,req.body.path,req.body.body, function (error, result) {
+        httpProxy.post(req.body.url, req.body.port, req.body.path, req.body.body, function (error, result) {
             processResponse(response, error, result)
         });
 });
@@ -414,7 +405,7 @@ router.post(serverParams.routesRootUrl + '/uploadCsvForNeo', function (req, resp
 
 });
 router.post(serverParams.routesRootUrl + '/loadLocalCsvForNeo', function (req, response) {
-    uploadCsvForNeo.loadLocal(req.body.filePath,req.body.subGraph, function (error, result) {
+    uploadCsvForNeo.loadLocal(req.body.filePath, req.body.subGraph, function (error, result) {
         processResponse(response, error, result)
     });
 
@@ -427,12 +418,12 @@ router.post(serverParams.routesRootUrl + '/loadRemoteFileForNeo', function (req,
 
 });
 router.post(serverParams.routesRootUrl + '/loadLocalXLSXforNeo', function (req, response) {
-    if(req.body.listSheets)
+    if (req.body.listSheets)
         xlsxToNeo.listSheets(req.body.filePath, function (error, result) {
             processResponse(response, error, result)
         });
-    if(req.body.listSheetColumns)
-        xlsxToNeo.listSheetColumns(req.body.filePath,req.body.sheetName, function (error, result) {
+    if (req.body.listSheetColumns)
+        xlsxToNeo.listSheetColumns(req.body.filePath, req.body.sheetName, function (error, result) {
             processResponse(response, error, result)
         });
 
@@ -446,20 +437,52 @@ router.post(serverParams.routesRootUrl + '/xlsxToNeoLoader', function (req, resp
 });
 
 router.post(serverParams.routesRootUrl + '/jsonDBStorage', function (req, response) {
-    if(req.body.getDatasetNames) {
+    if (req.body.getDatasetNames) {
         jsonDBStorage.getDatasetNames(function (error, result) {
             processResponse(response, error, result)
         });
     }
-    if(req.body.getMappingNames) {
+    if (req.body.getMappingNames) {
         jsonDBStorage.getMappingNames(function (error, result) {
             processResponse(response, error, result)
         });
     }
+    if (req.body.writeDataset) {
+        jsonDBStorage.writeDataset(JSON.parse(req.body.writeDataset), function (error, result) {
+            processResponse(response, error, result)
+        });
+    }
+    if (req.body.writeMapping) {
+        jsonDBStorage.writeMapping(JSON.parse(req.body.writeMapping), function (error, result) {
+            processResponse(response, error, result)
+        });
+    }
+    if (req.body.removeDataset) {
+        jsonDBStorage.removeDataset(req.body.removeDataset, function (error, result) {
+            processResponse(response, error, result)
+        });
+    }
+    if (req.body.removeMapping) {
+        jsonDBStorage.removeMapping(req.body.removeMapping, function (error, result) {
+            processResponse(response, error, result)
+        });
+    }
+    if (req.body.getDataset) {
+        jsonDBStorage.getDataset( JSON.parse(req.body.getDataset), function (error, result) {
+            processResponse(response, error, result)
+        });
+    }
+
+    if (req.body.getMapping) {
+        jsonDBStorage.getMapping( JSON.parse(req.body.getMapping), function (error, result) {
+            processResponse(response, error, result)
+        });
+    }
+
+
+
+
 });
-
-
-
 
 
 router.post(serverParams.routesRootUrl + '/rest', function (req, response) {

@@ -51,6 +51,8 @@
     <script src="js/requests.js"></script>
     <script src="js/context.js"></script>
     <script src="js/UI.js"></script>
+    <script src="js/datasets.js"></script>
+    <script src="js/mappings.js"></script>
 
 
     <!--
@@ -144,9 +146,9 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <div class="btn-group" role="group" aria-label="Label buttons">
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#datasetModal">Add Dataset</button>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#datasetModal">Update Dataset</button>
-                                <button type="button" class="btn btn-primary">Remove Dataset</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#datasetModal">Add or Update Dataset</button>
+                              <!--  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#datasetModal">Update Dataset</button>-->
+                                <button type="button" class="btn btn-primary" onclick="datasets.removeDataset($('#mainMenu_datasetSelect').val())">Remove Dataset</button>
                             </div>
                         </div>
 
@@ -200,17 +202,14 @@
             <div class="card">
                 <img class="card-img-top" src="..." alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title" for="selectNode">Select Node :</h5>
-                    <select class="form-control" id="selectNode" size="5">
-                        <option> Node 1</option>
-                        <option> Node 2</option>
-                        <option> Node 3</option>
-                        <option> Node 4</option>
+                    <h5 class="card-title" for="selectNode">Select Node Mapping:</h5>
+                    <select class="form-control" id="nodeMappings_MappingSelect" size="5">
+
                     </select>
                     <div class="btn-group" role="group" aria-label="Label buttons">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#LabelModal">Add Node</button>
-                        <button type="button" class="btn btn-primary">Edit Node</button>
-                        <button type="button" class="btn btn-primary">Remove Node</button>
+                        <button type="button" class="btn btn-primary" onclick="UI.showNodeMappingDialog();">Add Mapping</button>
+                        <button type="button" class="btn btn-primary"  onclick="UI.showNodeMappingDialog($('#nodeMappings_MappingSelect').val());">Edit Mapping</button>
+                        <button type="button" class="btn btn-primary">Remove Mapping</button>
                     </div>
                 </div>
             </div>
@@ -218,8 +217,8 @@
             <div class="card">
                 <img class="card-img-top" src="..." alt="Card image cap">
                 <div class="card-body">
-                    <h5 class="card-title">Select Relation :</h5>
-                    <ul class="list-group">
+                    <h5 class="card-title">Select Relation Mapping:</h5>
+                  <!--  <ul class="list-group">
                         <li class="list-group-item list-group-item-action active">Relation 1</li>
                         <li class="list-group-item list-group-item-action">Relation 2</li>
                         <li class="list-group-item list-group-item-action">Relation 3</li>
@@ -230,6 +229,16 @@
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#RelationModal">Add Relation</button>
                         <button type="button" class="btn btn-success">Edit Relation</button>
                         <button type="button" class="btn btn-success">Remove Relation</button>
+                    </div>-->
+
+
+                    <select class="form-control" id="nodeRelation_MappingSelect" size="5">
+
+                    </select>
+                    <div class="btn-group" role="group" aria-label="Label buttons">
+                        <button type="button" class="btn btn-primary" onclick="UI.showRelationMappingDialog();">Add Mapping</button>
+                        <button type="button" class="btn btn-primary"  onclick="UI.showRelationMappingDialog($('#nodeRelation_MappingSelect').val());">Edit Mapping</button>
+                        <button type="button" class="btn btn-primary">Remove Mapping</button>
                     </div>
                 </div>
             </div>
@@ -270,11 +279,11 @@
         </div>
 
         <!-- Node Modal -->
-        <div class="modal fade" id="LabelModal" tabindex="-1" role="dialog" aria-labelledby="LabelModalLabel" aria-hidden="true">
+        <div class="modal fade" id="NodeMappingModal" tabindex="-1" role="dialog" aria-labelledby="NodeMappingModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="LabelModalLabel">New Label</h5>
+                        <h5 class="modal-title" id="NodeMappingModalLabel">New Node Mapping</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -284,7 +293,7 @@
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <label for="nodeMapping_DatasetSelect">Select Dataset :</label>
-                                    <select class="form-control" id="nodeMapping_DatasetSelect">
+                                    <select onchange="datasets.setCurrentNodeDataset($(this).val())" class="form-control" id="nodeMapping_DatasetSelect">
 
                                     </select>
                                 </div>
@@ -315,13 +324,13 @@
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <label for="labelName">Label Name :</label>
-                                    <input type="text" id="labelName" class="form-control"/>
+                                    <input type="text" id="labelName" class="form-control" onblur="UI.setNodeMappingName()"/>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <label for="requestName">Mapping Name :</label>
-                                    <input type="text" id="nodeMapping_requestName" placeholder="SaveRequest_Label1" aria-label="SaveRequest_Label1" class="form-control"/>
+                                    <input type="text" id="nodeMapping_MappingName" placeholder="SaveRequest_Label1" aria-label="SaveRequest_Label1" class="form-control"/>
                                 </div>
                             </div>
                         </form>
@@ -329,7 +338,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Add/Update Label</button>
+                        <button type="button" class="btn btn-primary" onclick="UI.saveNodeMapping()">Add/Update Mapping</button>
                     </div>
                 </div>
             </div>
@@ -339,7 +348,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="LabelModalLabel">New/Update Relation</h5>
+                        <h5 class="modal-title" id="RelationModalLabel">New/Update Relation</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
