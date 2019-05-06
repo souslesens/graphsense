@@ -2,9 +2,10 @@ Tree = (function () {
         var self = {};
         self.tree;
         self.currentType;
-        self.searchIncrement=0;
-        self.checkboxChangeTimeStamp=0;
+        self.searchIncrement = 0;
+        self.checkboxChangeTimeStamp = 0;
         var treedivId = "treeDiv";
+
 
 
         self.init = function () {
@@ -15,11 +16,11 @@ Tree = (function () {
         self.setTree = function (treeJson, onSelectFn, expandAll) {
             $(".tree_addToselectionButton").addClass("d-none");
 
-         if( self.tree) {
-             self.tree.destroy()
-             self.tree.disableAll()
+            if (self.tree) {
+                self.tree.destroy()
+                self.tree.disableAll()
 
-         }
+            }
 
             self.tree = $('#' + treedivId).tree(
                 {
@@ -31,26 +32,29 @@ Tree = (function () {
             );
             self.tree.on('select', function (e, node, id) {
 
-                if (onSelectFn)
-                    onSelectFn(id);
 
             });
 
             self.tree.on('checkboxChange', function (e, $node, record, state) {
-             //   if((e.timeStamp-self.checkboxChangeTimeStamp)>500)//avoid repetition intempestive
+                //   if((e.timeStamp-self.checkboxChangeTimeStamp)>500)//avoid repetition intempestive
                 Tree.addSelectionToQuery(state)
-                self.checkboxChangeTimeStamp=e.timeStamp;
+                self.checkboxChangeTimeStamp = e.timeStamp;
                 /*   $("#treePopoverWrapperDiv").css("top", context.mousePosition.y).css("left", context.mousePosition.x);
                    $("#treePopoverWrapperDiv").removeClass("d-none")
                    $(".alert").addClass("d-none");*/
 
             })
+
+            self.tree.on('expand', function (e, node, id) {
+                if (onSelectFn)
+                    onSelectFn(id);
+            });
+
+
             self.tree.reload()
             if (expandAll)
                 self.tree.expandAll();
 
-
-            // })
 
         }
 
@@ -71,13 +75,23 @@ Tree = (function () {
 
                     self.getNodes(treeParams.label, treeParams.relType, id, function (err, result) {
 
+                        //remove factive node used for expand image
+                        var children = self.tree.getChildren(self.tree.getNodeById("" + id));
+                        if (children) {
+                            children.forEach(function (child) {
+                                if (child < 0)
+                                    self.tree.removeNode(self.tree.getNodeById("" + child));
+                            })
+                        }
+
                         var parent = self.tree.getNodeById("" + id);
                         var children = result;
-                        var level = self.tree.parents(id).length;
+                        // var level = self.tree.parents(id).length;
                         //   var colors=["#E0E0E0","#D8D8D8","#D0D0D0","#C8C8C8","#C0C0C0","#B8B8B8"]
                         children.forEach(function (child) {
                             //  child.text="<span style='background-color: "+colors[level]+"'>"+child.text+"</span>"
                             self.tree.addNode(child, parent);
+
                         })
                     })
                 }
@@ -105,6 +119,11 @@ Tree = (function () {
                 dataType: "json",
                 data: payload,
                 success: function (parentNode, textStatus, jqXHR) {
+                    // add a false child to each child to see the expand image+
+                    parentNode.children.forEach(function (child, index) {
+                        if (!parentNode.children[index].children || parentNode.children[index].children.length==0)
+                            parentNode.children[index].children.push({id: -Math.round(Math.random() * 10000), text: "", parent: child.id})
+                    })
 
                     return callback(null, parentNode.children)
 
@@ -138,17 +157,19 @@ Tree = (function () {
             var checkedIds = self.tree.getCheckedNodes();
             if (checkedIds.length > Config.maxInIdsArrayLength)
                 return MainController.alert("too many nodes selected : max " + Config.maxInIdsArrayLength);
-            var ids=[];
-            if(state=="checked") {
-                checkedIds.forEach(function (id) {
-                    if (id > -1)//parents label in search tree
-                        ids.push(id)
-                })
-            }
+            var ids = [];
+            //   if (state == "checked") {
+            checkedIds.forEach(function (id) {
+                if (id > -1)//parents label in search tree
+                    ids.push(id)
+            })
+            //}
 
             var queryObject = {};
             var clauseText = " set (" + ids.length + " nodes)";
             queryObject.label = null;
+            if (context.nodeColors[self.currentType])
+                queryObject.label = self.currentType;
             queryObject.text = clauseText;
             queryObject.cardTitle = self.currentType;
             queryObject.type = "nodeSet" + self.currentType;
@@ -187,10 +208,10 @@ Tree = (function () {
             if (value.indexOf("match") == 0)
                 cypher = value;
             else {
-                var whereSubGraph="";
-                if(context.subGraph && context.subGraph!="")
-                    whereSubGraph=" and n.subGraph='"+context.subGraph+"' "
-                cypher = "match(n) where n.name=~'(?i).*" + value + ".*' "+whereSubGraph+" return labels(n)[0] as label , collect(id(n)) as ids, collect(n." + Config.defaultNodeNameProperty + ") as names limit " + Config.maxListDisplayLimit;
+                var whereSubGraph = "";
+                if (context.subGraph && context.subGraph != "")
+                    whereSubGraph = " and n.subGraph='" + context.subGraph + "' "
+                cypher = "match(n) where n.name=~'(?i).*" + value + ".*' " + whereSubGraph + " return labels(n)[0] as label , collect(id(n)) as ids, collect(n." + Config.defaultNodeNameProperty + ") as names limit " + Config.maxListDisplayLimit;
 
             }
             Cypher.executeCypher(cypher, function (err, result) {
@@ -223,14 +244,14 @@ Tree = (function () {
 
 
                 })
-              //  self.tree = "";
-                self.searchIncrement+=1;
-                self.currentType = "search-"+self.searchIncrement;
+                //  self.tree = "";
+                self.searchIncrement += 1;
+                self.currentType = "search-" + self.searchIncrement;
 
-              /*  children.forEach(function (child) {
-                    //  child.text="<span style='background-color: "+colors[level]+"'>"+child.text+"</span>"
-                    self.tree.addNode(child, parent);
-                })*/
+                /*  children.forEach(function (child) {
+                      //  child.text="<span style='background-color: "+colors[level]+"'>"+child.text+"</span>"
+                      self.tree.addNode(child, parent);
+                  })*/
 
 
                 self.setTree(treeData, null);

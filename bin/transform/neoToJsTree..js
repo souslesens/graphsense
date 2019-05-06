@@ -15,19 +15,21 @@ var neoToJstree = {
             var nodes = []
             result.forEach(function (line, index) {
                 var parentProps = line.parent.properties;
-                parentProps._id = line.parent._id
+                parentProps._id = line.parent._id;
                 if (index == 0)
                     nodes.push({text: parentProps.name, id: parentProps._id, parent: "#", data: parentProps})
 
                 var childProps = line.child.properties;
-                childProps._id = line.child._id
-                nodes.push({
-                    text: childProps.name,
-                    id: childProps._id,
-                    parent: parentProps._id,
-                    data: childProps,
-                    children: []
-                })
+                childProps._id = line.child._id;
+
+                    nodes.push({
+                        text: childProps.name,
+                        id: childProps._id,
+                        parent: parentProps._id,
+                        data: childProps,
+                        children: []
+                    })
+
 
 
             })
@@ -42,7 +44,7 @@ var neoToJstree = {
 
     generateTreeFromParentToChildrenRelType: function (label, relType, rootNeoId, callback) {
 
-        var match = "match(n:" + label + ")-[r:" + relType + "]-(m) where id(n)=" + rootNeoId + "  return   n as parent ,m as child";
+        var match = "match(n:" + label + ")-[r:" + relType + "]-(m) where id(n)=" + rootNeoId + "  return   n as parent ,m as child order by child ";
         neoProxy.match(match, function (err, result) {
 
             if (err)
@@ -57,14 +59,16 @@ var neoToJstree = {
                     parent=({text: parentProps.name, id: parentProps._id, data: parentProps, children:[]})
 
                 var childProps = line.child.properties;
-                childProps._id = line.child._id
-                parent.children.push({
-                    text: childProps.name,
-                    id: childProps._id,
-                    parent: parentProps._id,
-                    data: childProps,
-                    children: []
-                })
+                childProps._id = line.child._id;
+                if(childProps.name!="Root") {
+                    parent.children.push({
+                        text: childProps.name,
+                        id: childProps._id,
+                        parent: parentProps._id,
+                        data: childProps,
+                        children: []
+                    })
+                }
 
 
             })
