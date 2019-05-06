@@ -67,25 +67,30 @@ var UI_query = (function () {
         var color = Schema.schema.labels[queryObject.label].color;
 
         var filterCardId  = 'query_filterCard_' + index;
+        var iconCardId = 'query_icon_' + index;
         //var filterCardCollaspeId =  filterCardId + 'Collapse'
 
-        var html =  '<div class="card" onclick="UI_query.onCardClick('+index+')" id="' + filterCardId + '" style="width: 15rem;"> ' +
-                    '   <div class="card-header">' +
-                    '       <div class="circle rounded-circle" style="padding-left:5px;background-color:' + color + '">&nbsp;</div> '+
-                    '        <span class="badge">' + queryObject.cardTitle + '</span> ' +
-                    '       <button type="button"  onclick="UI_query.removeFilterCard(' + index + ')" class="close" aria-label="Close"> ' +
-                    '           <span aria-hidden="true">&times;</span></button> ' +
-                    '       </div>' +
-                    '       <div>' +
-                    '       <div class="card-body text-center" style="padding:5px"> ' +
-                    '           <p class="card-text"><small class="text-muted">' + queryObject.text + '</small></p>' +
-                    '       </div> ' +
-                    '       <div class="form-check" style="text-align:center" >' +
-                    '               <input type="checkbox" checked="checked" class="form-check-input" id="query_filterCardInResult">' +//à completer PB!!!!
-                    '               <label class="form-check-label" for="query_filterCardInResult">In Result</label>' +
-                    '        </div>' +
-                    '  </div>' +
-                    '</div>'
+        var html = "";
+        if(index>0)
+            html = '<div id="' + iconCardId + '" style="padding: 4px 2px 2px;float:right"><img src="img/FilterLabel.png" style="width: 40px; height: 40px;"/></div>';
+
+        html += '<div class="card card-block" onclick="UI_query.onCardClick('+index+')" id="' + filterCardId + '"> ' +
+                '   <div class="card-header">' +
+                '       <div class="circle rounded-circle" style="padding-left:5px;background-color:' + color + '">&nbsp;</div> '+
+                '       <span class="badge">' + queryObject.cardTitle + '</span> ' +
+                '       <button type="button"  onclick="UI_query.removeFilterCard(' + index + ')" class="close" aria-label="Close"> ' +
+                '           <span aria-hidden="true">&times;</span></button> ' +
+                '   </div>' +
+                '   <div>' +
+                '       <div class="card-body text-center" style="padding:5px"> ' +
+                '           <p class="card-text"><small class="text-muted">' + queryObject.text + '</small></p>' +
+                '       </div> ' +
+                '       <div class="form-check" style="text-align:center" >' +
+                '               <input type="checkbox" checked="checked" class="form-check-input" id="query_filterCardInResult">' +//à completer PB!!!!
+                '               <label class="form-check-label" for="query_filterCardInResult">In Result</label>' +
+                '       </div>' +
+                '   </div>' +
+                '</div>'
 
         /* 
         var html = '<div class="card border-primary text-center card-accent-primary" onclick="UI_query.onCardClick('+index+')"; id="query_filterCard_' + index + '" >' +
@@ -137,6 +142,7 @@ var UI_query = (function () {
     self.removeFilterCard = function (index) {
         buildPaths.queryObjs.splice(index, 1);
         $("#query_filterCard_" + index).remove();
+        $("#query_icon_" + index).remove();
 
 
     }
