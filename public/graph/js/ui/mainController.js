@@ -11,6 +11,7 @@ var MainController = (function () {
 
         self.loadSubGraphs();
         self.initSubGraph();
+
         // $('#sidebar').toggleClass('active');
 
 

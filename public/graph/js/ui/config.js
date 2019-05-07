@@ -208,7 +208,7 @@ var Config = {
         '#FFDEF4',]
 
 
-    , "relationPalette": [
+    , "relationPaletteOld": [
         "#352961",
         "#774181",
         "#33313b",
@@ -217,8 +217,14 @@ var Config = {
         "#7bc67b",
         "#007880",
         "#62374e",
-    ]
+    ], "relationPalette": [
+    "#f4c4c4",
+    "#f9d0d0",
+    "#fff8e8",
+    "#fff8d0",
+    "#f9f4c6"
 
+   ]
    /* , "relationPalette": [
         "#d9d7dc",
         "#c8bac1",

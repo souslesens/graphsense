@@ -83,6 +83,7 @@
     <script type="text/javascript" src="js/ui/graphFilter.js"></script>
     <script type="text/javascript" src="js/ui/graphHighlight.js"></script>
     <script type="text/javascript" src="js/ui/graphExpand.js"></script>
+    <script type="text/javascript" src="js/ui/graphDisplay.js"></script>
     <script type="text/javascript" src="js/ui/tree.js"></script>
     <!--   <script type="text/javascript" src="js/ui/treeClass.js"></script>-->
     <script type="text/javascript" src="js/ui/layouts.js"></script>
@@ -113,6 +114,7 @@
 
 
         });
+
     </script>
 
 
@@ -182,7 +184,6 @@
     <!-- Page Content  -->
     <div id="content">
 
-
         <!-- main menu navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <a class="navbar-brand" href="#">Sous le sens Menu</a>
@@ -196,7 +197,7 @@
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Data (ETL)</a>
+                        <a class="nav-link" href="#">Import Data...</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Login/Logout</a>
@@ -205,10 +206,15 @@
                 <form class="form-inline my-2 my-lg-0" style="padding-right:10px;">
                     <label for="mainMenu_subGraphSelect" class=" mr-sm-2 col-form-label" style="color:white">Select sub graph :</label>
                     <select class="form-control my-2 my-sm-0" id="mainMenu_subGraphSelect" onchange="MainController.initSubGraph($(this).val())">
-
                     </select>
                 </form>
             </div>
+            <a class="navbar-brand" onmouseover="$(this).tooltip('show');" href="#" data-toggle="modal"  data-placement="bottom" data-target="#adminModalMenu" title="Display Schema Database">
+                <img src="img/Schema.png" width="35" height="35" alt="Tag" style="border-radius:30px">
+            </a>
+            <a class="navbar-brand" href="#" data-toggle="modal" data-target="#adminModalMenu">
+                <img src="img/parameters.png" width="40" height="40" alt="Tag" style="border-radius:30px">
+            </a>
         </nav>
 
 
@@ -219,6 +225,12 @@
                 <a class="navbar-brand" href="#" style="border-left: 2px solid blue;padding-left:5px;"> Requests :</a>
 
                 <li class="nav-item">
+                    <a  id="query_newQueryButton" data-toggle="collapse" href="#dbFilterCollapseMenu" onmouseover="$(this).tooltip('show');" class="navbar-brand"  href="#"  data-toggle="tooltip" data-placement="bottom" title="New Request">
+                        <img src="img/new.png" width="40" height="40" alt="Filter">
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a  id="showTreeButton" onmouseover="$(this).tooltip('show');" class="navbar-brand"  href="#"  data-toggle="tooltip" data-placement="bottom" title="Search Menu">
                         <img src="img/advancedSearch.png" width="40" height="40" alt="Filter">
                     </a>
@@ -226,6 +238,11 @@
                 <li class="nav-item">
                     <a id="filterNodeMenu" onmouseover="$(this).tooltip('show');" class="navbar-brand" data-toggle="collapse" href="#dbFilterCollapseMenu" aria-expanded="false" data-target="#dbFilterCollapseMenu" data-placement="bottom" title="Database Query Menu">
                         <img src="img/cube.png" width="40" height="40" alt="Filter">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a  onmouseover="$(this).tooltip('show');" class="navbar-brand"  href="#"  data-toggle="tooltip" data-placement="bottom" title="Save Request">
+                        <img src="img/save.png" width="40" height="40" alt="Filter">
                     </a>
                 </li>
                 <li class="nav-item">
@@ -291,11 +308,9 @@
                         <img src="img/fullScreen.png" width="40" height="40" alt="">
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#adminModalMenu">
-                        <img src="img/parameters.png" width="40" height="40" alt="Tag">
-                    </a>
-                </li>
+
+
+
             </ul>
         </nav>
 
@@ -358,10 +373,11 @@
 
         <div class="container-fluid">
 
-            <!-- Content Row -->
-            <div class="row">
-                <div id="graphDiv" class="col-12">
 
+
+            <!-- Content Row -->
+            <div class="row"   >
+                <div id="graphDiv" class="col-12" >
                 </div>
             </div>
 
@@ -377,7 +393,6 @@
     </div>
 
     <!-- end of Page Content -->
-
 </div>
 
 <div id="GraphNodePopoverDiv" class="d-none" style="position:relative "></div>

@@ -1,4 +1,4 @@
-Tree = (function () {
+var Tree = (function () {
         var self = {};
         self.tree;
         self.currentType;
@@ -11,7 +11,14 @@ Tree = (function () {
         self.init = function () {
             var treekeys = Object.keys(Config.trees)
             common.fillSelectOptionsWithStringArray("tree_labelSelect", treekeys, true);
+
+
+
+
         }
+
+
+
 
         self.setTree = function (treeJson, onSelectFn, expandAll) {
             $(".tree_addToselectionButton").addClass("d-none");
@@ -160,8 +167,11 @@ Tree = (function () {
             var ids = [];
             //   if (state == "checked") {
             checkedIds.forEach(function (id) {
-                if (id > -1)//parents label in search tree
-                    ids.push(id)
+                if (id > -1) {//parents label in search tree
+                    ids.push(id);
+                   // var node = Tree.tree.getNodeById(""+id);
+
+                }
             })
             //}
 
@@ -170,6 +180,11 @@ Tree = (function () {
             queryObject.label = null;
             if (context.nodeColors[self.currentType])
                 queryObject.label = self.currentType;
+
+
+
+
+
             queryObject.text = clauseText;
             queryObject.cardTitle = self.currentType;
             queryObject.type = "nodeSet" + self.currentType;
@@ -230,7 +245,8 @@ Tree = (function () {
                     line.ids.forEach(function (id, indexValue) {
                         children.push({
                             id: id,
-                            text: result[indexLine].names[indexValue]
+                            text: result[indexLine].names[indexValue],
+
                         })
                     })
                     //var text = "<span style='margin :2px; border-radius: 5px;border:1px solid black; padding:5px; background-color: " + context.nodeColors[line.label] + "'>" + line.label + " (" + line.ids.length + ")" + "</span>"

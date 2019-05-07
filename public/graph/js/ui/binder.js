@@ -45,6 +45,12 @@ var binder=(function(){
              theme: "minimal"
          });*/
 
+
+
+      $("#query_newQueryButton").bind("click",function(){
+          UI_query.newQuery();
+
+      })
       $('#sidebarCollapse').on('click', function () {
           $('#sidebar, #content').toggleClass('active');
           $('.collapse.in').toggleClass('in');
@@ -104,10 +110,13 @@ var binder=(function(){
 
       $("#displayModalContent").load("htmlSnippets/graph/displayModal.html", function () {
           console.log("graphDisplayModal.html loaded")
-          $("#myRange").on('input', function() {
-              $("#myRangeTxt").html( $(this).val() )
+          $("#graphDisplay_sizeRange").on('input', function() {
+              $("#graphDisplay_sizeInput").html( $(this).val() );
+
 
           });
+          $("#graphDisplay_sizeInput").html(Config.defaultNodeSize);
+          $("#graphDisplay_shapeSelect").val(Config.defaultNodeShape);
       })
 
 

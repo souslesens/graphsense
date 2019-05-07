@@ -10,34 +10,44 @@
                 <div class="d-flex justify-content-center">
                     <div class="btn-toolbar" role="toolbar">
                         <div id="dbFilterLabelButtonGroup" class="btn-group" role="group" >
-                        <!-- loaded by  UI_query.initQueryLabels() -->
+                            <!-- loaded by  UI_query.initQueryLabels() -->
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
         <div class="row">
             <div class="col-10">
                 <div class="d-flex align-items-start flex-column" style="padding-top: 5px;">
-                    <div class="card-deck" id="query_cardDeck">
-                        <!-- loaded by  see UI_query.addCardToQueryDeck()-->
+
+                    <div class="container-fluid">
+                        <div class="row flex-nowrap" id="query_cardDeck" style="overflow-x: auto">
+                            <!-- loaded by  see UI_query.addCardToQueryDeck()-->
+                        </div>
                     </div>
+
+                    <!--
+                    <div class="card-deck" id="query_cardDeck">
+                    </div>
+                    -->
                 </div>
             </div>
             <div class="col-2 " >
                 <div class="d-flex align-items-end flex-column">
+                    <!-- replace by + icon button
                     <div class="p-1">
                         <button class='btn btn-primary' style="width:150px;"  id="query_newQueryButton">
                             <span class="newQueryIconButton"></span>New Query
-                        </button>    
+                        </button>
                     </div>
-                    <div class="p-1">
+                    -->
+                    <div class="p-3">
                         <button class='btn btn-primary' style="width:150px;" id="query_displayGraphButton" >
                             <span class="graphIconButton" > </span>Display Graph
                         </button>
                     </div>
-                    <div class="p-1">
+                    <div class="p-3">
                         <button class='btn btn-primary' style="width:150px;"  id="query_displayTableButton">
                             <span class="tableIconButton rounded-circle" ></span>Display Table
                         </button>
@@ -51,6 +61,7 @@
 </div>
 
 <script>
+
     $("#query_displayTableButton").bind("click",function(){
         UI_query.displayTable();
 
@@ -61,9 +72,11 @@
 
     })
 
+    /*
     $("#query_newQueryButton").bind("click",function(){
         UI_query.newQuery();
 
     })
+    */
 
 </script>

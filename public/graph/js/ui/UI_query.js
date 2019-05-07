@@ -32,7 +32,7 @@ var UI_query = (function () {
         common.fillSelectOptionsWithStringArray("query_propertySelect", properties, true);
         $("#query_propertySelect").val(Schema.getNameProperty());
 
-        $("#queryModalLabel").html("Query Label > " +label)
+        $("#queryModalLabel").html("Query Label > " + label)
 
         $("#query_validateQueryButton").bind('click', function (target) {
             $('#query_filterLabelDialogModal').modal('hide');
@@ -47,46 +47,50 @@ var UI_query = (function () {
     self.addCardToQueryDeck = function (queryObject, index) {
 
         $('#dbQueryFilterLabelModal').modal('hide');
-        if(!index && context.currentQueryCardIndex>-1){
-            return self.updateCardToQueryDeck(queryObject,context.currentQueryCardIndex)
+        if (!index && context.currentQueryCardIndex > -1) {
+            return self.updateCardToQueryDeck(queryObject, context.currentQueryCardIndex)
         }
-        context.currentQueryCardIndex=-1;
+        context.currentQueryCardIndex = -1;
 
         if (!queryObject)
             queryObject = self.setContextQueryObjectParams();
 
 
-        if(!queryObject.cardTitle)
-            queryObject.cardTitle=queryObject.label;
+        if (!queryObject.cardTitle)
+            queryObject.cardTitle = queryObject.label;
         if (!index)
             index = buildPaths.queryObjs.length;
         buildPaths.queryObjs.push(JSON.parse(JSON.stringify(queryObject)));//clone
 
-if(queryObject.label) {
-    self.setUIPermittedLabels(queryObject.label);
-    var color = Schema.schema.labels[queryObject.label].color;
-}
-else color="#ccc"
+        if (queryObject.label && Schema.schema.labels[queryObject.label]) {
+            self.setUIPermittedLabels(queryObject.label);
+            var color = Schema.schema.labels[queryObject.label].color;
+        }
 
-        var filterCardId  = 'query_filterCard_' + index;
+        var filterCardId = 'query_filterCard_' + index;
+        var iconCardId = 'query_icon_' + index;
         //var filterCardCollaspeId =  filterCardId + 'Collapse'
 
-        var html =  '<div class="card" onclick="UI_query.onCardClick('+index+')" id="' + filterCardId + '" style="width: 15rem;"> ' +
+        var html = "";
+        if (index > 0)
+            html = '<div id="' + iconCardId + '" style="padding: 4px 2px 2px;float:right"><img src="img/FilterLabel.png" style="width: 40px; height: 40px;"/></div>';
+
+        html += '<div class="card card-block" onclick="UI_query.onCardClick(' + index + ')" id="' + filterCardId + '"> ' +
             '   <div class="card-header">' +
-            '       <div class="circle rounded-circle" style="padding-left:5px;background-color:' + color + '">&nbsp;</div> '+
-            '        <span class="badge">' + queryObject.cardTitle + '</span> ' +
+            '       <div class="circle rounded-circle" style="padding-left:5px;background-color:' + color + '">&nbsp;</div> ' +
+            '       <span class="badge">' + queryObject.cardTitle + '</span> ' +
             '       <button type="button"  onclick="UI_query.removeFilterCard(' + index + ')" class="close" aria-label="Close"> ' +
             '           <span aria-hidden="true">&times;</span></button> ' +
-            '       </div>' +
-            '       <div>' +
+            '   </div>' +
+            '   <div>' +
             '       <div class="card-body text-center" style="padding:5px"> ' +
             '           <p class="card-text"><small class="text-muted">' + queryObject.text + '</small></p>' +
             '       </div> ' +
             '       <div class="form-check" style="text-align:center" >' +
             '               <input type="checkbox" checked="checked" class="form-check-input" id="query_filterCardInResult">' +//à completer PB!!!!
             '               <label class="form-check-label" for="query_filterCardInResult">In Result</label>' +
-            '        </div>' +
-            '  </div>' +
+            '       </div>' +
+            '   </div>' +
             '</div>'
 
         /*
@@ -139,6 +143,7 @@ else color="#ccc"
     self.removeFilterCard = function (index) {
         buildPaths.queryObjs.splice(index, 1);
         $("#query_filterCard_" + index).remove();
+        $("#query_icon_" + index).remove();
 
 
     }
@@ -207,9 +212,9 @@ else color="#ccc"
     }
 
     self.displayTable = function () {
-        context.currentQueryCardIndex=-1;
+        context.currentQueryCardIndex = -1;
         $("#dbFilterCollapseMenu").removeClass("show");
-        buildPaths.executeQuery("dataTable",{}, function (err, result) {
+        buildPaths.executeQuery("dataTable", {}, function (err, result) {
             if (err)
                 return MainController.error(err);
 
@@ -220,8 +225,8 @@ else color="#ccc"
 
     self.displayGraph = function () {
         $("#navbar_graph_Graph_ul").removeClass("d-none");
-        context.currentQueryCardIndex=-1;
-        buildPaths.executeQuery("graph",{}, function (err, result) {
+        context.currentQueryCardIndex = -1;
+        buildPaths.executeQuery("graph", {}, function (err, result) {
             if (err)
                 return MainController.error(err);
             $("#dbFilterCollapseMenu").removeClass("show");
@@ -293,9 +298,9 @@ else color="#ccc"
 
     }
 
-    self.onCardClick=function(index){
+    self.onCardClick = function (index) {
 
-        context.currentQueryCardIndex=index;
+        context.currentQueryCardIndex = index;
 
         // self.showQueryCardParamsDialog()
     }
