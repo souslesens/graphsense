@@ -245,6 +245,11 @@ var UI_query = (function () {
         //  $("#dbFilterCollapseMenu").removeClass("d-none");
         buildPaths.queryObjs = [];
 
+        graphDiv.innerHTML  ="";
+        graph_legendDiv.innerHTML  ="";
+        graphCommentDiv.innerHTML ="";
+        
+
 
     }
     self.showQueryMenu = function () {

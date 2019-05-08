@@ -27,6 +27,12 @@ var MainController = (function () {
         else
             context.subGraph = subGraph;
 
+        //A vérifier Claude 
+        //Réinitialisatio de la requete quand on change de subgraph
+        buildPaths.queryObjs = [];
+        context.queryObject = null;
+        context.currentQueryCardIndex = -1;
+
         Schema.load(context.subGraph, function (err, result) {
             binder.bindOnPageload();
             self.iniTrees();
@@ -61,6 +67,12 @@ var MainController = (function () {
                 subgraphs.splice(0, 0, "");
 
                 common.fillSelectOptionsWithStringArray(mainMenu_subGraphSelect, subgraphs);
+
+                // A vérifier Claude
+                //Selection du 1e subgraph au 1e chargement de la page
+                //MainController.init();
+                mainMenu_subGraphSelect.selectedIndex=1;
+                MainController.initSubGraph(subgraphs[1]);
             }
         })
 
