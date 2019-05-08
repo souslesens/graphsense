@@ -22,8 +22,17 @@ var graph = (function () {
     }
 
     self.initSubGraph = function (subGraph) {
-        context.subGraph = subGraph;
-        Requests.init(subGraph,UI.loadSubGraphSelects);
+
+
+        Schema.load(subGraph,function(err,result){
+            if(err)
+                return $("#messageDiv").html(err);
+            context.subGraph = result;
+
+
+        })
+
+
     }
 
 

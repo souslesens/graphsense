@@ -103,11 +103,19 @@ var jsonDBStorage = {
     },
 
     getMapping: function (json, callback) {
-        var query = json.query;
-        if (!json.query)
-            query = json;
+        var query=null;
+        if(json) {
+            var query = json.query;
+            if (!json.query)
+                query = json;
+        }
 
-        var value = jsonDBStorage.getDatasetDb().get('mappings')
+        var value;
+        if(!query || query=="*" )
+            value = jsonDBStorage.getMappingDb().get('mappings')
+                .value()
+        else
+         value = jsonDBStorage.getMappingDb().get('mappings')
             .find(json)
             .value()
 
@@ -177,6 +185,8 @@ db.set('user.name', 'typicode')
 
 module.exports = jsonDBStorage;
 
-//jsonDBStorage.getDatasetNames()
+var xx= Object.keys( jsonDBStorage.getMappingDb().get('mappings').value());
 
+var xx= jsonDBStorage.getMappingDb().get('mappings').get('aa').value();
+x=2
 

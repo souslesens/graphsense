@@ -45,11 +45,14 @@
     <script src="../jsCommon/others/async.js"></script>
     <script src="../jsCommon/others/download.js"></script>
 
+    <script src="../jsCommon/schema.js"></script>
+
 
     <script src="js/mainController.js"></script>
     <script src="js/graph.js"></script>
     <script src="js/requests.js"></script>
     <script src="js/context.js"></script>
+    <script src="js/config.js"></script>
     <script src="js/UI.js"></script>
     <script src="js/datasets.js"></script>
     <script src="js/mappings.js"></script>
@@ -69,6 +72,10 @@
     <style type="text/css">
         .navbar {
             margin-top: 20px;
+        }
+
+        .relationMappingSelect{
+          //  width:100px
         }
     </style>
 
@@ -158,11 +165,25 @@
                 </form>
             </div>
         </div>
+        <div class="card card-body">
+        <div class="form-row">
+            <div class="col-md">
+                <label for="mainMenu_nodeRequestSelect">Select Mapping Set:</label>
 
+                <select class="form-control" id="mainMenu_MappingSetSelect" size="5">
+
+                </select>
+            </div>
+            <div class="col-md">
+                <button class="btn btn-secondary" onclick="UI.addMappingSet()"> New</button>
+            </div>
+        </div>
+        </div>
         <!-- Dataset Collapse Menu-->
         <div class="collapse" id="collapseRequest">
             <div class="card card-body">
                 <form>
+
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
                             <label for="mainMenu_nodeRequestSelect">Node Mapping :</label>
@@ -213,6 +234,11 @@
                     </div>
                 </div>
             </div>
+
+
+
+
+
 
             <div class="card">
                 <img class="card-img-top" src="..." alt="Card image cap">
@@ -315,7 +341,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="nodeMapping_ColPropertiesSelect">Select Properties :</label>
+                                    <label for="nodeMapping_ColPropertiesSelect">Select Properties :</label><button type="button" class="btn btn-secondary"  onclick="UI.selectAllNodeMappingProperties()">Select All</button>
                                     <select class="form-control" id="nodeMapping_ColPropertiesSelect" multiple="multiple">
 
                                     </select>
@@ -323,13 +349,13 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="labelName">Label Name :</label>
-                                    <input type="text" id="labelName" class="form-control" onblur="UI.setNodeMappingName()"/>
+                                    <label for="nodeMapping_labelName">Label Name :</label>
+                                    <input type="text" id="nodeMapping_labelName" class="form-control" onblur="UI.setNodeMappingName()"/>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="requestName">Mapping Name :</label>
+                                    <label for="nodeMapping_MappingName">Mapping Name :</label>
                                     <input type="text" id="nodeMapping_MappingName" placeholder="SaveRequest_Label1" aria-label="SaveRequest_Label1" class="form-control"/>
                                 </div>
                             </div>
@@ -344,8 +370,8 @@
             </div>
         </div>
         <!-- Node Modal -->
-        <div class="modal fade" id="RelationModal" tabindex="-1" role="dialog" aria-labelledby="RelationModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+        <div class="modal fade"  id="RelationMappingModal" tabindex="-1" role="dialog" aria-labelledby="RelationModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" style="width:850px;" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="RelationModalLabel">New/Update Relation</h5>
@@ -358,32 +384,59 @@
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
                                     <label for="relationMapping_DatasetSelect">Select Dataset :</label>
-                                    <select class="form-control" id="relationMapping_DatasetSelect">
+                                    <select onchange="datasets.setCurrentNodeDataset($(this).val())" class="form-control" id="relationMapping_DatasetSelect">
 
                                     </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md">
+                                <h4>Relation</h4>
+                                </div>
+                                    <div class="col-md">
+                                <h4>Source Fields</h4>
+                                    </div>
+                                        <div class="col-md">
+                                <h4>Neo4j Labels</h4>
+                                        </div>
+                                            <div class="col-md">
+                                <h4>Neo4j Fields</h4>
+                                            </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md">
+                                    <h4>From Node</h4>
+                                </div>
+                                <div class="col-md">
+                                    <select class="form-control relationMappingSelect" id="relationMapping_ColFromIdSelect"> </select>
+                                </div>
+                                <div class="col-md">
+                                    <select class="form-control relationMappingSelect" id="relationMapping_NeoFromLabelSelect"> </select>
+                                </div>
+                                <div class="col-md">
+                                    <select class="form-control relationMappingSelect" id="relationMapping_NeoFromIdSelect"> </select>
                                 </div>
                             </div>
                             <div class="form-row">
-
-                                <div class="col-md-6 mb-3">
-                                    <h4>Source </h4>
-                                    <label for="relationMapping_ColIdSelect"> Id :</label>
-                                    <select class="form-control" id="relationMapping_ColIdSelect">
-
-                                    </select>
+                                <div class="col-md">
+                                    <h4>To node</h4>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <h4>Destination</h4>
-                                    <label for="relationMapping_ColNameSelect"> Id :</label>
-                                    <select class="form-control" id="relationMapping_ColNameSelect">
-
-                                    </select>
+                                <div class="col-md">
+                                    <select class="form-control relationMappingSelect" id="relationMapping_ColToIdSelect"> </select>
+                                </div>
+                                <div class="col-md">
+                                    <select class="form-control relationMappingSelect" id="relationMapping_NeoToLabelSelect"> </select>
+                                </div>
+                                <div class="col-md">
+                                    <select class="form-control relationMappingSelect" id="relationMapping_NeoToIdSelect"> </select>
                                 </div>
                             </div>
+
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="requestName">Mapping :</label>
-                                    <input type="text" id="requestName" placeholder="SaveRequest_Relation1" aria-label="SaveRequest_Relation1" class="form-control"/>
+                                    <label for="relationMapping_typeName">Mapping :</label>
+                                    <input type="text" onblur="UI.setRelationMappingName()"  id="relationMapping_typeName" placeholder="SaveRequest_Relation1" aria-label="SaveRequest_Relation1" class="form-control"/>
                                 </div>
                             </div>
                         </form>

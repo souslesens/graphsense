@@ -7,7 +7,7 @@ var MainController = (function () {
 
         graph.loadSubGraphs(mainMenu_subGraphSelect);
         datasets.loadDatasetNames();
-
+        Mappings.loadMappingNames();
         self.initSocket();
 
 

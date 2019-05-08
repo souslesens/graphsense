@@ -76,20 +76,20 @@ var Requests = (function () {
         var query = "action=saveQuery";
         var sourceDB = $("#dbSelect").val();
         var source = $("#sourceNode").val();
-        var sourceField = $("#sourceField").val();
+        var colName = $("#colName").val();
         //var json = $("#exportParams").val();
         var name = "";
         var type = "";
         if (json["relationType"]) {
             json.sourceCollection = json.sourceRel;
             type = "relation";
-            name = "Rels_" + $("#subGraphSelect").val() + "." + $("#neoSourceLabel").val()
-                + "->" + $("#neoTargetLabel").val() + ":" + json.relationType;
+            name = "Rels_" + $("#subGraphSelect").val() + "." + $("#neoFromLabel").val()
+                + "->" + $("#neoToLabel").val() + ":" + json.relationType;
         }
         if (json["label"]) {
             json.sourceCollection = json.sourceNode;
             type = "node";
-            name += "Nodes_" + $("#subGraphSelect").val() + "." + $("#label").val() + "_" + sourceField;
+            name += "Nodes_" + $("#subGraphSelect").val() + "." + $("#label").val() + "_" + colName;
         }
         json.source = source;
         if (!allParams[subGraph][source])
@@ -104,8 +104,8 @@ var Requests = (function () {
         self.listStoredRequests(subGraph, requestsSelect);
         if (json.label && context.labels.indexOf(json.label) < 0) {
             context.labels.push(json.label);
-            common.fillSelectOptionsWithStringArray(neoSourceLabel, context.labels);
-            common.fillSelectOptionsWithStringArray(neoTargetLabel, context.labels);
+            common.fillSelectOptionsWithStringArray(neoFromLabel, context.labels);
+            common.fillSelectOptionsWithStringArray(neoToLabel, context.labels);
 
         }
         Requests.setSchemaFromRequests();
@@ -174,8 +174,8 @@ var Requests = (function () {
         }
 
         $("#sourceNode").val(obj.source);
-        $("#neoTargetKey").html("").append('<option>' + obj["neoTargetKey"] + '</option>');
-        $("#neoSourceKey").html("").append('<option>' + obj["neoSourceKey"] + '</option>');
+        $("#neoToId").html("").append('<option>' + obj["neoToId"] + '</option>');
+        $("#neoFromId").html("").append('<option>' + obj["neoFromId"] + '</option>');
         var tab;
         if (name.indexOf("Node") > -1)
             tab = 2

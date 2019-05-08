@@ -11,19 +11,19 @@
         <tr>
             <td align="right"> ID column</td>
             <td>
-                <select id="sourceSourceField"></select></td>
+                <select id="colFromId"></select></td>
         </tr>
 
 
         <tr>
             <td align="right">Neo Label</td>
-            <td><select  onchange="ui.setNeoKey(this,neoSourceKey,sourceSourceField)"  id="neoSourceLabel" ></select>
+            <td><select  onchange="ui.setNeoKey(this,neoFromId,colFromId)"  id="neoFromLabel" ></select>
 
             </td>
         </tr>
         <tr >
             <td align="right">Neo id property</td>
-            <td><select  id="neoSourceKey"></select></td>
+            <td><select  id="neoFromId"></select></td>
 
         </tr>
 
@@ -37,21 +37,21 @@
             <td align="right"> ID column</td>
             <td>
 
-                <select   id="sourceTargetField"></select></td>
+                <select   id="neoToId"></select></td>
 
 
         </tr>
 
         <tr>
             <td align="right">Neo Label</td>
-            <td><select  onchange="ui.setNeoKey(this,neoTargetKey,sourceTargetField)" id="neoTargetLabel"></select>
+            <td><select  onchange="ui.setNeoKey(this,neoToId,neoToId)" id="neoToLabel"></select>
 
             </td>
 
         </tr>
         <tr>
             <td align="right">Neo id property</td>
-            <td><select  id="neoTargetKey"></select></td>
+            <td><select  id="neoToId"></select></td>
 
         </tr>
         <tr class="source0">

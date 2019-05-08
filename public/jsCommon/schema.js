@@ -338,11 +338,12 @@ var Schema = (function () {
                         if (relation.color)
                             linkColors[relKey] = relation.color;
                         else {
+                            if(Config.palette   ) {
+                                var index = (i++) % Config.palette.length;
 
-                            var index = (i++) % Config.palette.length;
 
-
-                            linkColors[relKey] = Config.palette[index];
+                                linkColors[relKey] = Config.palette[index];
+                            }
                         }
 
                     }
@@ -363,10 +364,12 @@ var Schema = (function () {
                     if (false && Schema.schema.labels[key].color)
                         context.nodeColors[key] = Schema.schema.labels[key].color;
                     else {
-                        var index = (i++) % Config.palette.length;
+                        if(Config.palette   ) {
+                            var index = (i++) % Config.palette.length;
 
-                        context.nodeColors[key] = Config.palette[index];
-                        console.log(index + " " + context.nodeColors[key] + " " + key)
+                            context.nodeColors[key] = Config.palette[index];
+                            console.log(index + " " + context.nodeColors[key] + " " + key);
+                        }
                     }
                     if (Schema.schema.labels[key].icon == "default.png")
                         delete Schema.schema.labels[key].icon;
