@@ -209,11 +209,11 @@
                     </select>
                 </form>
             </div>
-            <a class="navbar-brand" onmouseover="$(this).tooltip('show');" href="#" data-toggle="modal"  data-placement="bottom" data-target="#adminModalMenu" title="Display Schema Database">
+            <a class="navbar-brand" onmouseover="$(this).tooltip('show');" href="#" data-placement="bottom" onclick="UI_graph.showSchema(context.subGraph);" title="Display Schema Database">
                 <img src="img/Schema.png" width="35" height="35" alt="Tag" style="border-radius:30px">
             </a>
-            <a class="navbar-brand" href="#" data-toggle="modal" data-target="#adminModalMenu">
-                <img src="img/parameters.png" width="40" height="40" alt="Tag" style="border-radius:30px">
+            <a class="navbar-brand" onmouseover="$(this).tooltip('show');" data-placement="bottom" href="#" onclick="Schema.createSchema(context.subGraph,UI_graph.showSchema);" title="Create Schema Database"  >
+                <img src="img/reset-512.png" width="40" height="40" alt="Tag" style="border-radius:30px;background-color:white,">
             </a>
         </nav>
 
@@ -222,10 +222,10 @@
         <nav class="navbar navbar-expand-lg navbar-light" style="padding-left:5px;">
 
             <ul class="navbar-nav mr-auto">
-                <a class="navbar-brand" href="#" style="border-left: 2px solid blue;padding-left:5px;"> Requests :</a>
+                <a class="navbar-brand" href="#" style="border-left: 2px solid blue;padding-left:5px;"> Request :</a>
 
                 <li class="nav-item">
-                    <a  id="query_newQueryButton" data-toggle="collapse" href="#dbFilterCollapseMenu" onmouseover="$(this).tooltip('show');" class="navbar-brand"  href="#"  data-toggle="tooltip" data-placement="bottom" title="New Request">
+                    <a  id="query_newQueryButton" data-toggle="collapse" href="#dbFilterCollapseMenu"   href="#" onmouseover="$(this).tooltip('show');" class="navbar-brand"  href="#"  data-toggle="tooltip" data-placement="bottom" title="New Request">
                         <img src="img/new.png" width="40" height="40" alt="Filter">
                     </a>
                 </li>

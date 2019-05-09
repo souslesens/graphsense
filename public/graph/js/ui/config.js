@@ -54,9 +54,11 @@ var Config = {
         defaultNodeColor:"#ccc",
         defaultNodeShape: "dot",
         defaultLayout: "random",
+        graphBackgroundColor:"#999",
 
 
     },
+    datatablesBackgroundColor:"#fff",
 //?? à supprimer ?
     shortestPathMaxDistanceTest: 8,
     circleR: 15,

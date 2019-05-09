@@ -158,6 +158,8 @@ var visjsGraph = (function () {
                 _options = {}
             }
 
+
+            $("#"+divId).css("background-color",Config.visjs.graphBackgroundColor)
             self.lastClikedNodeIds = [];
             {// initialisation
                 var t0 = new Date();

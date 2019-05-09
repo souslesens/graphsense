@@ -1,23 +1,19 @@
-var context = (function () {
-
-    var self = {};
-    self.subGraph = "";
-    self.nodeColors = {};
-    self.edgeColors = {};
+function Context() {
 
 
-    self.graphContext = {};
-    self.queryObject = {};
-    self.currentNode = {};
-    self.cypherMatchOptions = {}
-    self.currentRelations = {types: [], props: []}
-    self.mousePosition={x:0,y:0};
-    self.currentQueryCardIndex;
+    this.subGraph = "";
+    this.nodeColors = {};
+    this.edgeColors = {};
+    this.graphContext = {};
+    this.queryObject = {};
+    this.currentNode = {};
+    this.cypherMatchOptions = {}
+    this.currentRelations = {types: [], props: []}
+    this.mousePosition={x:0,y:0};
+    this.currentQueryCardIndex;
 
 
 
 
-    return self;
 
-
-})();
+};

@@ -81,6 +81,7 @@ $("#ExportDataModalMenu").modal("hide")
       //  var divName = "exportData_datatableDiv";
 
         var divName = "graphDiv";
+        $("#"+divName).css("background-color",Config.datatablesBackgroundColor)
       //  $("#ExportDataTableModalMenu").html("");
       //  $("#ExportDataTableModalMenu").modal("show")
         self.drawDataTable(divName, filteredDataset);
