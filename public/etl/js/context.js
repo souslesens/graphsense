@@ -6,6 +6,8 @@ var context = {
     nodeColors:{},
 
 
+
+   mappingsets:[],
     datasets: [],
     nodeMappings: [],
     relationMappings: [],

@@ -136,6 +136,7 @@ var visJsDataProcessor = (function () {
                 labelVisjs = labelVisjs.substring(0, Config.nodeMaxTextLength) + "...";
 
             var color = context.nodeColors[nodeNeo.labels[0]];
+
             var nodeObj = {
 
                 labelNeo: labels[0],// because visjs where label is the node name
@@ -228,9 +229,10 @@ var visJsDataProcessor = (function () {
         self.getVisjsRelFromNeoRel = function (from, to, id, type, props, showType, outline) {
 
 
-            var color = "#99d";//linkColors[rel];
-            if (context.edgeColors[type])
+            var color = "#eee";//linkColors[rel];
+            if ( false && context.edgeColors[type])
                 color = context.edgeColors[type];
+
             var relObj = {
                 from: from,
                 to: to,
@@ -238,7 +240,7 @@ var visJsDataProcessor = (function () {
                 neoId: id,
                 neoAttrs: props,
                 color: color,
-                //   width: 1
+                 width: 1
                 // font:{background:color},
             }
 

@@ -61,7 +61,7 @@ var neoToJstree = {
                 var childProps = line.child.properties;
                 childProps.labelNeo=line.child.labels[0];
                 childProps._id = line.child._id;
-                if(childProps.name!="Root") {
+                if(childProps.name!="Root" &&  childProps._id !=parentProps._id) {
                     parent.children.push({
                         text: childProps.name,
                         id: childProps._id,

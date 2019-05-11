@@ -4,6 +4,7 @@ var Cypher=(function(){
 
     self.executeCypher = function (cypher, callback) {
         console.log(cypher);
+        MainController.showSpinner(true);
         var payload = {match: cypher};
         $.ajax({
             type: "POST",
@@ -11,10 +12,11 @@ var Cypher=(function(){
             data: payload,
             dataType: "json",
             success: function (data, textStatus, jqXHR) {
-
+                MainController.showSpinner(false);
              //   savedQueries.addToCurrentSearchRun(cypher,callback || null);
                 callback(null, data)
             }, error: function (err) {
+                MainController.showSpinner(false);
                 callback(err)
 
             }

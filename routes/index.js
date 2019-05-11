@@ -437,50 +437,10 @@ router.post(serverParams.routesRootUrl + '/xlsxToNeoLoader', function (req, resp
 });
 
 router.post(serverParams.routesRootUrl + '/jsonDBStorage', function (req, response) {
-    if (req.body.getDatasetNames) {
-        jsonDBStorage.getDatasetNames(function (error, result) {
-            processResponse(response, error, result)
-        });
-    }
-    if (req.body.getMappingNames) {
-        jsonDBStorage.getMappingNames(function (error, result) {
-            processResponse(response, error, result)
-        });
-    }
-    if (req.body.writeDataset) {
-        jsonDBStorage.writeDataset(JSON.parse(req.body.writeDataset), function (error, result) {
-            processResponse(response, error, result)
-        });
-    }
-    if (req.body.writeMapping) {
-        jsonDBStorage.writeMapping(JSON.parse(req.body.writeMapping), function (error, result) {
-            processResponse(response, error, result)
-        });
-    }
-    if (req.body.removeDataset) {
-        jsonDBStorage.removeDataset(req.body.removeDataset, function (error, result) {
-            processResponse(response, error, result)
-        });
-    }
-    if (req.body.removeMapping) {
-        jsonDBStorage.removeMapping(req.body.removeMapping, function (error, result) {
-            processResponse(response, error, result)
-        });
-    }
-    if (req.body.getDataset) {
-        jsonDBStorage.getDataset( JSON.parse(req.body.getDataset), function (error, result) {
-            processResponse(response, error, result)
-        });
-    }
 
-    if (req.body.getMapping) {
-        jsonDBStorage.getMapping( JSON.parse(req.body.getMapping), function (error, result) {
-            processResponse(response, error, result)
-        });
-    }
-
-
-
+    jsonDBStorage.invoke(req, function (error, result) {
+        processResponse(response, error, result)
+    });
 
 });
 

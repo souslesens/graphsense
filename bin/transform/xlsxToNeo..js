@@ -67,7 +67,7 @@ var xlsxToNeo = {
 
     worksheetJsonToSouslesensJson: function (worksheet, callback) {
 
-        var headers = [];
+        var header = [];
         var data = [];
         var ref = worksheet["!ref"];
         var range = (/([A-Z])+([0-9]+):([A-Z]+)([0-9]+)/).exec(ref);
@@ -103,7 +103,7 @@ var xlsxToNeo = {
                 }
                 var value = worksheet[key].v;
                 if (i == lineDebut)
-                    headers.push(value);
+                    header.push(value);
                 else {
                     if (j == 0) {
                         data[i] = {}
@@ -112,7 +112,7 @@ var xlsxToNeo = {
                     if (!data[i]) {
                         continue;
                     }
-                    data[i][headers[j]] = value;
+                    data[i][header[j]] = value;
 
                 }
 
@@ -124,7 +124,7 @@ var xlsxToNeo = {
             dataArray.push(data[key]);
         }
 
-        return callback(null, {headers: headers, data: dataArray})
+        return callback(null, {header: header, data: dataArray})
 
 
     },

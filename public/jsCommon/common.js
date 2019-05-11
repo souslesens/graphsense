@@ -389,34 +389,34 @@ var common = (function () {
 
     }
 
-    self.fillSelectOptionsWithStringArray = function (select, data, withEmptyOption) {
+    self.fillSelectOptionsWithStringArray = function (selectObj, data, withEmptyOption) {
         var selectId;
-        if (typeof select == "object")
-            selectId = $(select).attr("id");
+        if (typeof selectObj == "object")
+            selectId = $(selectObj).attr("id");
         else
-            selectId = select;
+            selectId = selectObj;
      $("#" + selectId).find('option').remove();
       //  select.options.length = 0;
         if (withEmptyOption)
             data.splice(0, 0, "");
-        $.each(data, function (i, item) {
+        $.each(data, function (i, value) {
             $("#" + selectId).append($('<option>', {
-                value: item,
-                text: item
+                value: value,
+                text: value
             }));
         });
     }
 
-    self.fillSelectOptions = function (select, data, textfield, valueField, withEmptyOption) {
+    self.fillSelectOptions = function (selectObj, data, textfield, valueField, withEmptyOption) {
         var selectId;
-        if (typeof select == "object")
-            selectId = $(select).attr("id");
+        if (typeof selectObj == "object")
+            selectId = $(selectObj).attr("id");
         else
-            selectId = select;
+            selectId = selectObj;
         $("#" + selectId).find('option').remove();
         // select.options.length = 0;
         if (!textfield) {
-            fillSelectOptionsWithStringArray(select, data);
+            fillSelectOptionsWithStringArray(selectObj, data);
             return;
         }
         if (withEmptyOption)

@@ -6,11 +6,17 @@ var MainController = (function () {
     self.init0 = function () {
 
         graph.loadSubGraphs(mainMenu_subGraphSelect);
-        datasets.loadDatasetNames();
-        Mappings.loadMappingNames();
+        datasets.loadDatasetCollectionNames();
         self.initSocket();
 
 
+    }
+
+    self.showSpinner = function (state) {
+        if (state === false)
+            $("#waitSpinnerDiv").addClass("d-none")
+        else
+            $("#waitSpinnerDiv").removeClass("d-none")
     }
 
 

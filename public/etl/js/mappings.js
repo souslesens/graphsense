@@ -1,40 +1,94 @@
-var Mappings=(function(){
-    var self={};
+var Mappings = (function () {
+    var self = {};
 
 
+    self.loadMappingsets = function () {
 
-    self.saveNodeMapping=function(obj,callback){
+        var payload = {
+            getMappingsetNames: true
+        }
+        MainController.callServer(MainController.jsonDBStoragePath, payload, function (err, result) {
+            if (err)
+                return $("#messageDiv").html(err);
+
+            common.fillSelectOptionsWithStringArray("mainMenu_mappingsetSelect", result)
+
+        })
+    }
+
+    self.addmappingset = function (mappingsetName) {
+
+        var payload = {
+            addMappingset: mappingsetName
+        }
+        MainController.callServer(MainController.jsonDBStoragePath, payload, function (err, result) {
+            if (err)
+                return $("#messageDiv").html(err);
+
+            common.fillSelectOptionsWithStringArray("mainMenu_mappingsetSelect", result)
+
+        })
+
+    }
+    self.getMappingFields = function (label) {
+        var fields = [];
+        for (var key in context.nodeMappings) {
+            var mapping = context.nodeMappings[key];
+            if (mapping.label == label) {
+                if (mapping.exportedFields)
+                    fields = fields.concat(mapping.exportedFields);
+                if(fields.indexOf(mapping.colName)<0)
+                fields.push(mapping.colName);
+                if(fields.indexOf(mapping.colId)<0)
+                fields.push(mapping.colId);
+
+            }
+        }
+        fields.sort();
+        return fields;
+
+
+        return fields;
+
+    }
+
+    self.saveMapping = function (obj, callback) {
 
         var payload = {
             writeMapping: JSON.stringify(obj)
         }
-        MainController.callServer(MainController.jsonDBStoragePath, payload,callback)
+        MainController.callServer(MainController.jsonDBStoragePath, payload, callback)
 
     }
-    self.loadMappingNames=function(){
+
+
+
+
+    self.initMappingSet = function (mappingset) {
+        context.currentmappingset = mappingset;
         var payload = {
-            getMapping: JSON.stringify({query:"*"})
+            getMappings: mappingset
         }
-        MainController.callServer(MainController.jsonDBStoragePath,payload,function(err, result){
-            if(err)
+        MainController.callServer(MainController.jsonDBStoragePath, payload, function (err, result) {
+            if (err)
                 return $("#messageDiv").html(err);
 
-            var nodeNames=[]
-            var relationNames=[]
-            result.forEach(function(mapping){
-                if(mapping.type=="node") {
-                    nodeNames.push(mapping.name)
-                    context.nodeMappings[mapping.name]=mapping;
-                }
-                else {
-                    relationNames.push(mapping.name);
-                    context.relationMappings[mapping.name]=mapping;
-                }
+            var nodeNames = []
+            var relationNames = [];
+
+            for (var key in result.nodes) {
+                nodeNames.push(key)
+            }
+            context.nodeMappings = result.nodes;
+
+            for (var key in result.relations) {
+                relationNames.push(key)
+            }
+            context.relationMappings = result.relations;
 
 
-            })
-            common.fillSelectOptionsWithStringArray("nodeMappings_MappingSelect",nodeNames);
-            common.fillSelectOptionsWithStringArray("relationMappings_MappingSelect",relationNames);
+            common.fillSelectOptionsWithStringArray("nodeMappings_MappingSelect", nodeNames);
+            common.fillSelectOptionsWithStringArray("relationMappings_MappingSelect", relationNames);
         })
 
 
@@ -42,8 +96,6 @@ var Mappings=(function(){
 
 
     return self;
-
-
 
 
 })()

@@ -19,6 +19,7 @@ var xlsxToNeoLoader = {
                     callback('Error Occured' + err);
                 return;
             }
+
             req.files.forEach(function (file) {
                 if (file.fieldname == "xlsx") {
                     xlsxBuffer = file.buffer

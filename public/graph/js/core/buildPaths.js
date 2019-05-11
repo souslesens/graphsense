@@ -150,6 +150,7 @@ var buildPaths = (function () {
 
         if (!options)
             options = {};
+        options.nodesDistance=1;
         self.currentNodesDistance = 1;
 
         var uiCypher = $('#buildPaths_cypherTA').val();
@@ -170,7 +171,7 @@ var buildPaths = (function () {
             }
             if (result.length == 0) {
                 if (self.queryObjs.length > 1)
-                   return self.drawShortestPathesDialog();
+                    return self.drawShortestPathesDialog();
                 else
                     return MainController.alert("No nodes and relations found")
 
@@ -926,6 +927,7 @@ var buildPaths = (function () {
         var edges = visjsGraph.edges._data;
 
         Cypher.executeCypher(cypher, function (err, result) {
+
 
             if (err)
                 return console.log(err);

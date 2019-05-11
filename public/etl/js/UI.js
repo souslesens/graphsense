@@ -16,12 +16,14 @@ var UI = (function () {
     }*/
 
 
-    self.addMappingSet=function(){
-        var mappingSet=prompt("New Mapping Set Name")
-        if(!mappingSet || mappingSet=="")
+    self.addmappingset=function(){
+        var mappingset=prompt("New Mapping Set Name")
+        if(!mappingset || mappingset=="")
             return ;
-        $("#mainMenu_MappingSetSelect").append('<option selected="selected">'+mappingSet+'</option>');
-        context.currentMappingSet=mappingSet;
+        $("#mainMenu_mappingsetSelect").append('<option selected="selected">'+mappingset+'</option>');
+        context.mappingsets.push(mappingset);
+        context.mappingsets.index=context.mappingsets.length-1;
+        Mappings.addmappingset(mappingset)
 
 
     }
@@ -58,6 +60,15 @@ var UI = (function () {
 
 
 
+    self.setRelationFieldSelect=function(labelValue, targetSelect){
+
+       var fields=Mappings.getMappingFields(labelValue);
+        common.fillSelectOptionsWithStringArray(targetSelect, fields,true);
+
+    }
+
+
+
 
 
     self.setMappingNeoFieldsFromSubGraph=function(subGraph){
@@ -68,7 +79,7 @@ var UI = (function () {
     self.setNodeMappingName = function () {
 
         var name = $("#nodeMapping_DatasetSelect").val();
-        name += "_" + $("#relationMapping_labelName").val();
+        name += "_" + $("#nodeMapping_labelName").val();
         $("#nodeMapping_MappingName").val(name);
 
 
@@ -97,6 +108,12 @@ var UI = (function () {
     self.showRelationMappingDialog = function (mappingName) {
 
         $("#RelationMappingModal").modal("show");
+        var labels=[];
+        for(var key in context.nodeMappings){
+           labels.push(context.nodeMappings[key].label);
+        }
+        common.fillSelectOptionsWithStringArray("relationMapping_NeoFromLabelSelect", labels,true);
+        common.fillSelectOptionsWithStringArray("relationMapping_NeoToLabelSelect", labels,true);
         if (mappingName) {
             self.initRelationMapping(mappingName);
         }
@@ -114,7 +131,7 @@ var UI = (function () {
         obj.source = $("#nodeMapping_DatasetSelect").val();
         obj.name = $("#nodeMapping_MappingName").val();
         obj.type = "node";
-        obj.currentMappingSet=context.currentMappingSet;
+        obj.mappingset=context.currentmappingset;
         var header = [];
         $("#nodeMapping_ColNameSelect option").each(function (aaa) {
             var value=$(this).val();
@@ -122,7 +139,7 @@ var UI = (function () {
             header.push(value)
         });
         obj.header = header;
-        Mappings.saveNodeMapping(obj, function (err, result) {
+        Mappings.saveMapping(obj, function (err, result) {
             if (err)
                 return $("#message.div").html(err);
 
@@ -136,15 +153,7 @@ var UI = (function () {
     self.saveRelationMapping = function () {
         var obj = {};
 
-        $("#relationMapping_DatasetSelect").val(mapping.source);
-        $("#relationMapping_MappingName").val(mapping.name);
-        $("#relationMapping_ColFromIdSelect").val(mapping.colFromId);
-        $("#relationMapping_NeoFromLabelSelect").val(mapping.neoFromLabel);
-        $("#relationMapping_NeoFromIdSelect").val(mapping.neoFromId);
 
-        $("#relationMapping_ColToIdSelect").val(mapping.colToId);
-        $("#relationMapping_NeoToLabelSelect").val(mapping.neoToLabel);
-        $("#relationMapping_NeoToIdSelect").val(mapping.neoToId);
 
 
         obj.source = $("#relationMapping_DatasetSelect").val();
@@ -156,8 +165,8 @@ var UI = (function () {
         obj.colToId = $("#relationMapping_NeoToLabelSelect").val();
         obj.neoToLabel = $("#relationMapping_NeoToLabelSelect").val();
         obj.neoToId = $("#relationMapping_NeoToIdSelect").val();
-        obj.type = $("#relationMapping_typeName").val();
-        obj.currentMappingSet=context.currentMappingSet;
+        obj.relationType = $("#relationMapping_typeName").val();
+        obj.mappingset=context.currentmappingset;
 
         obj.type = "relation";
         var header = [];
@@ -167,7 +176,7 @@ var UI = (function () {
                 header.push(value)
         });
         obj.header = header;
-        Mappings.saveRelationMapping(obj, function (err, result) {
+        Mappings.saveMapping(obj, function (err, result) {
             if (err)
                 return $("#message.div").html(err);
 
@@ -186,10 +195,12 @@ var UI = (function () {
        $("#nodeMapping_MappingName").val(mapping.name);
        $("#nodeMapping_labelName").val(mapping.label);
        $("#nodeMapping_ColPropertiesSelect").val(mapping.exportedFields);
-       mapping.exportedFields.forEach(function(colName){
-           var xx=  $("#nodeMapping_ColPropertiesSelect").find('option[text='+colName+']')
-           $("#nodeMapping_ColPropertiesSelect").find('option[text='+colName+']').prop('selected', true);
-       })
+       if(mapping.exportedFields && Array.isArray(mapping.exportedFields)) {
+           mapping.exportedFields.forEach(function (colName) {
+               var xx = $("#nodeMapping_ColPropertiesSelect").find('option[text=' + colName + ']')
+               $("#nodeMapping_ColPropertiesSelect").find('option[text=' + colName + ']').prop('selected', true);
+           })
+       }
 
        $("#nodeMapping_ColIdSelect").val(mapping.colId);
        $("#nodeMapping_ColNameSelect").val(mapping.colName);
@@ -198,10 +209,12 @@ var UI = (function () {
 
 
     self.initRelationMapping=function(mappingName){
-        var mapping=context.nodeMappings[mappingName];
+        var mapping=context.relationMappings[mappingName];
         self.setMappingFieldsFromHeader(mapping.header);
         $("#relationMapping_DatasetSelect").val(mapping.source);
         $("#relationMapping_MappingName").val(mapping.name);
+        $("#relationMapping_typeName").val(mapping.relationType);
+
         $("#relationMapping_ColFromIdSelect").val(mapping.colFromId);
         $("#relationMapping_NeoFromLabelSelect").val(mapping.neoFromLabel);
         $("#relationMapping_NeoFromIdSelect").val(mapping.neoFromId);

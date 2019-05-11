@@ -2,17 +2,42 @@ var datasets = (function () {
     var self = {};
 
 
-    self.loadDatasetNames = function () {
+
+
+
+
+    self.loadDatasetCollectionNames = function () {
         var payload = {
-            jsonDBStorage: true,
-            getDatasetNames: true
+
+            getDatasetCollectionNames: true
         }
         MainController.callServer(MainController.jsonDBStoragePath, payload, function (err, result) {
+            if (err) ;
+            result.sort();
+            common.fillSelectOptionsWithStringArray("dataset_CollectionSelect", result,true)
+
+
+        })
+    }
+
+
+
+    self.initDatasetCollection = function (datasetCollectionName) {
+        context.currentmappingset = datasetCollectionName;
+        var payload = {
+
+            getDatasetNames: datasetCollectionName
+        }
+        MainController.callServer(MainController.jsonDBStoragePath, payload, function (err, result) {
+            if (err) ;
+            result.sort();
             context.datasets = result;
 
             UI.setDatasets(result);
 
         })
+
+        Mappings.initMappingSet(datasetCollectionName)
 
 
     }
@@ -32,7 +57,7 @@ var datasets = (function () {
 
     }
 
-    self.setCurrentNodeDataset = function (datasetName) {
+    self.setCurrentDataset = function (datasetName) {
         var payload = {
             getDataset: JSON.stringify({query: {name: datasetName}, fields: ["header"]})
         }

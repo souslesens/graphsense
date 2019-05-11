@@ -13,7 +13,7 @@ var visjsGraph = (function () {
         self.network = null;
         self.currentScale;
         self.smooth = true;
-        self.edgeWidth = 3;
+        self.edgeWidth = 1;
         self.maxEdgesForSmoothEdges = 200;
 
 
@@ -167,7 +167,7 @@ var visjsGraph = (function () {
                 self.nodes = new vis.DataSet(visjsData.nodes);
                 self.edges = new vis.DataSet(visjsData.edges);
             }
-
+            self.drawLegend2()
 
             var data = {
                 nodes: self.nodes,
@@ -457,14 +457,35 @@ var visjsGraph = (function () {
             }
             return (options)
         }
+    self.drawLegend = function (labels, relTypes) {
+
+    }
+
+        self.drawLegend2 = function () {
+            var countLabels={};
+          var nodes= self.nodes._data;
+          for (var key in nodes){
+              var nodeLabel=nodes[key].labelNeo;
+              if(!countLabels[nodeLabel])
+                  countLabels[nodeLabel]=0
+              countLabels[nodeLabel]+=1;
+          }
 
 
-        self.drawLegend = function (labels, relTypes) {
+
+
+
             self.legendLabels = [];
-            labels.forEach(function (label) {
-                if (label != "" && self.legendLabels.indexOf(label) < 0)
+var labels=[]
+            for( var label in countLabels) {
+                // labels.forEach(function (label) {
+                if (label != "" && self.legendLabels.indexOf(label) < 0) {
                     self.legendLabels.push(label);
-            })
+                    labels.push(label)
+                }
+            }
+
+           // })
 
 
             var html = "<table>";
@@ -474,21 +495,25 @@ var visjsGraph = (function () {
             for (var i = 0; i < labels.length; i++) {
 
                 var label = labels[i];
+                var labelText=label;
+                if(countLabels[label])
+                    labelText+=" ("+countLabels[label]+")"
+
                 if (usedLabels.indexOf(label) < 0) {
                     usedLabels.push(label)
                     if (label && label != "" && context.nodeColors[label]) {
                         onClick = "onclick=filter.filterNodeLegend('" + label + "')";
-                        html += "<tr" + onClick + "><td><span  class='legendSpan' id='legendSpan_" + label + "' style='background-color: " + context.nodeColors[label] + ";width:20px;height: 20px'>&nbsp;&nbsp;&nbsp;</span></td><td><span style='font-size: 10px'>" + label + "</span></td></tr>"
+                        html += "<tr" + onClick + "><td><span  class='legendSpan' id='legendSpan_" + label + "' style='background-color: " + context.nodeColors[label] + ";width:20px;height: 20px'>&nbsp;&nbsp;&nbsp;</span></td><td><span style='font-size: 10px'>" + labelText + "</span></td></tr>"
                     }
                 }
-            }
+         /*   }
 
             if (relTypes) {
                 relTypes.forEach(function (type) {
                     onClick = "onclick=filter.filterNodeLegend('" + label + "')";
                     html += "<tr" + onClick + "><td><span  class='legendSpan' id='legendSpan_" + type + "' style='background-color: " + context.edgeColors[type] + ";width:40px;height:3px'>&nbsp;&nbsp;&nbsp;</span></td><td><span style='font-size: 10px'>[" + type + "]</span></td></tr>"
 
-                })
+                })*/
 
 
             }
@@ -665,7 +690,7 @@ var visjsGraph = (function () {
                 var edge = self.edges._data[key];
                 if (relIds.indexOf(edge.neoId) > -1) {
                     self.edges._data[key].color = {color: color};
-                    self.edges._data[key].width = 3;
+                    self.edges._data[key].width = 1;
                     // self.edges[key].width = 3;
                 }
                 else {

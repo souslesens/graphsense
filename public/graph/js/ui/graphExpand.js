@@ -122,7 +122,7 @@ var GraphExpand = (function () {
 
             visjsGraph.setGraphOpacity(0.1)
             self.drawGraph(newNodes, newEdges );
-            visjsGraph.drawLegend(visjsGraph.legendLabels, allRelTypes);
+            //visjsGraph.drawLegend(visjsGraph.legendLabels, allRelTypes);
 
 
         })
@@ -138,6 +138,7 @@ var GraphExpand = (function () {
         var newNodeIds = [];
         var mArrayIds = [];
         self.relType = [];
+        MainController.showSpinner();
         Cypher.executeCypher(cypher, function (err, result) {
             if (err)
                 return console.log(err);
@@ -276,8 +277,8 @@ var GraphExpand = (function () {
             self.drawGraph(newNodes, newEdges, targetLabel);
 
 
-            visjsGraph.drawLegend(visjsGraph.legendLabels, allRelTypes);
-
+            //visjsGraph.drawLegend(visjsGraph.legendLabels, allRelTypes);
+            MainController.showSpinner(false);
             if (showAllNewNodesrelations) {
                 // create edges with nodes other than source node
 
@@ -435,7 +436,7 @@ var GraphExpand = (function () {
         visjsGraph.draw("graphDiv", newVisjsData, {});
         var labels = visjsGraph.legendLabels;
         labels.push(targetLabel)
-        visjsGraph.drawLegend(labels)
+        //visjsGraph.drawLegend(labels)
 
     }
     self.listClusterNodes = function () {

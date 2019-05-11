@@ -18,7 +18,7 @@ var binder=(function(){
     $("#dbFilterCollapseMenu").load("htmlSnippets/query/queryFilter.html", function () {
         console.log("queryGraphFilter.html loaded");
         //loads for each label buttons to build a card for this label
-        UI_query.initQueryLabels();
+
 
         //loads the modal dialog to apply filters to a card , customized with property of the label
         $("#dbQueryFilterLabelModal").load("htmlSnippets/query/queryFilterLabelModal.html", function () {
@@ -44,6 +44,15 @@ var binder=(function(){
       /*   $("#sidebar").mCustomScrollbar({
              theme: "minimal"
          });*/
+
+      $("#tree_searchNodeValue").on("keyup",function(event) {
+         if(event.keyCode==13)
+             Tree.searchNodes($(this).val(),'search_treeContainerDiv');
+      });
+      $("#query_valueInput").on("keyup",function(event) {
+          if(event.keyCode==13)
+              $("#query_validateQueryButton").trigger();
+      });
 
 
 
