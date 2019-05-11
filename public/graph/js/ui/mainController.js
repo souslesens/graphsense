@@ -3,6 +3,7 @@ var MainController = (function () {
     var self = {};
 
     self.init = function () {
+        context = new Context();
 
 
         GraphController.initComponentsPositionAndSize("content")
@@ -10,7 +11,7 @@ var MainController = (function () {
         $("#navbar_graph").addClass("d-none");
 
         self.loadSubGraphs();
-        self.initSubGraph();
+
 
         // $('#sidebar').toggleClass('active');
 
@@ -19,23 +20,22 @@ var MainController = (function () {
 
 
     self.initSubGraph = function (subGraph) {
-        context = new Context();  //reinitilialisation context;
-        if (!subGraph) {
-            var queryParams = common.getQueryParams(document.location.search);
-            context.subGraph = queryParams.subGraph;
-        }
-        else
-            context.subGraph = subGraph;
 
 
-        Schema.load(context.subGraph, function (err, result) {
+        if (!subGraph)
+            subGraph = context.subGraph
+        context = new Context();
+        context.subGraph = subGraph;
+        //reinitilialisation context;
+        Schema.load(subGraph, function (err, result) {
             binder.bindOnPageload();
             //A vérifier Claude
             //Réinitialisatio de la requete quand on change de subgraph
 
-
+            UI_query.initQueryLabels();
             UI_query.newQuery();
             self.iniTrees();
+
             // fin reinitialisation
             UI_graph.showSchema(context.subGraph)
 
@@ -49,7 +49,7 @@ var MainController = (function () {
 
         var treekeys = Object.keys(Config.trees)
         common.fillSelectOptionsWithStringArray("tree_labelSelect", treekeys, true);
-
+        Tree.resetTrees();
         /*  Config.simpleSearchTree=new Tree("search_treeContainerDiv");
           Config.hierarchyTree=new Tree("hierarchy_treeContainerDiv");*/
 
@@ -72,8 +72,16 @@ var MainController = (function () {
                 // A vérifier Claude
                 //Selection du 1e subgraph au 1e chargement de la page
                 //MainController.init();
-                mainMenu_subGraphSelect.selectedIndex = 1;
-                MainController.initSubGraph(subgraphs[1]);
+                var queryParams = common.getQueryParams(document.location.search);
+                if (queryParams.subGraph) {
+                    context.subGraph = queryParams.subGraph;
+                    $("#mainMenu_subGraphSelect").val(queryParams.subGraph);
+                }
+                else {
+                    context.subGraph = subgraphs[1];
+                    mainMenu_subGraphSelect.selectedIndex = 1;
+                }
+                MainController.initSubGraph(context.subGraph);
             }
         })
 

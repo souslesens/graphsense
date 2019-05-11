@@ -1227,6 +1227,43 @@
           "altLabel": "Grade of cleanliness,Grade of surface cleanliness,cleanliness grade"
         }
       ]
+    },
+    {
+      "name": "ChaptersLabel",
+      "header": [
+        "id",
+        "name",
+        "document",
+        "chapterKey",
+        "paragraphTitle",
+        "paragraphText"
+      ]
+    },
+    {
+      "name": "ChaptersLabel",
+      "header": [
+        "id",
+        "name",
+        "document",
+        "chapterKey",
+        "paragraphTitle",
+        "paragraphText"
+      ]
+    },
+    {
+      "name": "ChaptersLabel",
+      "header": [
+        "id",
+        "name",
+        "document",
+        "chapterKey",
+        "paragraphTitle",
+        "paragraphText"
+      ]
+    },
+    {
+      "name": "MDM- 23-04-2019_CoverSheet",
+      "header": []
     }
   ]
 }
