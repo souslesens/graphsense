@@ -26,14 +26,18 @@ var datasets = (function () {
         context.currentmappingset = datasetCollectionName;
         var payload = {
 
-            getDatasetNames: datasetCollectionName
+            getDatasets: datasetCollectionName
         }
         MainController.callServer(MainController.jsonDBStoragePath, payload, function (err, result) {
             if (err) ;
-            result.sort();
+
             context.datasets = result;
 
-            UI.setDatasets(result);
+            var names=Object.keys(result);
+            names.sort();
+
+
+            UI.setDatasets(names);
 
         })
 

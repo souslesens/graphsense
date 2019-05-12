@@ -42,6 +42,11 @@ var jsonDBStorage = {
                 callback(error, result);
             });
         }
+        if (req.body.getDatasets) {
+            jsonDBStorage.getDatasets(req.body.getDatasets,function (error, result) {
+                callback(error, result);
+            });
+        }
 
         if (req.body.getMappingsetNames) {
             jsonDBStorage.getMappingsetNames(function (error, result) {
@@ -193,6 +198,7 @@ var jsonDBStorage = {
     },
 
 
+
     getMapping: function (json, callback) {
         var query = null;
         if (json) {
@@ -232,6 +238,11 @@ var jsonDBStorage = {
         return callback(null, Object.keys(obj))
 
     },
+    getDatasets: function (datasetCollectionName,callback) {
+        var obj = jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).value();
+        return callback(null,obj)
+
+    },
 
     getDatasetCollectionNames: function (callback) {
         var obj = jsonDBStorage.getDatasetDb().get('datasets').value();
@@ -239,11 +250,7 @@ var jsonDBStorage = {
 
     },
 
-    getDatasetNames: function ( datasetCollectionName,callback) {
-        var obj = jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).value();
-        return callback(null, Object.keys(obj))
 
-    },
 
     getMappingsetNames: function (callback) {
         var obj = jsonDBStorage.getMappingDb().get('mappings').value();

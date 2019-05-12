@@ -389,7 +389,7 @@ var common = (function () {
 
     }
 
-    self.fillSelectOptionsWithStringArray = function (selectObj, data, withEmptyOption) {
+    self.fillSelectOptionsWithStringArray = function (selectObj, data, withEmptyOption,selectedValue) {
         var selectId;
         if (typeof selectObj == "object")
             selectId = $(selectObj).attr("id");
@@ -399,10 +399,15 @@ var common = (function () {
       //  select.options.length = 0;
         if (withEmptyOption)
             data.splice(0, 0, "");
+
         $.each(data, function (i, value) {
+            var selected=false;
+            if(selectedValue &&   selectedValue==value)
+                selected=true;
             $("#" + selectId).append($('<option>', {
                 value: value,
-                text: value
+                text: value,
+                selected:selected
             }));
         });
     }
