@@ -2,12 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0b8677d-dbc9-4124-b08c-92f03bd70409" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/importXlsx.html" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/etl/js/import.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/bin/fileToNeoLoader..js" afterPath="$PROJECT_DIR$/bin/fileToNeoLoader..js" />
+      <change beforePath="$PROJECT_DIR$/bin/importDataIntoNeo4j.js" afterPath="$PROJECT_DIR$/bin/importDataIntoNeo4j.js" />
       <change beforePath="$PROJECT_DIR$/bin/jsonDBStorage..js" afterPath="$PROJECT_DIR$/bin/jsonDBStorage..js" />
+      <change beforePath="$PROJECT_DIR$/db/datasets.db" afterPath="$PROJECT_DIR$/db/datasets.db" />
       <change beforePath="$PROJECT_DIR$/db/mappings.db" afterPath="$PROJECT_DIR$/db/mappings.db" />
+      <change beforePath="$PROJECT_DIR$/public/etl/import.html" afterPath="$PROJECT_DIR$/public/etl/import.html" />
+      <change beforePath="$PROJECT_DIR$/public/etl/importDataIntoNeo4j.js" afterPath="$PROJECT_DIR$/bin/importDataIntoNeo4j.jsOld" />
       <change beforePath="$PROJECT_DIR$/public/etl/js/UI.js" afterPath="$PROJECT_DIR$/public/etl/js/UI.js" />
-      <change beforePath="$PROJECT_DIR$/public/etl/js/datasets.js" afterPath="$PROJECT_DIR$/public/etl/js/datasets.js" />
-      <change beforePath="$PROJECT_DIR$/public/jsCommon/common.js" afterPath="$PROJECT_DIR$/public/jsCommon/common.js" />
+      <change beforePath="$PROJECT_DIR$/routes/index.js" afterPath="$PROJECT_DIR$/routes/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -24,61 +30,71 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UI.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/etl/js/UI.js">
+      <file leaf-file-name="fileToNeoLoader..js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bin/fileToNeoLoader..js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="161" column="51" lean-forward="false" selection-start-line="161" selection-start-column="51" selection-end-line="161" selection-end-column="51" />
+            <state relative-caret-position="176">
+              <caret line="110" column="28" lean-forward="false" selection-start-line="110" selection-start-column="28" selection-end-line="110" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/etl/index.html">
+      <file leaf-file-name="neoProxy.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bin/neoProxy.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="445" column="88" lean-forward="false" selection-start-line="445" selection-start-column="66" selection-end-line="445" selection-end-column="88" />
+            <state relative-caret-position="-392">
+              <caret line="44" column="4" lean-forward="false" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="datasets.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/etl/js/datasets.js">
+      <file leaf-file-name="async.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/node_modules/async/dist/async.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="488">
-              <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+            <state relative-caret-position="202">
+              <caret line="3879" column="23" lean-forward="false" selection-start-line="3879" selection-start-column="23" selection-end-line="3879" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mainController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/etl/js/mainController.js">
+      <file leaf-file-name="importDataIntoNeo4j.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bin/importDataIntoNeo4j.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="46" lean-forward="false" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+            <state relative-caret-position="86">
+              <caret line="503" column="30" lean-forward="true" selection-start-line="503" selection-start-column="30" selection-end-line="503" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="datasets.db" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db/datasets.db">
+      <file leaf-file-name="xlsxToNeoLoader..js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bin/xlsxToNeoLoader..js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="36">
-              <caret line="2" column="16" lean-forward="true" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mappings.db" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db/mappings.db">
+      <file leaf-file-name="xlsxToNeo..js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/bin/transform/xlsxToNeo..js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="261">
-              <caret line="386" column="12" lean-forward="true" selection-start-line="386" selection-start-column="12" selection-end-line="386" selection-end-column="12" />
+            <state relative-caret-position="176">
+              <caret line="52" column="25" lean-forward="false" selection-start-line="52" selection-start-column="20" selection-end-line="52" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="requests.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/etl/js/requests.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="91" column="86" lean-forward="false" selection-start-line="91" selection-start-column="86" selection-end-line="91" selection-end-column="86" />
               <folding />
             </state>
           </provider>
@@ -87,38 +103,28 @@
       <file leaf-file-name="jsonDBStorage..js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bin/jsonDBStorage..js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="247" column="31" lean-forward="false" selection-start-line="247" selection-start-column="31" selection-end-line="247" selection-end-column="31" />
+            <state relative-caret-position="195">
+              <caret line="193" column="31" lean-forward="false" selection-start-line="193" selection-start-column="31" selection-end-line="193" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="common.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/jsCommon/common.js">
+      <file leaf-file-name="import.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/etl/import.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="394" column="47" lean-forward="true" selection-start-line="394" selection-start-column="47" selection-end-line="394" selection-end-column="47" />
+            <state relative-caret-position="315">
+              <caret line="85" column="51" lean-forward="false" selection-start-line="85" selection-start-column="33" selection-end-line="85" selection-end-column="51" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="context.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/etl/js/context.js">
+      <file leaf-file-name="mappings.db" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/db/mappings.db">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mappings.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/etl/js/mappings.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+            <state relative-caret-position="319">
+              <caret line="216" column="29" lean-forward="true" selection-start-line="216" selection-start-column="29" selection-end-line="216" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -137,17 +143,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>resetTree</find>
-      <find>tree</find>
-      <find>treedivId =</find>
-      <find>relationMapping_typeName</find>
-      <find>hierarchyAddCardButton</find>
-      <find>treedivId</find>
-      <find>jstre</find>
-      <find>headers</find>
-      <find>mult</find>
-      <find>multipart</find>
-      <find>label</find>
       <find>Select Dataset</find>
       <find>update data</find>
       <find>getMappingSet</find>
@@ -167,9 +162,19 @@
       <find>&quot;source&quot;: &quot;</find>
       <find>tblDisciplineDocumentType</find>
       <find>getDatasetNames</find>
+      <find>sourceTargetField</find>
+      <find>colFromId</find>
+      <find>MDM_Quantum_</find>
+      <find>le fichier xlsx est obligatoire</find>
+      <find>.source</find>
+      <find>&quot;_&quot;</find>
+      <find>source</find>
+      <find>MDM_Quantum_MDM_Quantum_tblFunctionalClass</find>
+      <find>match</find>
+      <find>exporte</find>
+      <find>cypher</find>
     </findStrings>
     <replaceStrings>
-      <replace>Mapping</replace>
       <replace>dataset</replace>
       <replace>colId</replace>
       <replace>sourceFromColId</replace>
@@ -197,8 +202,9 @@
       <replace>relationMapping_NeoFromIdSel</replace>
       <replace>relationMapping_NeoFromIdSelect</replace>
       <replace>neoFromId</replace>
-      <replace>&quot;source&quot;: &quot;MDM_Quantum_</replace>
       <replace>colName</replace>
+      <replace>&quot;source&quot;: &quot;MDM_Quantum_</replace>
+      <replace>MDM_Quantum#</replace>
     </replaceStrings>
     <dirStrings>
       <dir>D:\GitHub\souslesens</dir>
@@ -206,8 +212,8 @@
       <dir>D:\GitHub\souslesens\node_modules\node-json-db</dir>
       <dir>D:\GitHub\souslesens\node_modules\lowdb</dir>
       <dir>D:\GitHub\souslesens\public</dir>
-      <dir>D:\GitHub\souslesens\public\etl</dir>
       <dir>D:\GitHub\souslesens\public\graph</dir>
+      <dir>D:\GitHub\souslesens\public\etl</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -216,8 +222,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/public/graph/htmlSnippets/admin.html" />
-        <option value="$PROJECT_DIR$/public/graph/htmlSnippets/graph/relationPopover.html" />
         <option value="$PROJECT_DIR$/public/graph/js/ui/graphController.js" />
         <option value="$PROJECT_DIR$/public/graph/htmlSnippets/graph/nodePopover.html" />
         <option value="$PROJECT_DIR$/public/etl/js/requests.js" />
@@ -231,8 +235,6 @@
         <option value="$PROJECT_DIR$/public/graph/css/main.css" />
         <option value="$PROJECT_DIR$/public/graph/js/ui/graphDisplay.js" />
         <option value="$PROJECT_DIR$/public/graph/htmlSnippets/graph/displayModal.html" />
-        <option value="$PROJECT_DIR$/public/etl/import.html" />
-        <option value="$PROJECT_DIR$/public/etl/importDataIntoNeo4j.js" />
         <option value="$PROJECT_DIR$/public/etl/htmlSnippets/adminDialog.html" />
         <option value="$PROJECT_DIR$/public/etl/js/config.js" />
         <option value="$PROJECT_DIR$/public/jsCommon/schema.js" />
@@ -249,7 +251,6 @@
         <option value="$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilter.html" />
         <option value="$PROJECT_DIR$/public/graph/js/ui/binder.js" />
         <option value="$PROJECT_DIR$/public/etl/js/context.js" />
-        <option value="$PROJECT_DIR$/routes/index.js" />
         <option value="$PROJECT_DIR$/public/etl/js/graph.js" />
         <option value="$PROJECT_DIR$/public/graph/js/ui/mainController.js" />
         <option value="$PROJECT_DIR$/public/graph/js/ui/tree.js" />
@@ -257,16 +258,21 @@
         <option value="$PROJECT_DIR$/bin/transform/xlsxToNeo..js" />
         <option value="$PROJECT_DIR$/db/souslesensData.db" />
         <option value="$PROJECT_DIR$/bin/xlsxToNeoLoader..js" />
-        <option value="$PROJECT_DIR$/bin/fileToNeoLoader..js" />
         <option value="$PROJECT_DIR$/public/etl/js/mainController.js" />
         <option value="$PROJECT_DIR$/public/etl/js/mappings.js" />
         <option value="$PROJECT_DIR$/public/etl/index.html" />
-        <option value="$PROJECT_DIR$/db/datasets.db" />
         <option value="$PROJECT_DIR$/public/jsCommon/common.js" />
-        <option value="$PROJECT_DIR$/db/mappings.db" />
-        <option value="$PROJECT_DIR$/bin/jsonDBStorage..js" />
         <option value="$PROJECT_DIR$/public/etl/js/datasets.js" />
+        <option value="$PROJECT_DIR$/public/etl/importDataIntoNeo4j.js" />
+        <option value="$PROJECT_DIR$/public/etl/js/import.js" />
         <option value="$PROJECT_DIR$/public/etl/js/UI.js" />
+        <option value="$PROJECT_DIR$/routes/index.js" />
+        <option value="$PROJECT_DIR$/db/datasets.db" />
+        <option value="$PROJECT_DIR$/public/etl/import.html" />
+        <option value="$PROJECT_DIR$/bin/jsonDBStorage..js" />
+        <option value="$PROJECT_DIR$/db/mappings.db" />
+        <option value="$PROJECT_DIR$/bin/importDataIntoNeo4j.js" />
+        <option value="$PROJECT_DIR$/bin/fileToNeoLoader..js" />
       </list>
     </option>
   </component>
@@ -410,17 +416,17 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\GitHub\souslesens\bin" />
       <recent name="D:\GitHub\souslesens\public\admin" />
       <recent name="D:\GitHub\souslesens\public\jsCommon\others" />
       <recent name="D:\GitHub\souslesens\public\jsCommon" />
       <recent name="D:\GitHub\souslesens\public\graph\htmlSnippets" />
-      <recent name="D:\GitHub\souslesens\public\graph\js\ui" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\GitHub\souslesens\public\etl" />
       <recent name="D:\GitHub\souslesens\public\graph\js\others\jsTreeBootstrap" />
       <recent name="D:\GitHub\souslesens\public\graph\js\others" />
       <recent name="D:\GitHub\souslesens\public\graph\js\ui" />
-      <recent name="D:\GitHub\souslesens\public\etl" />
       <recent name="D:\GitHub\souslesens\bin" />
     </key>
   </component>
@@ -484,12 +490,12 @@
       <workItem from="1556435395476" duration="46050000" />
       <workItem from="1557048212577" duration="5939000" />
       <workItem from="1557068601486" duration="59956000" />
-      <workItem from="1557390960112" duration="75291000" />
+      <workItem from="1557390960112" duration="88733000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="438743000" />
+    <option name="totallyTimeSpent" value="452185000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -506,7 +512,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18440464" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22717391" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16520211" sideWeight="0.50468385" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3097826" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31195652" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -605,54 +611,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/public/etl/js/UI.js</url>
-          <line>214</line>
+          <line>201</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="118" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/bin/importDataIntoNeo4j.js</url>
+          <line>550</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="174" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/bin/importDataIntoNeo4j.js</url>
+          <line>509</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="175" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="138" />
+      <option name="time" value="176" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/node_modules/lowdb/adapters/FileSync.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="45" column="43" lean-forward="false" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/uploadCsvForNeo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/db.json" />
-    <entry file="file://$PROJECT_DIR$/public/admin/jsOld/context.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/graphFilter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="34" column="6" lean-forward="false" selection-start-line="34" selection-start-column="6" selection-end-line="34" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/css/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="295" column="1" lean-forward="false" selection-start-line="295" selection-start-column="1" selection-end-line="295" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/graph/js/ui/graphDisplay.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
@@ -666,13 +646,6 @@
         <state relative-caret-position="448">
           <caret line="87" column="57" lean-forward="false" selection-start-line="87" selection-start-column="35" selection-end-line="87" selection-end-column="57" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/etl/import.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="36" lean-forward="true" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -707,14 +680,6 @@
           <folding>
             <marker date="1557319000396" expanded="true" signature="1409:25797" ph="{...}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/etl/importDataIntoNeo4j.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="174" column="38" lean-forward="true" selection-start-line="174" selection-start-column="38" selection-end-line="174" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -924,66 +889,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="418" column="0" lean-forward="false" selection-start-line="418" selection-start-column="0" selection-end-line="418" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/transform/xlsxToNeo..js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="24" column="54" lean-forward="true" selection-start-line="24" selection-start-column="54" selection-end-line="24" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/fileToNeoLoader..js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="144" column="38" lean-forward="false" selection-start-line="144" selection-start-column="38" selection-end-line="144" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/xlsxToNeoLoader..js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/etl/js/mainController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="46" lean-forward="false" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/etl/js/mappings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/etl/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="281">
           <caret line="445" column="88" lean-forward="false" selection-start-line="445" selection-start-column="66" selection-end-line="445" selection-end-column="88" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/mappings.db">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="386" column="12" lean-forward="true" selection-start-line="386" selection-start-column="12" selection-end-line="386" selection-end-column="12" />
           <folding />
         </state>
       </provider>
@@ -1012,34 +921,310 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/datasets.db">
+    <entry file="file://$PROJECT_DIR$/bin/importDataIntoNeo4j.jsOld">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="16" lean-forward="true" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+        <state relative-caret-position="177">
+          <caret line="940" column="44" lean-forward="false" selection-start-line="940" selection-start-column="27" selection-end-line="940" selection-end-column="44" />
+          <folding>
+            <marker date="1556300750011" expanded="true" signature="0:1385" ph="/** SOUSLESENS LICENSE ...*/" />
+            <marker date="1556300750011" expanded="true" signature="1819:34390" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="1849:1958" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="1964:2145" ph="/**  import nodes using all params array each element contains one import directive ...*/" />
+            <marker date="1556300750011" expanded="true" signature="2195:7208" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="2262:2310" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="2386:7117" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="3038:3241" ph="//..." />
+            <marker date="1556300750011" expanded="true" signature="3340:3672" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="3549:3653" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="3885:6961" ph="[...]" />
+            <marker date="1556300750011" expanded="true" signature="3966:5466" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="4018:4411" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="4111:4383" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="4468:5282" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="4561:5030" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="4636:4999" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="4752:4913" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="5036:5124" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="5345:5443" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="5562:6960" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="5659:6424" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="5868:6367" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="5915:6022" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="6449:6937" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="6986:7102" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="7146:7200" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="7219:7403" ph="/**  import relations using all params array each element contains one import directive ...*/" />
+            <marker date="1556300750011" expanded="true" signature="7456:14887" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="7523:7571" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="7647:14796" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="8546:8749" ph="//..." />
+            <marker date="1556300750011" expanded="true" signature="8863:9195" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="9072:9176" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="9319:9392" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="9428:9501" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="9677:14638" ph="[...]" />
+            <marker date="1556300750011" expanded="true" signature="9790:11744" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="10194:11720" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="10615:11693" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="10708:10867" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="10948:11115" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="11194:11361" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="11826:12826" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="11878:12271" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="11971:12243" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="12328:12629" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="12690:12803" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="12922:14620" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="13019:13746" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="13232:13688" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="13771:14597" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="14197:14456" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="14663:14781" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="14825:14880" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="14946:18808" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="15018:16842" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="15331:15372" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="15460:15561" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="15601:15664" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="15670:15711" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="16039:16390" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="16458:16675" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="16592:16661" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="16714:16804" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="16875:16935" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="17343:18799" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="17366:17419" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="17532:17622" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="17762:18490" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="18106:18215" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="18620:18785" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="18647:18730" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="18881:22470" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="19008:19840" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="19194:19451" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="19255:19435" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="19507:19764" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="19568:19748" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="19782:19829" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="19889:21499" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="20279:20370" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="20376:21489" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="20506:20584" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="20590:20639" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="20881:21213" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="21020:21195" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="21247:21432" ph="{&quot;sourceId&quot;: neoIdStart...}" />
+            <marker date="1556300750011" expanded="true" signature="21615:22050" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="21679:22005" ph="{&quot;id&quot;: 3...}" />
+            <marker date="1556300750011" expanded="true" signature="21831:21991" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="22170:22462" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="22194:22265" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="22325:22415" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="22513:25036" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="22726:23172" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="23348:24612" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="23529:24596" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="23560:23622" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="23648:24578" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="23723:24222" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="24647:25027" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="24904:25013" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="25084:27702" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="25094:25331" ph="/*...*/" />
+            <marker date="1556300750011" expanded="true" signature="25653:26516" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="25685:25769" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="25819:25930" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="25978:26089" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="26115:26469" ph="{&quot;id&quot;: 3...}" />
+            <marker date="1556300750011" expanded="true" signature="26282:26455" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="26642:27374" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="26862:27359" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="26894:26956" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="26982:27341" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="27410:27694" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="27493:27678" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="27743:28336" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="27814:27870" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="27991:28211" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="28217:28302" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="28384:30194" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="28453:28520" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="28531:28573" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="28695:28884" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="28713:28775" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="28802:28874" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="29144:30114" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="29273:29602" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="29363:29588" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="29403:29569" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="29691:29868" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="29740:29854" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="30015:30103" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="30246:33280" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="30428:30619" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="30446:30510" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="30537:30609" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="30725:30785" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="30820:32297" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="31021:32282" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="31169:31256" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="31331:32260" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="31366:31444" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="31514:31932" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="31574:31681" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="32347:33264" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="32487:32849" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="32884:32932" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="32938:33250" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="33335:33907" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="33832:33878" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="33966:34388" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="34079:34145" ph="{...}" />
+            <marker date="1556300750011" expanded="true" signature="34313:34359" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/etl/importXlsx.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="13" column="44" lean-forward="false" selection-start-line="13" selection-start-column="44" selection-end-line="13" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bin/jsonDBStorage..js">
+    <entry file="file://$PROJECT_DIR$/public/etl/js/import.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="247" column="31" lean-forward="false" selection-start-line="247" selection-start-column="31" selection-end-line="247" selection-end-column="31" />
+        <state relative-caret-position="72">
+          <caret line="4" column="42" lean-forward="false" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/etl/js/datasets.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+        <state relative-caret-position="288">
+          <caret line="16" column="77" lean-forward="false" selection-start-line="16" selection-start-column="53" selection-end-line="16" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/etl/js/mainController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="30" lean-forward="true" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/etl/js/mappings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="89" column="79" lean-forward="false" selection-start-line="89" selection-start-column="53" selection-end-line="89" selection-end-column="79" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/etl/js/UI.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="161" column="51" lean-forward="false" selection-start-line="161" selection-start-column="51" selection-end-line="161" selection-end-column="51" />
+        <state relative-caret-position="308">
+          <caret line="140" column="0" lean-forward="true" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="423" column="11" lean-forward="true" selection-start-line="423" selection-start-column="11" selection-end-line="423" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/datasets.db">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="24" lean-forward="true" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/jsonDBStorage..js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="193" column="31" lean-forward="false" selection-start-line="193" selection-start-column="31" selection-end-line="193" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/etl/js/requests.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="91" column="86" lean-forward="false" selection-start-line="91" selection-start-column="86" selection-end-line="91" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/async/dist/async.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="3879" column="23" lean-forward="false" selection-start-line="3879" selection-start-column="23" selection-end-line="3879" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/mappings.db">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="216" column="29" lean-forward="true" selection-start-line="216" selection-start-column="29" selection-end-line="216" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/etl/import.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="85" column="51" lean-forward="false" selection-start-line="85" selection-start-column="33" selection-end-line="85" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/transform/xlsxToNeo..js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="52" column="25" lean-forward="false" selection-start-line="52" selection-start-column="20" selection-end-line="52" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/xlsxToNeoLoader..js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/neoProxy.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-392">
+          <caret line="44" column="4" lean-forward="false" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/fileToNeoLoader..js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="110" column="28" lean-forward="false" selection-start-line="110" selection-start-column="28" selection-end-line="110" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/importDataIntoNeo4j.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="503" column="30" lean-forward="true" selection-start-line="503" selection-start-column="30" selection-end-line="503" selection-end-column="30" />
           <folding />
         </state>
       </provider>

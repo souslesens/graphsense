@@ -38,12 +38,12 @@ var jsonDBStorage = {
 
     invoke: function (req, callback) {
         if (req.body.getDatasetNames) {
-            jsonDBStorage.getDatasetNames(req.body.getDatasetNames,function (error, result) {
+            jsonDBStorage.getDatasetNames(req.body.getDatasetNames, function (error, result) {
                 callback(error, result);
             });
         }
         if (req.body.getDatasets) {
-            jsonDBStorage.getDatasets(req.body.getDatasets,function (error, result) {
+            jsonDBStorage.getDatasets(req.body.getDatasets, function (error, result) {
                 callback(error, result);
             });
         }
@@ -71,8 +71,8 @@ var jsonDBStorage = {
             });
         }
         if (req.body.writeMapping) {
-            var mapping=JSON.parse( req.body.writeMapping);
-            jsonDBStorage.writeMapping(mapping.mappingset,mapping, function (error, result) {
+            var mapping = JSON.parse(req.body.writeMapping);
+            jsonDBStorage.writeMapping(mapping.mappingset, mapping, function (error, result) {
                 callback(error, result);
             });
         }
@@ -98,7 +98,7 @@ var jsonDBStorage = {
             });
         }
         if (req.body.getDatasetCollectionNames) {
-            jsonDBStorage.getDatasetCollectionNames( function (error, result) {
+            jsonDBStorage.getDatasetCollectionNames(function (error, result) {
                 callback(error, result);
             });
         }
@@ -140,12 +140,12 @@ var jsonDBStorage = {
 
     writeDataset: function (json, callback) {
 
-        var datasetCollectionName=json.datasetCollectionName;
-        var obj= jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).value()
-        if(obj==null)
-            var obj= jsonDBStorage.getDatasetDb().get('datasets').set(datasetCollectionName,{}).write()
+        var datasetCollectionName = json.datasetCollectionName;
+        var obj = jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).value()
+        if (obj == null)
+            var obj = jsonDBStorage.getDatasetDb().get('datasets').set(datasetCollectionName, {}).write()
 
-       jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).set(json.name,json) .write();
+        jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).set(json.name, json).write();
         if (callback)
             return callback(null, "done")
     },
@@ -153,7 +153,7 @@ var jsonDBStorage = {
 
     addMappingset: function (mappingsetName, json, callback) {
         var db = jsonDBStorage.getMappingDb().get('mappings')
-        db.set(mappingsetName, {nodes:{},relations:{}}).write();
+        db.set(mappingsetName, {nodes: {}, relations: {}}).write();
         return callback(null, "done")
     },
 
@@ -162,12 +162,12 @@ var jsonDBStorage = {
         var db = jsonDBStorage.getMappingDb().get('mappings');
 
 
-       /* var value = db.get(mappingsetName).get(mappingsetName).get(json.name).value();
-        if (value)
-            db.get(mappingsetName).remove(json.name).write()*/
+        /* var value = db.get(mappingsetName).get(mappingsetName).get(json.name).value();
+         if (value)
+             db.get(mappingsetName).remove(json.name).write()*/
 
-       var xx= db.get(mappingsetName).get(json.type+"s").value();
-        db.get(mappingsetName).get(json.type+"s").set(json.name,json) .write();
+        var xx = db.get(mappingsetName).get(json.type + "s").value();
+        db.get(mappingsetName).get(json.type + "s").set(json.name, json).write();
 
         if (callback)
             return callback(null, "done")
@@ -192,11 +192,11 @@ var jsonDBStorage = {
     getMappings: function (mappingsetName, callback) {
 
         var value = jsonDBStorage.getMappingDb().get('mappings').get(mappingsetName).value();
-
-        return callback(null, value);
+        if (callback)
+            return callback(null, value);
+        return value;
 
     },
-
 
 
     getMapping: function (json, callback) {
@@ -233,14 +233,14 @@ var jsonDBStorage = {
     },
 
 
-    getDatasetNames: function (datasetCollectionName,callback) {
+    getDatasetNames: function (datasetCollectionName, callback) {
         var obj = jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).value();
         return callback(null, Object.keys(obj))
 
     },
-    getDatasets: function (datasetCollectionName,callback) {
+    getDatasets: function (datasetCollectionName, callback) {
         var obj = jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).value();
-        return callback(null,obj)
+        return callback(null, obj)
 
     },
 
@@ -249,7 +249,6 @@ var jsonDBStorage = {
         return callback(null, Object.keys(obj))
 
     },
-
 
 
     getMappingsetNames: function (callback) {

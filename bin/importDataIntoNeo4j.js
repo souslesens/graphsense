@@ -66,8 +66,8 @@ var importDataIntoNeo4j = {
                 var totalImported = 0;
                 var dbName = params.sourceDB;
                 var source = params.source;
-                var nameSourceField = params.sourceField;
-                var sourceKey = params.sourceKey;
+                var nameSourceField = params.colName;
+                var colId = params.colId;
                 var subGraph = params.subGraph;
                 var label = params.label;
                 var isDistinct = params.distinctValues ? true : false;
@@ -112,7 +112,7 @@ var importDataIntoNeo4j = {
 
                             if (params.fields) {
                                 params.data.data.forEach(function (line) {
-                                    var obj={}
+                                    var obj = {}
                                     for (var key in params.fields) {
                                         if (line[key])
                                             obj[key] = line[key];
@@ -123,7 +123,6 @@ var importDataIntoNeo4j = {
                             } else {
                                 data = params.data.data;
                             }
-
 
 
                             dataSubsetsToImport = [data];
@@ -195,13 +194,21 @@ var importDataIntoNeo4j = {
                 var totalImported = 0;
                 var dbName = params.sourceDB;
                 var source = params.source;
-                var sourceSourceField = params.sourceSourceField;
-                var neoSourceKey = params.neoSourceKey;
-                var neoTargetKey = params.neoTargetKey;
-                var sourceSourceField = params.sourceSourceField;
-                var neoSourceLabel = params.neoSourceLabel;
-                var sourceTargetField = params.sourceTargetField;
-                var neoTargetLabel = params.neoTargetLabel;
+
+                var colFromId = params.colFromId;
+                var neoFromLabel = params.neoFromLabel;
+                var neoFromId = params.neoFromId;
+
+                var colToId = params.colToId;
+                var neoToLabel = params.neoToLabel;
+                var neoToId = params.neoToId;
+
+
+                var neoToId = params.neoToId;
+
+
+                var neoToId = params.neoToId;
+
                 var relationType = params.relationType;
                 var sourceQuery = params.sourceQueryR;
                 var subGraph = params.subGraph;
@@ -221,11 +228,11 @@ var importDataIntoNeo4j = {
                 }
                 lastImports.push({relationType: relationType, startTime: new Date()});
 
-                if (!neoSourceKey) {
-                    neoSourceKey = sourceSourceField;
+                if (!neoFromId) {
+                    neoFromId = colToId;
                 }
-                if (!neoTargetKey) {
-                    neoTargetKey = sourceTargetField;
+                if (!neoToId) {
+                    neoToId = neoToId;
                 }
 
 
@@ -240,12 +247,12 @@ var importDataIntoNeo4j = {
                     //get neomappings in sourceNeoTargetIdsMap
                     function (callbackSeries) {
                         //retrieve in Neo4j mappings between neoIds and name field
-                        var sourceNodeMappingsStatement = "match (n:" + neoSourceLabel + ") where n.subGraph=\"" + subGraph + "\"  return n." + params.neoSourceKey + " as sourceId, id(n) as neoId, labels(n)[0] as label; "
+                        var sourceNodeMappingsStatement = "match (n:" + neoFromLabel + ") where n.subGraph=\"" + subGraph + "\"  return n." + params.neoFromId + " as sourceId, id(n) as neoId, labels(n)[0] as label; "
                         neoProxy.match(sourceNodeMappingsStatement, function (err, resultSource) {
                             if (err)
                                 return callback(err);
 
-                            var targetNodeMappingsStatement = "match (n:" + neoTargetLabel + ") where n.subGraph=\"" + subGraph + "\"  return n." + params.neoTargetKey + " as sourceId, id(n) as neoId, labels(n)[0] as label; "
+                            var targetNodeMappingsStatement = "match (n:" + neoToLabel + ") where n.subGraph=\"" + subGraph + "\"  return n." + params.neoToId + " as sourceId, id(n) as neoId, labels(n)[0] as label; "
                             neoProxy.match(targetNodeMappingsStatement, function (err, resultTarget) {
 
                                 if (resultSource.length == 0 || resultTarget.length == 0) {
@@ -255,10 +262,10 @@ var importDataIntoNeo4j = {
 
 
                                 for (var i = 0; i < resultSource.length; i++) {
-                                    sourceNeoTargetIdsMap[neoSourceLabel + "_" + resultSource[i].sourceId] = resultSource[i].neoId;
+                                    sourceNeoTargetIdsMap[neoFromLabel + "_" + resultSource[i].sourceId] = resultSource[i].neoId;
                                 }
                                 for (var i = 0; i < resultTarget.length; i++) {
-                                    sourceNeoTargetIdsMap[neoTargetLabel + "_" + resultTarget[i].sourceId] = resultTarget[i].neoId;
+                                    sourceNeoTargetIdsMap[neoToLabel + "_" + resultTarget[i].sourceId] = resultTarget[i].neoId;
                                 }
                                 params.nodeMappings = {source: sourceNeoTargetIdsMap, target: sourceNeoTargetIdsMap};
                                 params.missingMappings = [];
@@ -352,7 +359,7 @@ var importDataIntoNeo4j = {
             if (obj._id)
                 obj.sourceId = "" + obj._id;
             //    delete obj._id;
-            var nameSourceFieldValue = obj[params.sourceField];
+            var nameSourceFieldValue = obj[params.colName];
             //   console.log(nameSourceFieldValue+"   "+(countNodes++));
             if (!nameSourceFieldValue) {
                 continue;
@@ -362,8 +369,8 @@ var importDataIntoNeo4j = {
                 //  console.log( "---!!!!!!!!!!!!   B   ");
                 continue;
             }
-            if (obj[params.sourceKey]) {
-                obj.id = obj[params.sourceKey];
+            if (obj[params.colId]) {
+                obj.id = obj[params.colId];
             } else {
                 continue;
             }
@@ -464,22 +471,22 @@ var importDataIntoNeo4j = {
         var data = [];
 //split multiple values properties
         dataRaw.forEach(function (obj) {
-            var sourceSourceField = obj[params.sourceSourceField]
-            var sourceTargetField = obj[params.sourceTargetField]
+            var colFromId = obj[params.colFromId]
+            var neoFromId = obj[params.neoFromId]
 
 
-            if (Array.isArray(sourceSourceField)) {
-                sourceSourceField.forEach(function (value) {
+            if (Array.isArray(colFromId)) {
+                colFromId.forEach(function (value) {
                     var obj2 = JSON.parse(JSON.stringify(obj));
-                    obj2[params.sourceSourceField] = value;
+                    obj2[params.colFromId] = value;
                     data.push(obj2);
                 })
 
             }
-            else if (Array.isArray(sourceTargetField)) {
-                sourceTargetField.forEach(function (value) {
+            else if (Array.isArray(params.neoToId)) {
+                neoToId.forEach(function (value) {
                     var obj2 = JSON.parse(JSON.stringify(obj));
-                    obj2[params.sourceTargetField] = value;
+                    obj2[params.neoToId] = value;
                     data.push(obj2);
                 })
 
@@ -497,8 +504,8 @@ var importDataIntoNeo4j = {
             // delete obj._id;
 
 
-            var neoIdStart = params.nodeMappings.source[params.neoSourceLabel + "_" + obj[params.sourceSourceField]];
-            var neoIdEnd = params.nodeMappings.target[params.neoTargetLabel + "_" + obj[params.sourceTargetField]];
+            var neoIdStart = params.nodeMappings.source[params.neoFromLabel + "_" + obj[params.colFromId]];
+            var neoIdEnd = params.nodeMappings.target[params.neoToLabel + "_" + obj[params.neoToId]];
 
             if (neoIdStart == null | neoIdEnd == null) {
                 params.missingMappings.push(obj)
@@ -901,7 +908,7 @@ var importDataIntoNeo4j = {
                 if (params.label) {//nodes
                     ;
                 } else {// relations
-                    var message = "import done : " + totalLines + "lines for relation " + params.neoSourceLabel + "->" + params.neoTargetLabel;
+                    var message = "import done : " + totalLines + "lines for relation " + params.neoFromLabel + "->" + params.neoToLabel;
                     socket.message(message);
                     console.log(message);
                     rootCallBack(null, message);
@@ -918,9 +925,13 @@ var importDataIntoNeo4j = {
         if (!exportedFields || exportedFields == "all")
             return null;// on exporte tous les champs source
 
-        fields = exportedFields.trim().split(";");
-        fields.push(params.sourceField);
-        fields.push(params.sourceKey);
+
+        if (Array.isArray(exportedFields))
+            fields = exportedFields;
+        else
+            fields = exportedFields.trim().split(";");
+        fields.push(params.colName);
+        fields.push(params.colId);
         if (params.label.indexOf("#") == 0)
             fields.push(params.label.substring(1));
 
@@ -935,10 +946,13 @@ var importDataIntoNeo4j = {
         var exportedFields = params.neoRelAttributeField;
         var fields = [];
         if (exportedFields) {
-            fields = exportedFields.trim().split(";");
+            if (Array.isArray(exportedFields))
+                fields = exportedFields;
+            else
+                fields = exportedFields.trim().split(";");
         }
-        fields.push(params.sourceSourceField);
-        fields.push(params.sourceTargetField);
+        fields.push(params.colFromId);
+        fields.push(params.neoToId);
 
         var result = {}
         for (var i = 0; i < fields.length; i++) {

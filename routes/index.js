@@ -435,6 +435,11 @@ router.post(serverParams.routesRootUrl + '/xlsxToNeoLoader', function (req, resp
         processResponse(response, error, result)
     });
 });
+router.post(serverParams.routesRootUrl + '/fileToNeoLoader', function (req, response) {
+    fileToNeoLoader.processForm(req, function (error, result) {
+        processResponse(response, error, result)
+    });
+});
 
 router.post(serverParams.routesRootUrl + '/jsonDBStorage', function (req, response) {
 

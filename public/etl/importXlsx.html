@@ -5,13 +5,6 @@
     <title>uploadXlsxToNeo</title>
     <script src="../jsCommon/jquery/jquery.min.js"></script>
     <script src="../jsCommon/others/socket.io.js"></script>
-    <script src="../jsCommon/common.js"></script>
-    <script src="./js/datasets.js"></script>
-
-    <script src="./js/mainController.js"></script>
-    <script src="./js/import.js"></script>
-    <script src="./js/mappings.js"></script>
-    <script src="./js/context.js"></script>
     <script>
         var url = window.location.href;
         var p = url.indexOf('/etl');
@@ -34,12 +27,12 @@
             if (!subGraph || subGraph == "")
                 message += "le champ subGraph est obligatoire<br>"
             var xlsx = $("#xlsx").val();
-            if (!file || file == "")
-                message += "le fichier  est obligatoire<br>"
+            if (!xlsx || xlsx == "")
+                message += "le fichier xlsx est obligatoire<br>"
 
-            var collection = $("#dataset_CollectionSelect").val();
-            if (!collection || collection == "")
-                message += "la collection est oligatoire<br>"
+            var mappings = $("#mappings").val();
+            if (!mappings || mappings == "")
+                message += "le fichier mappings est obligatoire<br>"
 
             if (message != "") {
                 $("#message").html(message);
@@ -76,12 +69,9 @@
 </head>
 <body>
 <b>upload Xlsx to Neo4j</b><br><br><br><br><br>
-<form name="uploadXlsxForm" enctype="multipart/form-data" action="/fileToNeoLoader" method="post" onsubmit="return checkForm();" target="votar">
-    <input type="file" accept=".xlsx;.csv" name="file" id="file" class='exportNeo' value="select xlsx..."/><br><br>
-mapping collection<select    onchange="Mappings.initMappingSet($(this).val())" id="dataset_CollectionSelect"name="dataset_CollectionSelect" ></select><br>
-
-    nodes<select multiple="true" size="10" id="nodeMappings_MappingSelect" name="nodeMappings_MappingSelect"></select><br>
-    relations<select   multiple="true" size="10" id="relationMappings_MappingSelect" name="relationMappings_MappingSelect"></select><br>
+<form name="uploadXlsxForm" enctype="multipart/form-data" action="/xlsxToNeoLoader" method="post" onsubmit="return checkForm();" target="votar">
+    <input type="file" accept=".xlsx" name="xlsx" id="xlsx" class='exportNeo' value="select xlsx..."/><br><br>
+    <input type="file" accept=".json" name="mappings" id="mappings" class='exportNeo' value="select mappings files..."/><br><br>
     subGraph<input name="subGraph" id="subGraph">&nbsp;
     <input type="checkbox" name="replaceSubGraphCbx" id="replaceSubGraphCbx" checked="checked">replace if exists<br><br>
     <button> importer</button>

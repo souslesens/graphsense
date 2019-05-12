@@ -134,13 +134,7 @@ var UI = (function () {
         obj.name = $("#nodeMapping_MappingName").val();
         obj.type = "node";
         obj.mappingset=context.currentmappingset;
-        var header = [];
-        $("#nodeMapping_ColNameSelect option").each(function (aaa) {
-            var value=$(this).val();
-            if(value!="")
-            header.push(value)
-        });
-        obj.header = header;
+
         Mappings.saveMapping(obj, function (err, result) {
             if (err)
                 return $("#message.div").html(err);
@@ -169,15 +163,8 @@ var UI = (function () {
         obj.neoToId = $("#relationMapping_NeoToIdSelect").val();
         obj.relationType = $("#relationMapping_typeName").val();
         obj.mappingset=context.currentmappingset;
-
         obj.type = "relation";
-        var header = [];
-        $("#relationMapping_ColFromIdSelect option").each(function (aaa) {
-            var value=$(this).val();
-            if(value!="")
-                header.push(value)
-        });
-        obj.header = header;
+
         Mappings.saveMapping(obj, function (err, result) {
             if (err)
                 return $("#message.div").html(err);
