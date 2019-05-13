@@ -949,6 +949,122 @@
           "ReasonForChange"
         ]
       }
+    },
+    "ThesaurusQuantum": {
+      "Thesaurus-05-13#Characterisation-Characterisati": {
+        "datasetCollectionName": "ThesaurusQuantum",
+        "name": "Thesaurus-05-13#Characterisation-Characterisati",
+        "header": [
+          "Source",
+          "Destination"
+        ]
+      },
+      "Thesaurus-05-13#CharacterisationLabel": {
+        "datasetCollectionName": "ThesaurusQuantum",
+        "name": "Thesaurus-05-13#CharacterisationLabel",
+        "header": [
+          "Id",
+          "Name",
+          "PrefLabel",
+          "ConceptTree",
+          "AltLabel"
+        ]
+      },
+      "Thesaurus-05-13#Component-ComponentRel": {
+        "datasetCollectionName": "ThesaurusQuantum",
+        "name": "Thesaurus-05-13#Component-ComponentRel",
+        "header": [
+          "Source",
+          "Destination"
+        ]
+      },
+      "Thesaurus-05-13#ComponentLabel": {
+        "datasetCollectionName": "ThesaurusQuantum",
+        "name": "Thesaurus-05-13#ComponentLabel",
+        "header": [
+          "Id",
+          "Name",
+          "PrefLabel",
+          "ConceptTree",
+          "AltLabel"
+        ]
+      },
+      "Thesaurus-05-13#Equipment-EquipmentRel": {
+        "datasetCollectionName": "ThesaurusQuantum",
+        "name": "Thesaurus-05-13#Equipment-EquipmentRel",
+        "header": [
+          "Source",
+          "Destination"
+        ]
+      },
+      "Thesaurus-05-13#EquipmentLabel": {
+        "datasetCollectionName": "ThesaurusQuantum",
+        "name": "Thesaurus-05-13#EquipmentLabel",
+        "header": [
+          "Id",
+          "Name",
+          "PrefLabel",
+          "ConceptTree",
+          "AltLabel"
+        ]
+      },
+      "Thesaurus-05-13#CTGComponent_QuantumPhysicalCla": {
+        "datasetCollectionName": "ThesaurusQuantum",
+        "name": "Thesaurus-05-13#CTGComponent_QuantumPhysicalCla",
+        "header": [
+          "Source",
+          "Destination"
+        ]
+      },
+      "Thesaurus-05-13#CTGEquipment_QuantumPhysicalCla": {
+        "datasetCollectionName": "ThesaurusQuantum",
+        "name": "Thesaurus-05-13#CTGEquipment_QuantumPhysicalCla",
+        "header": [
+          "Source",
+          "Destination"
+        ]
+      },
+      "Thesaurus-05-13#Quantum_physicalClass": {
+        "datasetCollectionName": "ThesaurusQuantum",
+        "name": "Thesaurus-05-13#Quantum_physicalClass",
+        "header": [
+          "label",
+          "DisciplineID",
+          "Name",
+          "ParentPhysicalClassID",
+          "name",
+          "lookup_DisciplineName",
+          "ID",
+          "neoId"
+        ]
+      },
+      "Thesaurus-05-13#Quantum_functionalClass": {
+        "datasetCollectionName": "ThesaurusQuantum",
+        "name": "Thesaurus-05-13#Quantum_functionalClass",
+        "header": [
+          "label",
+          "DisciplineID",
+          "Name",
+          "ParentFunctionalClassID",
+          "name",
+          "lookup_DisciplineName",
+          "ID",
+          "neoId"
+        ]
+      },
+      "Thesaurus-05-13#PhysicalClassToFunctionalClass": {
+        "datasetCollectionName": "ThesaurusQuantum",
+        "name": "Thesaurus-05-13#PhysicalClassToFunctionalClass",
+        "header": [
+          "ID",
+          "FunctionalClassID",
+          "lookup_FunctionalClassName",
+          "PhysicalClassID",
+          "lookup_PhysicalClassName",
+          "lookup_Disciplin_Functional",
+          "lookup_Disciplin_Physical"
+        ]
+      }
     }
   }
 }

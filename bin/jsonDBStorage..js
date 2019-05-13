@@ -83,17 +83,17 @@ var jsonDBStorage = {
         }
 
         if (req.body.removeDataset) {
-            jsonDBStorage.removeDataset(req.body.removeDataset, function (error, result) {
+            jsonDBStorage.removeDataset(req.body.datasetCollectionName,req.body.datasetName, function (error, result) {
                 callback(error, result);
             });
         }
         if (req.body.removeMapping) {
-            jsonDBStorage.removeMapping(req.body.mappingsetName, req.body.removeMapping, function (error, result) {
+            jsonDBStorage.removeMapping(req.body.mappingsetName,req.body.type, req.body.mappingName, function (error, result) {
                 callback(error, result);
             });
         }
         if (req.body.getDataset) {
-            jsonDBStorage.getDataset(JSON.parse(req.body.getDataset), function (error, result) {
+            jsonDBStorage.getDataset(req.body.getDataset, function (error, result) {
                 callback(error, result);
             });
         }
@@ -173,8 +173,13 @@ var jsonDBStorage = {
             return callback(null, "done")
     },
 
-    getDataset: function (json, callback) {
-        var query = json.query;
+    getDataset: function (datasetName, callback) {
+
+        var value = jsonDBStorage.getDatasetDb().get('datasets').get(datasetName).value();
+        if (callback)
+            return callback(null, value);
+        return value;
+     /*   var query = json.query;
         if (!json.query)
             query = json;
         var value = jsonDBStorage.getDatasetDb().get('files')
@@ -185,7 +190,7 @@ var jsonDBStorage = {
             value = jsonDBStorage.filterFields(value, json.fields)
 
         }
-        return callback(null, value);
+        return callback(null, value);*/
     },
 
 
@@ -262,12 +267,13 @@ var jsonDBStorage = {
         return callback(null, keys)
     },
 
-    removeDataSet: function (datasetName, callback) {
-        jsonDBStorage.getDatasetDb().get('datasets').get(datasetName).remove().write()
+    removeDataSet: function (datasetCollectionName,datasetName, callback) {
+        jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).get(datasetName).remove().write()
         return callback(null, "done")
     },
-    removeMapping: function (mappingsetName, mappingName, callback) {
-        jsonDBStorage.getMappingDb().get('mappings').get(mappingsetName).get(mappingName).remove().write()
+    removeMapping: function (mappingsetName,type, mappingName, callback) {
+        var xx=jsonDBStorage.getMappingDb().get('mappings').get(mappingsetName).get(type).get(mappingName).value()
+        jsonDBStorage.getMappingDb().get('mappings').get(mappingsetName).get(type).get(mappingName).remove().write()
         return callback(null, "done")
     },
 

@@ -219,10 +219,10 @@ var UI_query = (function () {
 
     }
 
-    self.displayGraph = function () {
+    self.displayGraph = function (withOrphanNodes) {
         $("#navbar_graph_Graph_ul").removeClass("d-none");
         context.currentQueryCardIndex = -1;
-        buildPaths.executeQuery("graph", {}, function (err, result) {
+        buildPaths.executeQuery("graph", {withOrphanNodes:withOrphanNodes}, function (err, result) {
             if (err)
                 return MainController.error(err);
             $("#dbFilterCollapseMenu").removeClass("show");

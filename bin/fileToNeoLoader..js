@@ -315,8 +315,14 @@ var fileToNeoLoader = {
                     for (var key in sheets) {
                         console.log(key)
                         xlsxToNeo.worksheetJsonToSouslesensJson(sheets[key], function (err, result) {
-                            sheets[key] = result;
+                            if (err)
+                                return callback(err)
+                            if (result != null)
+                                sheets[key] = result;
+
+
                         })
+
                     }
                     return callback();
 

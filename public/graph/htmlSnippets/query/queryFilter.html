@@ -44,7 +44,12 @@
                     -->
                     <div class="p-3">
                         <button class='btn btn-primary' style="width:150px;" id="query_displayGraphButton" >
-                            <span class="graphIconButton" > </span>Display Graph
+                            <span class="graphIconButton" > </span>Display Graph (relations)
+                        </button>
+                    </div>
+                    <div class="p-3">
+                        <button class='btn btn-primary' style="width:150px;" id="query_displayGraphButtonNodes" >
+                            <span class="graphIconButton" > </span>Display Graph (nodes)
                         </button>
                     </div>
                     <div class="p-3">
@@ -69,6 +74,11 @@
 
     $("#query_displayGraphButton").bind("click",function(){
         UI_query.displayGraph();
+
+    })
+
+    $("#query_displayGraphButtonNodes").bind("click",function(){
+        UI_query.displayGraph(true);
 
     })
 

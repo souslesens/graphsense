@@ -93,6 +93,40 @@ var Mappings = (function () {
 
 
     }
+    self.removeMapping=function(type,mappingName){
+
+        var payload = {
+            removeMapping: true,
+            mappingsetName:context.currentmappingset,
+            type:type,
+            mappingName:mappingName
+
+        }
+        MainController.callServer(MainController.jsonDBStoragePath, payload, function (err, result) {
+            if (err)
+                return $("#messageDiv").html(err);
+            if(type=='nodes'){
+                delete context.nodeMappings[mappingName]
+                $("#nodenMappings_MappingSelect option[value='"+ mappingName+"']").remove();
+
+            }
+
+            else if (type=='relations'){
+                delete context.relationMappings[mappingName]
+                $("#relationMappings_MappingSelect option[value='"+mappingName+"']").remove();
+            }
+
+
+        })
+
+
+    }
+
+    self.removeRelationMapping=function(mappingName){
+        Mappings.removeRelationMapping(mappingName);
+
+
+    }
 
 
     return self;

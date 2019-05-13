@@ -71,6 +71,9 @@ var xlsxToNeo = {
         var data = [];
         var ref = worksheet["!ref"];
         var range = (/([A-Z])+([0-9]+):([A-Z]+)([0-9]+)/).exec(ref);
+
+        if(!range || range.length<2)// feuille vide
+            return callback(null,null);
         var lineDebut = range[2];
         var lineFin = range[4];
         var colDebut = range[1]

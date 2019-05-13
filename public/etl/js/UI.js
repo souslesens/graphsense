@@ -23,6 +23,8 @@ var UI = (function () {
         $("#mainMenu_mappingsetSelect").append('<option selected="selected">'+mappingset+'</option>');
         context.mappingsets.push(mappingset);
         context.mappingsets.index=context.mappingsets.length-1;
+        context.nodeMappings={};
+        context.relationMappings= {};
         Mappings.addmappingset(mappingset)
 
 
@@ -78,8 +80,8 @@ var UI = (function () {
     }
     self.setNodeMappingName = function () {
 
-        var name = $("#nodeMapping_DatasetSelect").val();
-        name += "_" + $("#nodeMapping_labelName").val();
+        var name ="";// $("#nodeMapping_DatasetSelect").val();
+        name +=  $("#nodeMapping_labelName").val();
         $("#nodeMapping_MappingName").val(name);
 
 
@@ -138,8 +140,8 @@ var UI = (function () {
         Mappings.saveMapping(obj, function (err, result) {
             if (err)
                 return $("#message.div").html(err);
-
-            $("#message.div").html("mapping saved");
+            datasets.initDatasetCollection(context.currentmappingset)
+            $("#messageDiv").html("mapping saved");
             $("#NodeMappingModal").modal("hide");
 
         });
@@ -168,8 +170,8 @@ var UI = (function () {
         Mappings.saveMapping(obj, function (err, result) {
             if (err)
                 return $("#message.div").html(err);
-
-            $("#message.div").html("mapping saved");
+            datasets.initDatasetCollection(context.currentmappingset)
+            $("#messageDiv").html("mapping saved");
             $("#RelationMappingModal").modal("hide");
 
         });
@@ -194,6 +196,7 @@ var UI = (function () {
 
        $("#nodeMapping_ColIdSelect").val(mapping.colId);
        $("#nodeMapping_ColNameSelect").val(mapping.colName);
+       context.currentNodeMapping=mapping.name;
 
    }
 
@@ -201,29 +204,29 @@ var UI = (function () {
     self.initRelationMapping=function(mappingName){
         var mapping=context.relationMappings[mappingName];
       //  self.setMappingFieldsFromHeader(mapping.header);
-        self.setMappingFieldsFromHeader(context.datasets[mapping.source].header);
+        var header=context.datasets[mapping.source].header;
+        self.setMappingFieldsFromHeader(header);
         $("#relationMapping_DatasetSelect").val(mapping.source);
         $("#relationMapping_MappingName").val(mapping.name);
         $("#relationMapping_typeName").val(mapping.relationType);
 
         $("#relationMapping_ColFromIdSelect").val(mapping.colFromId);
         $("#relationMapping_NeoFromLabelSelect").val(mapping.neoFromLabel);
-        common.fillSelectOptionsWithStringArray("relationMapping_NeoFromIdSelect",context.nodeMappings[mapping.neoFromLabel].header,true,mapping.neoFromId);
+        common.fillSelectOptionsWithStringArray("relationMapping_NeoFromIdSelect",header,true,mapping.neoFromId);
 
 
         $("#relationMapping_ColToIdSelect").val(mapping.colToId);
         $("#relationMapping_NeoToLabelSelect").val(mapping.neoToLabel);
-        common.fillSelectOptionsWithStringArray("relationMapping_NeoToIdSelect",context.nodeMappings[mapping.neoToLabel].header,true,mapping.neoFromId);
-       /* setTimeout(function(){// le temps que les select soient alimentés
-            $("#relationMapping_NeoFromIdSelect").val(mapping.neoFromId);
-            $("#relationMapping_NeoToIdSelect").val(mapping.neoToId);
-        },300)*/
+        common.fillSelectOptionsWithStringArray("relationMapping_NeoToIdSelect",header,true,mapping.neoToId);
+        context.currentRelationMapping=mapping.name;
+
 
 
     }
 
 
-   self.selectAllNodeMappingProperties=function(){
+
+    self.selectAllNodeMappingProperties=function(){
 
            $('#nodeMapping_ColPropertiesSelect option').prop('selected', true);
 

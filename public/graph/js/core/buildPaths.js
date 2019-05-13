@@ -150,7 +150,7 @@ var buildPaths = (function () {
 
         if (!options)
             options = {};
-        options.nodesDistance=1;
+        options.nodesDistance = 1;
         self.currentNodesDistance = 1;
 
         var uiCypher = $('#buildPaths_cypherTA').val();
@@ -432,6 +432,9 @@ var buildPaths = (function () {
                 matchCypher = "(" + symbol + labelStr + ")";
             } else {
                 var distanceStr = "";
+                if (options.withOrphanNodes)
+                    var distanceStr = "*0..1";
+
                 if (options.nodesDistance > 1)
                     distanceStr = "*.." + options.nodesDistance;
 
@@ -439,6 +442,7 @@ var buildPaths = (function () {
                 matchCypher += "-[r" + index + distanceStr + relType + "]-"
                 matchCypher += "(" + symbol + labelStr + ")";
                 cypherObj.return.push("r" + index);
+
 
             }
 
@@ -559,7 +563,7 @@ var buildPaths = (function () {
         var labelSymbols = [];
         var labels = [];
         var relTypes = [];
-
+        console.log(JSON.stringify(neoResult, null,2))
         neoResult.forEach(function (line, index) {// define columns and structure objects by line
             var lineObj = {};
             var currentNode;
@@ -573,6 +577,7 @@ var buildPaths = (function () {
                         relTypes.push(subLine.type);
 
                     currentRel = {id: subLine._id, neoAttrs: subLine.properties, type: subLine.type};
+
                     if (subLine._fromId == currentNode.id)
                         currentRel.direction = "normal"
                     else
@@ -769,6 +774,7 @@ var buildPaths = (function () {
                     var toNode = line[symbol];
                     var relNeo = line[symbol].incomingRelation;
 
+
                     if (uniqueRels.indexOf(relNeo.id) < 0) {
                         uniqueRels.push(relNeo.id);
 
@@ -791,6 +797,7 @@ var buildPaths = (function () {
             visjsGraph.drawLegend(visjsData.labels, dataset.relTypes);
         }
         else
+
             visjsGraph.drawLegend(visjsData.labels, null);
         visjsGraph.draw("graphDiv", visjsData, {}, function () {
             if (callback)

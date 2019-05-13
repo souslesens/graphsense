@@ -33,6 +33,8 @@ var datasets = (function () {
 
             context.datasets = result;
 
+            context.nodeMappings={};
+            context.relationMappings= [];
             var names=Object.keys(result);
             names.sort();
 
@@ -62,17 +64,17 @@ var datasets = (function () {
     }
 
     self.setCurrentDataset = function (datasetName) {
-        var payload = {
-            getDataset: JSON.stringify({query: {name: datasetName}, fields: ["header"]})
+     /*   var payload = {
+            getDataset:  datasetName
         }
         MainController.callServer(MainController.jsonDBStoragePath, payload, function (err, result) {
             if (err) ;
-            context.currentDataSet = {name:datasetName, header:result.header};
+            context.currentDataSet = {name:datasetName, header:result.header};*/
+        context.currentDataSet=context.datasets[ datasetName]
+            UI.setMappingFieldsFromHeader(context.currentDataSet.header);
 
-            UI.setMappingFieldsFromHeader(result.header);
 
-
-        })
+     //   })
 
 
     }

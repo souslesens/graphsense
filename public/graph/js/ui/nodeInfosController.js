@@ -10,7 +10,7 @@ var nodeInfosController = (function () {
         self.currentNodeId = nodeId;
 
 
-        var cypher = "match(n)-[r]-(m) where id(n)=" + nodeId + " return n,r,m"
+        var cypher = "match(n)-[r*0..1]-(m) where id(n)=" + nodeId + " return n,r,m"
         Cypher.executeCypher(cypher, function (err, result) {
             if (err)
                 return console.log(err);

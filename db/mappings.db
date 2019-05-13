@@ -25,7 +25,7 @@
             "SAPName"
           ],
           "label": "Attribute",
-          "source": "MDM_Quantum_MDM_Quantum#tblAttribute",
+          "source": "MDM_Quantum#tblAttribute",
           "name": "MDM_Quantum_tblAttribute_Attribute",
           "type": "node",
           "mappingset": "quantum"
@@ -52,11 +52,10 @@
             "Name"
           ],
           "label": "AttributePickListValue",
-          "source": "MDM_Quantum_MDM_Quantum#tblAttributePickListValue",
+          "source": "MDM_Quantum#tblAttributePickListValue",
           "name": "MDM_Quantum_tblAttributePickListValue_AttributePickListValue",
           "type": "node",
           "mappingset": "quantum"
-
         },
         "Discipline": {
           "colName": "Name",
@@ -83,11 +82,10 @@
             "RCName"
           ],
           "label": "Discipline",
-          "source": "MDM_Quantum_MDM_Quantum#tblDiscipline",
+          "source": "MDM_Quantum#tblDiscipline",
           "name": "MDM_Quantum_tblDiscipline_Discipline",
           "type": "node",
           "mappingset": "quantum"
-
         },
         "FunctionalClass": {
           "colName": "Name",
@@ -132,11 +130,10 @@
             "lookup_TagFormatName"
           ],
           "label": "FunctionalClass",
-          "source": "MDM_Quantum_MDM_Quantum#tblFunctionalClass",
+          "source": "MDM_Quantum#tblFunctionalClass",
           "name": "MDM_Quantum_tblFunctionalClass_FunctionalClass",
           "type": "node",
           "mappingset": "quantum"
-
         },
         "PhysicalClass": {
           "colName": "Name",
@@ -178,11 +175,10 @@
             "lookup_ParentPhysicalClassName"
           ],
           "label": "PhysicalClass",
-          "source": "MDM_Quantum_MDM_Quantum#tblPhysicalClass",
+          "source": "MDM_Quantum#tblPhysicalClass",
           "name": "MDM_Quantum_tblPhysicalClass_PhysicalClass",
           "type": "node",
           "mappingset": "quantum"
-
         },
         "DocumentType": {
           "colName": "Name",
@@ -205,11 +201,10 @@
             "isEnableCode"
           ],
           "label": "DocumentType",
-          "source": "MDM_Quantum_MDM_Quantum#tblDocumentType",
+          "source": "MDM_Quantum#tblDocumentType",
           "name": "MDM_Quantum_tblDocumentType_DocumentType",
           "type": "node",
           "mappingset": "quantum"
-
         },
         "DisciplineDocumentType": {
           "colName": "Name",
@@ -249,42 +244,38 @@
             "lookup_DocumentTypeName"
           ],
           "label": "DisciplineDocumentType",
-          "source": "MDM_Quantum_MDM_Quantum#tblDisciplineDocumentType",
+          "source": "MDM_Quantum#tblDisciplineDocumentType",
           "name": "MDM_Quantum_tblDisciplineDocumentType_DisciplineDocumentType",
           "type": "node",
           "mappingset": "quantum"
-
         }
       },
       "relations": {
-
         "Discipline-hasDocument->DocumentType": {
-          "source": "MDM_Quantum_tblDisciplineDocumentType",
+          "source": "MDM_Quantum#tblDisciplineDocumentType",
           "name": "Discipline-hasDocument->DocumentType",
-          "colFromId": "DocumentTypeID",
+          "colFromId": "DisciplineID",
           "neoFromLabel": "Discipline",
           "neoFromId": "ID",
-          "colToId": "ID",
+          "colToId": "DocumentTypeID",
           "neoToLabel": "DocumentType",
           "neoToId": "ID",
           "relationType": "hasDocument",
           "mappingset": "quantum",
           "type": "relation"
-
         },
         "AttributePickListValue-valueFor->Attribute": {
           "source": "MDM_Quantum#tblAttribToAttribPickListValue",
           "name": "AttributePickListValue-valueFor->Attribute",
-          "colFromId": "AttributeID",
+          "colFromId": "AttributePickListValueID",
           "neoFromLabel": "AttributePickListValue",
           "neoFromId": "ID",
-          "colToId": "ID",
+          "colToId": "AttributeID",
           "neoToLabel": "Attribute",
           "neoToId": "ID",
           "relationType": "valueFor",
           "mappingset": "quantum",
           "type": "relation"
-
         },
         "Discipline-useDocumentType->DisciplineDocumentType": {
           "source": "MDM_Quantum#tblDisciplineDocumentType",
@@ -298,77 +289,71 @@
           "relationType": "useDocumentType",
           "mappingset": "quantum",
           "type": "relation"
-
         },
         "PhysicalClass-physicalClass2functionalClass->FunctionalClass": {
           "source": "MDM_Quantum#tblFunctionalClToPhysicalCl",
           "name": "PhysicalClass-physicalClass2functionalClass->FunctionalClass",
-          "colFromId": "FunctionalClassID",
+          "colFromId": "PhysicalClassID",
           "neoFromLabel": "PhysicalClass",
           "neoFromId": "ID",
-          "colToId": "ID",
+          "colToId": "FunctionalClassID",
           "neoToLabel": "FunctionalClass",
           "neoToId": "ID",
           "relationType": "physicalClass2functionalClass",
           "mappingset": "quantum",
           "type": "relation"
-
         },
         "Attribute-usedBy->FunctionalClass": {
           "source": "MDM_Quantum#tblFunPhyDiscDocTyToAttribute",
           "name": "Attribute-usedBy->FunctionalClass",
-          "colFromId": "FunctionalClassID",
+          "colFromId": "AttributeID",
           "neoFromLabel": "Attribute",
           "neoFromId": "ID",
-          "colToId": "ID",
+          "colToId": "FunctionalClassID",
           "neoToLabel": "FunctionalClass",
           "neoToId": "ID",
           "relationType": "usedBy",
           "mappingset": "quantum",
           "type": "relation"
-
         },
         "Attribute-usedBy->PhysicalClass": {
           "source": "MDM_Quantum#tblFunPhyDiscDocTyToAttribute",
           "name": "Attribute-usedBy->PhysicalClass",
-          "colFromId": "PhysicalClassID",
+          "colFromId": "AttributeID",
           "neoFromLabel": "Attribute",
           "neoFromId": "ID",
-          "colToId": "ID",
+          "colToId": "PhysicalClassID",
           "neoToLabel": "PhysicalClass",
           "neoToId": "ID",
           "relationType": "usedBy",
           "mappingset": "quantum",
           "type": "relation"
-
         },
         "FunctionalClass-hasDocument->DisciplineDocumentType": {
           "source": "MDM_Quantum#tblFunPhyCLToDiscDocumentTy",
           "name": "FunctionalClass-hasDocument->DisciplineDocumentType",
-          "colFromId": "DisciplineDocumentTypeID",
+          "colFromId": "FunctionaClassID",
           "neoFromLabel": "FunctionalClass",
           "neoFromId": "ID",
-          "colToId": "ID",
+          "colToId": "DisciplineDocumentTypeID",
           "neoToLabel": "DisciplineDocumentType",
           "neoToId": "ID",
           "relationType": "hasDocument",
           "mappingset": "quantum",
           "type": "relation"
-
         },
         "PhysicalClass-hasDocument->DisciplineDocumentType": {
           "source": "MDM_Quantum#tblFunPhyCLToDiscDocumentTy",
           "name": "PhysicalClass-hasDocument->DisciplineDocumentType",
-          "colFromId": "DisciplineDocumentTypeID",
+          "colFromId": "PhysicalClassID",
           "neoFromLabel": "PhysicalClass",
           "neoFromId": "ID",
-          "colToId": "ID",
+          "colToId": "DisciplineDocumentTypeID",
           "neoToLabel": "DisciplineDocumentType",
           "neoToId": "ID",
           "relationType": "hasDocument",
           "mappingset": "quantum",
           "type": "relation"
-
         },
         "FunctionalClass-childOf->FunctionalClass": {
           "source": "MDM_Quantum#tblFunctionalClass",
@@ -382,7 +367,6 @@
           "relationType": "childOf",
           "mappingset": "quantum",
           "type": "relation"
-
         },
         "PhysicalClass-childOf->PhysicalClass": {
           "source": "MDM_Quantum#tblPhysicalClass",
@@ -396,7 +380,6 @@
           "relationType": "childOf",
           "mappingset": "quantum",
           "type": "relation"
-
         },
         "PhysicalClass-inDiscipline->Discipline": {
           "source": "MDM_Quantum#tblPhysicalClass",
@@ -404,13 +387,196 @@
           "colFromId": "DisciplineID",
           "neoFromLabel": "PhysicalClass",
           "neoFromId": "ID",
-          "colToId": "ID",
+          "colToId": "DisciplineID",
           "neoToLabel": "Discipline",
           "neoToId": "ID",
           "relationType": "inDiscipline",
           "mappingset": "quantum",
           "type": "relation"
-
+        },
+        "FunctionalClass-inDiscipline->Discipline": {
+          "source": "MDM_Quantum#tblFunctionalClass",
+          "name": "FunctionalClass-inDiscipline->Discipline",
+          "colFromId": "ID",
+          "neoFromLabel": "FunctionalClass",
+          "neoFromId": "ID",
+          "colToId": "DisciplineID",
+          "neoToLabel": "Discipline",
+          "neoToId": "ID",
+          "relationType": "inDiscipline",
+          "mappingset": "quantum",
+          "type": "relation"
+        },
+        "Attribute-used-by->DisciplineDocumentType": {
+          "source": "MDM_Quantum#tblFunPhyDiscDocTyToAttribute",
+          "name": "Attribute-used-by->DisciplineDocumentType",
+          "colFromId": "AttributeID",
+          "neoFromLabel": "Attribute",
+          "neoFromId": "ID",
+          "colToId": "DiscDocTypeID",
+          "neoToLabel": "DisciplineDocumentType",
+          "neoToId": "ID",
+          "relationType": "used-by",
+          "mappingset": "quantum",
+          "type": "relation"
+        }
+      }
+    },
+    "ThesaurusQuantum": {
+      "nodes": {
+        "FunctionalClass": {
+          "colName": "Name",
+          "colId": "ID",
+          "exportedFields": [
+            "",
+            "DisciplineID",
+            "ID",
+            "Name",
+            "ParentFunctionalClassID",
+            "label",
+            "lookup_DisciplineName",
+            "name",
+            "neoId"
+          ],
+          "label": "FunctionalClass",
+          "source": "Thesaurus-05-13#Quantum_functionalClass",
+          "name": "FunctionalClass",
+          "type": "node",
+          "mappingset": "ThesaurusQuantum"
+        },
+        "Equipment": {
+          "colName": "Name",
+          "colId": "Id",
+          "exportedFields": [
+            "",
+            "AltLabel",
+            "ConceptTree",
+            "Id",
+            "Name",
+            "PrefLabel"
+          ],
+          "label": "Equipment",
+          "source": "Thesaurus-05-13#EquipmentLabel",
+          "name": "Equipment",
+          "type": "node",
+          "mappingset": "ThesaurusQuantum"
+        },
+        "PhysicalClass": {
+          "colName": "Name",
+          "colId": "ID",
+          "exportedFields": [
+            "",
+            "DisciplineID",
+            "ID",
+            "Name",
+            "ParentPhysicalClassID",
+            "label",
+            "lookup_DisciplineName",
+            "name",
+            "neoId"
+          ],
+          "label": "PhysicalClass",
+          "source": "Thesaurus-05-13#Quantum_physicalClass",
+          "name": "PhysicalClass",
+          "type": "node",
+          "mappingset": "ThesaurusQuantum"
+        },
+        "Component": {
+          "colName": "Name",
+          "colId": "Id",
+          "exportedFields": [
+            "",
+            "AltLabel",
+            "ConceptTree",
+            "Id",
+            "Name",
+            "PrefLabel"
+          ],
+          "label": "Component",
+          "source": "Thesaurus-05-13#ComponentLabel",
+          "name": "Component",
+          "type": "node",
+          "mappingset": "ThesaurusQuantum"
+        }
+      },
+      "relations": {
+        "PhysicalClass-inThesaurus->Equipment": {
+          "source": "Thesaurus-05-13#CTGEquipment_QuantumPhysicalCla",
+          "name": "PhysicalClass-inThesaurus->Equipment",
+          "colFromId": "Source",
+          "neoFromLabel": "PhysicalClass",
+          "neoFromId": "ID",
+          "colToId": "Destination",
+          "neoToLabel": "Equipment",
+          "neoToId": "Name",
+          "relationType": "inThesaurus",
+          "mappingset": "ThesaurusQuantum",
+          "type": "relation"
+        },
+        "PhysicalClass-inThesaurus->Component": {
+          "source": "Thesaurus-05-13#CTGComponent_QuantumPhysicalCla",
+          "name": "PhysicalClass-inThesaurus->Component",
+          "colFromId": "Source",
+          "neoFromLabel": "PhysicalClass",
+          "neoFromId": "ID",
+          "colToId": "Destination",
+          "neoToLabel": "Component",
+          "neoToId": "Name",
+          "relationType": "inThesaurus",
+          "mappingset": "ThesaurusQuantum",
+          "type": "relation"
+        },
+        "Component-childOf->Component": {
+          "source": "Thesaurus-05-13#Component-ComponentRel",
+          "name": "Component-childOf->Component",
+          "colFromId": "Destination",
+          "neoFromLabel": "Component",
+          "neoFromId": "Id",
+          "colToId": "Source",
+          "neoToLabel": "Component",
+          "neoToId": "Id",
+          "relationType": "childOf",
+          "mappingset": "ThesaurusQuantum",
+          "type": "relation"
+        },
+        "Equipment-childOf->Equipment": {
+          "source": "Thesaurus-05-13#Equipment-EquipmentRel",
+          "name": "Equipment-childOf->Equipment",
+          "colFromId": "Destination",
+          "neoFromLabel": "Equipment",
+          "neoFromId": "Id",
+          "colToId": "Source",
+          "neoToLabel": "Equipment",
+          "neoToId": "Id",
+          "relationType": "childOf",
+          "mappingset": "ThesaurusQuantum",
+          "type": "relation"
+        },
+        "PhysicalClass-childOf->PhysicalClass": {
+          "source": "Thesaurus-05-13#Quantum_physicalClass",
+          "name": "PhysicalClass-childOf->PhysicalClass",
+          "colFromId": "ID",
+          "neoFromLabel": "PhysicalClass",
+          "neoFromId": "ID",
+          "colToId": "ParentPhysicalClassID",
+          "neoToLabel": "PhysicalClass",
+          "neoToId": "ID",
+          "relationType": "childOf",
+          "mappingset": "ThesaurusQuantum",
+          "type": "relation"
+        },
+        "PhysicalClass-relatedTo->FunctionalClass": {
+          "source": "Thesaurus-05-13#PhysicalClassToFunctionalClass",
+          "name": "PhysicalClass-relatedTo->FunctionalClass",
+          "colFromId": "PhysicalClassID",
+          "neoFromLabel": "PhysicalClass",
+          "neoFromId": "ID",
+          "colToId": "FunctionalClassID",
+          "neoToLabel": "FunctionalClass",
+          "neoToId": "ID",
+          "relationType": "relatedTo",
+          "mappingset": "ThesaurusQuantum",
+          "type": "relation"
         }
       }
     }

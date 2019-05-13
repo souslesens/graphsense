@@ -236,8 +236,7 @@ var importDataIntoNeo4j = {
                 }
 
 
-                var sourceNeoSourceIdsMap = {};
-                var sourceNeoTargetIdsMap = {};
+
 
 
                 var dataSubsetsToImport = [];
@@ -261,13 +260,16 @@ var importDataIntoNeo4j = {
                                 }
 
 
+                                var fromIdsMap = {};
+                                var toIdsMap = {};
+
                                 for (var i = 0; i < resultSource.length; i++) {
-                                    sourceNeoTargetIdsMap[neoFromLabel + "_" + resultSource[i].sourceId] = resultSource[i].neoId;
+                                    fromIdsMap[neoFromLabel + "_" + resultSource[i].sourceId] = resultSource[i].neoId;
                                 }
                                 for (var i = 0; i < resultTarget.length; i++) {
-                                    sourceNeoTargetIdsMap[neoToLabel + "_" + resultTarget[i].sourceId] = resultTarget[i].neoId;
+                                    toIdsMap[neoToLabel + "_" + resultTarget[i].sourceId] = resultTarget[i].neoId;
                                 }
-                                params.nodeMappings = {source: sourceNeoTargetIdsMap, target: sourceNeoTargetIdsMap};
+                                params.nodeMappings = {source: fromIdsMap, target: toIdsMap};
                                 params.missingMappings = [];
                                 params.uniqueRelations = [];
                                 callbackSeries(null, params)
@@ -505,7 +507,7 @@ var importDataIntoNeo4j = {
 
 
             var neoIdStart = params.nodeMappings.source[params.neoFromLabel + "_" + obj[params.colFromId]];
-            var neoIdEnd = params.nodeMappings.target[params.neoToLabel + "_" + obj[params.neoToId]];
+            var neoIdEnd = params.nodeMappings.target[params.neoToLabel + "_" + obj[params.colToId]];
 
             if (neoIdStart == null | neoIdEnd == null) {
                 params.missingMappings.push(obj)

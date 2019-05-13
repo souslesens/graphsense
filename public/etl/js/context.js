@@ -3,14 +3,15 @@ var context = {
     schema: {},
     storedRequestsParams: {},
     serverUrl: "../../../",
-    nodeColors:{},
+    nodeColors: {},
 
 
-
-   mappingsets:[],
+    mappingsets: [],
     datasets: [],
     nodeMappings: [],
     relationMappings: [],
 
+    currentNodeMapping: "",
+    currentRelationMapping: "",
 
 }

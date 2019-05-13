@@ -233,7 +233,7 @@
                     <div class="btn-group" role="group" aria-label="Label buttons">
                         <button type="button" class="btn btn-primary" onclick="UI.showNodeMappingDialog();">Add Mapping</button>
                         <button type="button" class="btn btn-primary"  onclick="UI.showNodeMappingDialog($('#nodeMappings_MappingSelect').val());">Edit Mapping</button>
-                        <button type="button" class="btn btn-primary">Remove Mapping</button>
+                        <button type="button" class="btn btn-primary" onclick="Mappings.removeMapping('nodes',$('#nodeMappings_MappingSelect').val())">Remove Mapping</button>
                     </div>
                 </div>
             </div>
@@ -267,7 +267,7 @@
                     <div class="btn-group" role="group" aria-label="Label buttons">
                         <button type="button" class="btn btn-primary" onclick="UI.showRelationMappingDialog();">Add Mapping</button>
                         <button type="button" class="btn btn-primary"  onclick="UI.showRelationMappingDialog($('#relationMappings_MappingSelect').val());">Edit Mapping</button>
-                        <button type="button" class="btn btn-primary">Remove Mapping</button>
+                        <button type="button" class="btn btn-primary"  onclick="Mappings.removeMapping('relations',$('#relationMappings_MappingSelect').val())">Remove Mapping</button>
                     </div>
                 </div>
             </div>
