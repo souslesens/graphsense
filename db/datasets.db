@@ -488,6 +488,50 @@
           "ModifiedDate",
           "ReasonForChange"
         ]
+      },
+      "ADLElginA#tblTag": {
+        "datasetCollectionName": "quantum",
+        "name": "ADLElginA#tblTag",
+        "header": [
+          "ID",
+          "TagNumber",
+          "FunctionalClassID",
+          "ServiceDescription",
+          "ValidationStatus",
+          "Status",
+          "CMIMSRequired"
+        ]
+      },
+      "ADLElginA#tblModel (2)": {
+        "datasetCollectionName": "quantum",
+        "name": "ADLElginA#tblModel (2)",
+        "header": [
+          "ID",
+          "OEMID",
+          "ModelNumber",
+          "PhysicalClassID",
+          "Status"
+        ]
+      },
+      "ADLElginA#tblModelItem (2)": {
+        "datasetCollectionName": "quantum",
+        "name": "ADLElginA#tblModelItem (2)",
+        "header": [
+          "ID",
+          "ModelID",
+          "Name",
+          "SerialNumber",
+          "Status"
+        ]
+      },
+      "ADLElginA#tblTagToModelItem": {
+        "datasetCollectionName": "quantum",
+        "name": "ADLElginA#tblTagToModelItem",
+        "header": [
+          "ID",
+          "TagID",
+          "ModelItemID"
+        ]
       }
     },
     "undefined": {

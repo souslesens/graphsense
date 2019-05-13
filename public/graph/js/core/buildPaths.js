@@ -435,7 +435,7 @@ var buildPaths = (function () {
                 if (options.withOrphanNodes)
                     var distanceStr = "*0..1";
 
-                if (options.nodesDistance > 1)
+                if (options.nodesDistance > 1 && index<2)
                     distanceStr = "*.." + options.nodesDistance;
 
 

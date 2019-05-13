@@ -248,6 +248,59 @@
           "name": "MDM_Quantum_tblDisciplineDocumentType_DisciplineDocumentType",
           "type": "node",
           "mappingset": "quantum"
+        },
+        "Tag": {
+          "colName": "TagNumber",
+          "colId": "ID",
+          "exportedFields": [
+            "",
+            "CMIMSRequired",
+            "FunctionalClassID",
+            "ID",
+            "ServiceDescription",
+            "Status",
+            "TagNumber",
+            "ValidationStatus"
+          ],
+          "label": "Tag",
+          "source": "ADLElginA#tblTag",
+          "name": "Tag",
+          "type": "node",
+          "mappingset": "quantum"
+        },
+        "Model": {
+          "colName": "ModelNumber",
+          "colId": "ID",
+          "exportedFields": [
+            "",
+            "ID",
+            "ModelNumber",
+            "OEMID",
+            "PhysicalClassID",
+            "Status"
+          ],
+          "label": "Model",
+          "source": "ADLElginA#tblModel (2)",
+          "name": "Model",
+          "type": "node",
+          "mappingset": "quantum"
+        },
+        "ModelItem": {
+          "colName": "ModelID",
+          "colId": "ID",
+          "exportedFields": [
+            "",
+            "ID",
+            "ModelID",
+            "Name",
+            "SerialNumber",
+            "Status"
+          ],
+          "label": "ModelItem",
+          "source": "ADLElginA#tblModelItem (2)",
+          "name": "ModelItem",
+          "type": "node",
+          "mappingset": "quantum"
         }
       },
       "relations": {
@@ -417,6 +470,58 @@
           "neoToLabel": "DisciplineDocumentType",
           "neoToId": "ID",
           "relationType": "used-by",
+          "mappingset": "quantum",
+          "type": "relation"
+        },
+        "Tag-fromFunctionalClass->FunctionalClass": {
+          "source": "ADLElginA#tblTag",
+          "name": "Tag-fromFunctionalClass->FunctionalClass",
+          "colFromId": "ID",
+          "neoFromLabel": "Tag",
+          "neoFromId": "ID",
+          "colToId": "FunctionalClassID",
+          "neoToLabel": "FunctionalClass",
+          "neoToId": "ID",
+          "relationType": "fromFunctionalClass",
+          "mappingset": "quantum",
+          "type": "relation"
+        },
+        "Model-fromPhysicalClass->PhysicalClass": {
+          "source": "ADLElginA#tblModel (2)",
+          "name": "Model-fromPhysicalClass->PhysicalClass",
+          "colFromId": "ID",
+          "neoFromLabel": "Model",
+          "neoFromId": "ID",
+          "colToId": "PhysicalClassID",
+          "neoToLabel": "PhysicalClass",
+          "neoToId": "ID",
+          "relationType": "fromPhysicalClass",
+          "mappingset": "quantum",
+          "type": "relation"
+        },
+        "ModelItem-fromModel->Model": {
+          "source": "ADLElginA#tblModelItem (2)",
+          "name": "ModelItem-fromModel->Model",
+          "colFromId": "ModelID",
+          "neoFromLabel": "ModelItem",
+          "neoFromId": "ID",
+          "colToId": "ID",
+          "neoToLabel": "Model",
+          "neoToId": "ID",
+          "relationType": "fromModel",
+          "mappingset": "quantum",
+          "type": "relation"
+        },
+        "Tag-fromModelItem->ModelItem": {
+          "source": "ADLElginA#tblTagToModelItem",
+          "name": "Tag-fromModelItem->ModelItem",
+          "colFromId": "TagID",
+          "neoFromLabel": "Tag",
+          "neoFromId": "ID",
+          "colToId": "ModelItemID",
+          "neoToLabel": "ModelItem",
+          "neoToId": "ID",
+          "relationType": "fromModelItem",
           "mappingset": "quantum",
           "type": "relation"
         }

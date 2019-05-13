@@ -2,23 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0b8677d-dbc9-4124-b08c-92f03bd70409" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/bin/fileToNeoLoader..js" afterPath="$PROJECT_DIR$/bin/fileToNeoLoader..js" />
-      <change beforePath="$PROJECT_DIR$/bin/importDataIntoNeo4j.js" afterPath="$PROJECT_DIR$/bin/importDataIntoNeo4j.js" />
-      <change beforePath="$PROJECT_DIR$/bin/importDataIntoNeo4j.jsOld" afterPath="$PROJECT_DIR$/bin/importDataIntoNeo4jOld.js" />
-      <change beforePath="$PROJECT_DIR$/bin/jsonDBStorage..js" afterPath="$PROJECT_DIR$/bin/jsonDBStorage..js" />
-      <change beforePath="$PROJECT_DIR$/bin/transform/xlsxToNeo..js" afterPath="$PROJECT_DIR$/bin/transform/xlsxToNeo..js" />
       <change beforePath="$PROJECT_DIR$/db/datasets.db" afterPath="$PROJECT_DIR$/db/datasets.db" />
       <change beforePath="$PROJECT_DIR$/db/mappings.db" afterPath="$PROJECT_DIR$/db/mappings.db" />
-      <change beforePath="$PROJECT_DIR$/public/etl/index.html" afterPath="$PROJECT_DIR$/public/etl/index.html" />
-      <change beforePath="$PROJECT_DIR$/public/etl/js/UI.js" afterPath="$PROJECT_DIR$/public/etl/js/UI.js" />
-      <change beforePath="$PROJECT_DIR$/public/etl/js/context.js" afterPath="$PROJECT_DIR$/public/etl/js/context.js" />
       <change beforePath="$PROJECT_DIR$/public/etl/js/datasets.js" afterPath="$PROJECT_DIR$/public/etl/js/datasets.js" />
-      <change beforePath="$PROJECT_DIR$/public/etl/js/mappings.js" afterPath="$PROJECT_DIR$/public/etl/js/mappings.js" />
+      <change beforePath="$PROJECT_DIR$/public/etl/js/mainController.js" afterPath="$PROJECT_DIR$/public/etl/js/mainController.js" />
       <change beforePath="$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilter.html" afterPath="$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilter.html" />
       <change beforePath="$PROJECT_DIR$/public/graph/js/core/buildPaths.js" afterPath="$PROJECT_DIR$/public/graph/js/core/buildPaths.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/UI_query.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/UI_query.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/nodeInfosController.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/nodeInfosController.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -38,9 +27,61 @@
       <file leaf-file-name="UI.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/etl/js/UI.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="149" column="5" lean-forward="true" selection-start-line="149" selection-start-column="5" selection-end-line="149" selection-end-column="5" />
+            <state relative-caret-position="108">
+              <caret line="21" column="20" lean-forward="true" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mainController.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/etl/js/mainController.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="75" column="59" lean-forward="true" selection-start-line="75" selection-start-column="59" selection-end-line="75" selection-end-column="59" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="buildPaths.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/graph/js/core/buildPaths.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="430" column="0" lean-forward="true" selection-start-line="430" selection-start-column="0" selection-end-line="430" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/graph/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="149">
+              <caret line="322" column="21" lean-forward="true" selection-start-line="322" selection-start-column="21" selection-end-line="322" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="queryFilterLabelModal.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilterLabelModal.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="295">
+              <caret line="18" column="22" lean-forward="true" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="queryFilter.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilter.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="232">
+              <caret line="79" column="36" lean-forward="false" selection-start-line="79" selection-start-column="7" selection-end-line="79" selection-end-column="36" />
+              <folding>
+                <marker date="1557754595367" expanded="false" signature="2192:2204" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -48,40 +89,9 @@
       <file leaf-file-name="datasets.db" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/db/datasets.db">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="952" column="25" lean-forward="true" selection-start-line="952" selection-start-column="2" selection-end-line="952" selection-end-column="25" />
+            <state relative-caret-position="3884">
+              <caret line="996" column="25" lean-forward="true" selection-start-line="996" selection-start-column="2" selection-end-line="996" selection-end-column="25" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="context.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/etl/js/context.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="11" column="25" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UI_query.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/graph/js/ui/UI_query.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="224" column="31" lean-forward="false" selection-start-line="224" selection-start-column="19" selection-end-line="224" selection-end-column="31" />
-              <folding>
-                <marker date="1557737490560" expanded="true" signature="761:779" ph="..." />
-                <marker date="1557737490560" expanded="true" signature="2978:3010" ph="..." />
-                <marker date="1557737490560" expanded="true" signature="3050:3076" ph="..." />
-                <marker date="1557737490560" expanded="true" signature="3200:3213" ph="..." />
-                <marker date="1557737490560" expanded="true" signature="3327:3361" ph="..." />
-                <marker date="1557737490560" expanded="true" signature="3376:3382" ph=" " />
-                <marker date="1557737490560" expanded="true" signature="3656:3663" ph="×" />
-                <marker date="1557737490560" expanded="true" signature="3805:3816" ph="..." />
-                <marker date="1557737490560" expanded="true" signature="4016:4033" ph="..." />
-                <marker date="1557737490560" expanded="true" signature="10217:10228" ph="..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -89,28 +99,18 @@
       <file leaf-file-name="datasets.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/etl/js/datasets.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="45" column="31" lean-forward="false" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="31" />
+            <state relative-caret-position="144">
+              <caret line="8" column="35" lean-forward="true" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mappings.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/etl/js/mappings.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="94">
-              <caret line="69" column="35" lean-forward="true" selection-start-line="69" selection-start-column="35" selection-end-line="69" selection-end-column="35" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mappings.db" pinned="false" current-in-tab="true">
+      <file leaf-file-name="mappings.db" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/db/mappings.db">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="407" column="28" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="570" selection-end-column="1" />
+            <state relative-caret-position="85">
+              <caret line="484" column="48" lean-forward="true" selection-start-line="484" selection-start-column="48" selection-end-line="484" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -119,28 +119,8 @@
       <file leaf-file-name="jsonDBStorage..js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bin/jsonDBStorage..js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="164" column="45" lean-forward="false" selection-start-line="164" selection-start-column="45" selection-end-line="164" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="xlsxToNeo..js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bin/transform/xlsxToNeo..js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="74" column="51" lean-forward="false" selection-start-line="74" selection-start-column="51" selection-end-line="74" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fileToNeoLoader..js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bin/fileToNeoLoader..js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="114">
-              <caret line="316" column="53" lean-forward="false" selection-start-line="316" selection-start-column="53" selection-end-line="316" selection-end-column="53" />
+            <state relative-caret-position="186">
+              <caret line="274" column="0" lean-forward="false" selection-start-line="274" selection-start-column="0" selection-end-line="274" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -159,8 +139,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>colFromId</find>
-      <find>MDM_Quantum_</find>
       <find>le fichier xlsx est obligatoire</find>
       <find>.source</find>
       <find>&quot;_&quot;</find>
@@ -182,13 +160,15 @@
       <find>&quot;DocumentType-used-by-&gt;Discipline&quot;</find>
       <find>*..</find>
       <find>execut</find>
-      <find>query_displayGraphButton</find>
       <find>incomingRelation</find>
       <find>distinct</find>
       <find>distinctIds</find>
       <find>.nodeMappings</find>
       <find>addMappingset</find>
       <find>nodeMapping_MappingName</find>
+      <find>physicc</find>
+      <find>display</find>
+      <find>query_displayGraphButton</find>
     </findStrings>
     <replaceStrings>
       <replace>colId</replace>
@@ -268,7 +248,6 @@
         <option value="$PROJECT_DIR$/public/graph/index.html" />
         <option value="$PROJECT_DIR$/db/souslesensData.db" />
         <option value="$PROJECT_DIR$/bin/xlsxToNeoLoader..js" />
-        <option value="$PROJECT_DIR$/public/etl/js/mainController.js" />
         <option value="$PROJECT_DIR$/public/jsCommon/common.js" />
         <option value="$PROJECT_DIR$/public/etl/importDataIntoNeo4j.js" />
         <option value="$PROJECT_DIR$/public/etl/js/import.js" />
@@ -280,15 +259,16 @@
         <option value="$PROJECT_DIR$/public/etl/index.html" />
         <option value="$PROJECT_DIR$/public/etl/js/mappings.js" />
         <option value="$PROJECT_DIR$/bin/jsonDBStorage..js" />
-        <option value="$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilter.html" />
         <option value="$PROJECT_DIR$/public/graph/js/ui/UI_query.js" />
-        <option value="$PROJECT_DIR$/public/graph/js/core/buildPaths.js" />
         <option value="$PROJECT_DIR$/bin/transform/xlsxToNeo..js" />
         <option value="$PROJECT_DIR$/bin/fileToNeoLoader..js" />
-        <option value="$PROJECT_DIR$/public/etl/js/datasets.js" />
         <option value="$PROJECT_DIR$/db/datasets.db" />
-        <option value="$PROJECT_DIR$/db/mappings.db" />
         <option value="$PROJECT_DIR$/public/etl/js/UI.js" />
+        <option value="$PROJECT_DIR$/db/mappings.db" />
+        <option value="$PROJECT_DIR$/public/etl/js/datasets.js" />
+        <option value="$PROJECT_DIR$/public/etl/js/mainController.js" />
+        <option value="$PROJECT_DIR$/public/graph/js/core/buildPaths.js" />
+        <option value="$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilter.html" />
       </list>
     </option>
   </component>
@@ -371,6 +351,13 @@
               <item name="souslesens" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
               <item name="etl" type="462c0819:PsiDirectoryNode" />
+              <item name="htmlSnippets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
+              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="etl" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -378,6 +365,21 @@
               <item name="souslesens" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
               <item name="graph" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
+              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="graph" type="462c0819:PsiDirectoryNode" />
+              <item name="htmlSnippets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
+              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="graph" type="462c0819:PsiDirectoryNode" />
+              <item name="htmlSnippets" type="462c0819:PsiDirectoryNode" />
+              <item name="query" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
@@ -514,16 +516,15 @@
       <workItem from="1556435395476" duration="46050000" />
       <workItem from="1557048212577" duration="5939000" />
       <workItem from="1557068601486" duration="59956000" />
-      <workItem from="1557390960112" duration="107443000" />
+      <workItem from="1557390960112" duration="110764000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="470895000" />
+    <option name="totallyTimeSpent" value="474216000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16122234" sideWeight="0.49531615" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -639,25 +640,12 @@
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="118" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/bin/jsonDBStorage..js</url>
-          <line>274</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="194" />
-        </line-breakpoint>
       </breakpoints>
       <option name="time" value="207" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/admin/jsOld/mainController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="28" lean-forward="true" selection-start-line="7" selection-start-column="28" selection-end-line="7" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/admin/jsOld/admin.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="406">
@@ -829,17 +817,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="254" column="70" lean-forward="true" selection-start-line="254" selection-start-column="70" selection-end-line="254" selection-end-column="70" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#li#0;n#ul#0;n#li#0;n#ul#0;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#img#0;n#a#2;n#nav#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bin/uploadToNeo.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="972">
@@ -876,14 +853,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="4" column="42" lean-forward="false" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/etl/js/mainController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="30" lean-forward="true" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
           <folding />
         </state>
       </provider>
@@ -1140,25 +1109,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilter.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="75" column="29" lean-forward="false" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="29" />
-          <folding>
-            <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#button#0;n#div#1;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/core/buildPaths.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="570" column="48" lean-forward="false" selection-start-line="570" selection-start-column="48" selection-end-line="570" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bin/transform/xlsxToNeo..js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -1202,14 +1152,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/etl/js/datasets.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="45" column="31" lean-forward="false" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/etl/js/mappings.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="94">
@@ -1218,35 +1160,85 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/datasets.db">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="952" column="25" lean-forward="true" selection-start-line="952" selection-start-column="2" selection-end-line="952" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bin/jsonDBStorage..js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="164" column="45" lean-forward="false" selection-start-line="164" selection-start-column="45" selection-end-line="164" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/etl/js/UI.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="149" column="5" lean-forward="true" selection-start-line="149" selection-start-column="5" selection-end-line="149" selection-end-column="5" />
+        <state relative-caret-position="186">
+          <caret line="274" column="0" lean-forward="false" selection-start-line="274" selection-start-column="0" selection-end-line="274" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/db/mappings.db">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="407" column="28" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="570" selection-end-column="1" />
+        <state relative-caret-position="85">
+          <caret line="484" column="48" lean-forward="true" selection-start-line="484" selection-start-column="48" selection-end-line="484" selection-end-column="48" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/etl/js/UI.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="21" column="20" lean-forward="true" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/datasets.db">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3884">
+          <caret line="996" column="25" lean-forward="true" selection-start-line="996" selection-start-column="2" selection-end-line="996" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/etl/js/datasets.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="35" lean-forward="true" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/etl/js/mainController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="75" column="59" lean-forward="true" selection-start-line="75" selection-start-column="59" selection-end-line="75" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/graph/js/core/buildPaths.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="430" column="0" lean-forward="true" selection-start-line="430" selection-start-column="0" selection-end-line="430" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/graph/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="322" column="21" lean-forward="true" selection-start-line="322" selection-start-column="21" selection-end-line="322" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilterLabelModal.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="18" column="22" lean-forward="true" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilter.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="79" column="36" lean-forward="false" selection-start-line="79" selection-start-column="7" selection-end-line="79" selection-end-column="36" />
+          <folding>
+            <marker date="1557754595367" expanded="false" signature="2192:2204" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -6,7 +6,7 @@ var datasets = (function () {
 
 
 
-    self.loadDatasetCollectionNames = function () {
+    self.loadDatasetCollectionNames = function (callback) {
         var payload = {
 
             getDatasetCollectionNames: true
@@ -14,7 +14,9 @@ var datasets = (function () {
         MainController.callServer(MainController.jsonDBStoragePath, payload, function (err, result) {
             if (err) ;
             result.sort();
-            common.fillSelectOptionsWithStringArray("dataset_CollectionSelect", result,true)
+            common.fillSelectOptionsWithStringArray("dataset_CollectionSelect", result,true);
+            if(callback)
+                callback();
 
 
         })

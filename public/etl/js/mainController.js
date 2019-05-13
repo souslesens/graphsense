@@ -77,10 +77,12 @@ var MainController = (function () {
                     $("#messageDiv").html(message.message);
                     context.currentDataSource = message;
                     $("#datasetModal").modal("hide");
+                    self.loadDatasetCollectionNames(function(){
+                        datasets.setCurrentDataset(message.name);
 
-                    context.datasets.push(message.name)
-                    UI.setDatasets(context.datasets,message.name);
-                    UI.setMappingFieldsFromHeader(message.header);
+                    })
+
+
                 }
 
 
