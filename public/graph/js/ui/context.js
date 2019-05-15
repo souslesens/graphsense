@@ -10,7 +10,7 @@ function Context() {
     this.cypherMatchOptions = {}
     this.currentRelations = {types: [], props: []}
     this.mousePosition={x:0,y:0};
-    this.currentQueryCardIndex;
+    this.currentQueryCardId;
 
 
 

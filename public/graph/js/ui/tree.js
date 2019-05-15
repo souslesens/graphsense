@@ -77,7 +77,7 @@ var Tree = (function () {
                     //   $(this).jstree("open_node", "" + quantum.currentRootNeoId);
                 })
 
-            //  $('#' + treedivId+"_tree").jstree().hide_icons()
+            $('#' + treedivId + "_tree").jstree().hide_icons()
 
 
         }
@@ -103,7 +103,7 @@ var Tree = (function () {
             //  var parent = $('#' + treedivId).jstree('get_selected');
             var parentId = "" + obj.id;
             self.getNodes(obj.data._treeKey, treeParams.label, treeParams.relType, obj.id, function (err, data) {
-                    console.log(obj.text, data.length)
+                    //  console.log(obj.text, data.length)
                     data.forEach(function (childNode, index) {
                         if (obj.parents.indexOf("" + childNode.id) < 0) {// eviter la recursivite
                             childNode.id = "" + childNode.id;
@@ -247,7 +247,7 @@ var Tree = (function () {
                 var shadowNodes = []
                 children.forEach(function (childNode, index) {
                     // if more than one children add a false child to each child to see the expand image+
-                    if (!childNode.childrenCount || childNode.childrenCount >0) {
+                    if (!childNode.childrenCount || childNode.childrenCount > 0) {
                         shadowNodes.push({id: "shadow" + childNode.id, text: "aa", parent: "" + childNode.id})
                     }
                 })
@@ -283,8 +283,6 @@ var Tree = (function () {
                     }
 
 
-
-
                     var children = []
                     result.forEach(function (child, index) {
 
@@ -300,7 +298,15 @@ var Tree = (function () {
 
                     })
 
+                    children.sort(function (a, b) {
+                        if (a.text < b.text)
+                            return 1;
+                        if (a.text < b.text)
+                            return -1;
 
+                        return 0;
+
+                    })
                     return callback(null, children)
 
                 },
@@ -391,6 +397,8 @@ var Tree = (function () {
                 queryObject.where = buildPaths.getWhereClauseFromArray("_id", checkedIds, "n");
                 queryObject.nodeSetIds = checkedIds;
                 queryObject.inResult = true;
+                queryObject.origin="tree";
+
 
 
                 var cardId = $(".type_nodeSet" + key).attr("id");
@@ -405,7 +413,7 @@ var Tree = (function () {
 
 
         self.searchNodes = function (value, _treedivId) {
-            context.currentQueryCardIndex = -1;// on creera une nouvelle card avec la selection de cette recherche
+            context.currentQueryCardId = -1;// on creera une nouvelle card avec la selection de cette recherche
             treedivId = _treedivId;
             if (self.trees.indexOf(treedivId) < 0)
                 self.trees.push(treedivId)

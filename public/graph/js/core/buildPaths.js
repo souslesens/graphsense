@@ -148,6 +148,40 @@ var buildPaths = (function () {
     self.executeQuery = function (type, options, callback) {
         visjsGraph.clearGraph();
 
+        self.queryObjs = [];
+        var nodesOnly=false
+        for (var key in context.cardsMap) {
+
+            self.queryObjs.push(context.cardsMap[key]);//clone
+            if(context.cardsMap[key].origin=="tree"  )
+                nodesOnly=nodesOnly|| true;
+        }
+
+
+        if(nodesOnly){
+            var nodesOnlyQueryObj=  {};
+            nodesOnlyQueryObj.label = null;
+            nodesOnlyQueryObj.type = "nodeSet" + key;
+            nodesOnlyQueryObj.inResult = true;
+          var ids=[]
+            for (var key in context.cardsMap) {
+                ids= ids.concat(context.cardsMap[key].nodeSetIds)
+            }
+            nodesOnlyQueryObj.nodeSetIds = ids;
+            self.queryObjs=[nodesOnlyQueryObj]
+
+        }
+        else {
+            self.queryObjs.sort(function (a, b) {
+                if (a.index > b.index)
+                    return -1;
+                if (a.index < b.index)
+                    return 1;
+                return 0;
+            })
+        }
+
+
         if (!options)
             options = {};
         options.nodesDistance = 1;
@@ -394,6 +428,7 @@ var buildPaths = (function () {
 
 
         self.queryObjs.forEach(function (queryObject, index) {
+
             var matchCypher = "";
             var whereCypher = "";
             var whereRelationCypher = "";

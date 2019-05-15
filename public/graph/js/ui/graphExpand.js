@@ -121,7 +121,7 @@ var GraphExpand = (function () {
             var allRelTypes = [];// setEdgeColors(result);
 
             visjsGraph.setGraphOpacity(0.1)
-            self.drawGraph(newNodes, newEdges );
+            self.drawGraph(newNodes, newEdges);
             //visjsGraph.drawLegend(visjsGraph.legendLabels, allRelTypes);
 
 
@@ -261,8 +261,8 @@ var GraphExpand = (function () {
                         var relProps = line.rel.properties;
 
                         var visjsEdge = visJsDataProcessor.getVisjsRelFromNeoRel(from, to, relId, relType, relProps);
-                      newEdges.push(visjsEdge);
-                        self.expandedEdgeHashes.push(from*to)
+                        newEdges.push(visjsEdge);
+                        self.expandedEdgeHashes.push(from * to)
 
                     })
 
@@ -288,12 +288,17 @@ var GraphExpand = (function () {
                     var newEdges2 = [];
 
                     result.forEach(function (line) {
-
+                        var existingEdgesHashes = [];
+                        for (var key in self.edges._data) {
+                            var edge = self.edges._data[key]
+                            existingEdgesHashes.push(edge.fromId * edge.toId)
+                        }
 
                         line.mIds.forEach(function (mId) {
                             if (visjsGraph.nodes._data[mId]) {
+                                var relHash = mId * line.nId
 
-                                if (self.expandedEdgeHashes.indexOf(mId * line.nId) < 0) {
+                                if (self.expandedEdgeHashes.indexOf(relHash) < 0 && existingEdgesHashes.indexOf(relHash) < 0) {
                                     self.expandedEdgeHashes.push(mId * line.nId)
                                     var relPId = "" + Math.random();
                                     var visjsEdge2 = visJsDataProcessor.getVisjsRelFromNeoRel(line.nId, mId, relPId, line.relType, {});

@@ -55,10 +55,8 @@ var UI_query = (function () {
     self.addCardToQueryDeck = function (queryObject, index) {
 
 
-        if (!index  && context.currentQueryCardIndex > -1) {
-            return self.updateCardToQueryDeck(queryObject, context.currentQueryCardIndex)
-        }
-        context.currentQueryCardIndex = -1;
+
+
 
         if (!queryObject)
             queryObject = self.setContextQueryObjectParams();
@@ -66,9 +64,29 @@ var UI_query = (function () {
 
         if (!queryObject.cardTitle)
             queryObject.cardTitle = queryObject.label;
-        var index = buildPaths.queryObjs.length;
+        if (!buildPaths.queryObjs.currentIndex)
+            buildPaths.queryObjs.currentIndex = -1;
 
-        buildPaths.queryObjs.push(JSON.parse(JSON.stringify(queryObject)));//clone
+        if(!index)
+            index = buildPaths.queryObjs.currentIndex += 1;
+        else
+            buildPaths.queryObjs.currentIndex =index;
+
+
+        if (!index && context.currentQueryCardId > -1) {
+
+             self.updateCardToQueryDeck(queryObject, context.currentQueryCardId);
+            context.currentQueryCardId = -1;
+            return;
+
+        }
+
+        var cardId = Math.round(Math.random() * 1000);
+        var card = JSON.parse(JSON.stringify(queryObject));//clone
+        card.index = index;
+        context.cardsMap[cardId] = card;
+
+
 
         if (queryObject.label) {
             self.setUIPermittedLabels(queryObject.label);
@@ -76,25 +94,24 @@ var UI_query = (function () {
         }
         else color = "#ddd"
 
-        var filterCardId = 'query_filterCard_' + index;
-        //var filterCardCollaspeId =  filterCardId + 'Collapse'
-        var iconCardId = 'query_icon_' + index;
-        //var filterCardCollaspeId =  filterCardId + 'Collapse'
+        var filterCardId = 'query_filterCard_' + cardId;
+        var iconCardId = 'query_icon_' + cardId;
+
 
         var html = "";
-        if(index>0)
+        if (index > 0)
             html = '<div id="' + iconCardId + '" style="padding: 4px 2px 2px;float:right"><img src="img/FilterLabel.png" style="width: 40px; height: 40px;"/></div>';
 
-     html += '<div class="card" onclick="UI_query.onCardClick(' + index + ')" id="' + filterCardId + '" style="width: 15rem;"> ' +
+        html += '<div class="card" onclick="UI_query.onCardClick(' + cardId + ')" id="' + filterCardId + '" style="width: 15rem;"> ' +
             '   <div class="card-header">' +
             '       <div class="circle rounded-circle" style="padding-left:5px;background-color:' + color + '">&nbsp;</div> ' +
             '        <span class="badge">' + queryObject.cardTitle + '</span> ' +
-            '       <button type="button"  onclick="UI_query.removeFilterCard(' + index + ')" class="close" aria-label="Close"> ' +
+            '       <button type="button"  onclick="UI_query.removeFilterCard(' + cardId + ')" class="close" aria-label="Close"> ' +
             '           <span aria-hidden="true">&times;</span></button> ' +
             '       </div>' +
             '       <div>' +
             '       <div class="card-body text-center" style="padding:5px"> ' +
-            '           <p class="card-text"><small class="text-muted">' + queryObject.text + '</small></p>' +
+            '           <p class="card-text" id="cardText_' + cardId + '"><small class="text-muted">' + queryObject.text + '</small></p>' +
             '       </div> ' +
             '       <div class="form-check" style="text-align:center" >' +
             '               <input type="checkbox" checked="checked" class="form-check-input" id="query_filterCardInResult">' +//à completer PB!!!!
@@ -102,7 +119,6 @@ var UI_query = (function () {
             '        </div>' +
             '  </div>' +
             '</div>'
-
 
 
         $("#query_cardDeck").append(html);
@@ -114,12 +130,18 @@ var UI_query = (function () {
 
     }
 
-    self.updateCardToQueryDeck = function (newQueryObject, index, boolOperator) {
+    self.updateCardToQueryDeck = function (newQueryObject, cardId, boolOperator) {
 
         if (true || boolOperator == "only") {
+            var cardIndex =  context.cardsMap[cardId].index;
+            context.cardsMap[cardId]=newQueryObject;
+            context.cardsMap[cardId].index=cardIndex;
+            $('#cardText_' + cardId).html(newQueryObject.text);
 
-            self.removeFilterCard(index);
-            self.addCardToQueryDeck(newQueryObject, index - 1);
+         /*   var index = context.cardsMap[cardId].index;
+
+            self.removeFilterCard(cardId);
+            self.addCardToQueryDeck(newQueryObject, index - 1);*/
 
         }
         if (boolOperator == "or") {
@@ -137,10 +159,16 @@ var UI_query = (function () {
 
 
     }
-    self.removeFilterCard = function (index) {
-        context.currentQueryCardIndex = -1;
-        buildPaths.queryObjs.splice(index, 1);
-        $("#query_filterCard_" + index).remove();
+    self.removeFilterCard = function (cardId) {
+
+        buildPaths.queryObjs.currentIndex -= 1;
+        context.currentQueryCardId = -1;
+        delete context.cardsMap[cardId];
+
+
+        $("#query_filterCard_" + cardId).remove();
+        $("#query_icon_" + cardId).remove();
+        event.stopPropagation();
 
 
     }
@@ -209,7 +237,7 @@ var UI_query = (function () {
     }
 
     self.displayTable = function () {
-        context.currentQueryCardIndex = -1;
+        context.currentQueryCardId = -1;
         $("#dbFilterCollapseMenu").removeClass("show");
         buildPaths.executeQuery("dataTable", {}, function (err, result) {
             if (err)
@@ -222,8 +250,8 @@ var UI_query = (function () {
 
     self.displayGraph = function (withOrphanNodes) {
         $("#navbar_graph_Graph_ul").removeClass("d-none");
-        context.currentQueryCardIndex = -1;
-        buildPaths.executeQuery("graph", {withOrphanNodes:withOrphanNodes}, function (err, result) {
+        context.currentQueryCardId = -1;
+        buildPaths.executeQuery("graph", {withOrphanNodes: withOrphanNodes}, function (err, result) {
             if (err)
                 return MainController.error(err);
             $("#dbFilterCollapseMenu").removeClass("show");
@@ -245,6 +273,7 @@ var UI_query = (function () {
         $("#search_treeContainerDiv").html("");
         //  $("#dbFilterCollapseMenu").removeClass("d-none");
         buildPaths.queryObjs = [];
+        context.cardsMap = {};
 
 
     }
@@ -299,9 +328,14 @@ var UI_query = (function () {
 
     }
 
-    self.onCardClick = function (index) {
+    self.onCardClick = function (cardId) {
 
-        context.currentQueryCardIndex = index;
+        context.currentQueryCardId = cardId;
+        var label=context.cardsMap[cardId].label;
+        self.showQueryCardParamsDialog(label)
+        $("#dbQueryFilterLabelModal").modal("show")
+
+
 
         // self.showQueryCardParamsDialog()
     }

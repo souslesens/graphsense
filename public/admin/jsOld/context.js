@@ -5,6 +5,7 @@ var context = {
     serverUrl: "../../../",
     nodeColors: {},
     currentDataSet: null,
+    cardsMap:{},
 
 
 
