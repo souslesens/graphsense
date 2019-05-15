@@ -28,6 +28,7 @@ var UI_query = (function () {
                 " <span class='badge badge-pill badge-light'>" + count + "</span></button>";
 
         }
+
         $("#dbFilterLabelButtonGroup").html(html);
     }
     self.showQueryCardParamsDialog = function (label) {

@@ -137,7 +137,7 @@ var visjsGraph = (function () {
                     }
                 }
             }
-            console.log(JSON.stringify(options, null, 2));
+        //    console.log(JSON.stringify(options, null, 2));
 
             return options;
         }

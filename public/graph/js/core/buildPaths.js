@@ -433,9 +433,9 @@ var buildPaths = (function () {
             } else {
                 var distanceStr = "";
                 if (options.withOrphanNodes)
-                    var distanceStr = "*0..1";
+                    distanceStr = "*0..1";
 
-                if (options.nodesDistance > 1 && index<2)
+                else if (options.nodesDistance > 1 && index < 2)
                     distanceStr = "*.." + options.nodesDistance;
 
 
@@ -563,7 +563,6 @@ var buildPaths = (function () {
         var labelSymbols = [];
         var labels = [];
         var relTypes = [];
-        console.log(JSON.stringify(neoResult, null,2))
         neoResult.forEach(function (line, index) {// define columns and structure objects by line
             var lineObj = {};
             var currentNode;

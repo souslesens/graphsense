@@ -739,6 +739,16 @@ var Schema = (function () {
 
         }
 
+        self.LabelsRelationsCount=function(){
+            var labels=Object.keys(Schema.schema.labels);
+            countMap={};
+            for (var key in Schema.schema.relations){
+
+
+            }
+
+        }
+
 
 
 

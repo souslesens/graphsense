@@ -246,8 +246,8 @@ var Tree = (function () {
                 }
                 var shadowNodes = []
                 children.forEach(function (childNode, index) {
+                    // if more than one children add a false child to each child to see the expand image+
                     if (!childNode.childrenCount || childNode.childrenCount >0) {
-                        //  if ( !childNode.children || childNode.children.length == 0)
                         shadowNodes.push({id: "shadow" + childNode.id, text: "aa", parent: "" + childNode.id})
                     }
                 })
@@ -283,11 +283,11 @@ var Tree = (function () {
                     }
 
 
-                    // add a false child to each child to see the expand image+
-                    console.log("------------" + JSON.stringify(parents));
+
+
                     var children = []
                     result.forEach(function (child, index) {
-                        console.log(child.text + "  " + child.id)
+
                         if (!parents || parents.indexOf("" + child.id) < 0) {
                             child.data._treeKey = treeKey;
                             children.push(child)
@@ -346,6 +346,7 @@ var Tree = (function () {
             var labelsMap = {};
             var checkedIds = [];
             selectedNodes.forEach(function (id) {
+                // if more than one children add a false child to each child to see the expand image+
                 if (id.indexOf("shadow") < 0 && id > -1) {
                     checkedIds.push(id);
                     var node = $('#' + treedivId + "_tree").jstree(true).get_node(id);

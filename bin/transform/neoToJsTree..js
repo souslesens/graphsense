@@ -52,7 +52,7 @@ var neoToJstree = {
 
 
         neoProxy.match(match, function (err, result) {
-            console.log(match);
+         //   console.log(match);
             if (err)
                 return callback(err);
 
