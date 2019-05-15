@@ -5,6 +5,7 @@ var Tree = (function () {
         self.cardIndexes = {};
         self.trees = [];
         self.checkboxChangeTimeStamp = 0;
+        self.openingNode = null;
         var treedivId = "treeDiv";
 
 
@@ -59,7 +60,7 @@ var Tree = (function () {
 
                     function (evt, obj) {
 
-
+                        self.openingNode = obj.node;
                         if (obj.node.children.length == 1) {
                             obj.node.children.forEach(function (child) {
                                 if (child.indexOf("shadow") == 0)
@@ -106,9 +107,10 @@ var Tree = (function () {
                     data.forEach(function (childNode, index) {
                         if (obj.parents.indexOf("" + childNode.id) < 0) {// eviter la recursivite
                             childNode.id = "" + childNode.id;
-                            if (!childNode.children || childNode.children.length == 0)
+                            if (!childNode.childrenCount || childNode.childrenCount > 0) {
+                                // if (!childNode.children || childNode.children.length == 0)
                                 childNode.children.push({id: "shadow" + childNode.id, text: "aa", parent: "" + childNode.id})
-
+                            }
                             childNode.parent = "" + childNode.parent;
                             $('#' + treedivId + "_tree").jstree('create_node', childNode.parent, childNode, 'last', function (www) {
                                 //
@@ -125,6 +127,24 @@ var Tree = (function () {
 
                 }
             );
+        }
+
+
+        self.iniTrees = function () {
+
+            var recursiveRels = Schema.getRecursiveRelsLabels();
+
+            var treekeys = [];
+            for (var key in Config.trees) {
+                if (recursiveRels.indexOf(key) > -1)
+                    treekeys.push(key);
+            }
+            common.fillSelectOptionsWithStringArray("tree_labelSelect", treekeys, true);
+            Tree.resetTrees();
+            /*  Config.simpleSearchTree=new Tree("search_treeContainerDiv");
+              Config.hierarchyTree=new Tree("hierarchy_treeContainerDiv");*/
+
+
         }
 
 
@@ -226,9 +246,10 @@ var Tree = (function () {
                 }
                 var shadowNodes = []
                 children.forEach(function (childNode, index) {
-                    if (!childNode.children || childNode.children.length == 0)
+                    if (!childNode.childrenCount || childNode.childrenCount >0) {
+                        //  if ( !childNode.children || childNode.children.length == 0)
                         shadowNodes.push({id: "shadow" + childNode.id, text: "aa", parent: "" + childNode.id})
-
+                    }
                 })
                 children = children.concat(shadowNodes);
                 self.setJsTree(children, onSelectFn);
@@ -254,16 +275,33 @@ var Tree = (function () {
                 url: Cypher.neo4jProxyUrl,
                 dataType: "json",
                 data: payload,
-                success: function (parentNode, textStatus, jqXHR) {
+                success: function (result, textStatus, jqXHR) {
+                    var parents = null;
+                    if (self.openingNode) {
+                        parents = self.openingNode.parents;
+                        parents.push(self.openingNode.id)
+                    }
+
 
                     // add a false child to each child to see the expand image+
-                    parentNode.children.forEach(function (child, index) {
-                        parentNode.children[index].data._treeKey = treeKey;
+                    console.log("------------" + JSON.stringify(parents));
+                    var children = []
+                    result.forEach(function (child, index) {
+                        console.log(child.text + "  " + child.id)
+                        if (!parents || parents.indexOf("" + child.id) < 0) {
+                            child.data._treeKey = treeKey;
+                            children.push(child)
+                        }
+                        else {
+
+
+                        }
+
 
                     })
 
 
-                    return callback(null, parentNode.children)
+                    return callback(null, children)
 
                 },
                 error: function (error) {

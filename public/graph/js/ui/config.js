@@ -32,13 +32,23 @@ var Config = {
     trees: {
         "FunctionalClass": {
             label: "FunctionalClass",
-            relType:"childOf",
+            relType:"inverse",
             rootSelector:"Name='Root'"
         },
         "PhysicalClass": {
             label: "PhysicalClass",
-            relType:"childOf",
+            relType:"inverse",
             rootSelector:"Name='Root'"
+        },
+        "Component": {
+            label: "Component",
+            relType:"normal",
+            rootSelector:"Name='Component'"
+        },
+        "Equipment": {
+            label: "Equipment",
+            relType:"normal",
+            rootSelector:"Name='Equipment'"
         },
     }
     ,

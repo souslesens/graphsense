@@ -22,14 +22,13 @@ var neoToJstree = {
                 var childProps = line.child.properties;
                 childProps._id = line.child._id;
 
-                    nodes.push({
-                        text: childProps.name,
-                        id: childProps._id,
-                        parent: parentProps._id,
-                        data: childProps,
-                        children: []
-                    })
-
+                nodes.push({
+                    text: childProps.name,
+                    id: childProps._id,
+                    parent: parentProps._id,
+                    data: childProps,
+                    children: []
+                })
 
 
             })
@@ -44,30 +43,45 @@ var neoToJstree = {
 
     generateTreeFromParentToChildrenRelType: function (label, relType, rootNeoId, callback) {
 
-        var match = "match(n:" + label + ")-[r:" + relType + "]-(m) where id(n)=" + rootNeoId + "  return   n as parent ,m as child order by child ";
-        neoProxy.match(match, function (err, result) {
+        //  var match = "match(n:" + label + ")<-[r:" + relType + "]-(m)<-[r2:" + relType + "*0..1]-(p:" + label + ") where id(n)=" + rootNeoId +" and ID(n)<>ID(m)  return   n as parent ,m as child,count(p) as  chidrenCount order by child ";
+        var match;
+        if (relType == "inverse")
+            match = "match(n:" + label + ")-[r]->(m:" + label + ")-[r2*0..1]->(p:" + label + ") where id(n)=" + rootNeoId + " and ID(n)<>ID(m)  return   n as parent ,m as child,count(p) as  childrenCount order by child ";
+        else
+            match = "match(n:" + label + ")<-[r]-(m:" + label + ")<-[r2*0..1]-(p:" + label + ") where id(n)=" + rootNeoId + " and ID(n)<>ID(m)  return   n as parent ,m as child,count(p) as  childrenCount order by child ";
 
+
+        neoProxy.match(match, function (err, result) {
+            console.log(match);
             if (err)
                 return callback(err);
 
 
-            var parent = {}
+            var data = [];
             result.forEach(function (line, index) {
                 var parentProps = line.parent.properties;
                 parentProps._id = line.parent._id
-                if (index == 0)
-                    parent=({text: parentProps.name, id: parentProps._id, data: parentProps, children:[]})
+                /*  if (index == 0)
+                      parent=({text: parentProps.name, id: parentProps._id, data: parentProps, children:[]})*/
 
                 var childProps = line.child.properties;
-                childProps.labelNeo=line.child.labels[0];
+                childProps.labelNeo = line.child.labels[0];
                 childProps._id = line.child._id;
-                if(childProps.name!="Root" &&  childProps._id !=parentProps._id) {
-                    parent.children.push({
-                        text: childProps.name,
+                var text=childProps.name;
+
+               line.childrenCount-=1;// pas compris pourquoi !!
+
+
+                if(line.childrenCount>0)
+                    text+=" ("+line.childrenCount+")";
+                if (childProps.name != "Root" && childProps._id != parentProps._id) {
+                    data.push({
+                        text: text,
                         id: childProps._id,
                         parent: parentProps._id,
                         data: childProps,
-                        children: []
+                        children: [],
+                        childrenCount: line.childrenCount || -1
                     })
                 }
 
@@ -75,7 +89,7 @@ var neoToJstree = {
             })
 
 
-            return callback(null, parent)
+            return callback(null, data)
 
 
         })
@@ -83,8 +97,8 @@ var neoToJstree = {
 
     generateAllDescendantsTreeFromChildToParentRelType: function (label, relType, rootNeoId, depth, callback) {
 
-if(!depth || depth==0)
-    depth=5;
+        if (!depth || depth == 0)
+            depth = 5;
         var depthStr = "*1.." + depth;
         var match = "match(n:" + label + ")-[r:" + relType + depthStr + "]-(m) where id(n)=" + rootNeoId + " return   n as parent ,r,m as child";
         neoProxy.match(match, function (err, result) {
@@ -109,33 +123,30 @@ if(!depth || depth==0)
                     }
                 }
 
-                    var childProps = line.child.properties;
-                    childProps._id = line.child._id
-                    if (!nodesMap[line.child._id])
-                        nodesMap[line.child._id] = {
-                            text: childProps.name,
-                            id: childProps._id,
-                            parent: "",
-                            data: childProps
-                        }
-
+                var childProps = line.child.properties;
+                childProps._id = line.child._id
+                if (!nodesMap[line.child._id])
+                    nodesMap[line.child._id] = {
+                        text: childProps.name,
+                        id: childProps._id,
+                        parent: "",
+                        data: childProps
+                    }
 
 
             })
             //rels
             result.forEach(function (line, index) {
                 line.r.forEach(function (rel) {
-                    if( !nodesMap[rel._fromId])
+                    if (!nodesMap[rel._fromId])
                         return;
                     nodesMap[rel._fromId].parent = rel._toId;
                 })
             })
 
-            for(var key in nodesMap){
+            for (var key in nodesMap) {
                 nodes.push(nodesMap[key])
             }
-
-
 
 
             return callback(null, nodes)

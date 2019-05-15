@@ -725,6 +725,19 @@ var Schema = (function () {
 
 
         }
+        self.getRecursiveRelsLabels=function(){
+            var recursiveRels=[]
+            for (var key in Schema.schema.relations){
+
+                var rel=Schema.schema.relations[key];
+                if(rel.startLabel==rel.endLabel)
+                    recursiveRels.push(rel.startLabel)
+            }
+           return recursiveRels;
+
+
+
+        }
 
 
 

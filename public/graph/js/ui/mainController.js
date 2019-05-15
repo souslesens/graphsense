@@ -34,7 +34,7 @@ var MainController = (function () {
 
             UI_query.initQueryLabels();
             UI_query.newQuery();
-            self.iniTrees();
+            Tree.iniTrees();
 
             // fin reinitialisation
             UI_graph.showSchema(context.subGraph)
@@ -44,17 +44,6 @@ var MainController = (function () {
 
     }
 
-    self.iniTrees = function () {
-
-
-        var treekeys = Object.keys(Config.trees)
-        common.fillSelectOptionsWithStringArray("tree_labelSelect", treekeys, true);
-        Tree.resetTrees();
-        /*  Config.simpleSearchTree=new Tree("search_treeContainerDiv");
-          Config.hierarchyTree=new Tree("hierarchy_treeContainerDiv");*/
-
-
-    }
     self.loadSubGraphs = function () {
         var match = "Match (n)  return distinct n.subGraph as subGraph order by subGraph";
         Cypher.executeCypher(match, function (err, data) {
