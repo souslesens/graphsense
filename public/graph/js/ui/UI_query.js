@@ -1,5 +1,6 @@
 var UI_query = (function () {
     var self = {};
+    self.currentIndex=-1;
 
     self.initQueryLabels = function () {
 
@@ -64,22 +65,25 @@ var UI_query = (function () {
 
         if (!queryObject.cardTitle)
             queryObject.cardTitle = queryObject.label;
-        if (!buildPaths.queryObjs.currentIndex)
-            buildPaths.queryObjs.currentIndex = -1;
 
-        if(!index)
-            index = buildPaths.queryObjs.currentIndex += 1;
-        else
-            buildPaths.queryObjs.currentIndex =index;
-
-
+        
         if (!index && context.currentQueryCardId > -1) {
 
-             self.updateCardToQueryDeck(queryObject, context.currentQueryCardId);
+            self.updateCardToQueryDeck(queryObject, context.currentQueryCardId);
             context.currentQueryCardId = -1;
             return;
 
         }
+
+        if(!index) {
+            self.currentIndex += 1;
+            index = self.currentIndex;
+        }
+        else
+            self.currentIndex =index;
+
+
+
 
         var cardId = Math.round(Math.random() * 1000);
         var card = JSON.parse(JSON.stringify(queryObject));//clone
@@ -99,7 +103,7 @@ var UI_query = (function () {
 
 
         var html = "";
-        if (index > 0)
+        if (index > 1)
             html = '<div id="' + iconCardId + '" style="padding: 4px 2px 2px;float:right"><img src="img/FilterLabel.png" style="width: 40px; height: 40px;"/></div>';
 
         html += '<div class="card" onclick="UI_query.onCardClick(' + cardId + ')" id="' + filterCardId + '" style="width: 15rem;"> ' +
@@ -161,10 +165,10 @@ var UI_query = (function () {
     }
     self.removeFilterCard = function (cardId) {
 
-        buildPaths.queryObjs.currentIndex -= 1;
+
         context.currentQueryCardId = -1;
         delete context.cardsMap[cardId];
-
+        self.currentIndex -= 1;
 
         $("#query_filterCard_" + cardId).remove();
         $("#query_icon_" + cardId).remove();
@@ -206,6 +210,7 @@ var UI_query = (function () {
 
 
     }
+
     self.setUIPermittedLabels = function (label) {
 
         var opacityAllowed = 0.7;
@@ -274,6 +279,7 @@ var UI_query = (function () {
         //  $("#dbFilterCollapseMenu").removeClass("d-none");
         buildPaths.queryObjs = [];
         context.cardsMap = {};
+        self.currentIndex=0;
 
 
     }

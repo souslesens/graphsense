@@ -437,7 +437,7 @@
         "PhysicalClass-inDiscipline->Discipline": {
           "source": "MDM_Quantum#tblPhysicalClass",
           "name": "PhysicalClass-inDiscipline->Discipline",
-          "colFromId": "DisciplineID",
+          "colFromId": "ID",
           "neoFromLabel": "PhysicalClass",
           "neoFromId": "ID",
           "colToId": "DisciplineID",
