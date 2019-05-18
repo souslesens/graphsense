@@ -82,6 +82,11 @@ var binder=(function(){
       $("#GraphRelationPopoverDiv").load("htmlSnippets/graph/relationPopover.html" , function () {
 
       })
+      $("#GraphSchemaPopoverDiv").load("htmlSnippets/graph/graphSchemaPopover.html" , function () {
+
+      })
+
+
 
       $("#GraphNodeInfoWrapperDiv").load("htmlSnippets/graph/nodeInfos.html" , function () {
 
@@ -110,6 +115,13 @@ var binder=(function(){
       $("#adminModalMenu").load("htmlSnippets/admin.html", function () {
           console.log("exportDataModal.html loaded")
       })
+
+      $("#SimpleQueryModalMenu").load("htmlSnippets/graph/simpleQuery.html", function () {
+          console.log("exportDataModal.html loaded")
+      })
+
+
+
 
 
 

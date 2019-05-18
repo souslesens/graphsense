@@ -11,6 +11,8 @@ function Context() {
     this.currentRelations = {types: [], props: []}
     this.mousePosition={x:0,y:0};
     this.currentQueryCardId;
+    this.queryFilterValidateFn=null;
+
 
 
 

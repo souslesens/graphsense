@@ -329,6 +329,11 @@ var visjsGraph = (function () {
             self.network.on(" afterDrawing", function (params) {
                 //   self.onScaleChange()
             });
+            self.network.on("dragEnd", function (params) {
+                if(params.nodes.length>0)
+                    Cache.cacheGraphSchema();
+                return;
+            });
 
             /*       self.network.on("beforeDrawing", function (ctx) {
                        self.context = ctx;

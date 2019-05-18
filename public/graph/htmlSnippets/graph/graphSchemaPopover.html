@@ -1,0 +1,29 @@
+<style>
+    .graph-popover_li{
+        padding:2px;
+        font-size: 12px;
+
+    }
+
+
+</style>
+<div class="popover" role="tooltip">
+    <div class="arrow"></div>
+    <h3 class="popover-header"></h3>
+    <div class="popover-body" style="width:120px;padding:5px">
+        <div id="popover-content" class="hide">
+            <ul class="list-group">
+                <li class="list-group-item graph-popover_li" id="popover-node-name" style="font-weight: bold"></li>
+                <li class="list-group-item graph-popover_li" onclick="GraphController.schemaSelectAllNodes()">Select All Nodes</li>
+                <li class="list-group-item  graph-popover_li" onclick="GraphController.schemaSelectSomeNodes()">Select Some Nodes</li>
+
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+
+

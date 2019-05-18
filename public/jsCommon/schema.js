@@ -749,6 +749,95 @@ var Schema = (function () {
 
         }
 
+        self.getPathsBetweenLabels = function (fromLabel,toLabel,callback) {
+
+                var cypher = "Match (n:shemaLabel{name:'" + fromLabel + "'}),  (m:shemaLabel{name:'" + toLabel + "'}) WITH * WHERE id(n) <> id(m) MATCH path = allShortestPaths( (n)-[*..6]-(m)) RETURN  nodes(path) as nodes, relationships(path) as relations"
+                Cypher.executeCypher(cypher, function (err, result) {
+                    if (err)
+                         console.log(err)
+                    callback(err,result);
+                })
+        }
+
+
+
+        self.createSchemaNeo4jGraph = function (newLabel) {
+
+            var nodesCypher = [];
+            var relationsCypher = [];
+
+            async.series(
+                [
+                    function (callback) {
+                        var cypher = "match(n)-[r]->(m) where n.subGraph='" + context.subGraph + "' return distinct (labels(n)[0]+'|'+type(r)+'|'+labels(m)[0]) as rel"
+                        Cypher.executeCypher(cypher, function (err, result) {
+                            if (err)
+                                return callback(err)
+                            result.forEach(function (line) {
+                                var array = line.rel.split("|");
+                                if (nodesCypher.indexOf(array[0]) < 0)
+                                    nodesCypher.push(array[0])
+                                if (nodesCypher.indexOf(array[2]) < 0)
+                                    nodesCypher.push(array[2])
+
+                                relationsCypher.push({fromLabel: array[0], toLabel: array[2], type: array[1]})
+                            })
+                            callback()
+                        })
+                    },
+                    function (callback) {
+                        var cypher = "match(n:shemaLabel) where n.subGraphName='" + context.subGraph + "' detach delete n"
+                        Cypher.executeCypher(cypher, function (err, result) {
+                            if (err)
+                                return callback(err)
+                            callback()
+                        })
+
+
+                    },
+
+
+                    function (callback) {
+                        async.eachSeries(nodesCypher, function (line, callbackEach) {
+                            var cypher = "create(n:shemaLabel{name:'" + line + "',subGraphName:'" + context.subGraph + "'})";
+
+
+                            Cypher.executeCypher(cypher, function (err, result) {
+                                if (err)
+                                    return console.log(err);
+                                return callbackEach();
+                            })
+                        }, function (err) {
+                            callback(err);
+                        })
+
+                    },
+                    function (callback) {
+                        async.eachSeries(relationsCypher, function (line, callbackEach) {
+                            var cypher = "match(n),(m) where n.subGraphName='" + context.subGraph + "' and " +
+                                "n.name='" + line.fromLabel + "' and " +
+                                " m.subGraphName='" + context.subGraph + "' and " +
+                                "m.name='" + line.toLabel + "'" +
+                                "create (n)-[r:" + line.type.replace(/\-/g, "_") + "]->(m)"
+
+                            Cypher.executeCypher(cypher, function (err, result) {
+                                if (err)
+                                    return callbackEach(err);
+                                return callbackEach();
+                            })
+                        }, function (err) {
+                            callback(err);
+                        })
+
+                    }
+
+                ], function (err) {
+                    console.log("done")
+                })
+
+
+        }
+
 
 
 

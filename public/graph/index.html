@@ -76,6 +76,7 @@
     <script type="text/javascript" src="js/ui/mainController.js"></script> <!--  global  controller  -->
     <script type="text/javascript" src="js/ui/graphController.js"></script>
     <script type="text/javascript" src="js/ui/nodeInfosController.js"></script>
+    <script type="text/javascript" src="js/ui/graphSimpleQuery.js"></script>
 
 
     <!--   controllers for  operations on graph -->
@@ -104,9 +105,9 @@
     <!---------- fin scripts visjs ----------->
 
     <!-- tree JS -->
-    <link rel="stylesheet" href="js/others/jsTreeBootstrap/themes/default/style.min.css" />
+    <link rel="stylesheet" href="js/others/jsTreeBootstrap/themes/default/style.min.css"/>
     <script src="js/others/jsTreeBootstrap/jstree.min.js"></script>
-   <!-- <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>-->
+    <!-- <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>-->
 
     <script>
         //when page loaded
@@ -120,21 +121,27 @@
     </script>
 
     <style>
-      .jstree-container-ul {
+        .jstree-container-ul {
 
             background: white;
         }
 
-        #hierarchy_treeContainerDiv ul li a,  #search_treeContainerDiv ul li a{
+        #hierarchy_treeContainerDiv ul li a, #search_treeContainerDiv ul li a {
             padding: 1px;
-             font-size: 1.1em;
+            font-size: 1.1em;
             display: inline;
             background: white;
             color: black;
 
         }
-        .jstree-default .jstree-clicked{
-            background:none;
+
+        .jstree-default .jstree-clicked {
+            background: none;
+        }
+
+        .accordionCF {
+            margin: 1px;
+            padding: 0px !important;
         }
 
     </style>
@@ -156,15 +163,15 @@
         <!-- Divider -->
         <hr class="sidebar-divider"/>
 
-        <ul class="list-unstyled components">
+        <ul class="list-unstyled components accordionCF">
             <li class="active">
                 <a href="#searchSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Search</a>
-                <ul class="collapse list-unstyled" id="searchSubMenu"  >
+                <ul class="collapse list-unstyled" id="searchSubMenu">
                     <li>
                         <div class="modal-body">
                             <label for="tree_searchNodeValue">Search by name :</label>
                             <div class="input-group">
-                                <input type="text" id="tree_searchNodeValue" class="form-control border-0 small" style="background-color: #d4d3d6;"  placeholder="Search for..." aria-label="Search"
+                                <input type="text" id="tree_searchNodeValue" class="form-control border-0 small" style="background-color: #d4d3d6;" placeholder="Search for..." aria-label="Search"
                                        aria-describedby="basic-addon2">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="button"
@@ -175,7 +182,8 @@
                                 </div>
                             </div>
 
-                            <div class="row" id="search_treeContainerDiv" style="font-size: 12px; width: 270px; height:400px; overflow:auto;margin-left: 0px;margin-right: 5px;background-color:white"></div>
+                            <div class="row" id="search_treeContainerDiv"
+                                 style="font-size: 12px; width: 270px; height:400px; overflow:auto;margin-left: 0px;margin-right: 5px;background-color:white"></div>
 
 
                         </div>
@@ -184,7 +192,7 @@
             </li>
         </ul>
         <hr class="sidebar-divider"/>
-        <ul class="list-unstyled components">
+        <ul class="list-unstyled components accordionCF">
             <li>
                 <a href="#hierarchySubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Custom TreeViews</a>
                 <ul class="collapse list-unstyled" id="hierarchySubMenu">
@@ -193,7 +201,7 @@
                             <label for="tree_searchNodeValue">Select a Tree class :</label>
                             <div class="input-group">
                                 <select class="form-control " id="tree_labelSelect" onchange="Tree.drawNodeHierarchyTree($(this).val(),'hierarchy_treeContainerDiv')"></select>
-                                <button class="btn btn-secondary d-none"  id="tree-hierarchyAddCardButton" onclick="Tree.addSelectionToQuery(Tree.currentType)">add card</button>
+                                <button class="btn btn-secondary d-none" id="tree-hierarchyAddCardButton" onclick="Tree.addSelectionToQuery(Tree.currentType)">add card</button>
                             </div>
 
                             <div class="row" id="hierarchy_treeContainerDiv" style="font-size: 14px; width: 270px; height:500px; overflow:auto;margin-left: 5px;margin-right: 5px;"></div>
@@ -202,229 +210,263 @@
                     </li>
                 </ul>
         </ul>
-
-        <!-- Divider -->
         <hr class="sidebar-divider"/>
-    </nav>
+        <ul class="list-unstyled components accordionCF">
+            <li>
+                <a href="#cardMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Cards</a>
+                <ul class="collapse list-unstyled" id="cardMenu">
+                    <li>
+                        <div class="modal-body">
+                            <label for="tree_searchNodeValue">Select Labels :</label>
+                            <div id="simpleQuery_wrapper">
 
-    <!-- Page Content  -->
-    <div id="content">
+                            </div>
 
-        <!-- main menu navbar -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="#">Sous le sens Menu</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                            <button class='btn btn-secondary' onclick="GraphSimpleQuery.clear()">
+                               New Query
+                            </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Import Data...</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Login/Logout</a>
+
+                        </div>
+
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0" style="padding-right:10px;">
-                    <label for="mainMenu_subGraphSelect" class=" mr-sm-2 col-form-label" style="color:white">Select sub graph :</label>
-                    <select class="form-control my-2 my-sm-0" id="mainMenu_subGraphSelect" onchange="MainController.initSubGraph($(this).val())">
-                    </select>
-                </form>
-            </div>
-            <a class="navbar-brand" onmouseover="$(this).tooltip('show');" href="#" data-placement="bottom" onclick="UI_graph.showSchema(context.subGraph);" title="Display Schema Database">
-                <img src="img/Schema.png" width="35" height="35" alt="Tag" style="border-radius:30px">
-            </a>
-            <a class="navbar-brand" onmouseover="$(this).tooltip('show');" data-placement="bottom" href="#" onclick="Schema.createSchema(context.subGraph,UI_graph.showSchema);" title="Create Schema Database"  >
-                <img src="img/reset-512.png" width="40" height="40" alt="Tag" style="border-radius:30px;background-color:white;">
-            </a>
-        </nav>
+            </li>
+        </ul>
+        <!-- Divider -->
+        <hr class="sidebar-divider"/>
+        <!--  <button class="btn btn-secondary"  onclick="Schema.createSchemaNeo4jGraph()">createSchemaNeo4jGraph</button>-->
+        <!-- <button class="btn btn-secondary"  onclick="GraphSimpleQuery.showDialog()">Simple Query</button>-->
 
 
-        <!-- icon menu navbar -->
-        <nav class="navbar navbar-expand-lg navbar-light" style="padding-left:5px;">
+     </nav>
 
-            <ul class="navbar-nav mr-auto">
-                <a class="navbar-brand" href="#" style="border-left: 2px solid blue;padding-left:5px;"> Request :</a>
+     <!-- Page Content  -->
+        <div id="content">
 
-                <li class="nav-item">
-                    <a  id="query_newQueryButton" data-toggle="collapse" data-target="#dbFilterCollapseMenu"  href="#" onmouseover="$(this).tooltip('show');" class="navbar-brand"  href="#"  data-toggle="tooltip" data-placement="bottom" title="New Request">
-                        <img src="img/new.png" width="40" height="40" alt="Filter">
-                    </a>
-                </li>
+            <!-- main menu navbar -->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <a class="navbar-brand" href="#">Sous le sens Menu</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                <li class="nav-item">
-                    <a  id="showTreeButton" onmouseover="$(this).tooltip('show');" class="navbar-brand"  href="#"  data-toggle="tooltip" data-placement="bottom" title="Search Menu">
-                        <img src="img/advancedSearch.png" width="40" height="40" alt="Filter">
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a id="filterNodeMenu" onmouseover="$(this).tooltip('show');" class="navbar-brand" data-toggle="collapse" href="#dbFilterCollapseMenu" aria-expanded="false" data-target="#dbFilterCollapseMenu" data-placement="bottom" title="Database Query Menu">
-                        <img src="img/cube.png" width="40" height="40" alt="Filter">
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a  onmouseover="$(this).tooltip('show');" class="navbar-brand"  href="#"  data-toggle="tooltip" data-placement="bottom" title="Save Request">
-                        <img src="img/save.png" width="40" height="40" alt="Filter">
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <div class="spinner-border text-primary d-none" id="waitSpinnerDiv" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                </li>
-            </ul>
-
-            <ul id="navbar_graph_Graph_ul" class="navbar-nav mr-auto d-none"  >
-                <a class="navbar-brand" style="border-left: 2px solid red;padding-left:5px;" href="#">Graph :</a>
-
-                <li class="nav-item">
-                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphExpandModalMenu" data-placement="bottom"  title="Expand Node Menu" onclick="GraphExpand.initSourceLabel(visjsGraph.legendLabels)" onmouseover="$(this).tooltip('show');">
-                        <img src="img/expandLabel.png" width="40" height="40" alt="">
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphHighlightModalMenu" data-placement="bottom" title="HighLlight Node Menu"  onclick="GraphHighlight.initDialog()" onmouseover="$(this).tooltip('show');">
-                        <img src="img/brush.jpg" width="40" height="40" alt="Tag">
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphFilterModalMenu" data-placement="bottom" title="HighLlight Node Menu"  onclick="GraphFilter.initDialog()" onmouseover="$(this).tooltip('show');">
-                        <img src="img/filter.png" width="40" height="40" alt="Tag">
-                    </a>
-                </li>
-                <!--   <li class="nav-item">
-                       <a class="navbar-brand" data-toggle="modal" data-target="#GraphFilterModalMenu" href="#" title="Filter Graph Menu" onclick="GraphFilter.initDialog()"></a>
-                           <img src="img/filter.png" width="40" height="40" alt="Tag">
-                       </a>
-                   </li>-->
-                <li class="nav-item">
-                    <a class="navbar-brand d-none" href="#" id="graphCache_previousGraphButton" onclick="Cache.restorePreviousGraph()">
-                        <img src="img/previous.jpg" width="40" height="40" alt="Tag">
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="navbar-brand d-none" id="graphCache_nextGraphButton" href="#" onclick="Cache.restoreNextGraph()">
-                        <img src="img/next.jpg" width="40" height="40" alt="Tag">
-                    </a>
-                </li>
-            </ul>
-
-            <ul id="#navbar_params" class="navbar-nav ml-auto" >
-                <a class="navbar-brand" href="#" style="border-left: 2px solid green;padding-left:5px;">Options :</a>
-
-                <li class="nav-item">
-                    <a class="navbar-brand" href="#">
-                        <img src="img/fit.png" width="40" height="40" alt="">
-                    </a>
-                </li>
-                <li>
-                    <a class="navbar-brand" href="#" data-toggle="modal" data-target="#displayModalContent">
-                        <img src="img/display.png" width="40" height="40" alt="">
-                    </a>
-                </li>
-                <li>
-                    <a class="navbar-brand" href="#navbarSupportedContent" data-toggle="collapse"
-                       data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                       aria-expanded="false"
-                       aria-label="Toggle navigation">
-                        <img src="img/fullScreen.png" width="40" height="40" alt="">
-                    </a>
-                </li>
-
-
-
-            </ul>
-        </nav>
-
-        <!-- Query Label Modal -->
-        <div class="modal fade" id="dbQueryFilterLabelModal" tabindex="-1" role="dialog"
-             aria-labelledby="dbQueryFilterLabelModal" aria-hidden="true">
-        </div>
-        <!-- End of Display Setting Modal -->
-
-
-        <!--Graph Expand Modal Menu -->
-        <div class="modal fade bd-example-modal-lg" id="GraphExpandModalMenu" tabindex="-1" role="dialog"
-             aria-labelledby="displayModalLabel" aria-hidden="true">
-        </div>
-
-        <!--Graph Highlight Modal Menu -->
-        <div class="modal fade bd-example-modal-lg" id="GraphHighlightModalMenu" tabindex="-1" role="dialog"
-             aria-labelledby="displayModalLabel" aria-hidden="true">
-        </div>
-
-        <!-- Graph Filter Collaspse menu -->
-        <div class="modal fade bd-example-modal-lg" id="GraphFilterModalMenu" tabindex="-1" role="dialog"
-             aria-labelledby="displayModalLabel" aria-hidden="true">
-        </div>
-
-        <!-- datatable  menu -->
-        <div class="modal fade bd-example-modal-sm" id="ExportDataModalMenu" tabindex="-1" role="dialog"
-             aria-labelledby="displayModalLabel" aria-hidden="true">
-        </div>
-
-        <div class="modal fade bd-example-modal-lg" id="ExportDataTableModalMenu" tabindex="-1" role="dialog"
-             aria-labelledby="displayModalLabel" aria-hidden="true">
-
-            <div id="exportData_datatableDiv">aaaaaaaaa</div>
-        </div>
-
-
-        <!-- Graph Filter Collaspse menu -->
-        <div class="modal fade bd-example-modal-lg" id="adminModalMenu" tabindex="-1" role="dialog"
-             aria-labelledby="displayModalLabel" aria-hidden="true">
-        </div>
-
-
-        <!-- DB Filter Collaspse menu -->
-        <div class="collapse navbar-collapse" id="dbFilterCollapseMenu">
-            <!--loaded by binder.bindOnPageload()-->
-        </div>
-
-
-        <!-- Display Setting Modal -->
-        <div class="modal fade" id="displayModalContent" tabindex="-1" role="dialog" aria-labelledby="displayModalLabel"
-             aria-hidden="true">
-
-        </div>
-        <!-- End of Display Setting Modal -->
-
-
-        <!-- end of Wrapper  -->
-
-
-        <div class="container-fluid">
-
-
-
-            <!-- Content Row -->
-            <div class="row"   >
-                <div id="graphDiv" class="col-12" >
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Import Data...</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Login/Logout</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0" style="padding-right:10px;">
+                        <label for="mainMenu_subGraphSelect" class=" mr-sm-2 col-form-label" style="color:white">Select sub graph :</label>
+                        <select class="form-control my-2 my-sm-0" id="mainMenu_subGraphSelect" onchange="MainController.initSubGraph($(this).val())">
+                        </select>
+                    </form>
                 </div>
-                <div id="graph_legendDiv" style="background-color: #ddd"></div>
-                <div id="graph_infosDiv" style="font-size: 8px"></div>
-                <div id="graphCommentDiv" style="position: absolute;background-color: white;margin: 2px;padding: 2px"></div>
-                <div id="GraphHighlight_legendDiv"
-                     style="visibility:hidden;z-index:20;border: 1px;border-style: solid;padding: 5px;background-color: #fafafa;max-height: 400px;max-width: 250px;overflow: auto"></div>
+                <a class="navbar-brand" onmouseover="$(this).tooltip('show');" href="#" data-placement="bottom" onclick="UI_graph.showSchema(context.subGraph);" title="Display Schema Database">
+                    <img src="img/Schema.png" width="35" height="35" alt="Tag" style="border-radius:30px">
+                </a>
+                <a class="navbar-brand" onmouseover="$(this).tooltip('show');" data-placement="bottom" href="#" onclick="Schema.createSchema(context.subGraph,UI_graph.showSchema);"
+                   title="Create Schema Database">
+                    <img src="img/reset-512.png" width="40" height="40" alt="Tag" style="border-radius:30px;background-color:white;">
+                </a>
+            </nav>
+
+
+            <!-- icon menu navbar -->
+            <nav class="navbar navbar-expand-lg navbar-light" style="padding-left:5px;">
+
+                <ul class="navbar-nav mr-auto">
+                    <a class="navbar-brand" href="#" style="border-left: 2px solid blue;padding-left:5px;"> Request :</a>
+
+                    <li class="nav-item">
+                        <a id="query_newQueryButton" data-toggle="collapse" data-target="#dbFilterCollapseMenu" href="#" onmouseover="$(this).tooltip('show');" class="navbar-brand" href="#"
+                           data-toggle="tooltip" data-placement="bottom" title="New Request">
+                            <img src="img/new.png" width="40" height="40" alt="Filter">
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a id="showTreeButton" onmouseover="$(this).tooltip('show');" class="navbar-brand" href="#" data-toggle="tooltip" data-placement="bottom" title="Search Menu">
+                            <img src="img/advancedSearch.png" width="40" height="40" alt="Filter">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="filterNodeMenu" onmouseover="$(this).tooltip('show');" class="navbar-brand" data-toggle="collapse" href="#dbFilterCollapseMenu" aria-expanded="false"
+                           data-target="#dbFilterCollapseMenu" data-placement="bottom" title="Database Query Menu">
+                            <img src="img/cube.png" width="40" height="40" alt="Filter">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a onmouseover="$(this).tooltip('show');" class="navbar-brand" href="#" data-toggle="tooltip" data-placement="bottom" title="Save Request">
+                            <img src="img/save.png" width="40" height="40" alt="Filter">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="spinner-border text-primary d-none" id="waitSpinnerDiv" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </li>
+                </ul>
+
+                <ul id="navbar_graph_Graph_ul" class="navbar-nav mr-auto d-none">
+                    <a class="navbar-brand" style="border-left: 2px solid red;padding-left:5px;" href="#">Graph :</a>
+
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphExpandModalMenu" data-placement="bottom" title="Expand Node Menu"
+                           onclick="GraphExpand.initSourceLabel(visjsGraph.legendLabels)" onmouseover="$(this).tooltip('show');">
+                            <img src="img/expandLabel.png" width="40" height="40" alt="">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphHighlightModalMenu" data-placement="bottom" title="HighLlight Node Menu"
+                           onclick="GraphHighlight.initDialog()" onmouseover="$(this).tooltip('show');">
+                            <img src="img/brush.jpg" width="40" height="40" alt="Tag">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphFilterModalMenu" data-placement="bottom" title="HighLlight Node Menu" onclick="GraphFilter.initDialog()"
+                           onmouseover="$(this).tooltip('show');">
+                            <img src="img/filter.png" width="40" height="40" alt="Tag">
+                        </a>
+                    </li>
+                    <!--   <li class="nav-item">
+                           <a class="navbar-brand" data-toggle="modal" data-target="#GraphFilterModalMenu" href="#" title="Filter Graph Menu" onclick="GraphFilter.initDialog()"></a>
+                               <img src="img/filter.png" width="40" height="40" alt="Tag">
+                           </a>
+                       </li>-->
+                    <li class="nav-item">
+                        <a class="navbar-brand d-none" href="#" id="graphCache_previousGraphButton" onclick="Cache.restorePreviousGraph()">
+                            <img src="img/previous.jpg" width="40" height="40" alt="Tag">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="navbar-brand d-none" id="graphCache_nextGraphButton" href="#" onclick="Cache.restoreNextGraph()">
+                            <img src="img/next.jpg" width="40" height="40" alt="Tag">
+                        </a>
+                    </li>
+                </ul>
+
+                <ul id="#navbar_params" class="navbar-nav ml-auto">
+                    <a class="navbar-brand" href="#" style="border-left: 2px solid green;padding-left:5px;">Options :</a>
+
+                    <li class="nav-item">
+                        <a class="navbar-brand" href="#">
+                            <img src="img/fit.png" width="40" height="40" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="navbar-brand" href="#" data-toggle="modal" data-target="#displayModalContent">
+                            <img src="img/display.png" width="40" height="40" alt="">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="navbar-brand" href="#navbarSupportedContent" data-toggle="collapse"
+                           data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                           aria-expanded="false"
+                           aria-label="Toggle navigation">
+                            <img src="img/fullScreen.png" width="40" height="40" alt="">
+                        </a>
+                    </li>
+
+
+                </ul>
+            </nav>
+            <!-- SimpleQuery Collaspse menu -->
+            <div class="modal fade bd-example-modal-lg" id="SimpleQueryModalMenu" tabindex="-1" role="dialog"
+                 aria-labelledby="displayModalLabel" aria-hidden="true">
+            </div>
+            <!-- Query Label Modal -->
+            <div class="modal fade" id="dbQueryFilterLabelModal" tabindex="-1" role="dialog"
+                 aria-labelledby="dbQueryFilterLabelModal" aria-hidden="true">
+            </div>
+            <!-- End of Display Setting Modal -->
+
+
+            <!--Graph Expand Modal Menu -->
+            <div class="modal fade bd-example-modal-lg" id="GraphExpandModalMenu" tabindex="-1" role="dialog"
+                 aria-labelledby="displayModalLabel" aria-hidden="true">
             </div>
 
+            <!--Graph Highlight Modal Menu -->
+            <div class="modal fade bd-example-modal-lg" id="GraphHighlightModalMenu" tabindex="-1" role="dialog"
+                 aria-labelledby="displayModalLabel" aria-hidden="true">
+            </div>
+
+            <!-- Graph Filter Collaspse menu -->
+            <div class="modal fade bd-example-modal-lg" id="GraphFilterModalMenu" tabindex="-1" role="dialog"
+                 aria-labelledby="displayModalLabel" aria-hidden="true">
+            </div>
+
+
+            <!-- datatable  menu -->
+            <div class="modal fade bd-example-modal-sm" id="ExportDataModalMenu" tabindex="-1" role="dialog"
+                 aria-labelledby="displayModalLabel" aria-hidden="true">
+            </div>
+
+            <div class="modal fade bd-example-modal-lg" id="ExportDataTableModalMenu" tabindex="-1" role="dialog"
+                 aria-labelledby="displayModalLabel" aria-hidden="true">
+
+                <div id="exportData_datatableDiv">aaaaaaaaa</div>
+            </div>
+
+
+            <!-- Graph Filter Collaspse menu -->
+            <div class="modal fade bd-example-modal-lg" id="adminModalMenu" tabindex="-1" role="dialog"
+                 aria-labelledby="displayModalLabel" aria-hidden="true">
+            </div>
+
+
+            <!-- DB Filter Collaspse menu -->
+            <div class="collapse navbar-collapse" id="dbFilterCollapseMenu">
+                <!--loaded by binder.bindOnPageload()-->
+            </div>
+
+
+            <!-- Display Setting Modal -->
+            <div class="modal fade" id="displayModalContent" tabindex="-1" role="dialog" aria-labelledby="displayModalLabel"
+                 aria-hidden="true">
+
+            </div>
+            <!-- End of Display Setting Modal -->
+
+
+            <!-- end of Wrapper  -->
+
+
+            <div class="container-fluid">
+
+
+                <!-- Content Row -->
+                <div class="row">
+                    <div id="graphDiv" class="col-12">
+                    </div>
+                    <div id="graph_legendDiv" style="background-color: #ddd"></div>
+                    <div id="graph_infosDiv" style="font-size: 8px"></div>
+                    <div id="graphCommentDiv" style="position: absolute;background-color: white;margin: 2px;padding: 2px"></div>
+                    <div id="GraphHighlight_legendDiv"
+                         style="visibility:hidden;z-index:20;border: 1px;border-style: solid;padding: 5px;background-color: #fafafa;max-height: 400px;max-width: 250px;overflow: auto"></div>
+                </div>
+
+
+            </div>
 
 
         </div>
 
-
-    </div>
-
-    <!-- end of Page Content -->
+        <!-- end of Page Content -->
 </div>
 
 <div id="GraphNodePopoverDiv" class="d-none" style="position:relative "></div>
 <div id="GraphRelationPopoverDiv" class="d-none" style="position:relative "></div>
-
+<div id="GraphSchemaPopoverDiv" class="d-none" style="position:relative "></div>
 
 <div class="modal fade bd-example-modal-sm" id="GraphNodeInfoWrapperDiv" tabindex="-1" role="dialog"
      aria-labelledby="displayModalLabel" aria-hidden="true">
@@ -434,13 +476,12 @@
 </div>
 
 
-
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="genericMessageModal">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <div id="genericMessageDiv"  style="min-height: 200px"></div>
+            <div id="genericMessageDiv" style="min-height: 200px"></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="genericMessageModalOkButton" >OK</button>
+                <button type="button" class="btn btn-primary" id="genericMessageModalOkButton">OK</button>
                 <button type="button" class="btn btn-secondary" onclick="$('#genericMessageModal').modal('hide')">X</button>
             </div>
         </div>

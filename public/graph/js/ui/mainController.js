@@ -37,7 +37,8 @@ var MainController = (function () {
             Tree.iniTrees();
 
             // fin reinitialisation
-            UI_graph.showSchema(context.subGraph)
+            UI_graph.showSchema(context.subGraph);
+            Cache.cacheGraphSchema();
 
         });
 

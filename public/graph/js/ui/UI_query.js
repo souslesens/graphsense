@@ -11,6 +11,8 @@ var UI_query = (function () {
 
 
     self.drawQueryLabels = function (labels) {
+
+      return    GraphSimpleQuery.drawLabelsWithSwitch(labels)
         var html = "";
         for (var key in labels.nodes) {
             var label = key;
@@ -45,8 +47,14 @@ var UI_query = (function () {
         $("#query_validateQueryButton").bind('click', function (target) {
             $('#query_filterLabelDialogModal').modal('hide');
             $('#dbQueryFilterLabelModal').modal('hide');
-            UI_query.addCardToQueryDeck();
+
             $('#query_valueInput').focus();
+         if(context.queryFilterValidateFn) {
+             context.queryFilterValidateFn();
+             context.queryFilterValidateFn=null;
+         }
+         else
+             UI_query.addCardToQueryDeck();
         })
 
 
@@ -84,7 +92,6 @@ var UI_query = (function () {
 
 
 
-
         var cardId = Math.round(Math.random() * 1000);
         var card = JSON.parse(JSON.stringify(queryObject));//clone
         card.index = index;
@@ -118,7 +125,7 @@ var UI_query = (function () {
             '           <p class="card-text" id="cardText_' + cardId + '"><small class="text-muted">' + queryObject.text + '</small></p>' +
             '       </div> ' +
             '       <div class="form-check" style="text-align:center" >' +
-            '               <input type="checkbox" checked="checked" class="form-check-input" id="query_filterCardInResult">' +//à completer PB!!!!
+            '               <input type="checkbox" checked="checked" class="form-check-input" id="query_cardInResult_' + cardId + '" onchange="UI_query.onQueryCardInResultChange($(this)).prop(\'checked\')">' +//à completer PB!!!!
             '               <label class="form-check-label" for="query_filterCardInResult">In Result</label>' +
             '        </div>' +
             '  </div>' +
@@ -176,6 +183,18 @@ var UI_query = (function () {
 
 
     }
+
+    self.onQueryCardInResultChange=function(cbx){
+
+        var checked=$(cbx).prop("checked");
+        var id=$(cbx).attr("id");
+        var cardId=id.substring(id.lastIndexOf("_")+1)
+        context.cardsMap[cardId].inResult=checked;
+
+        event.stopPropagation();
+
+
+    }
     self.setContextQueryObjectParams = function (targetDialogPrefix) {
         if (!targetDialogPrefix)
             targetDialogPrefix = "query";
@@ -189,6 +208,9 @@ var UI_query = (function () {
         var value = $("#" + targetDialogPrefix + "_valueInput").val();
 
         var inResult = true /// $("#query_filterCardInResult").prop("checked");  à completer !!!!
+
+
+
         var booleanOperatorStr = "";//booleanOperator || ""; à finir
         var text = "";
         if (!value || value == "")
@@ -280,6 +302,7 @@ var UI_query = (function () {
         buildPaths.queryObjs = [];
         context.cardsMap = {};
         self.currentIndex=0;
+        Cache.restoreGraphSchema();
 
 
     }

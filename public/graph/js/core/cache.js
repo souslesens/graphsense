@@ -1,16 +1,27 @@
-var Cache=(function(){
+var Cache = (function () {
 
 
-
-    var self={}
-    self.visjsGraphCache=[]
-    self.visjsGraphCache.index=0;
-
-
+    var self = {}
+    self.visjsGraphCache = []
+    self.visjsGraphCache.index = 0;
+    self.currentGraphSchema;
 
 
-    self.addCurrentGraphToCache=function(){
-        if( self.visjsGraphCache.index==self.visjsGraphCache.length) {
+    self.cacheGraphSchema = function () {
+
+        var graphObj = visjsGraph.exportGraph();
+        self.currentGraphSchema = graphObj;
+
+    }
+    self.restoreGraphSchema = function () {
+        if(self.currentGraphSchema)
+        visjsGraph.importGraph(self.currentGraphSchema);
+        GraphController.resetGraphSchema()
+
+    }
+
+    self.addCurrentGraphToCache = function () {
+        if (self.visjsGraphCache.index == self.visjsGraphCache.length) {
             var graphObj = visjsGraph.exportGraph();
             self.visjsGraphCache.push(graphObj);
             self.visjsGraphCache.index += 1
@@ -19,30 +30,30 @@ var Cache=(function(){
         self.setNextPreviousButtonVisibility()
     }
 
-    self.restorePreviousGraph=function(){
-        self.visjsGraphCache.index-=1;
+    self.restorePreviousGraph = function () {
+        self.visjsGraphCache.index -= 1;
         self.setNextPreviousButtonVisibility()
-        if( self.visjsGraphCache.index<0)
+        if (self.visjsGraphCache.index < 0)
             return;
         visjsGraph.importGraph(self.visjsGraphCache[self.visjsGraphCache.index]);
     }
 
-    self.restoreNextGraph=function(){
-        self.visjsGraphCache.index+=1;
+    self.restoreNextGraph = function () {
+        self.visjsGraphCache.index += 1;
         self.setNextPreviousButtonVisibility()
-        if( self.visjsGraphCache.index>=self.visjsGraphCache.length)
+        if (self.visjsGraphCache.index >= self.visjsGraphCache.length)
             return;
         visjsGraph.importGraph(self.visjsGraphCache[self.visjsGraphCache.index]);
     }
 
-    self.setNextPreviousButtonVisibility=function(){
+    self.setNextPreviousButtonVisibility = function () {
 
-        if(self.visjsGraphCache.length>0 &&  self.visjsGraphCache.index>0)
+        if (self.visjsGraphCache.length > 0 && self.visjsGraphCache.index > 0)
             $("#graphCache_previousGraphButton").removeClass("d-none");
         else
             $("#graphCache_previousGraphButton").addClass("d-none");
 
-        if(self.visjsGraphCache.length>=0 &&  self.visjsGraphCache.index<(self.visjsGraphCache.length))
+        if (self.visjsGraphCache.length >= 0 && self.visjsGraphCache.index < (self.visjsGraphCache.length))
             $("#graphCache_nextGraphButton").removeClass("d-none");
         else
             $("#graphCache_nextGraphButton").addClass("d-none");
