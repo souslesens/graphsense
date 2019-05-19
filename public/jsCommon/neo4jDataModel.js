@@ -40,6 +40,8 @@ var DataModel = (function () {
 
 
     self.getDBstats = function (subGraph, callbackOuter) {
+        if(self.DBstats)
+            return callbackOuter(null,self.DBstats);
         var where = ""
         if (subGraph)
             where = " where n.subGraph='" + subGraph + "' ";

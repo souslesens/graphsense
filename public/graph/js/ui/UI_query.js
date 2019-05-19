@@ -5,14 +5,16 @@ var UI_query = (function () {
     self.initQueryLabels = function () {
 
         DataModel.getDBstats(context.subGraph, function (err, result) {
+            GraphSimpleQuery.drawLabelsWithSwitch(result)
             self.drawQueryLabels(result);
+
         })
     }
 
 
     self.drawQueryLabels = function (labels) {
 
-      return    GraphSimpleQuery.drawLabelsWithSwitch(labels)
+   //   return    GraphSimpleQuery.drawLabelsWithSwitch(labels)
         var html = "";
         for (var key in labels.nodes) {
             var label = key;

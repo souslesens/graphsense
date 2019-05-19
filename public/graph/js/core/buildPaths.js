@@ -204,7 +204,7 @@ var buildPaths = (function () {
                 return $("#buildPaths_resultDiv").html(err)
             }
             if (result.length == 0) {
-                if (self.queryObjs.length > 1)
+                if (false && self.queryObjs.length > 1)
                     return self.drawShortestPathesDialog();
                 else
                     return MainController.alert("No nodes and relations found")
@@ -212,14 +212,14 @@ var buildPaths = (function () {
 
             }
             //   return $("#buildPaths_resultDiv").html("no result");
-
-            if (false && result.length > Config.graphMaxDataLengthToDisplayGraphDirectly)
-                return $("#buildPaths_resultDiv").html("too many results" + result.length);
-
-
             if (type == "count") {
                 $("#buildPaths_resultDiv").html(+result[0].cnt + " pathes found");
                 return;
+            if ( result.length > Config.graphMaxDataLengthToDisplayGraphDirectly)
+                return $("#buildPaths_resultDiv").html("too many results" + result.length+" (limit="+ Config.graphMaxDataLengthToDisplayGraphDirectly+")apply more restrictive filters");
+
+
+
             }
             else if (type == "dataTable") {
                 $("#buildPaths_resultDiv").html(+result.length + " pathes found");
@@ -849,7 +849,7 @@ var buildPaths = (function () {
             Cache.addCurrentGraphToCache()
             // self.updateResultCountDiv(relsCount);
             if (callback)
-                callback();
+                callback(null,self.currentDataset);
         });
 
     }
