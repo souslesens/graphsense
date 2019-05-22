@@ -146,29 +146,30 @@ var buildPaths = (function () {
 
     }
     self.executeQuery = function (type, options, callback) {
-        visjsGraph.clearGraph();
+        if (!options.addToGraph)
+            visjsGraph.clearGraph();
 
         self.queryObjs = [];
-        var nodesOnly=false
+        var nodesOnly = false
         for (var key in context.cardsMap) {
-
-            self.queryObjs.push(context.cardsMap[key]);//clone
-            if(context.cardsMap[key].origin=="tree"  )
-                nodesOnly=nodesOnly|| true;
+            if (!context.cardsMap[key].skip)
+                self.queryObjs.push(context.cardsMap[key]);//clone
+          //  if (context.cardsMap[key].origin == "tree")
+             //   nodesOnly = nodesOnly || true;
         }
 
 
-        if(nodesOnly){
-            var nodesOnlyQueryObj=  {};
+        if (nodesOnly) {
+            var nodesOnlyQueryObj = {};
             nodesOnlyQueryObj.label = null;
             nodesOnlyQueryObj.type = "nodeSet" + key;
             nodesOnlyQueryObj.inResult = true;
-          var ids=[]
+            var ids = []
             for (var key in context.cardsMap) {
-                ids= ids.concat(context.cardsMap[key].nodeSetIds)
+                ids = ids.concat(context.cardsMap[key].nodeSetIds)
             }
             nodesOnlyQueryObj.nodeSetIds = ids;
-            self.queryObjs=[nodesOnlyQueryObj]
+            self.queryObjs = [nodesOnlyQueryObj]
 
         }
         else {
@@ -207,7 +208,11 @@ var buildPaths = (function () {
                 if (false && self.queryObjs.length > 1)
                     return self.drawShortestPathesDialog();
                 else
-                    return MainController.alert("No nodes and relations found")
+                     MainController.alert("No relations found");
+                if(callback){
+
+                    return callback(null,{data:{nodes:[],relations:[]}})
+                }
 
 
             }
@@ -215,9 +220,8 @@ var buildPaths = (function () {
             if (type == "count") {
                 $("#buildPaths_resultDiv").html(+result[0].cnt + " pathes found");
                 return;
-            if ( result.length > Config.graphMaxDataLengthToDisplayGraphDirectly)
-                return $("#buildPaths_resultDiv").html("too many results" + result.length+" (limit="+ Config.graphMaxDataLengthToDisplayGraphDirectly+")apply more restrictive filters");
-
+                if (result.length > Config.graphMaxDataLengthToDisplayGraphDirectly)
+                    return $("#buildPaths_resultDiv").html("too many results" + result.length + " (limit=" + Config.graphMaxDataLengthToDisplayGraphDirectly + ")apply more restrictive filters");
 
 
             }
@@ -229,7 +233,7 @@ var buildPaths = (function () {
             else if (type == "graph") {
                 $("#buildPaths_resultDiv").html(+result.length + " pathes found");
                 self.currentDataset = self.prepareDataset(result);
-                return buildPaths.displayGraph(callback);
+                return buildPaths.displayGraph(options, callback);
             }
             else if (currentSetType) {
                 var index = $("#buildPaths_labelSelect").val();
@@ -427,6 +431,7 @@ var buildPaths = (function () {
         }
 
 
+
         self.queryObjs.forEach(function (queryObject, index) {
 
             var matchCypher = "";
@@ -467,8 +472,8 @@ var buildPaths = (function () {
                 matchCypher = "(" + symbol + labelStr + ")";
             } else {
                 var distanceStr = "";
-                if (options.withOrphanNodes)
-                    distanceStr = "*0..1";
+                 if (options.withOrphans)
+                      distanceStr = "*0..1";
 
                 else if (options.nodesDistance > 1 && index < 2)
                     distanceStr = "*.." + options.nodesDistance;
@@ -592,6 +597,8 @@ var buildPaths = (function () {
     //var union=   "match (a:personne)-[r1]-(b:tag)  with  a,count(b) as cntR  where  a.name=~'(?i).*art.*' and  cntR> 5 match(a)-[r]-(b2) return a , collect(id(b2)) as bx limit 100 union match (a:personne)-[r1]-(b:tag)  with  a,count(b) as cntR  where cntR<5 match(a)-[r]-(b2) return a,b2 as bx limit 100"
 
     self.prepareDataset = function (neoResult) {
+
+
         var dataset = {nodes: [], relations: []}
         var uniqueNodeRels = [];
         var columns = [];
@@ -648,6 +655,7 @@ var buildPaths = (function () {
             }
 
         })
+        // console.log(JSON.stringify(dataset,null,2))
         return {columns: columns, data: dataset, labelSymbols: labelSymbols, labels: labels, relTypes: relTypes};
 
 
@@ -784,7 +792,8 @@ var buildPaths = (function () {
 
     }
 
-    self.drawGraph = function (dataset, callback) {
+
+    self.drawGraph = function (dataset, options, callback) {
 
 
         var visjsData = {nodes: [], edges: [], labels: []};
@@ -826,30 +835,66 @@ var buildPaths = (function () {
 
             })
         })
-        if (false) { ///(false || dataset.relTypes.length > 1) {
-            searchRelations.setEdgeColors(dataset.relTypes)
-            visjsGraph.drawLegend(visjsData.labels, dataset.relTypes);
+        if (options.addToGraph) {// addTo Graph
+
+
+            var existingNodeIds = Object.keys(visjsGraph.nodes._data);
+            var existingEdgesHashes = [];
+            for (var key in visjsGraph.edges._data) {
+                var edge = visjsGraph.edges._data[key]
+                existingEdgesHashes.push(edge.from * edge.to)
+            }
+
+            var newNodes = [];
+            var newEdges = [];
+
+            visjsData.nodes.forEach(function (node) {
+                if (existingNodeIds.indexOf("" + node.id) < 0)
+                    newNodes.push(node)
+            })
+
+            visjsData.edges.forEach(function (edge) {
+                if (existingEdgesHashes.indexOf(edge.from * edge.to) < 0) {
+                    newEdges.push(edge);
+                    existingEdgesHashes.push(edge.from * edge.to);
+
+                }
+
+            })
+
+            visjsGraph.nodes.update(newNodes)
+            visjsGraph.edges.update(newEdges)
+            visjsGraph.drawLegend2(visjsData.labels, null);
+            if (callback)
+            callback(null,{data:{nodes:newNodes,relations:newEdges}});
+
+
         }
-        else
+        else {
 
             visjsGraph.drawLegend(visjsData.labels, null);
-        visjsGraph.draw("graphDiv", visjsData, {}, function () {
-            if (callback)
-                callback();
-        });
+            visjsGraph.draw("graphDiv", visjsData, {}, function () {
+                if (callback)
+                    callback(null,visjsData);
+            });
+        }
 
     }
-    self.displayGraph = function (callback) {
+
+
+    self.displayGraph = function (options, callback) {
+        if (!options)
+            options = {};
 
         $(".graphDisplayed").css("visibility", "visible");
         // self.expandCollapse()
         var relsCount = {};
         GraphController.setGraphMessage("Working...")
-        self.drawGraph(self.currentDataset, function () {
+        self.drawGraph(self.currentDataset, options, function () {
             Cache.addCurrentGraphToCache()
             // self.updateResultCountDiv(relsCount);
             if (callback)
-                callback(null,self.currentDataset);
+                callback(null, self.currentDataset);
         });
 
     }

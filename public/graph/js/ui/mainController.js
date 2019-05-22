@@ -115,6 +115,15 @@ var MainController = (function () {
             $("#waitSpinnerDiv").removeClass("d-none")
     }
 
+    self.openAccordion=function(divId){
+     $(".accordion").each(function(){
+         if($(this).attr("id")!=divId)
+             $(this).collapse('hide')
+     })
+        $("#"+divId).collapse('show')
+
+    }
+
 
     return self;
 })()

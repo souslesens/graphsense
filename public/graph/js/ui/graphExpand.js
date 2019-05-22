@@ -289,8 +289,8 @@ var GraphExpand = (function () {
 
                     result.forEach(function (line) {
                         var existingEdgesHashes = [];
-                        for (var key in self.edges._data) {
-                            var edge = self.edges._data[key]
+                        for (var key in visjsGraph.edges._data) {
+                            var edge = visjsGraph.edges._data[key]
                             existingEdgesHashes.push(edge.fromId * edge.toId)
                         }
 

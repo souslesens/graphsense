@@ -15,10 +15,6 @@ var binder=(function(){
           var y=event.pageY ;
           context.mousePosition={x:x,y:y}
       });
-    $("#dbFilterCollapseMenu").load("htmlSnippets/query/queryFilter.html", function () {
-        console.log("queryGraphFilter.html loaded");
-        //loads for each label buttons to build a card for this label
-
 
         //loads the modal dialog to apply filters to a card , customized with property of the label
         $("#dbQueryFilterLabelModal").load("htmlSnippets/query/queryFilterLabelModal.html", function () {
@@ -31,7 +27,6 @@ var binder=(function(){
                 $("#query_validateQueryButton").unbind('click');
             })
 
-        })
 
     })
 
@@ -74,6 +69,9 @@ var binder=(function(){
           $('a[aria-expanded=true]').attr('aria-expanded', 'false');
       });
 
+
+      $( "#GraphHighlight_legendDiv").draggable();
+      $( "#graph_legendDiv").draggable();
 
       $("#GraphNodePopoverDiv").load("htmlSnippets/graph/nodePopover.html" , function () {
 

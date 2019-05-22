@@ -1315,7 +1315,6 @@ var labels=[]
 
         self.dragRect = function (action, x, y) {// pas au point
             return;
-
             var ctx = self.context;
             if (action == "dragStart") {
                 self.dragRect.x = x;

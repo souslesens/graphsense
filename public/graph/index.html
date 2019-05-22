@@ -27,6 +27,7 @@
 
 
     <script type="text/javascript" src="../jsCommon/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../jsCommon/jquery/jquery-ui.min.js"></script>
 
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -126,7 +127,7 @@
             background: white;
         }
 
-        #hierarchy_treeContainerDiv ul li a, #search_treeContainerDiv ul li a {
+        #hierarchy_treeContainerDiv ul li a, #search_treeContainerDiv ul li a,#simpleQuery_treeContainerDiv ul li a {
             padding: 1px;
             font-size: 1.1em;
             display: inline;
@@ -137,6 +138,12 @@
 
         .jstree-default .jstree-clicked {
             background: none;
+        }
+
+        .jstree-node {
+            margin-left: 0;
+            margin-right: 0;
+            padding: 2px;
         }
 
         .accordionCF {
@@ -151,6 +158,7 @@
           opacity: 0.3;
             margin:1px;
         }
+
 
     </style>
 
@@ -173,8 +181,9 @@
 
         <ul class="list-unstyled components accordionCF">
             <li class="active">
-                <a href="#searchSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Search</a>
-                <ul class="collapse list-unstyled" id="searchSubMenu">
+             <!--   <a href="#searchSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Search</a>-->
+                <a onclick="MainController.openAccordion('searchSubMenu')"  aria-expanded="false" class="dropdown-toggle">Search View</a>
+                <ul class="collapse list-unstyled accordion" id="searchSubMenu">
                     <li>
                         <div class="modal-body">
                             <label for="tree_searchNodeValue">Search by name :</label>
@@ -186,7 +195,7 @@
                                             onclick="Tree.searchNodes($('#tree_searchNodeValue').val(),'search_treeContainerDiv')">
                                         <i class="fas fa-search fa-sm"></i>
                                     </button>
-                                    <button class="btn btn-secondary d-none " id="tree-searchAddCardButton" onclick="Tree.addSelectionToQuery('search')">add card</button>
+                                    <button class="btn btn-secondary d-none " id="tree-searchAddCardButton" onclick="Tree.addSelectionToQuery('search')">add Graph</button>
                                 </div>
                             </div>
 
@@ -202,14 +211,16 @@
         <hr class="sidebar-divider"/>
         <ul class="list-unstyled components accordionCF">
             <li>
-                <a href="#hierarchySubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Custom TreeViews</a>
-                <ul class="collapse list-unstyled" id="hierarchySubMenu">
+             <!--   <a href="#hierarchySubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Custom TreeViews</a>-->
+                <a onclick="MainController.openAccordion('hierarchySubMenu')"  aria-expanded="false" class="dropdown-toggle">Trees View</a>
+
+                <ul class="collapse list-unstyled accordion" id="hierarchySubMenu">
                     <li>
                         <div class="modal-body">
                             <label for="tree_searchNodeValue">Select a Tree class :</label>
                             <div class="input-group">
                                 <select class="form-control " id="tree_labelSelect" onchange="Tree.drawNodeHierarchyTree($(this).val(),'hierarchy_treeContainerDiv')"></select>
-                                <button class="btn btn-secondary d-none" id="tree-hierarchyAddCardButton" onclick="Tree.addSelectionToQuery(Tree.currentType)">add card</button>
+                                <button class="btn btn-secondary d-none" id="tree-hierarchyAddCardButton" onclick="Tree.addSelectionToQuery(Tree.currentType)">Graph</button>
                             </div>
 
                             <div class="row" id="hierarchy_treeContainerDiv" style="font-size: 14px; width: 270px; height:500px; overflow:auto;margin-left: 5px;margin-right: 5px;"></div>
@@ -221,8 +232,9 @@
         <hr class="sidebar-divider"/>
         <ul class="list-unstyled components accordionCF">
             <li>
-                <a href="#cardMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Cards</a>
-                <ul class="collapse list-unstyled" id="cardMenu">
+              <!--  <a href="#cardMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Label View </a>-->
+                <a onclick="MainController.openAccordion('cardMenu')"  aria-expanded="false" class="dropdown-toggle">Labels View</a>
+                <ul class="collapse list-unstyled accordion" id="cardMenu">
                     <li>
                         <div class="modal-body">
                             <label for="tree_searchNodeValue">Select Labels :</label>
@@ -230,9 +242,8 @@
 
                             </div>
 
-                            <button class='btn btn-secondary' onclick="GraphSimpleQuery.clear()">
-                               New Query
-                            </button>
+
+
 
 
                         </div>
@@ -294,12 +305,7 @@
                 <ul class="navbar-nav mr-auto">
                     <a class="navbar-brand" href="#" style="border-left: 2px solid blue;padding-left:5px;"> Request :</a>
 
-                    <li class="nav-item">
-                        <a id="query_newQueryButton" data-toggle="collapse" data-target="#dbFilterCollapseMenu" href="#" onmouseover="$(this).tooltip('show');" class="navbar-brand" href="#"
-                           data-toggle="tooltip" data-placement="bottom" title="New Request">
-                            <img src="img/new.png" width="40" height="40" alt="Filter">
-                        </a>
-                    </li>
+
 
                     <li class="nav-item">
                         <a id="showTreeButton" onmouseover="$(this).tooltip('show');" class="navbar-brand" href="#" data-toggle="tooltip" data-placement="bottom" title="Search Menu">
@@ -307,11 +313,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a id="filterNodeMenu" onmouseover="$(this).tooltip('show');" class="navbar-brand" data-toggle="collapse" href="#dbFilterCollapseMenu" aria-expanded="false"
-                           data-target="#dbFilterCollapseMenu" data-placement="bottom" title="Database Query Menu">
-                            <img src="img/cube.png" width="40" height="40" alt="Filter">
+                        <a id="ClearGraphButton" onmouseover="$(this).tooltip('show');" class="navbar-brand" href="#" data-toggle="tooltip" data-placement="bottom" title="Clear Graph">
+                            <img id="simpleQuery_erase" class="d-none" onclick="GraphSimpleQuery.clear()" src="img/eraser.png" width="40" height="40" alt="clear Graph">
                         </a>
                     </li>
+
+
+
                     <li class="nav-item">
                         <a onmouseover="$(this).tooltip('show');" class="navbar-brand" href="#" data-toggle="tooltip" data-placement="bottom" title="Save Request">
                             <img src="img/save.png" width="40" height="40" alt="Filter">
@@ -432,10 +440,7 @@
             </div>
 
 
-            <!-- DB Filter Collaspse menu -->
-            <div class="collapse navbar-collapse" id="dbFilterCollapseMenu">
-                <!--loaded by binder.bindOnPageload()-->
-            </div>
+
 
 
             <!-- Display Setting Modal -->

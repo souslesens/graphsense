@@ -126,7 +126,7 @@ var GraphHighlight = (function () {
 
 
                 $("#GraphHighlight_legendDiv").html("").css("visibility", "hidden");
-                $
+
                 var targetNodes = [];
 
                 for (var i = 0; i < allGraphNodes.length; i++) {
@@ -176,8 +176,11 @@ var GraphHighlight = (function () {
                     scale = d3.scale.linear().domain().interpolator(d3.interpolateRainbow);
                 //  scale = d3.scaleLinear().domain().interpolator(d3.interpolateRainbow);
                 else
-                    scale = d3.scale.quantize().domain([min, max]).nice().range(palette);
-                // scale = d3.scaleQuantize().domain([min, max]).nice().range(palette);
+                    var xx= d3.scale.quantize().domain([min, max])
+               scale = d3.scale.quantize().domain([min, max]).range(palette);
+
+                   // scale = d3.scale.quantize().domain([min, max]).nice().range(palette);
+
             }
             else {
                 if (false && d3.scalePoint)
@@ -296,7 +299,7 @@ var GraphHighlight = (function () {
             if (domain.ticks) {
                 type = "linear";
                 ticks = domain.ticks(nClasses);
-                ticks = scale.ticks(nClasses);
+              //  ticks = scale.ticks(nClasses);
                 for (var i = 0; i < ticks.length; i++) {
                     var color = scale(ticks[i]);
                     color = self.rgb2hex(color);

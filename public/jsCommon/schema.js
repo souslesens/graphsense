@@ -97,8 +97,10 @@ var Schema = (function () {
 
 
                     Schema.initSchema(_schema);
-                    MainController.alertClose()
+                    MainController.alertClose();
+                    UI_query.initQueryLabels();
 
+                    Schema.createSchemaNeo4jGraph ();
 
                     if (callback)
                         return callback(null, Schema.schema)
@@ -227,6 +229,7 @@ var Schema = (function () {
                 }
 
                 Config.defaultNodeNameProperty = Schema.schema.defaultNodeNameProperty;
+
 
                 if (callback)
                     callback(null, Schema.schema);
@@ -755,13 +758,14 @@ var Schema = (function () {
                 Cypher.executeCypher(cypher, function (err, result) {
                     if (err)
                          console.log(err)
+
                     callback(err,result);
                 })
         }
 
 
 
-        self.createSchemaNeo4jGraph = function (newLabel) {
+        self.createSchemaNeo4jGraph = function () {
 
             var nodesCypher = [];
             var relationsCypher = [];

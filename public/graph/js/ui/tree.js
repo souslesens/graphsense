@@ -6,6 +6,7 @@ var Tree = (function () {
         self.trees = [];
         self.checkboxChangeTimeStamp = 0;
         self.openingNode = null;
+        self.previousSelectedNodes=[];
         var treedivId = "treeDiv";
 
 
@@ -24,7 +25,7 @@ var Tree = (function () {
         }
 
         self.setJsTree = function (jsTreeData, onSelectFn, expandAll) {
-
+            self.previousSelectedNodes=[];
             $('#' + treedivId).html('<div id="' + treedivId + '_tree" style="width:100%;height: 100%">zzzz</div>')
 
 
@@ -51,6 +52,18 @@ var Tree = (function () {
                 'plugins': plugins,
             }).on("select_node.jstree",
                 function (evt, obj) {
+
+                 if(  self.previousSelectedNodes &&   self.previousSelectedNodes.length>0){// unckek nodes from the previous addSelectionToQuery
+                     $('#' + treedivId + "_tree").jstree("deselect_node",self.previousSelectedNodes);
+                     self.previousSelectedNodes.forEach(function(id){
+
+
+                     })
+
+
+                 }
+
+
                     $("#tree-searchAddCardButton").removeClass("d-none");
                     $("#tree-hierarchyAddCardButton").removeClass("d-none");
 
@@ -81,6 +94,8 @@ var Tree = (function () {
 
 
         }
+
+
 
 
         self.getChildren = function (id) {
@@ -348,6 +363,7 @@ var Tree = (function () {
         }
 
         self.addSelectionToQuery = function (type) {
+
             var selectedNodes = $('#' + treedivId + "_tree").jstree('get_selected');
             var labelsMap = {};
             var checkedIds = [];
@@ -370,7 +386,7 @@ var Tree = (function () {
                 }
 
             })
-
+            self.previousSelectedNodes=checkedIds;
 
             if (checkedIds.length > Config.maxInIdsArrayLength)
                 return MainController.alert("too many nodes selected : max " + Config.maxInIdsArrayLength);
@@ -401,13 +417,86 @@ var Tree = (function () {
 
 
 
-                var cardId = $(".type_nodeSet" + key).attr("id");
 
 
-                UI_query.addCardToQueryDeck(queryObject);
+                self.drawTreeSelection(queryObject)
+                //UI_query.addCardToQueryDeck(queryObject);
             }
 
             UI_query.showQueryMenu()
+
+        }
+
+        self.drawTreeSelection = function (queryObject) {
+
+            var label = queryObject.label;
+
+            function execQuery(label, addToGraph, callback) {
+                var options = {
+                    addToGraph: addToGraph,
+                }
+                buildPaths.executeQuery("graph", options, callback);
+            }
+
+
+            var addToGraph = false;
+
+
+            if (visjsGraph.legendLabels.length==0 ||visjsGraph.legendLabels[0]=="labels") {
+                self.labelIndex = 1
+                queryObject.index = 1;
+                var cardId = label;
+                context.cardsMap[cardId] = queryObject;
+
+            }
+
+            else {
+                context.cardsMap = {};
+
+                context.cardsMap[label] = queryObject;
+                var idsQueryObject = {}
+                idsQueryObject.label = null;
+
+             //   idsQueryObject.type = "nodeSet" + key;
+
+                idsQueryObject.nodeSetIds = Object.keys(visjsGraph.nodes._data);
+                idsQueryObject.inResult = true;
+                idsQueryObject.origin = "simpleQueryTree";
+
+
+                context.cardsMap["*"] = idsQueryObject;
+                addToGraph = true;
+
+
+            }
+
+
+            execQuery(label, addToGraph, function (err, result) {
+                if (err)
+                    return console.log(err);
+
+
+
+
+
+
+
+
+
+                $("#navbar_graph_Graph_ul").removeClass("d-none");
+                $("#simpleQuery_erase").removeClass("d-none")
+                var withOrphans = true;
+                if (withOrphans && context.cardsMap["*"]) {
+                    delete  context.cardsMap["*"];
+
+                    execQuery(label, addToGraph, function (err, result) {
+
+                    })
+                }
+
+
+            })
+
 
         }
 

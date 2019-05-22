@@ -31,12 +31,14 @@ const path = require("path");
 
 const dbDataPath = path.resolve(__dirname, '../db/datasets.db');
 const dbMappingsPath = path.resolve(__dirname, '../db/mappings.db');
-
+const dbUsersPath = path.resolve(__dirname, '../db/users.db');
 
 var jsonDBStorage = {
 
 
     invoke: function (req, callback) {
+
+        /*************************Datasets*******************************************************/
         if (req.body.getDatasetNames) {
             jsonDBStorage.getDatasetNames(req.body.getDatasetNames, function (error, result) {
                 callback(error, result);
@@ -48,16 +50,7 @@ var jsonDBStorage = {
             });
         }
 
-        if (req.body.getMappingsetNames) {
-            jsonDBStorage.getMappingsetNames(function (error, result) {
-                callback(error, result);
-            });
-        }
-        if (req.body.getMappingNames) {
-            jsonDBStorage.getMappingNames(req.body.getMappingNames, function (error, result) {
-                callback(error, result);
-            });
-        }
+
         if (req.body.writeDataset) {
             jsonDBStorage.writeDataset(JSON.parse(req.body.writeDataset), function (error, result) {
                 callback(error, result);
@@ -65,6 +58,35 @@ var jsonDBStorage = {
         }
 
 
+
+
+        if (req.body.removeDataset) {
+            jsonDBStorage.removeDataset(req.body.datasetCollectionName,req.body.datasetName, function (error, result) {
+                callback(error, result);
+            });
+        }
+
+        if (req.body.getDataset) {
+            jsonDBStorage.getDataset(req.body.getDataset, function (error, result) {
+                callback(error, result);
+            });
+        }
+        if (req.body.getDatasetCollectionNames) {
+            jsonDBStorage.getDatasetCollectionNames(function (error, result) {
+                callback(error, result);
+            });
+        }
+/************************************Mappings******************************/
+        if (req.body.getMapping) {
+            jsonDBStorage.getMapping(JSON.parse(req.body.getMapping), function (error, result) {
+                callback(error, result);
+            });
+        }
+        if (req.body.removeMapping) {
+            jsonDBStorage.removeMapping(req.body.mappingsetName,req.body.type, req.body.mappingName, function (error, result) {
+                callback(error, result);
+            });
+        }
         if (req.body.addMappingset) {
             jsonDBStorage.addMappingset(req.body.addMappingset, function (error, result) {
                 callback(error, result);
@@ -82,32 +104,32 @@ var jsonDBStorage = {
             });
         }
 
-        if (req.body.removeDataset) {
-            jsonDBStorage.removeDataset(req.body.datasetCollectionName,req.body.datasetName, function (error, result) {
+        if (req.body.getMappingsetNames) {
+            jsonDBStorage.getMappingsetNames(function (error, result) {
                 callback(error, result);
             });
         }
-        if (req.body.removeMapping) {
-            jsonDBStorage.removeMapping(req.body.mappingsetName,req.body.type, req.body.mappingName, function (error, result) {
-                callback(error, result);
-            });
-        }
-        if (req.body.getDataset) {
-            jsonDBStorage.getDataset(req.body.getDataset, function (error, result) {
-                callback(error, result);
-            });
-        }
-        if (req.body.getDatasetCollectionNames) {
-            jsonDBStorage.getDatasetCollectionNames(function (error, result) {
+        if (req.body.getMappingNames) {
+            jsonDBStorage.getMappingNames(req.body.getMappingNames, function (error, result) {
                 callback(error, result);
             });
         }
 
-        if (req.body.getMapping) {
-            jsonDBStorage.getMapping(JSON.parse(req.body.getMapping), function (error, result) {
+        /************************************Users******************************/
+
+
+        if (req.body.getUserData) {
+            jsonDBStorage.getUserData(req.body.user, function (error, result) {
                 callback(error, result);
             });
         }
+        if (req.body.setUserData) {
+            jsonDBStorage.getMappingNames(req.body.user,req.body.data, function (error, result) {
+                callback(error, result);
+            });
+        }
+
+
 
     },
 

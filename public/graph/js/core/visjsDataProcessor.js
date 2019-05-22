@@ -481,7 +481,8 @@ var visJsDataProcessor = (function () {
             }
 
             visjsData = {nodes: [], edges: [], labels: []};
-            var nodesMap = {}
+            var nodesMap = {};
+            var uniqueRelIds=[]
             var id = 0;
             for (var key in schema.relations) {
                 var relation = schema.relations[key];
@@ -503,7 +504,11 @@ var visJsDataProcessor = (function () {
                     arrows: {to: {scaleFactor: 0.5}}
                     // font:{background:color},
                 }
-                visjsData.edges.push(relObj);
+                if(uniqueRelIds.indexOf(relObj.id)<0){
+                    uniqueRelIds.push(relObj.id)
+                    visjsData.edges.push(relObj);
+                }
+
             }
 //nodes without relations
             for (var key in schema.labels) {

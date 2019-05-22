@@ -63,6 +63,7 @@ var Config = {
         defaultTextSize: 18,
         defaultNodeColor:"#ccc",
         defaultNodeShape: "box",
+        defaultNodeShape: "dot",
         defaultLayout: "random",
         graphBackgroundColor:"#999",
 
