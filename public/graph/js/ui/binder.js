@@ -114,9 +114,6 @@ var binder=(function(){
           console.log("exportDataModal.html loaded")
       })
 
-      $("#SimpleQueryModalMenu").load("htmlSnippets/graph/simpleQuery.html", function () {
-          console.log("exportDataModal.html loaded")
-      })
 
 
 
