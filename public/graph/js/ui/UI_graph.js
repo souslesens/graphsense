@@ -5,7 +5,8 @@ var UI_graph=(function(){
 self.showSchema=function(subGraph){
 
     var visjsSchemaData=visJsDataProcessor.toutlesensSchemaToVisjs(Schema.schema);
-    visjsGraph.draw("graphDiv",visjsSchemaData)
+    visjsGraph.draw("graphDiv",visjsSchemaData);
+    visjsGraph.legendLabels=[];
 
     }
 

@@ -1,6 +1,7 @@
 var MainController = (function () {
 
     var self = {};
+    self.jsonDBStoragePath = "../../../jsonDBStorage";
 
     self.init = function () {
         context = new Context();
@@ -11,6 +12,7 @@ var MainController = (function () {
         $("#navbar_graph").addClass("d-none");
 
         self.loadSubGraphs();
+
 
 
         // $('#sidebar').toggleClass('active');
@@ -39,6 +41,7 @@ var MainController = (function () {
             // fin reinitialisation
             UI_graph.showSchema(context.subGraph);
             Cache.cacheGraphSchema();
+
 
         });
 
@@ -122,6 +125,21 @@ var MainController = (function () {
      })
         $("#"+divId).collapse('show')
 
+    }
+
+
+    self.callServer = function (path, payload, callback) {
+        $.ajax({
+            type: "POST",
+            url: path,
+            data: payload,
+            dataType: "json",
+            success: function (data, textStatus, jqXHR) {
+                callback(null, data)
+            }, error: function (err) {
+                callback(err)
+            }
+        })
     }
 
 

@@ -1,0 +1,45 @@
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="displayModalLabel">Login</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+
+
+            <div class="row">
+                <div class="bg-login-image"></div>
+            </div>
+            <div class="row">
+
+                <form class="user">
+                    <div class="col-sm-2">
+                        <label class="col-form-label" for="login_user">Login</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control form-control-user" id="login_user" aria-describedby="login" placeholder="Enter Login..." value="admin">
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="col-form-label" for="login_password">Password</label>
+                    </div>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control form-control-user" id="login_password" placeholder="Password" value="admin">
+                    </div>
+
+
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="UserController.login()">Login</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

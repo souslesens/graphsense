@@ -2,126 +2,82 @@ var visJsDataProcessor = (function () {
         var self = {};
 
 
-        self.neoResultsToVisjs = function (resultArray, options) {
-
-            if (!options)
-                options = {};
-            visjsData = {nodes: [], edges: [], labels: []};
-            var nodesMap = {};
-            var dataLabels = [];
-            var colors = [];
-            var clusters = [];
-            if (!resultArray)
-                return;
+        self.drawGraph = function (dataset, options, callback) {
+            var visjsData = {nodes: [], edges: [], labels: []};
+            visjsData.labels = dataset.labels;
+            var uniqueNodes = [];
             var uniqueRels = [];
-            for (var i = 0; i < resultArray.length; i++) {
-                var rels = resultArray[i].rels;
-                if (!rels)
-                    rels = [];
-                var nodes = resultArray[i].nodes;
+            dataset.data.nodes.forEach(function (line, indexLine) {
+                for (var nodeKey in line) {
+                    var nodeNeo = line[nodeKey];
+                    if (uniqueNodes.indexOf(nodeNeo.id) < 0) {
+                        uniqueNodes.push(nodeNeo.id);
 
-
-                if (!nodes)
-                    nodes = [];
-                var relProperties = resultArray[i].relProperties;
-                if (!relProperties)
-                    relProperties = [];
-                var startLabels = resultArray[i].startLabels;
-
-
-                var ids = resultArray[i].ids;
-                var legendRelIndex = 1;
-
-
-                //********************************************set visjs nodes***********************
-                for (var j = 0; j < nodes.length; j++) {
-
-                    if (options.clusterIntermediateNodes) {
-                        if (j > 0 && j < (nodes.length - 1))
-                            continue;
-
-                    }
-                    var hideLabel = true;//|| resultArray.length < Config.showLabelsMaxNumOfNodes || !options || !options.clusterIntermediateNodes || options.showNodesLabel;
-                    var neoId = nodes[j]._id;
-                    var rel = rels[0];
-                    if (!nodesMap[neoId]) {
-                        var nodeObj = self.getVisjsNodeFromNeoNode(nodes[j], hideLabel, rel);
-                        visjsData.nodes.push(nodeObj);
-
-                        nodesMap[neoId] = nodeObj;
-                        if (visjsData.labels.indexOf(nodeObj.labelNeo) < 0)
-                            visjsData.labels.push(nodeObj.labelNeo);
-                    }
-
-
-                }
-
-
-                if (options.clusterIntermediateNodes) {
-                    //link first node to last
-                    for (var j = 1; j < ids.length; j++) {
-                        ids[j] = ids[ids.length - 1];
-
+                        var visjsNode = nodeNeo;
+                        visjsData.nodes.push(visjsNode);
                     }
                 }
-
-                //********************************************set visjs rels***********************
-                var relType;
-                for (var j = 0; j < rels.length; j++) {
-                    if (options.clusterIntermediateNodes)
-                        relType = "composite";
-                    else
-                        relType = rels[j];
-
-                    var startLabel = startLabels[j][0];
-                    var from, to, queryId;
-
-                    if (options.clusterIntermediateNodes) {
-                        if (j > 0 && j < (rels.length - 1))
-                            continue;
-                        if (ids[j] == ids[j + 1])
-                            continue;
-                    }
-
-                    if (startLabel != labels[j]) {
-                        from = ids[j];
-                        to = ids[j + 1];
-                        queryId = ids[j + 1];
-                    } else {
-                        from = ids[j + 1];
-                        to = ids[j];
-                        queryId = ids[j + 1];
-                    }
+                var previousSymbol;
+                dataset.labelSymbols.forEach(function (symbol, indexSymbol) {
+                    if (indexSymbol > 0) {
+                        var fromNode = line[previousSymbol];
+                        var toNode = line[symbol];
+                        var relNeo = line[symbol].incomingRelation;
+                        if (uniqueRels.indexOf(relNeo.id) < 0) {
+                            uniqueRels.push(relNeo.id);
+                            var relObj = visJsDataProcessor.getVisjsRelFromNeoRel(fromNode.id, toNode.id, relNeo.id, relNeo.type, relNeo.neoAttrs, false, false);
 
 
-                    var relUniqueId = from + "-" + to + "-" + relType;
-                    var relUniqueIdInv = to + "-" + from + "-" + relType;
-                    if (uniqueRels.indexOf(relUniqueId) > -1 || uniqueRels.indexOf(relUniqueIdInv) > -1)
-                        continue;
-                    else {
-                        uniqueRels.push(relUniqueId);
-
-                        var relId = relProperties[j]._id;
-                        var relProps = relProperties[j].properties;
-                        var outline = resultArray[i].outlineRel;
-                        var showType = (options && options.showRelationsType == true) && Config.showRelationNames == true;
-                        var relObj = self.getVisjsRelFromNeoRel(from, to, relId, relType, relProps, showType, outline);
-                        visjsData.edges.push(relObj);
+                            visjsData.edges.push(relObj);
+                        }
 
                     }
+                    previousSymbol = symbol;
 
-
+                })
+            })
+            if (options.addToGraph) {// addTo Graph
+                var existingNodeIds = Object.keys(visjsGraph.nodes._data);
+                var existingEdgesHashes = [];
+                for (var key in visjsGraph.edges._data) {
+                    var edge = visjsGraph.edges._data[key]
+                    existingEdgesHashes.push(edge.from * edge.to)
                 }
+
+                var newNodes = [];
+                var newEdges = [];
+
+                visjsData.nodes.forEach(function (node) {
+                    if (existingNodeIds.indexOf("" + node.id) < 0)
+                        newNodes.push(node)
+                })
+
+                visjsData.edges.forEach(function (edge) {
+                    if (existingEdgesHashes.indexOf(edge.from * edge.to) < 0) {
+                        newEdges.push(edge);
+                        existingEdgesHashes.push(edge.from * edge.to);
+
+                    }
+
+                })
+
+                visjsGraph.nodes.update(newNodes)
+                visjsGraph.edges.update(newEdges)
+                visjsGraph.drawLegend2(visjsData.labels, null);
+                if (callback)
+                    callback(null, {data: {nodes: newNodes, relations: newEdges}});
 
 
             }
-            for (var i = 0; i < dataLabels.length; i++) {
-                colors.push(context.nodeColors[dataLabels[i]])
+            else {
+
+                visjsGraph.drawLegend(visjsData.labels, null);
+                visjsGraph.draw("graphDiv", visjsData, {}, function () {
+                    if (callback)
+                        callback(null, visjsData);
+                });
             }
-            /*  if (options.clusterIntermediateNodes) {
-                  visjsGraph.clusters = clusters;
-              }*/
-            return visjsData;//testData;
+
         }
 
 
@@ -188,49 +144,15 @@ var visJsDataProcessor = (function () {
 
 
             }
-
-
-            /*     if (nodeNeo.isSource) {
-                     nodeObj.isSource = true;
-                 }
-                 if (nodeNeo.isTarget) {
-                     nodeObj.isTarget = true;
-                 }
-
-                 if (nodeNeo.isPathSource) {
-                     nodeObj.shape = "star";
-                     nodeObj.color = "red";
-                     nodeObj.x = -500;
-                     nodeObj.y = -500;
-                 }
-                 if (nodeNeo.isPathTarget) {
-                     nodeObj.shape = "star";
-                     nodeObj.color = "red";
-                     nodeObj.x = 500;
-                     nodeObj.y = 500;
-                 }*/
-
-            /*    if (nodeNeo.outline) {
-                    nodeObj.font = {
-                        value: 8,
-                        //  size: 18,
-                        color: Config.outlineTextColor,
-                        strokeWidth: 3,
-                        strokeColor: '#ffffff'
-                    }
-
-                }*/
-
             return nodeObj
 
         }
-
 
         self.getVisjsRelFromNeoRel = function (from, to, id, type, props, showType, outline) {
 
 
             var color = "#eee";//linkColors[rel];
-            if ( false && context.edgeColors[type])
+            if (false && context.edgeColors[type])
                 color = context.edgeColors[type];
 
             var relObj = {
@@ -240,7 +162,7 @@ var visJsDataProcessor = (function () {
                 neoId: id,
                 neoAttrs: props,
                 color: color,
-                 width: 1
+                width: 1
                 // font:{background:color},
             }
 
@@ -260,7 +182,6 @@ var visJsDataProcessor = (function () {
 
 
         self.elasticSkosToVisjs = function (resultArray) {
-
 
             visjsData = {nodes: [], edges: [], labels: []};
             var nodesMap = {};
@@ -378,7 +299,6 @@ var visJsDataProcessor = (function () {
 
         self.toutlesensSchemaToVisjs = function (schema, id) {
 
-
             function makeNode(label) {
 
                 var visNode = {
@@ -390,86 +310,7 @@ var visJsDataProcessor = (function () {
                     color: context.nodeColors[label],
                     myId: id,
                     shape: "box",
-                    id: "schemaLabel_"+label,
-                    children: [],
-                    neoAttrs: {},
-                    font: {stroke: "black", "font-size": "14px"},
-                    endRel: 0
-                }
-                nodesMap[label] = visNode;
-                visjsData.nodes.push(visNode);
-
-            }
-
-            visjsData = {nodes: [], edges: [], labels: []};
-            var nodesMap = {}
-            var id = 0;
-            for (var key in schema.relations) {
-                var relation = schema.relations[key];
-                if (!nodesMap[relation.startLabel])
-                    makeNode(relation.startLabel)
-                if (!nodesMap[relation.endLabel])
-                    makeNode(relation.endLabel)
-
-                var relObj = {
-                    from: nodesMap[relation.startLabel].id,
-                    to: nodesMap[relation.endLabel].id,
-                    type: "relation",
-                    neoId: id++,
-                    neoAttrs: {},
-                    color: "green",
-                    label: relation.type,
-                    font: {stroke: "black", "font-size": "14px"},
-                    arrows: {to: {scaleFactor: 0.5}}
-                    // font:{background:color},
-                }
-                visjsData.edges.push(relObj);
-            }
-//nodes without relations
-            for (var key in schema.labels) {
-                if (!nodesMap[key]) {
-                    makeNode(key);
-                }
-            }
-
-            if (dataModel.DBstats) {
-                for (var i = 0; i < visjsData.nodes.length; i++) {
-                    var countNodes = dataModel.DBstats.nodes[visjsData.nodes[i].label];
-                    visjsData.nodes[i].count = countNodes;
-                    visjsData.nodes[i].name = visjsData.nodes[i].label;
-                    visjsData.nodes[i].label += " (" + countNodes + ")";
-
-                }
-                for (var i = 0; i < visjsData.edges.length; i++) {
-                    var countRels = dataModel.DBstats.relations[visjsData.edges[i].label].countRel;
-                    //  visjsData.edges[i].value=countRels;
-                    visjsData.edges[i].count = countRels;
-                    visjsData.edges[i].name = visjsData.edges[i].label;
-                    visjsData.edges[i].label += " (" + countRels + ")";
-
-                }
-
-
-            }
-            return visjsData;
-
-        }
-
-
-        self.toutlesensSchemaToVisjs = function (schema, id) {
-
-            function makeNode(label) {
-
-                var visNode = {
-                    label: label,
-                    type: "schema",
-                    neoAttrs: schema.labels[label],
-                    labelNeo: "label",// because visjs where label is the node name
-                    // color: "lightBlue",
-                    color: context.nodeColors[label],
-                    myId: id,
-                    shape: "box",
-                    id: "schemaLabel_"+label,
+                    id: "schemaLabel_" + label,
                     children: [],
                     neoAttrs: {},
                     font: {stroke: "black", "font-size": "14px"},
@@ -482,7 +323,7 @@ var visJsDataProcessor = (function () {
 
             visjsData = {nodes: [], edges: [], labels: []};
             var nodesMap = {};
-            var uniqueRelIds=[]
+            var uniqueRelIds = []
             var id = 0;
             for (var key in schema.relations) {
                 var relation = schema.relations[key];
@@ -495,8 +336,8 @@ var visJsDataProcessor = (function () {
                     from: nodesMap[relation.startLabel].id,
                     to: nodesMap[relation.endLabel].id,
                     type: "relation",
-                    neoId: "schemaRelation_"+relation.startLabel+"_"+relation.endLabel,
-                    id: "schemaRelation_"+relation.startLabel+"_"+relation.endLabel,
+                    neoId: "schemaRelation_" + relation.startLabel + "_" + relation.endLabel,
+                    id: "schemaRelation_" + relation.startLabel + "_" + relation.endLabel,
                     neoAttrs: {},
                     color: "green",
                     label: relation.type,
@@ -504,7 +345,7 @@ var visJsDataProcessor = (function () {
                     arrows: {to: {scaleFactor: 0.5}}
                     // font:{background:color},
                 }
-                if(uniqueRelIds.indexOf(relObj.id)<0){
+                if (uniqueRelIds.indexOf(relObj.id) < 0) {
                     uniqueRelIds.push(relObj.id)
                     visjsData.edges.push(relObj);
                 }
@@ -516,7 +357,6 @@ var visJsDataProcessor = (function () {
                     makeNode(key);
                 }
             }
-
             if (DataModel.DBstats) {
                 for (var i = 0; i < visjsData.nodes.length; i++) {
                     var countNodes = "?";
@@ -544,9 +384,79 @@ var visJsDataProcessor = (function () {
             return visjsData;
 
         }
+        self.graphToDatable = function () {
 
+            function processGroupedNodes(fromNode, toNode) {
+                if (!labelsMap[fromNode.labelNeo]) {
+                    labelsMap[fromNode.labelNeo] = {};
+                }
+                if (!labelsMap[fromNode.labelNeo][fromNode.id]) {
+                    var node = fromNode.neoAttrs
+                    if (toNode)
+                        node.connectedTo = ["[" + toNode.labelNeo + "]" + toNode.label];
+                    labelsMap[fromNode.labelNeo][fromNode.id] = node;
+                } else {
+                    if (toNode)
+                        labelsMap[fromNode.labelNeo][fromNode.id].connectedTo.push("[" + toNode.labelNeo + "]" + toNode.label);
+                }
+            }
+            function processNodes(fromNode, toNode) {
+                if(toNode)
+                    toNode.name=toNode.neoAttrs[Schema.getNameProperty()]
+
+                if (!labelsMap[fromNode.id]) {
+                    var node = fromNode.neoAttrs
+                    if (toNode)
+                        node.connectedTo = ["[" + toNode.labelNeo + "]" + toNode.name];
+                    labelsMap[fromNode.id] = node;
+                } else {
+                    if (toNode)
+                        labelsMap[fromNode.id].connectedTo.push("[" + toNode.labelNeo + "]" + toNode.name);
+                }
+            }
+
+            var labelsMap = {};
+
+            for (var key in visjsGraph.edges._data) {
+
+                var edge = visjsGraph.edges._data[key];
+                var fromNode = visjsGraph.nodes._data[edge.from];
+                var toNode = visjsGraph.nodes._data[edge.to];
+
+                processNodes(fromNode, toNode);
+                processNodes(toNode, fromNode);
+            }
+
+            for (var key in visjsGraph.nodes._data) {
+                var node = visjsGraph.nodes._data[key];
+                processNodes(node);
+            }
+
+            var data=[];
+            var columns=[];
+            for(var key in labelsMap){
+               for(var col in labelsMap[key]){
+                    if(columns.indexOf(col)<0)
+                        columns.push(col);
+                }
+                data.push(labelsMap[key])
+            }
+
+          data.forEach(function(line,index){
+                columns.forEach(function(col){
+                    if(!line[col])
+                        data[index][col]=""
+                        })
+
+            })
+
+            $("#ExportDataModalMenu").modal("show");
+            ExportData.initDialog(data);
+
+        }
 
         return self;
-
     }
+
+
 )()

@@ -697,7 +697,7 @@ var GraphHighlight = (function () {
             }
             else if (action == "graphClusterNodes") {
                 var nodeIds = visjsGraph.network.getNodesInCluster(context.currentNode.id)
-                searchNodes.getWhereClauseFromArray("_id", nodeIds, function (err, result) {
+                buildPaths.getWhereClauseFromArray("_id", nodeIds, function (err, result) {
 
                     toutlesensController.generateGraph(null, {
                         applyFilters: true,

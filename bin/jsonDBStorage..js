@@ -119,15 +119,36 @@ var jsonDBStorage = {
 
 
         if (req.body.getUserData) {
-            jsonDBStorage.getUserData(req.body.user, function (error, result) {
+            jsonDBStorage.getUserData(req.body.login, function (error, result) {
                 callback(error, result);
             });
         }
         if (req.body.setUserData) {
-            jsonDBStorage.getMappingNames(req.body.user,req.body.data, function (error, result) {
+            jsonDBStorage.setUserData(req.body.login,JSON.parse(req.body.data), function (error, result) {
                 callback(error, result);
             });
         }
+        if (req.body.addUser) {
+            jsonDBStorage.addUser(req.body.user, function (error, result) {
+                callback(error, result);
+            });
+        }
+        if (req.body.removeUser) {
+            jsonDBStorage.removeUser(req.body.login, function (error, result) {
+                callback(error, result);
+            });
+        }
+        if (req.body.listUsers) {
+            jsonDBStorage.listUsers( function (error, result) {
+                callback(error, result);
+            });
+        }
+        if (req.body.checkLogin) {
+            jsonDBStorage.checkLogin(req.body.login,req.body.password, function (error, result) {
+                callback(error, result);
+            });
+        }
+
 
 
 
@@ -142,6 +163,12 @@ var jsonDBStorage = {
 
     getMappingDb: function () {
         const adapter = new FileSync(dbMappingsPath)
+        const db = low(adapter);
+        return db;
+    }
+    ,
+    getUserDb: function () {
+        const adapter = new FileSync(dbUsersPath)
         const db = low(adapter);
         return db;
     }
@@ -298,6 +325,55 @@ var jsonDBStorage = {
         jsonDBStorage.getMappingDb().get('mappings').get(mappingsetName).get(type).get(mappingName).remove().write()
         return callback(null, "done")
     },
+
+
+
+
+
+
+
+    /***************************users**********************************/
+
+
+    addUser:function(user, callback) {
+
+        var db = jsonDBStorage.getUserDb().get('users')
+        db.set(user, {infos:{},settings: {}, graphs: {},sets:{}}).write();
+        return callback(null, "done")
+
+},
+    removeUser:function(login, callback) {
+        var db = jsonDBStorage.getUserDb().get('users')
+        db.get(login).remove().write();
+        return callback(null, "done")
+
+    },
+    listUsers:function( callback) {
+        var obj = jsonDBStorage.getUserDb().get('users').value();
+        return callback(null, Object.keys(obj));
+
+    },
+    getUserData:function(login, callback) {
+        var obj = jsonDBStorage.getUserDb().get('users').get(login).value();
+        return callback(null, obj)
+
+    },
+    setUserData:function(login, data,callback) {
+        jsonDBStorage.getUserDb().get('users').set(login, data).write();
+        return callback(null, obj)
+
+    },
+    checkLogin(login,password,callback){
+var xx= jsonDBStorage.getUserDb().get('users')
+            var obj = jsonDBStorage.getUserDb().get('users').get(login).value();
+            if(!obj)
+                return callback("Wrong user");
+            if(obj.infos.password!=password)
+                return callback("Wrong password");
+            return callback(null, obj);
+
+
+    }
 
 
 }

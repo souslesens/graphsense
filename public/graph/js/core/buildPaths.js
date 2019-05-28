@@ -10,142 +10,9 @@ var buildPaths = (function () {
     self.currentNodesDistance = 1;
 
 
-    var cardCliked = false;
-    var stopExpand = false;
 
-    var globalHtml = "";
-
-
-    self.onRelDivClick = function (index) {
-        $("#dialog").load("htmlSnippets/searchRelationsDialog.html", function () {
-            dialog.dialog("open");
-
-            dialog.dialog({title: "Relation conditions"});
-            self.queryObjs.selectedIndex = index;
-            searchRelations.initDialog(self.queryObjs[index].incomingRelation.candidates)
-
-
-        })
-    }
-
-    self.updateRelation = function (relation) {
-        self.queryObjs[self.queryObjs.selectedIndex].incomingRelation.selected = relation;
-        dialog.dialog("close");
-        var html = relation.name + "<br>" + relation.queryObject.text;
-        $("#buildPath_relConditionsDiv_" + self.queryObjs.selectedIndex).html(html);
-
-    }
-
-    self.moveDivLeft = function (index) {
-    }
-    self.moveDivRight = function (index) {
-
-    }
-    self.editCypher = function () {
-        var visibility = $('#buildPaths_cypherTA').css('visibility');
-
-        if (visibility == "hidden")
-            visibility = "visible"
-        else
-            visibility = "hidden"
-        $('#buildPaths_cypherTA').css('visibility', visibility);
-        $('#buildPaths_cypherTA').val(self.currentCypher)
-    }
-
-    self.onSelectNodeDiv = function (index) {
-        if (self.queryObjs[index].type && self.queryObjs[index].type.indexOf("nodeSet") == 0)
-            return;
-
-        $(".buildPaths-nodeDiv ").removeClass("buildPaths-nodeDivSelected")
-        $("#buildPath_nodeDiv_" + index).addClass("buildPaths-nodeDivSelected")
-        $(".selectLabelDiv").css("visibility", "visible");
-        context.queryObject = self.queryObjs[index];
-
-
-        $("#mainAccordion").accordion("option", "active", 0);
-        $("#searchDialog_booleanOperatorsDiv").css('visibility', 'visible');
-        searchNodes.setUIPermittedLabels(context.queryObject.label);
-        searchNodes.setUpdateContextQueryObject();
-        cardCliked = true;
-        /* if  (event && typeof event !== 'undefined')
-           event.stopPropagation()*/
-        //   (typeof event !== 'undefined')
-        //  event.stopPropagation()
-        /*     if(window.event)
-                 window.event.stopPropagation();*/
-
-
-    }
-    self.removeQueryObj = function (index) {
-        if (index == 0) {
-            searchNodes.setUIPermittedLabels();
-            searchNodes.resetQueryClauses();
-            $("#buildPaths_matchNodesWrapper").html("");
-        }
-        else
-            searchNodes.setUIPermittedLabels(self.queryObjs[index - 1].label);
-        self.queryObjs.splice(index, 1)
-        self.drawNodeQueryDivs();
-
-
-    }
-
-
-    self.clusterNodesInGraph = function (index) {
-        if (!self.queryObjs[index].clusterInResult) {
-            self.queryObjs[index].clusterInResult = true;
-        } else {
-            delete self.queryObjs[index].clusterInResult;
-        }
-    }
-
-
-    self.showMoreParams = function (type) {
-        currentSetType = type;
-        var labels = [];
-        self.queryObjs.forEach(function (queryObject, index) {
-            labels.push({label: (queryObject.label + "-" + index), index: index})
-        })
-        if (labels.length > 1)
-            common.fillSelectOptions(buildPaths_labelSelect, labels, "label", "index", true)
-        else {
-            common.fillSelectOptions(buildPaths_labelSelect, labels, "label", "index", false);
-            $("#buildPaths_labelSelect").val(labels[0].index)
-
-        }
-
-
-        if (type == "others" || type == "set") {
-            $("#buildPath_moreParamsDiv").css("visibility", "visible")
-            if (type == "set")
-                $("#buildPath_moreParamsSetDiv").css("visibility", "visible")
-            else
-                $("#buildPath_moreParamsSetDiv").css("visibility", "hidden")
-
-
-        }
-    }
-
-
-    self.checkQueryExceedsLimits = function () {
-        var ok = true;
-        var cartesianProduct = 1
-        self.queryObjs.forEach(function (line) {
-            if (line.nodeIds)
-                cartesianProduct *= line.nodeIds.length
-            else if (line.nodeSetIds)
-                cartesianProduct *= line.nodeIds.length
-
-        })
-        var amount
-        if (self.queryObjs.length > 1)
-            var amount = Math.pow(cartesianProduct, 1 / (self.queryObjs.length - 1))
-        if (amount > 1000000)
-            return true;
-        return false;
-
-    }
     self.executeQuery = function (type, options, callback) {
+
         if (!options.addToGraph)
             visjsGraph.clearGraph();
 
@@ -154,8 +21,6 @@ var buildPaths = (function () {
         for (var key in context.cardsMap) {
             if (!context.cardsMap[key].skip)
                 self.queryObjs.push(context.cardsMap[key]);//clone
-          //  if (context.cardsMap[key].origin == "tree")
-             //   nodesOnly = nodesOnly || true;
         }
 
 
@@ -188,6 +53,8 @@ var buildPaths = (function () {
         options.nodesDistance = 1;
         self.currentNodesDistance = 1;
 
+
+        //if input cypher from ui
         var uiCypher = $('#buildPaths_cypherTA').val();
         if (true || uiCypher == "") {
             self.currentCypher = self.buildQuery(type, options);
@@ -197,6 +64,8 @@ var buildPaths = (function () {
             self.currentCypher = $('#buildPaths_cypherTA').val();
 
         }
+
+
         MainController.showSpinner(true);
         Cypher.executeCypher(self.currentCypher, function (err, result) {
             MainController.showSpinner(false);
@@ -233,7 +102,14 @@ var buildPaths = (function () {
             else if (type == "graph") {
                 $("#buildPaths_resultDiv").html(+result.length + " pathes found");
                 self.currentDataset = self.prepareDataset(result);
-                return buildPaths.displayGraph(options, callback);
+
+                visJsDataProcessor.drawGraph(self.currentDataset, options, function (err,result) {
+                    Cache.addCurrentGraphToCache()
+
+                    if (callback)
+                        callback(null, self.currentDataset);
+                    return;
+                })
             }
             else if (currentSetType) {
                 var index = $("#buildPaths_labelSelect").val();
@@ -264,10 +140,7 @@ var buildPaths = (function () {
                     context.queryObject = queryObj;
                     context.queryObject.nodeSetIds = result[0].setIds;
 
-                    self.expandCollapse()
 
-
-                    searchNodes.activatePanel("searchActionDiv");
                 }
 
             }
@@ -277,137 +150,9 @@ var buildPaths = (function () {
 
 
     }
-    self.getWhereClauseFromQueryObject = function (queryObject, nodeAlias) {
-
-        var property = queryObject.property;
-        var operator = queryObject.operator;
-        var value = queryObject.value;
-
-        if (operator == "exists" || operator == "notExists") {
-            ;
-        }
-        else if (!value || value == "")
-            return null;
-
-        var not = (operator == "notContains") ? "NOT " : "";
-        if (operator == "!=") {
-            operator = "<>"
-            if (!(/^-?\d+\.?\d*$/).test(value))//not number
-                value = "\"" + value + "\"";
-        }
 
 
-        else if (operator == "~" || operator == "contains" || operator == "notContains") {
-            operator = "=~"
-            // value = "'.*" + value.trim() + ".*'";
-            value = "'(?i).*" + value.trim() + ".*'";
-        }
-        else {
-            //if ((/[\s\S]+/).test(value))
-            if (!(/^-?\d+\.?\d*$/).test(value))//not number
-                value = "\"" + value + "\"";
-        }
-        var propStr = "";
 
-        if (operator == "exists" || operator == "notExists") {
-            if (operator == "notExists")
-                not = " NOT "
-            else
-                not = " "
-            propStr = not + " EXISTS(" + nodeAlias + "." + property + ")";
-        }
-        else if (property == "any")
-            propStr = "(any(prop in keys(n) where n[prop]" + operator + value + "))";
-
-        else {
-            propStr = not + nodeAlias + "." + property + operator + value.trim();
-        }
-        return propStr;
-
-    }
-
-    self.countResults = function () {
-        var count = 0;
-
-        self.queryObjs.forEach(function (queryObject, index) {
-            if (queryObject.inResult)
-                count += 1;
-        })
-        return count;
-    }
-
-    self.getWhereClauseFromQueryObject = function (queryObject, nodeAlias) {
-
-        var property = queryObject.property;
-        var operator = queryObject.operator;
-        var value = queryObject.value;
-
-        if (operator == "exists" || operator == "notExists") {
-            ;
-        }
-        else if (!value || value == "")
-            return null;
-
-        var not = (operator == "notContains") ? "NOT " : "";
-        if (operator == "!=") {
-            operator = "<>"
-            if (!(/^-?\d+\.?\d*$/).test(value))//not number
-                value = "\"" + value + "\"";
-        }
-
-
-        else if (operator == "~" || operator == "contains" || operator == "notContains") {
-            operator = "=~"
-            // value = "'.*" + value.trim() + ".*'";
-            value = "'(?i).*" + value.trim() + ".*'";
-        }
-        else {
-            //if ((/[\s\S]+/).test(value))
-            if (!(/^-?\d+\.?\d*$/).test(value))//not number
-                value = "\"" + value + "\"";
-        }
-        var propStr = "";
-
-        if (operator == "exists" || operator == "notExists") {
-            if (operator == "notExists")
-                not = " NOT "
-            else
-                not = " "
-            propStr = not + " EXISTS(" + nodeAlias + "." + property + ")";
-        }
-        else if (property == "any")
-            propStr = "(any(prop in keys(n) where n[prop]" + operator + value + "))";
-
-        else {
-            propStr = not + nodeAlias + "." + property + operator + value.trim();
-        }
-        return propStr;
-
-    }
-
-    self.getWhereClauseFromArray = function (property, _array, nodeSymbol) {
-        var array;
-        if (!nodeSymbol)
-            nodeSymbol = "n";
-        if (typeof _array == "string")
-            array = _array.split(",");
-        else
-            array = _array;
-
-        var query = nodeSymbol + "." + property + " in ["
-        if (property == "_id")
-            query = "ID(n) in ["
-        var quote = "";
-        for (var i = 0; i < array.length; i++) {
-            if (i > 0 && i < array.length)
-                query += ","
-            else if ((typeof array[i] === 'string'))
-                var quote = "\"";
-            query += quote + array[i] + quote;
-        }
-        query += "] ";
-        return query;
-    }
 
 
     self.buildQuery = function (type, options) {
@@ -593,6 +338,78 @@ var buildPaths = (function () {
         return cypher;
     }
 
+    self.getWhereClauseFromQueryObject = function (queryObject, nodeAlias) {
+        var property = queryObject.property;
+        var operator = queryObject.operator;
+        var value = queryObject.value;
+        if (operator == "exists" || operator == "notExists") {
+            ;
+        }
+        else if (!value || value == "")
+            return null;
+
+        var not = (operator == "notContains") ? "NOT " : "";
+        if (operator == "!=") {
+            operator = "<>"
+            if (!(/^-?\d+\.?\d*$/).test(value))//not number
+                value = "\"" + value + "\"";
+        }
+
+
+        else if (operator == "~" || operator == "contains" || operator == "notContains") {
+            operator = "=~"
+            // value = "'.*" + value.trim() + ".*'";
+            value = "'(?i).*" + value.trim() + ".*'";
+        }
+        else {
+            //if ((/[\s\S]+/).test(value))
+            if (!(/^-?\d+\.?\d*$/).test(value))//not number
+                value = "\"" + value + "\"";
+        }
+        var propStr = "";
+
+        if (operator == "exists" || operator == "notExists") {
+            if (operator == "notExists")
+                not = " NOT "
+            else
+                not = " "
+            propStr = not + " EXISTS(" + nodeAlias + "." + property + ")";
+        }
+        else if (property == "any")
+            propStr = "(any(prop in keys(n) where n[prop]" + operator + value + "))";
+
+        else {
+            propStr = not + nodeAlias + "." + property + operator + value.trim();
+        }
+        return propStr;
+
+    }
+
+    self.getWhereClauseFromArray = function (property, _array, nodeSymbol) {
+        var array;
+        if (!nodeSymbol)
+            nodeSymbol = "n";
+        if (typeof _array == "string")
+            array = _array.split(",");
+        else
+            array = _array;
+
+        var query = nodeSymbol + "." + property + " in ["
+        if (property == "_id")
+            query = "ID(n) in ["
+        var quote = "";
+        for (var i = 0; i < array.length; i++) {
+            if (i > 0 && i < array.length)
+                query += ","
+            else if ((typeof array[i] === 'string'))
+                var quote = "\"";
+            query += quote + array[i] + quote;
+        }
+        query += "] ";
+        return query;
+    }
+
+
 
     //var union=   "match (a:personne)-[r1]-(b:tag)  with  a,count(b) as cntR  where  a.name=~'(?i).*art.*' and  cntR> 5 match(a)-[r]-(b2) return a , collect(id(b2)) as bx limit 100 union match (a:personne)-[r1]-(b:tag)  with  a,count(b) as cntR  where cntR<5 match(a)-[r]-(b2) return a,b2 as bx limit 100"
 
@@ -660,23 +477,7 @@ var buildPaths = (function () {
 
 
     }
-    self.expandCollapse = function (expand) {
-        if (expand) {
-            stopExpand = false;
-            return;
-        }
-        else
-            stopExpand = true;
 
-        if ($("#buildGraphDiv").html() == "" || expand) {
-            $("#buildGraphDiv").html(globalHtml);
-            $("#GraphHighlight_legendDiv").css("visibility", "hidden")
-        } else {
-            $("#buildGraphDiv").html("");
-        }
-
-
-    }
 
 
     self.displayTable = function (callback) {
@@ -698,7 +499,7 @@ var buildPaths = (function () {
             return connections;
         }
 
-        //  self.expandCollapse();
+
         var tableDataset = [];
         var columns = self.currentDataset.columns;
         columns.push("neoId")
@@ -728,6 +529,7 @@ var buildPaths = (function () {
 
 
         })
+
 
 
         //group all connections
@@ -793,111 +595,10 @@ var buildPaths = (function () {
     }
 
 
-    self.drawGraph = function (dataset, options, callback) {
 
 
-        var visjsData = {nodes: [], edges: [], labels: []};
-        visjsData.labels = dataset.labels;
-        var uniqueNodes = [];
-        var uniqueRels = [];
-        dataset.data.nodes.forEach(function (line, indexLine) {
-            for (var nodeKey in line) {
-                var nodeNeo = line[nodeKey];
-                if (uniqueNodes.indexOf(nodeNeo.id) < 0) {
-                    uniqueNodes.push(nodeNeo.id);
-
-                    var visjsNode = nodeNeo;
-                    visjsData.nodes.push(visjsNode);
-                }
-            }
-            var previousSymbol;
-            dataset.labelSymbols.forEach(function (symbol, indexSymbol) {
-                if (indexSymbol > 0) {
-                    var fromNode = line[previousSymbol];
-                    var toNode = line[symbol];
-                    var relNeo = line[symbol].incomingRelation;
 
 
-                    if (uniqueRels.indexOf(relNeo.id) < 0) {
-                        uniqueRels.push(relNeo.id);
-
-
-                        var relObj = visJsDataProcessor.getVisjsRelFromNeoRel(fromNode.id, toNode.id, relNeo.id, relNeo.type, relNeo.neoAttrs, false, false);
-
-
-                        visjsData.edges.push(relObj);
-                    }
-                    /*  if (!relsCount[indexSymbol])
-                          relsCount[indexSymbol] = 0
-                      relsCount[indexSymbol] += 1*/
-                }
-                previousSymbol = symbol;
-
-            })
-        })
-        if (options.addToGraph) {// addTo Graph
-
-
-            var existingNodeIds = Object.keys(visjsGraph.nodes._data);
-            var existingEdgesHashes = [];
-            for (var key in visjsGraph.edges._data) {
-                var edge = visjsGraph.edges._data[key]
-                existingEdgesHashes.push(edge.from * edge.to)
-            }
-
-            var newNodes = [];
-            var newEdges = [];
-
-            visjsData.nodes.forEach(function (node) {
-                if (existingNodeIds.indexOf("" + node.id) < 0)
-                    newNodes.push(node)
-            })
-
-            visjsData.edges.forEach(function (edge) {
-                if (existingEdgesHashes.indexOf(edge.from * edge.to) < 0) {
-                    newEdges.push(edge);
-                    existingEdgesHashes.push(edge.from * edge.to);
-
-                }
-
-            })
-
-            visjsGraph.nodes.update(newNodes)
-            visjsGraph.edges.update(newEdges)
-            visjsGraph.drawLegend2(visjsData.labels, null);
-            if (callback)
-            callback(null,{data:{nodes:newNodes,relations:newEdges}});
-
-
-        }
-        else {
-
-            visjsGraph.drawLegend(visjsData.labels, null);
-            visjsGraph.draw("graphDiv", visjsData, {}, function () {
-                if (callback)
-                    callback(null,visjsData);
-            });
-        }
-
-    }
-
-
-    self.displayGraph = function (options, callback) {
-        if (!options)
-            options = {};
-
-        $(".graphDisplayed").css("visibility", "visible");
-        // self.expandCollapse()
-        var relsCount = {};
-        GraphController.setGraphMessage("Working...")
-        self.drawGraph(self.currentDataset, options, function () {
-            Cache.addCurrentGraphToCache()
-            // self.updateResultCountDiv(relsCount);
-            if (callback)
-                callback(null, self.currentDataset);
-        });
-
-    }
 
 
     self.displayStats = function () {
@@ -962,16 +663,7 @@ var buildPaths = (function () {
         });
     }
 
-    self.updateResultCountDiv = function (relsCount) {
-        /*  for(var key in relsCount){
 
-              var html=$("#buildPath_resultCountDiv_1"+key).html();
-              html="<span class=buildPath-relCount>"+relsCount[key]+"</span>/"+html
-              $("#buildPath_resultCountDiv_1"+key).html(html)
-
-          }*/
-
-    }
 
     self.graphFromUniqueNode = function (nodeId, callback) {
 
@@ -981,20 +673,22 @@ var buildPaths = (function () {
                 return console.log(err);
             self.currentDataset = self.prepareDataset(result);
             if (callback)
-                return callback(err, result)
+                return callback(err, result);
 
-
-            return buildPaths.displayGraph();
+            visJsDataProcessor.drawGraph(self.currentDataset, {}, function () {
+                Cache.addCurrentGraphToCache()
+            })
         })
 
     }
+
 
     self.drawShortestPathesDialog = function () {
         self.currentNodesDistance += 1;
         MainController.openDialog("no relations found. Try shortestPaths algorithm with distance " + self.currentNodesDistance + " ? ", buildPaths.drawShortestPathes);
     }
-    self.drawShortestPathes = function () {
 
+    self.drawShortestPathes = function () {
 
         var cypherObj = self.buildQuery("graph", {nodesDistance: self.currentNodesDistance, returnQueryObj: self.currentNodesDistance});
 

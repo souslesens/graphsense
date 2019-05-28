@@ -1,2 +1,22 @@
-{users:{}
+{
+  "users": {
+    "admin": {
+      "infos": {
+        "password": "admin"
+      },
+      "graphDisplaySettings": {
+        "graphDisplay_nodeSize": "8",
+        "graphDisplay_gravitationalConstant": "-17405",
+        "graphDisplay_centralGravity": "0",
+        "graphDisplay_springLength": "95",
+        "graphDisplay_springConstant": "0",
+        "graphDisplay_damping": "0",
+        "graphDisplay_nodeShape": "box",
+        "graphDisplay_edgeType": "Discrete"
+      },
+      "savedGraphs": {},
+      "sets": {},
+      "login": "admin"
+    }
+  }
 }

@@ -70,7 +70,11 @@ var visjsGraph = (function () {
                 interaction: {
                     dragView: false,
                     multiselect: true,
-                    hover: true
+                    hover: true,
+
+                    navigationButtons: true,
+                    keyboard: true
+
                 },
 
                 nodes: {
@@ -80,21 +84,16 @@ var visjsGraph = (function () {
                     font: {size: Config.visjs.defaultTextSize},
 
                 },
-                edges:
-                    {
-                        selectionWidth: 2,
-                        width: self.edgeWidth,
-                        smooth: {enabled: self.smooth},
-                        font:
-                            {
-                                size: 8
-                            }
+                edges: {
+                    selectionWidth: 2,
+                    width: self.edgeWidth,
+
+                    smooth: {enabled: self.smooth, type:Config.defaultEdgeType},
+                    font: {
+                        size: 8
                     }
-                ,
-                interaction: {
-                    keyboard: false
-                },
-                manipulation: false
+                }
+
 
 
             };
@@ -137,7 +136,7 @@ var visjsGraph = (function () {
                     }
                 }
             }
-        //    console.log(JSON.stringify(options, null, 2));
+            //    console.log(JSON.stringify(options, null, 2));
 
             return options;
         }
@@ -159,7 +158,7 @@ var visjsGraph = (function () {
             }
 
 
-            $("#"+divId).css("background-color",Config.visjs.graphBackgroundColor)
+            $("#" + divId).css("background-color", Config.visjs.graphBackgroundColor)
             self.lastClikedNodeIds = [];
             {// initialisation
                 var t0 = new Date();
@@ -271,8 +270,8 @@ var visjsGraph = (function () {
                 else if (params.edges.length == 1) {
                     var edgeId = params.edges[0];
                     var edge = self.edges._data[edgeId];
-                    edge.fromNode=self.nodes._data[edge.from];
-                    edge.toNode=self.nodes._data[edge.to];
+                    edge.fromNode = self.nodes._data[edge.from];
+                    edge.toNode = self.nodes._data[edge.to];
                     var point = params.pointer.DOM;
                     GraphController.onEdgeClicked(edge, point)
 
@@ -330,7 +329,7 @@ var visjsGraph = (function () {
                 //   self.onScaleChange()
             });
             self.network.on("dragEnd", function (params) {
-                if(params.nodes.length>0)
+                if (params.nodes.length > 0)
                     Cache.cacheGraphSchema();
                 return;
             });
@@ -462,27 +461,24 @@ var visjsGraph = (function () {
             }
             return (options)
         }
-    self.drawLegend = function (labels, relTypes) {
+        self.drawLegend = function (labels, relTypes) {
 
-    }
+        }
 
         self.drawLegend2 = function () {
-            var countLabels={};
-          var nodes= self.nodes._data;
-          for (var key in nodes){
-              var nodeLabel=nodes[key].labelNeo;
-              if(!countLabels[nodeLabel])
-                  countLabels[nodeLabel]=0
-              countLabels[nodeLabel]+=1;
-          }
-
-
-
+            var countLabels = {};
+            var nodes = self.nodes._data;
+            for (var key in nodes) {
+                var nodeLabel = nodes[key].labelNeo;
+                if (!countLabels[nodeLabel])
+                    countLabels[nodeLabel] = 0
+                countLabels[nodeLabel] += 1;
+            }
 
 
             self.legendLabels = [];
-var labels=[]
-            for( var label in countLabels) {
+            var labels = []
+            for (var label in countLabels) {
                 // labels.forEach(function (label) {
                 if (label != "" && self.legendLabels.indexOf(label) < 0) {
                     self.legendLabels.push(label);
@@ -490,7 +486,7 @@ var labels=[]
                 }
             }
 
-           // })
+            // })
 
 
             var html = "<table>";
@@ -500,9 +496,9 @@ var labels=[]
             for (var i = 0; i < labels.length; i++) {
 
                 var label = labels[i];
-                var labelText=label;
-                if(countLabels[label])
-                    labelText+=" ("+countLabels[label]+")"
+                var labelText = label;
+                if (countLabels[label])
+                    labelText += " (" + countLabels[label] + ")"
 
                 if (usedLabels.indexOf(label) < 0) {
                     usedLabels.push(label)
@@ -511,14 +507,14 @@ var labels=[]
                         html += "<tr" + onClick + "><td><span  class='legendSpan' id='legendSpan_" + label + "' style='background-color: " + context.nodeColors[label] + ";width:20px;height: 20px'>&nbsp;&nbsp;&nbsp;</span></td><td><span style='font-size: 10px'>" + labelText + "</span></td></tr>"
                     }
                 }
-         /*   }
+                /*   }
 
-            if (relTypes) {
-                relTypes.forEach(function (type) {
-                    onClick = "onclick=filter.filterNodeLegend('" + label + "')";
-                    html += "<tr" + onClick + "><td><span  class='legendSpan' id='legendSpan_" + type + "' style='background-color: " + context.edgeColors[type] + ";width:40px;height:3px'>&nbsp;&nbsp;&nbsp;</span></td><td><span style='font-size: 10px'>[" + type + "]</span></td></tr>"
+                   if (relTypes) {
+                       relTypes.forEach(function (type) {
+                           onClick = "onclick=filter.filterNodeLegend('" + label + "')";
+                           html += "<tr" + onClick + "><td><span  class='legendSpan' id='legendSpan_" + type + "' style='background-color: " + context.edgeColors[type] + ";width:40px;height:3px'>&nbsp;&nbsp;&nbsp;</span></td><td><span style='font-size: 10px'>[" + type + "]</span></td></tr>"
 
-                })*/
+                       })*/
 
 
             }

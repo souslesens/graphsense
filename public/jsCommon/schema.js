@@ -81,7 +81,6 @@ var Schema = (function () {
         self.createSchema = function (subGraph, callback) {
          MainController.alert("generating subgraph schema");
 
-
             // location.reload()
 
             Schema.generateNeoImplicitSchema(subGraph, true, function (err, _schema) {

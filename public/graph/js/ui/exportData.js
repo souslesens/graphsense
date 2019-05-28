@@ -10,12 +10,12 @@ var ExportData = (function () {
         var properties = []
         data.forEach(function (line) {
             for (var key in line) {
-                if (properties.indexOf(key) < 0 )
+                if (properties.indexOf(key) < 0)
                     properties.push(key);
             }
         })
         var html = "<input type=checkbox onchange=ExportData.swithCbxSelectAll($(this))>select all";
-        html+="<ul>"
+        html += "<ul>"
         properties.forEach(function (prop) {
             var checked = "";
             if (prop == "connectedTo" || prop == Schema.schema.defaultNodeNameProperty)
@@ -23,11 +23,10 @@ var ExportData = (function () {
             if (prop == "label")
                 checked = "checked='checked'"
 
-            html += "<li><input type=checkbox class='exportData_propcbx' value='" + prop + "'" + checked + "> " + prop+"</li>"
+            html += "<li><input type=checkbox class='exportData_propcbx' value='" + prop + "'" + checked + "> " + prop + "</li>"
         })
-        html+="</ul>"
+        html += "</ul>"
         $("#exportData_DatatablecbxsDiv").html(html);
-
 
 
     }
@@ -42,7 +41,7 @@ var ExportData = (function () {
 
 
     self.execute = function () {
-$("#ExportDataModalMenu").modal("hide")
+        $("#ExportDataModalMenu").modal("hide")
         var checkedProperties = [];
         $(".exportData_propcbx").each(function (index, cbx) {
             if ($(this).prop("checked")) {
@@ -77,36 +76,36 @@ $("#ExportDataModalMenu").modal("hide")
             filteredDataset.push(filteredLine)
         })
 
-
-      //  var divName = "exportData_datatableDiv";
-
-        var divName = "graphDiv";
-        $("#"+divName).css("background-color",Config.datatablesBackgroundColor)
-      //  $("#ExportDataTableModalMenu").html("");
-      //  $("#ExportDataTableModalMenu").modal("show")
-        self.drawDataTable(divName, filteredDataset);
+        self.drawDataTable(null, filteredDataset);
 
 
+    }
+
+    self.closeDataTableModal = function () {
+        $("#DataTableModal").modal("hide");
     }
 
 
     self.drawDataTable = function (divName, json) {
 
-        var htmlStr = "<table  id='table_" + divName + "'  class='dataTables_wrapper  display nowrap' ></table>"
-        $('#' + divName).css("font-size", "10px");
-        $("#" + divName).html(htmlStr);
-
-        $(".dataTables_wrapper").css("overflow","auto").width("width", $("#" + divName).width()-50).css("height",$("#" + divName).height()-50)
-
         var columns = self.getColumns(json);
 
+        $("#DataTableModalMenu").modal("show");
 
-        self.table = $("#table_" + divName).DataTable({
+        $("#DataTableWrapper").width("100%").height(500)
+
+
+        if (self.table)
+            self.table.destroy();
+
+        self.table = $("#DataTable_table").DataTable({
+            // self.table = $("#table_" + divName).DataTable({
             data: json,
             columns: columns,
             fixedHeader: true,
+            defaultContent: "",
             pageLength: 20,
-         //   order: order,
+            //   order: order,
             //   "autoWidth": false,
             dom: '<"topbuttons"B>fript',
             //  fixedColumns: true,
@@ -114,20 +113,22 @@ $("#ExportDataModalMenu").modal("hide")
                 'copy', 'csv', //'print'
                 // 'copy', 'csv', 'excel', 'pdf', 'print'
             ],
+            exportOptions: {
+                fieldSeparator: ";"
+            },
             select: true,
+            "scrollX": true,
+            "scrollY": true,
 
 
             drawCallback: function (settings, json) {
                 //#table_graphDiv td{border:solid 1px #ccc}
-                $("#table_graphDiv td").css("border","solid 1px #ccc");
+                $("#table_graphDiv td").css("border", "solid 1px #ccc");
 
             }
 
 
         });
-
-
-
 
 
     }

@@ -7,10 +7,10 @@
             </button>
         </div>
         <div class="modal-body">
-            <form>
+            <form id="display_settingsForm">
                 <div class="form-group row">
                     <legend class="col-form-label col-sm-4 pt-0">Display Nodes</legend>
-                    <div class="col-sm-8">
+                  <!--  <div class="col-sm-8">
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="graphDisplay_relationsNamesCheck">
                             <label class="form-check-label" for="graphDisplay_relationsNamesCheck">Relations
@@ -22,12 +22,12 @@
                             <label class="form-check-label" for="graphDisplay_hideNodesWithNoRelationsCheck">Hide nodes
                                 with no relations</label>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label" for="nodeShapeSelect">Shape</label>
+                    <label class="col-sm-4 col-form-label" for="graphDisplay_nodeShape">Node Shape</label>
                     <div class="col-sm-5">
-                        <select class="form-control" id="graphDisplay_shapeSelect">
+                        <select class="form-control" onchange="GraphDisplay.setGraphNodeShape($(this).val())" id="graphDisplay_nodeShape">
                             <option selected>dot</option>
                             <option >circle</option>
                             <option>square</option>
@@ -45,20 +45,20 @@
                         </select>
                     </div>
                 </div>
-                <!--  <div class="form-group row">
-                     <label class="col-sm-4 col-form-label" for="nodeSizeSelect">Size</label>
+                <div class="form-group row">
+                     <label class="col-sm-4 col-form-label" for="graphDisplay_nodeSize">Node Size</label>
                      <div class="col-sm-5">
-                         <input type="range" min="2" max="50" value="8" class="slider" id="graphDisplay_sizeInput">
+                         <input type="range" min="2" max="50" value="8" class="slider" onchange="GraphDisplay.setGraphNodeSize($(this).val())" id="graphDisplay_nodeSize">
                      </div>
                      <div class="col-sm-1">
-                         <span id="graphDisplay_sizeInputTxt">8</span>
+                         <span id="graphDisplay_sizeSliderInput">8</span>
                      </div>
                  </div>
 
                 <div class="form-group row">
-                     <label class="col-sm-4 col-form-label" for="nodeShapeSelect">Type</label>
+                     <label class="col-sm-4 col-form-label" for="graphDisplay_edgeType">Edge Type</label>
                      <div class="col-sm-5">
-                         <select class="form-control" id="graphDisplay_sizeInput">
+                         <select class="form-control" id="graphDisplay_edgeType">
                              <option selected>Continuous</option>
                              <option selected>Cubic Bezier</option>
                              <option selected>Curved CW</option>
@@ -69,7 +69,7 @@
                          </select>
                      </div>
                  </div>
-                 <div class="form-group row">
+             <!--    <div class="form-group row">
                      <label class="col-sm-4 col-form-label" for="nodeShapeSelect">Force Direction</label>
                      <div class="col-sm-5">
                          <select class="form-control" id="graphParamsDialog_typeSelect">
@@ -79,20 +79,67 @@
                          </select>
                      </div>
                  </div>-->
-                 <div class="form-group row">
-                     <label class="col-sm-4 col-form-label" for="graphDisplay_sizeInput">Roundness</label>
-                     <div class="col-sm-5">
-                         <input type="range" min="1" max="100" value="50" class="slider" id="graphDisplay_sizeRange" >
-                     </div>
-                     <div class="col-sm-1">
-                         <span id="graphDisplay_sizeInput">1</span>
-                     </div>
-                 </div>
 
-                
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="graphDisplay_gravitationalConstantInput">gravitationalConstant</label>
+                    <div class="col-sm-5">
+                        <input type="range" min="-30000" max="0" value="-2000" class="slider" onchange="GraphDisplay.setGraphPhysicsOption('gravitationalConstant',$(this).val())" id="graphDisplay_gravitationalConstant" >
+                    </div>
+                    <div class="col-sm-1">
+                        <span id="graphDisplay_gravitationalConstantInput">-2000</span>
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="graphDisplay_centralGravityInput">centralGravity</label>
+                    <div class="col-sm-5">
+                        <input type="range" min="0" max="10" value=".3" class="slider"onchange="GraphDisplay.setGraphPhysicsOption('centralGravity',$(this).val())"  id="graphDisplay_centralGravity" >
+                    </div>
+                    <div class="col-sm-1">
+                        <span id="graphDisplay_centralGravityInput">.3</span>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="graphDisplay_springLengthInput">springLength</label>
+                    <div class="col-sm-5">
+                        <input type="range" min="0" max="500" value="95" class="slider" onchange="GraphDisplay.setGraphPhysicsOption('springLength',$(this).val())" id="graphDisplay_springLength" >
+                    </div>
+                    <div class="col-sm-1">
+                        <span id="graphDisplay_springLengthInput">95</span>
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="graphDisplay_springConstantInput">springConstant</label>
+                    <div class="col-sm-5">
+                        <input type="range" min="0" max="1.2" value="0.04" class="slider" onchange="GraphDisplay.setGraphPhysicsOption('springConstant',$(this).val())" id="graphDisplay_springConstant" >
+                    </div>
+                    <div class="col-sm-1">
+                        <span id="graphDisplay_springConstantInput">0.04</span>
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label" for="graphDisplay_damping">damping</label>
+                    <div class="col-sm-5">
+                        <input type="range" min="0" max="1" value="0.09" class="slider" onchange="GraphDisplay.setGraphPhysicsOption('damping',$(this).val())" id="graphDisplay_damping" >
+                    </div>
+                    <div class="col-sm-1">
+                        <span id="graphDisplay_dampingInput">0.09</span>
+                    </div>
+                </div>
+
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="graphDisplay.applyDisplaySettings()">Apply changes</button>
+                    <button type="button" class="btn btn-primary" onclick="GraphDisplay.saveGraphSettings()">Save Settings</button>
                 </div>
             </form>
         </div>

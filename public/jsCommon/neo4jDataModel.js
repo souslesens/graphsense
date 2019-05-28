@@ -40,8 +40,8 @@ var DataModel = (function () {
 
 
     self.getDBstats = function (subGraph, callbackOuter) {
-        if(self.DBstats)
-            return callbackOuter(null,self.DBstats);
+        if (self.DBstats && self.DBstats.subGraph==subGraph)
+            return callbackOuter(null, self.DBstats);
         var where = ""
         if (subGraph)
             where = " where n.subGraph='" + subGraph + "' ";
@@ -81,6 +81,7 @@ var DataModel = (function () {
                     var output = {
                             nodes: nodes,
                             relations: relations,
+                            subGraph: subGraph
                         }
                     ;
                     self.DBstats = output;
@@ -227,8 +228,6 @@ var DataModel = (function () {
             }
 
 
-
-
             ,
             function (callback) {
                 var where = "";
@@ -246,7 +245,7 @@ var DataModel = (function () {
 
                         var relPropsObj = data[i];
                         var relationObjs = DataModel.allRelations[relPropsObj.relType];
-                        if(relationObjs) {
+                        if (relationObjs) {
                             for (var j = 0; j < relationObjs.length; j++) {
                                 var relationObj = relationObjs[j];
 
@@ -273,7 +272,7 @@ var DataModel = (function () {
 
         })
     }
-      
+
 
     self.generateSubGraphPropertyOnAllNodes = function () {
         var name = $("#subGraphName").val();

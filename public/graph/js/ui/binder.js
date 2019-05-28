@@ -127,16 +127,17 @@ var binder=(function(){
 
       $("#displayModalContent").load("htmlSnippets/graph/displayModal.html", function () {
           console.log("graphDisplayModal.html loaded")
-          $("#graphDisplay_sizeRange").on('input', function() {
-              $("#graphDisplay_sizeInput").html( $(this).val() );
 
-
-          });
           $("#graphDisplay_sizeInput").html(Config.defaultNodeSize);
           $("#graphDisplay_shapeSelect").val(Config.defaultNodeShape);
       })
 
 
+      $("#UserModalMenu").load("htmlSnippets/user.html", function () {
+
+      })
+
+      $("#displayModalContent").draggable();
 
  
 
