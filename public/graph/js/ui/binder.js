@@ -133,9 +133,13 @@ var binder=(function(){
       })
 
 
-      $("#UserModalMenu").load("htmlSnippets/user.html", function () {
+
+      $("#GraphSaveMenu").load("htmlSnippets/graph/graphSaveDialog.html", function () {
+          var xx="a"
 
       })
+
+
 
       $("#displayModalContent").draggable();
 

@@ -30,7 +30,6 @@
             crossorigin="anonymous"></script>
 
 
-
     <!-- Multiselect - Latest compiled and minified JavaScript -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/multiple-select/1.2.2/multiple-select.min.js"></script>
 
@@ -74,8 +73,8 @@
             margin-top: 20px;
         }
 
-        .relationMappingSelect{
-          //  width:100px
+        .relationMappingSelect {
+        / / width: 100 px
         }
     </style>
 
@@ -170,7 +169,7 @@
 
                             <div class="btn-group" role="group" aria-label="Label buttons">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#datasetModal">Add or Update Dataset</button>
-                              <!--  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#datasetModal">Update Dataset</button>-->
+                                <!--  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#datasetModal">Update Dataset</button>-->
                                 <button type="button" class="btn btn-primary" onclick="datasets.removeDataset($('#mainMenu_datasetSelect').val())">Remove Dataset</button>
                             </div>
                         </div>
@@ -232,33 +231,29 @@
                     </select>
                     <div class="btn-group" role="group" aria-label="Label buttons">
                         <button type="button" class="btn btn-primary" onclick="UI.showNodeMappingDialog();">Add Mapping</button>
-                        <button type="button" class="btn btn-primary"  onclick="UI.showNodeMappingDialog($('#nodeMappings_MappingSelect').val());">Edit Mapping</button>
+                        <button type="button" class="btn btn-primary" onclick="UI.showNodeMappingDialog($('#nodeMappings_MappingSelect').val());">Edit Mapping</button>
                         <button type="button" class="btn btn-primary" onclick="Mappings.removeMapping('nodes',$('#nodeMappings_MappingSelect').val())">Remove Mapping</button>
                     </div>
                 </div>
             </div>
 
 
-
-
-
-
             <div class="card">
                 <img class="card-img-top" src="..." alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">Select Relation Mapping:</h5>
-                  <!--  <ul class="list-group">
-                        <li class="list-group-item list-group-item-action active">Relation 1</li>
-                        <li class="list-group-item list-group-item-action">Relation 2</li>
-                        <li class="list-group-item list-group-item-action">Relation 3</li>
-                        <li class="list-group-item list-group-item-action">Relation 4</li>
-                        <li class="list-group-item list-group-item-action">Relation 5</li>
-                    </ul>
-                    <div class="btn-group" role="group" aria-label="Label buttons">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#RelationModal">Add Relation</button>
-                        <button type="button" class="btn btn-success">Edit Relation</button>
-                        <button type="button" class="btn btn-success">Remove Relation</button>
-                    </div>-->
+                    <!--  <ul class="list-group">
+                          <li class="list-group-item list-group-item-action active">Relation 1</li>
+                          <li class="list-group-item list-group-item-action">Relation 2</li>
+                          <li class="list-group-item list-group-item-action">Relation 3</li>
+                          <li class="list-group-item list-group-item-action">Relation 4</li>
+                          <li class="list-group-item list-group-item-action">Relation 5</li>
+                      </ul>
+                      <div class="btn-group" role="group" aria-label="Label buttons">
+                          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#RelationModal">Add Relation</button>
+                          <button type="button" class="btn btn-success">Edit Relation</button>
+                          <button type="button" class="btn btn-success">Remove Relation</button>
+                      </div>-->
 
 
                     <select class="form-control" id="relationMappings_MappingSelect" size="5">
@@ -266,8 +261,8 @@
                     </select>
                     <div class="btn-group" role="group" aria-label="Label buttons">
                         <button type="button" class="btn btn-primary" onclick="UI.showRelationMappingDialog();">Add Mapping</button>
-                        <button type="button" class="btn btn-primary"  onclick="UI.showRelationMappingDialog($('#relationMappings_MappingSelect').val());">Edit Mapping</button>
-                        <button type="button" class="btn btn-primary"  onclick="Mappings.removeMapping('relations',$('#relationMappings_MappingSelect').val())">Remove Mapping</button>
+                        <button type="button" class="btn btn-primary" onclick="UI.showRelationMappingDialog($('#relationMappings_MappingSelect').val());">Edit Mapping</button>
+                        <button type="button" class="btn btn-primary" onclick="Mappings.removeMapping('relations',$('#relationMappings_MappingSelect').val())">Remove Mapping</button>
                     </div>
                 </div>
             </div>
@@ -289,8 +284,8 @@
 
                     <div class="modal-body">
                         <div class="custom-file">
-                            <form  name="uploadXlsxForm" enctype="multipart/form-data" action="/loadRemoteFileForNeo" method="post" target="votar">
-                              <!--  <label for="file-input">select file( .csv or .xls) :</label>-->
+                            <form name="uploadXlsxForm" enctype="multipart/form-data" action="/loadRemoteFileForNeo" method="post" target="votar">
+                                <!--  <label for="file-input">select file( .csv or .xls) :</label>-->
                                 <input type="file" accept=".xlsx, .csv" name="file" id="file-input" class='btn-secondary' value="select file( .csv or .xls)"/>&nbsp;&nbsp;
                                 <label>Dataset Collection</label>
                                 <input class="form-control" name="datasetCollectionName"/>
@@ -298,13 +293,13 @@
                                 <button type="button" class="btn btn-primary" onclick="document.forms['uploadXlsxForm'].submit()"> import</button>
 
                             </form>
-                          <!--  <input type="file" class="custom-file-input" id="customFile">
-                            <label class="custom-file-label" for="customFile">Choose file</label>-->
+                            <!--  <input type="file" class="custom-file-input" id="customFile">
+                              <label class="custom-file-label" for="customFile">Choose file</label>-->
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <!--  <button type="button" class="btn btn-primary">Save label</button>-->
+                        <!--  <button type="button" class="btn btn-primary">Save label</button>-->
                     </div>
                 </div>
             </div>
@@ -348,7 +343,8 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="nodeMapping_ColPropertiesSelect">Select Properties :</label><button type="button" class="btn btn-secondary"  onclick="UI.selectAllNodeMappingProperties()">Select All</button>
+                                    <label for="nodeMapping_ColPropertiesSelect">Select Properties :</label>
+                                    <button type="button" class="btn btn-secondary" onclick="UI.selectAllNodeMappingProperties()">Select All</button>
                                     <select class="form-control" id="nodeMapping_ColPropertiesSelect" multiple="multiple">
 
                                     </select>
@@ -366,6 +362,14 @@
                                     <input type="text" id="nodeMapping_MappingName" placeholder="SaveRequest_Label1" aria-label="SaveRequest_Label1" class="form-control"/>
                                 </div>
                             </div>
+                            <div class="form-row">
+                                <div class='custom-control custom-switch'>
+                                    <input type="checkbox" class="custom-control-input" name="simpleQuery_switch"  checked="checked" id="nodeMapping_distinctValues">
+                                    <label class="custom-control-label" for="nodeMapping_distinctValues">Distinct Values</label>
+                                </div>
+                            </div>
+
+
                         </form>
 
                     </div>
@@ -377,7 +381,7 @@
             </div>
         </div>
         <!-- Node Modal -->
-        <div class="modal fade"  id="RelationMappingModal" tabindex="-1" role="dialog" aria-labelledby="RelationModalLabel" aria-hidden="true">
+        <div class="modal fade" id="RelationMappingModal" tabindex="-1" role="dialog" aria-labelledby="RelationModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" style="width:850px;" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -399,17 +403,17 @@
 
                             <div class="form-row">
                                 <div class="col-md">
-                                <h4>Relation</h4>
+                                    <h4>Relation</h4>
                                 </div>
-                                    <div class="col-md">
-                                <h4>Source Fields</h4>
-                                    </div>
-                                        <div class="col-md">
-                                <h4>Neo4j Labels</h4>
-                                        </div>
-                                            <div class="col-md">
-                                <h4>Neo4j Fields</h4>
-                                            </div>
+                                <div class="col-md">
+                                    <h4>Source Fields</h4>
+                                </div>
+                                <div class="col-md">
+                                    <h4>Neo4j Labels</h4>
+                                </div>
+                                <div class="col-md">
+                                    <h4>Neo4j Fields</h4>
+                                </div>
                             </div>
                             <div class="form-row">
                                 <div class="col-md">
@@ -419,7 +423,8 @@
                                     <select class="form-control relationMappingSelect" id="relationMapping_ColFromIdSelect"> </select>
                                 </div>
                                 <div class="col-md">
-                                    <select class="form-control relationMappingSelect"  onchange="UI.setRelationFieldSelect($(this).val(),'relationMapping_NeoFromIdSelect')"  id="relationMapping_NeoFromLabelSelect"> </select>
+                                    <select class="form-control relationMappingSelect" onchange="UI.setRelationFieldSelect($(this).val(),'relationMapping_NeoFromIdSelect')"
+                                            id="relationMapping_NeoFromLabelSelect"> </select>
                                 </div>
                                 <div class="col-md">
                                     <select class="form-control relationMappingSelect" id="relationMapping_NeoFromIdSelect"> </select>
@@ -433,7 +438,8 @@
                                     <select class="form-control relationMappingSelect" id="relationMapping_ColToIdSelect"> </select>
                                 </div>
                                 <div class="col-md">
-                                    <select class="form-control relationMappingSelect" onchange="UI.setRelationFieldSelect($(this).val(),'relationMapping_NeoToIdSelect')" id="relationMapping_NeoToLabelSelect"> </select>
+                                    <select class="form-control relationMappingSelect" onchange="UI.setRelationFieldSelect($(this).val(),'relationMapping_NeoToIdSelect')"
+                                            id="relationMapping_NeoToLabelSelect"> </select>
                                 </div>
                                 <div class="col-md">
                                     <select class="form-control relationMappingSelect" id="relationMapping_NeoToIdSelect"> </select>
@@ -442,8 +448,9 @@
 
                             <div class="form-row">
                                 <div class="col-md-12 mb-3">
-                                    <label for="relationMapping_typeName">Mapping :</label>
-                                    <input type="text" onblur="UI.setRelationMappingName()"  id="relationMapping_typeName" placeholder="SaveRequest_Relation1" aria-label="SaveRequest_Relation1" class="form-control"/>
+                                    <label for="relationMapping_typeName">Relation Type :</label>
+                                    <input type="text" onblur="UI.setRelationMappingName()" id="relationMapping_typeName" placeholder="SaveRequest_Relation1" aria-label="SaveRequest_Relation1"
+                                           class="form-control"/>
                                 </div>
                             </div>
 

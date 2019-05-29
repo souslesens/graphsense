@@ -70,7 +70,7 @@ var importDataIntoNeo4j = {
                 var colId = params.colId;
                 var subGraph = params.subGraph;
                 var label = params.label;
-                var isDistinct = params.distinctValues ? true : false;
+                params.isDistinct = params.distinctValues ? true : false;
 
 
                 params.fields = importDataIntoNeo4j.setNodeSourceFieldsToExport(params);
@@ -123,6 +123,9 @@ var importDataIntoNeo4j = {
                             } else {
                                 data = params.data.data;
                             }
+
+
+                        data=importDataIntoNeo4j.processColumnsWithSeparators(data,params.colId)
 
 
                             dataSubsetsToImport = [data];
@@ -293,8 +296,12 @@ var importDataIntoNeo4j = {
                         else if (params.type == "json") {
                             var data = params.data;
                             if (data.data)
-                                data = [data.data];
-                            dataSubsetsToImport = data;
+                                data = data.data;
+
+                            data=importDataIntoNeo4j.processColumnsWithSeparators(data,params.colFromId)
+                            data=importDataIntoNeo4j.processColumnsWithSeparators(data,params.colToId)
+
+                            dataSubsetsToImport = [data];
                             callbackSeries(null, dataSubsetsToImport);
                         }
                         else if (params.type == "sourceDB") {
@@ -351,6 +358,28 @@ var importDataIntoNeo4j = {
                 callback(err, journal)
             })
     },
+
+
+    processColumnsWithSeparators:function(data,colName){
+
+        data.forEach(function(line,indexLine){//duplication des lignes dont ID  contient un separateur (, ou ; ou \t)
+            if(/[;+,+\t+]/.test(line[colName])){
+                var array=line[colName].split(/[;,\t]/);
+                array.forEach(function(splitId,indexSplit) {
+                    var obj = JSON.parse(JSON.stringify(line));
+                    obj[colName] =splitId;
+                    if(indexSplit==0)
+                        data[indexLine]=obj;
+                    else
+                        data.push(obj)
+
+                } )
+
+            }
+        })
+        return data;
+    }
+    ,
 
 
     writeNodesToNeo: function (params, data, callback) {

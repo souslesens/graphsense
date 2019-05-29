@@ -9,12 +9,10 @@ function Context() {
     this.currentNode = {};
     this.cypherMatchOptions = {}
     this.currentRelations = {types: [], props: []}
-    this.mousePosition={x:0,y:0};
+    this.mousePosition = {x: 0, y: 0};
     this.currentQueryCardId;
-    this.queryFilterValidateFn=null;
-
-
-
+    this.queryFilterValidateFn = null;
+    this.user = null;
 
 
 

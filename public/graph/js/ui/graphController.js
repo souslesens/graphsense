@@ -139,10 +139,9 @@ var GraphController = (function () {
         }
 
 
-
-        self.resetGraphSchema=function(){
-            self.schemaPreviousNode={};
-            self.schemaCurrentNode={};
+        self.resetGraphSchema = function () {
+            self.schemaPreviousNode = {};
+            self.schemaCurrentNode = {};
         }
 
         self.schemaSelectAllNodes = function () {
@@ -153,7 +152,7 @@ var GraphController = (function () {
                     text: "all",
                     inResult: true,
                 }
-                self.schemaPreviousNode= context.queryObject
+                self.schemaPreviousNode = context.queryObject
                 var text = context.queryObject.label + ":" + context.queryObject.text
 
                 var obj = {id: self.schemaCurrentNode.id, label: text, borderWidth: 3, color: "white", font: {color: context.nodeColors[context.queryObject.label]}}
@@ -161,14 +160,14 @@ var GraphController = (function () {
             }
             else {//calcul des chemins
 
-                        Schema.getPathsBetweenLabels(self.schemaPreviousNode.label,self.schemaCurrentNode.label ,function (err, result){
+                Schema.getPathsBetweenLabels(self.schemaPreviousNode.label, self.schemaCurrentNode.label, function (err, result) {
 
                     if (err)
                         return console.log(err)
-                    var labelsRels={}
+                    var labelsRels = {}
                     result.forEach(function (line) {
                         line.nodes.forEach(function (node, index) {
-                            labelsRels[node._id]=node.properties.name;
+                            labelsRels[node._id] = node.properties.name;
                             if (index > 0) {
                                 var cardId = Math.round(Math.random() * 10000);
                                 var queryObject = {
@@ -181,7 +180,7 @@ var GraphController = (function () {
 
 
                                 var nodeId = "schemaLabel_" + queryObject.label;
-                                var obj = {id: nodeId , borderWidth: 3, color: "white", font: {color: context.nodeColors[queryObject.label]}}
+                                var obj = {id: nodeId, borderWidth: 3, color: "white", font: {color: context.nodeColors[queryObject.label]}}
                                 visjsGraph.nodes.update(obj);
 
 
@@ -216,8 +215,54 @@ var GraphController = (function () {
         }
 
 
+        self.showGraphSaveDialog = function () {
+            $("#GraphSaveMenu").modal("show");
+        }
+
+        self.saveCurrentGraph = function () {
+            var visibility = $("#GraphSave_visibility").val();
+            var name = $("#GraphSave_name").val();
+            var description = $("#GraphSave_description").val();
+
+            if(!name || name==""){
+              return   alert("name is mandatory");
+            }
+
+            var graphData=visjsGraph.exportGraph();
+            var graphData=btoa(JSON.stringify(graphData));
+
+            var settings = {
+                visibility:visibility,
+                name:name,
+                description:description.trim(),
+                graphData:graphData
+            }
+
+            if (!context.user.savedGraphs)
+                context.user.savedGraphs = {};
+
+            context.user.savedGraphs[name] = settings;
 
 
+            UserController.saveUser();
+        }
+
+
+
+        self.setSavedGraphSelect=function(){
+            if(context.user && context.user.savedGraphs) {
+                var graphNames = Object.keys(context.user.savedGraphs);
+                graphNames.sort();
+                common.fillSelectOptionsWithStringArray("GraphSaved_nameSelect",graphNames,true);
+
+            }
+
+        }
+        self.drawSavedGraph=function(name){
+            var graphData= context.user.savedGraphs[name].graphData;
+            graphData=JSON.parse(atob(graphData));
+            visjsGraph.importGraph(graphData);
+        }
 
 
         return self;

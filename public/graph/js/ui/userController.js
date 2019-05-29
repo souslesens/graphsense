@@ -4,7 +4,7 @@ var UserController = (function () {
 
     self.showLoginDialog = function () {
 
-        $("#UserModalMenu").modal("show")
+        $("#LoginModalMenu").modal("show")
 
     }
 
@@ -33,9 +33,11 @@ var UserController = (function () {
                 return $("#LoginMessageDiv").html(err);
             context.user = result;
             context.user.login=login;
-            $("#UserModalMenu").modal("hide")
-
-            GraphDisplay.setGraphSettings()
+            $("#LoginModalMenu").removeClass("show")
+            $("#LoginModalMenu").modal("hide")
+            MainController.init();
+            GraphDisplay.setGraphSettings();
+            GraphController.setSavedGraphSelect();
 
         })
 

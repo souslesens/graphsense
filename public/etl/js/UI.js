@@ -134,6 +134,7 @@ var UI = (function () {
         obj.label = $("#nodeMapping_labelName").val();
         obj.source = $("#nodeMapping_DatasetSelect").val();
         obj.name = $("#nodeMapping_MappingName").val();
+        obj.distinctValues = $("#nodeMapping_distinctValues").val();
         obj.type = "node";
         obj.mappingset=context.currentmappingset;
 
@@ -186,6 +187,9 @@ var UI = (function () {
        $("#nodeMapping_DatasetSelect").val(mapping.source);
        $("#nodeMapping_MappingName").val(mapping.name);
        $("#nodeMapping_labelName").val(mapping.label);
+       var distinctValues=   mapping.distinctValues ;
+    //   if(distinctValues)$("#nodeMapping_distinctValues").val();
+
        $("#nodeMapping_ColPropertiesSelect").val(mapping.exportedFields);
        if(mapping.exportedFields && Array.isArray(mapping.exportedFields)) {
            mapping.exportedFields.forEach(function (colName) {

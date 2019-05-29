@@ -1109,6 +1109,56 @@
           "lookup_Disciplin_Physical"
         ]
       }
+    },
+    "": {
+      "export_doc_chapter_neo#Sheet1": {
+        "datasetCollectionName": "",
+        "name": "export_doc_chapter_neo#Sheet1",
+        "header": [
+          "ID",
+          "Document",
+          "Title",
+          "Purpose",
+          "TextOffset",
+          "ChapterTitle1",
+          "ChapterTitle2",
+          "ChapterTitle3",
+          "ParagraphText",
+          "StyleParagraph",
+          "Equipment",
+          "Component",
+          "Phenomenon",
+          "Characterisation",
+          "Method",
+          "Time",
+          "Temperature"
+        ]
+      }
+    },
+    "graphNlp": {
+      "export_doc_chapter_neo#Sheet1": {
+        "datasetCollectionName": "graphNlp",
+        "name": "export_doc_chapter_neo#Sheet1",
+        "header": [
+          "ID",
+          "Document",
+          "Title",
+          "Purpose",
+          "TextOffset",
+          "ChapterTitle1",
+          "ChapterTitle2",
+          "ChapterTitle3",
+          "ParagraphText",
+          "StyleParagraph",
+          "Equipment",
+          "Component",
+          "Phenomenon",
+          "Characterisation",
+          "Method",
+          "Time",
+          "Temperature"
+        ]
+      }
     }
   }
 }

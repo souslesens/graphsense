@@ -684,6 +684,103 @@
           "type": "relation"
         }
       }
+    },
+    "graphNlp": {
+      "nodes": {
+        "Document": {
+          "colName": "Document",
+          "colId": "Document",
+          "exportedFields": [
+            "Purpose",
+            "Title"
+          ],
+          "label": "Document",
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Document",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "graphNlp"
+        },
+        "Paragraph": {
+          "colName": "ID",
+          "colId": "ID",
+          "exportedFields": [
+            "ChapterTitle1",
+            "ParagraphText",
+            "StyleParagraph",
+            "TextOffset"
+          ],
+          "label": "Paragraph",
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Paragraph",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "graphNlp"
+        },
+        "Equipement": {
+          "colName": "Equipment",
+          "colId": "Equipment",
+          "exportedFields": null,
+          "label": "Equipement",
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Equipement",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "graphNlp"
+        },
+        "Phenomenon": {
+          "colName": "Phenomenon",
+          "colId": "Phenomenon",
+          "exportedFields": null,
+          "label": "Phenomenon",
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Phenomenon",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "graphNlp"
+        }
+      },
+      "relations": {
+        "Paragraph-inDocument->Document": {
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Paragraph-inDocument->Document",
+          "colFromId": "ID",
+          "neoFromLabel": "Paragraph",
+          "neoFromId": "ID",
+          "colToId": "Document",
+          "neoToLabel": "Document",
+          "neoToId": "Document",
+          "relationType": "inDocument",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Paragraph-hasEntity->Equipement": {
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Paragraph-hasEntity->Equipement",
+          "colFromId": "ID",
+          "neoFromLabel": "Paragraph",
+          "neoFromId": "ID",
+          "colToId": "Equipment",
+          "neoToLabel": "Equipement",
+          "neoToId": "Equipment",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Paragraph-hasEntity->Phenomenon": {
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Paragraph-hasEntity->Phenomenon",
+          "colFromId": "ID",
+          "neoFromLabel": "Paragraph",
+          "neoFromId": "ID",
+          "colToId": "Phenomenon",
+          "neoToLabel": "Phenomenon",
+          "neoToId": "Phenomenon",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        }
+      }
     }
   }
 }

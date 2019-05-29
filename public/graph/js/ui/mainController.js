@@ -3,8 +3,11 @@ var MainController = (function () {
     var self = {};
     self.jsonDBStoragePath = "../../../jsonDBStorage";
 
+
+
+
     self.init = function () {
-        context = new Context();
+
 
 
         GraphController.initComponentsPositionAndSize("content")
@@ -25,8 +28,12 @@ var MainController = (function () {
 
 
         if (!subGraph)
-            subGraph = context.subGraph
+            subGraph = context.subGraph;
+        var user;
+        if (context.user)
+            user = context.user;
         context = new Context();
+        context.user=user;
         context.subGraph = subGraph;
         //reinitilialisation context;
         Schema.load(subGraph, function (err, result) {

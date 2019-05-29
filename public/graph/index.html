@@ -114,8 +114,12 @@
     <script>
         //when page loaded
         $(function () {
+            context = new Context();
+            $("#LoginModalMenu").load("htmlSnippets/login.html", function () {
 
-            MainController.init();
+            })
+            UserController.showLoginDialog();
+         //   MainController.init();
 
 
         });
@@ -312,6 +316,11 @@
                         <img src="img/advancedSearch.png" width="40" height="40" alt="Filter">
                     </a>
                 </li>
+                <li class="nav-item">
+                    <select class="form-input" id="GraphSaved_nameSelect" onchange="GraphController.drawSavedGraph($(this).val())">
+
+                    </select>
+                </li>
 
                 <li class="nav-item">
                     <div class="spinner-border text-primary d-none" id="waitSpinnerDiv" role="status">
@@ -369,7 +378,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a onmouseover="$(this).tooltip('show');" class="navbar-brand" href="#" data-toggle="tooltip" data-placement="bottom" title="Save Request">
+                    <a onmouseover="$(this).tooltip('show');" class="navbar-brand" href="#"  onclick="GraphController.showGraphSaveDialog()" title="Save Graph">
                         <img src="img/save.png" width="40" height="40" alt="Filter">
                     </a>
                 </li>
@@ -531,7 +540,12 @@
 
 <div class="alert" role="alert" id="result"></div>
 
-<div class="modal fade" id="UserModalMenu" tabindex="-1" role="dialog"
+<div class="modal hide" id="LoginModalMenu" tabindex="-1" role="dialog"
+     aria-labelledby="displayModalLabel" aria-hidden="true">
+
+</div>
+
+<div class="modal fade" id="GraphSaveMenu" tabindex="-1" role="dialog"
      aria-labelledby="displayModalLabel" aria-hidden="true">
 
 </div>
