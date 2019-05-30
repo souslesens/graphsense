@@ -121,7 +121,19 @@ var visJsDataProcessor = (function () {
 
             nodeObj.initialColor = nodeObj.color;
 
-            if (nodeNeoProps.image && nodeNeoProps.image.length > 0) {
+            var labelIcon=context.user.graphDisplaySettings.labels[nodeObj.labelNeo];
+            if(labelIcon){
+                nodeObj.shape = 'circularImage';
+                nodeObj.image = labelIcon;
+                nodeObj.brokenImage = "images/questionmark.png";
+                //   nodeObj.image=encodeURIComponent(nodeNeoProps.icon)
+                nodeObj.borderWidth = 4
+                nodeObj.size = 30;
+                delete nodeObj.color;
+                delete nodeObj.initialColor;
+            }
+
+            else if (nodeNeoProps.image && nodeNeoProps.image.length > 0) {
                 nodeObj.shape = 'circularImage';
                 nodeObj.image = nodeNeoProps.image.replace(/File:/, "File&#58;");
                 nodeObj.brokenImage = "images/questionmark.png";

@@ -6,13 +6,16 @@
       },
       "graphDisplaySettings": {
         "graphDisplay_nodeSize": "8",
-        "graphDisplay_gravitationalConstant": "-19185",
-        "graphDisplay_centralGravity": "2",
+        "graphDisplay_gravitationalConstant": "-2000",
+        "graphDisplay_centralGravity": "0",
         "graphDisplay_springLength": "95",
         "graphDisplay_springConstant": "0",
         "graphDisplay_damping": "0",
         "graphDisplay_nodeShape": "dot",
-        "graphDisplay_edgeType": "Continuous"
+        "labels": {
+          "Characterisation": "https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwiC6oOg-sPiAhVCrxoKHYh7BigQjRx6BAgBEAU&url=https%3A%2F%2Ficonscout.com%2Ficon%2Flandslide-weather-insurance-phenomenon-nature-1&psig=AOvVaw03QHngV2RE3zTeJmD81gfP&ust=1559329736104612",
+          "Component": "http://iconshow.me/media/images/Mixed/small-n-flat-icon/png2/512/-component.png"
+        }
       },
       "savedGraphs": {
         "test1": {

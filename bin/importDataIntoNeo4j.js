@@ -34,7 +34,6 @@ var serverParams = require("./serverParams.js");
 var util = require("./util");
 var totalLines = 0;
 var neoMappings = [];
-var distinctNames = [];
 var countNodes = 0;
 var lastImports = [];
 var neoCopyMappings = neoMappings;
@@ -42,7 +41,7 @@ var neoCopyMappings = neoMappings;
 var importDataIntoNeo4j = {
 
     clearVars: function () {
-        distinctNames = [];
+
         totalLines = 0;
         neoMappings = [];
         countNodes = 0;
@@ -71,6 +70,7 @@ var importDataIntoNeo4j = {
                 var subGraph = params.subGraph;
                 var label = params.label;
                 params.isDistinct = params.distinctValues ? true : false;
+                params.distinctNames = [];
 
 
                 params.fields = importDataIntoNeo4j.setNodeSourceFieldsToExport(params);
@@ -253,12 +253,21 @@ var importDataIntoNeo4j = {
                         neoProxy.match(sourceNodeMappingsStatement, function (err, resultSource) {
                             if (err)
                                 return callback(err);
+                            if (resultSource.length == 0) {
+                                var message="ERROR : missing Neo4j nodes labels: import nodes before relations: " +neoFromLabel;
+                                socket.message(message)
+                                return callback(message);
+
+                            }
 
                             var targetNodeMappingsStatement = "match (n:" + neoToLabel + ") where n.subGraph=\"" + subGraph + "\"  return n." + params.neoToId + " as sourceId, id(n) as neoId, labels(n)[0] as label; "
                             neoProxy.match(targetNodeMappingsStatement, function (err, resultTarget) {
 
-                                if (resultSource.length == 0 || resultTarget.length == 0) {
-                                    return callback("ERROR : missing Neo4j nodes mapping: import nodes before relations");
+
+                                if ( resultTarget.length == 0) {
+                                    var message="ERROR : missing Neo4j nodes labels: import nodes before relations: "  +neoToLabel;
+                                    socket.message(message)
+                                    return callback(message);
 
                                 }
 
@@ -396,7 +405,7 @@ var importDataIntoNeo4j = {
                 continue;
             }
 
-            if (params.isDistinct & distinctNames.indexOf(nameSourceFieldValue) > -1) {
+            if (params.isDistinct & params.distinctNames.indexOf(nameSourceFieldValue) > -1) {
                 //  console.log( "---!!!!!!!!!!!!   B   ");
                 continue;
             }
@@ -406,7 +415,7 @@ var importDataIntoNeo4j = {
                 continue;
             }
 
-            distinctNames.push(nameSourceFieldValue);
+            params.distinctNames.push(nameSourceFieldValue);
 
             if (!params.defaultNodeNameProperty)
                 params.defaultNodeNameProperty = "name";

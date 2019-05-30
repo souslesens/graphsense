@@ -36,7 +36,7 @@ var UserController = (function () {
             $("#LoginModalMenu").removeClass("show")
             $("#LoginModalMenu").modal("hide")
             MainController.init();
-            GraphDisplay.setGraphSettings();
+
             GraphController.setSavedGraphSelect();
 
         })

@@ -85,10 +85,10 @@ var visjsGraph = (function () {
 
                 },
                 edges: {
-                    selectionWidth: 2,
+                    selectionWidth: 4,
                     width: self.edgeWidth,
 
-                    smooth: {enabled: self.smooth, type:Config.defaultEdgeType},
+                    smooth: {enabled: self.smooth, type:"continuous"},
                     font: {
                         size: 8
                     }

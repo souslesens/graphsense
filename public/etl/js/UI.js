@@ -123,9 +123,24 @@ var UI = (function () {
         }
 
     }
+   self.getEmptyFieldsInForm=function(formId){
+        var emptyFields=[];
+        $("#"+formId).find("input,select,textarea").each(function(){
+            if($(this).val()=="" || $(this).val()==null)
+                emptyFields.push($(this).attr("id"))
+
+        })
+        return emptyFields;
+
+    }
 
 
     self.saveNodeMapping = function () {
+
+        var emptyFields=self.getEmptyFieldsInForm("nodeMapping_form");
+        if(emptyFields.length>0 && emptyFields[0]!="nodeMapping_ColPropertiesSelect" )
+            return alert("All fields are mandatory " +emptyFields.toString())
+
         var obj = {};
 
         obj.colName = $("#nodeMapping_ColNameSelect").val();
@@ -137,6 +152,8 @@ var UI = (function () {
         obj.distinctValues = $("#nodeMapping_distinctValues").val();
         obj.type = "node";
         obj.mappingset=context.currentmappingset;
+
+
 
         Mappings.saveMapping(obj, function (err, result) {
             if (err)
@@ -153,7 +170,9 @@ var UI = (function () {
         var obj = {};
 
 
-
+        var emptyFields=self.getEmptyFieldsInForm("relationMapping_form");
+        if(emptyFields.length>0)
+            return alert("All fields are mandatory " +emptyFields.toString())
 
         obj.source = $("#relationMapping_DatasetSelect").val();
         obj.name = $("#relationMapping_MappingName").val();
@@ -167,6 +186,8 @@ var UI = (function () {
         obj.relationType = $("#relationMapping_typeName").val();
         obj.mappingset=context.currentmappingset;
         obj.type = "relation";
+
+
 
         Mappings.saveMapping(obj, function (err, result) {
             if (err)

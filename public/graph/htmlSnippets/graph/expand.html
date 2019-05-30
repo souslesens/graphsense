@@ -23,15 +23,27 @@
                     </div>
 
                     <div class="col-sm-4">
-                        <select class="form-control" id="graphExpandToLabelSelect">
+                        <select class="form-control" id="graphExpandToLabelSelect" onclick="GraphExpand.onToLabelChange()">
+
+                        </select>
+                        <div class="col-sm-2">
+                            <label class="col-form-label" for="graphExpandDirection">Direction</label>
+                        </div>
+
+                        <select class="form-control d-none" id="graphExpandDirection">
+                            <option>both</option>
+                            <option>normal</option>
+                            <option>inverse</option>
 
                         </select>
                         <!--      </div>
+                        </
                               <label class="col-form-label col-ml-3" for="graphExpandToLabelSelect">Cluster nodes limit</label>
                               <div class="col-sm-3">
                                  <input id="graphExpandClusterLimitInput" value="20">
                               </div>-->
                     </div>
+
                 </div>
                 <div class="alert alert-success d-none" id="graphExpand_alertDiv" role="alert"></div>
             </form>

@@ -19,12 +19,23 @@ var GraphExpand = (function () {
     }
 
 
+    self.onToLabelChange = function () {
+        var sourceLabel = $('#graphExpandfromLabelSelect').val();
+        var targetLabel = $('#graphExpandToLabelSelect').val();
+        if (sourceLabel == targetLabel) {
+            $("#graphExpandDirection").removeClass("d-none")
+        }
+
+    }
+
+
     self.expandFromUI = function () {
 
 
         var filter = self.getExpandWhereFilter();
         var sourceLabel = $('#graphExpandfromLabelSelect').val();
         var targetLabel = $('#graphExpandToLabelSelect').val();
+        var direction = $("#graphExpandDirection").val();
 
         if (sourceLabel == "")
             return self.alert("#graphExpand_alertDiv", "Select a label to expand from")
@@ -46,8 +57,13 @@ var GraphExpand = (function () {
             return;
         var ids = visjsGraph.getNodesNeoIdsByLabelNeo(sourceLabel);
         var where = buildPaths.getWhereClauseFromArray("_id", ids, "n");
-
-        var cypher = "match(n:" + sourceLabel + ")-[r]-(m:" + targetLabel + ")" +
+        var directionNormalStr = "";
+        var directionInverseStr = "";
+        if (direction && direction == "normal")
+            directionNormalStr = ">";
+        else if (direction && direction == "inverse")
+            directionInverseStr = "<"
+        var cypher = "match(n:" + sourceLabel + ")"+directionInverseStr+"-[r]-"+directionNormalStr+"(m:" + targetLabel + ")" +
             " where " + where + " " +//" and NOT p:"+sourceLabel+
             " return n, collect(m) as mArray  , type(r) as relType, r as rel" +
             " limit " + Config.maxResultSupported;
@@ -441,6 +457,7 @@ var GraphExpand = (function () {
         visjsGraph.draw("graphDiv", newVisjsData, {});
         var labels = visjsGraph.legendLabels;
         labels.push(targetLabel)
+        Cache.addCurrentGraphToCache();
         //visjsGraph.drawLegend(labels)
 
     }

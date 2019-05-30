@@ -55,7 +55,7 @@
                      </div>
                  </div>
 
-                <div class="form-group row">
+          <!--      <div class="form-group row">
                      <label class="col-sm-4 col-form-label" for="graphDisplay_edgeType">Edge Type</label>
                      <div class="col-sm-5">
                          <select class="form-control" id="graphDisplay_edgeType">
@@ -68,7 +68,7 @@
                              <option>Dyanmic</option>
                          </select>
                      </div>
-                 </div>
+                 </div>-->
              <!--    <div class="form-group row">
                      <label class="col-sm-4 col-form-label" for="nodeShapeSelect">Force Direction</label>
                      <div class="col-sm-5">
@@ -135,9 +135,16 @@
                         <span id="graphDisplay_dampingInput">0.09</span>
                     </div>
                 </div>
+                <div class="form-group row">
+                  
+                    <div class="col-sm-5">
+                      <button class="btn btn-secondary" onclick="GraphDisplay.showLabelsIconDialog()">labels...</button>
+                    </div>
+                </div>
 
 
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="GraphDisplay.resetDefaultValues()">Reset Default Values</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" onclick="GraphDisplay.saveGraphSettings()">Save Settings</button>
                 </div>

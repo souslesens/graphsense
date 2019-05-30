@@ -72,6 +72,7 @@ var GraphSimpleQuery = (function () {
             $("#query_propertySelect").val("name");
             $("#queryModalLabel").html("Query Label > " + label);
             $("#dbQueryFilterLabelModal").modal("show");
+            $("#query_OrphanNodesSwitch").prop('checked', false);
             $("#query_valueInput").focus();
             if (!self.filterDialogBinded) {//($._data($("#query_validateQueryGraphButton")[0], "events")))
                 self.filterDialogBinded = true;
@@ -193,7 +194,8 @@ var GraphSimpleQuery = (function () {
 
             })
         }
-        $("#dbQueryFilterLabelModal").modal("show");
+       // $("#dbQueryFilterLabelModal").modal("show");
+
 
 
     }
@@ -233,42 +235,49 @@ var GraphSimpleQuery = (function () {
 
         }
 
+        function afterQuery(data) {
+            var oldCount = self.labelObjs[label];
+            var newCount = "" + data.nodes.length + " / " + oldCount;
+            $("#simpleQuery_countBadge_" + label).html(newCount);
+            $("#simpleQuery_countBadge_" + label).css("opacity", 1.0)
+            $("#simpleQuery_labelDiv_" + label).prop("title", queryObject.text);
+
+
+            $("#navbar_graph_Graph_ul").removeClass("d-none");
+            $("#simpleQuery_erase").removeClass("d-none")
+
+            delete context.cardsMap[self.currentLabel];
+            delete context.cardsMap["*"];
+
+        }
+
+
 
         var options = {
             addToGraph: addToGraph,
         }
+        var withOrphans = $("#query_OrphanNodesSwitch").prop("checked");
+
         buildPaths.executeQuery(type, options, function (err, result) {
             if (err)
                 return console.log(err);
 
-            if (result.data.nodes.length == 0) {
-                delete context.cardsMap[self.currentLabel];
-                delete context.cardsMap["*"];
-                return;
-            }
-
-
-            function setCountBadge(data) {
-                var oldCount = self.labelObjs[label];
-                var newCount = "" + data.nodes.length + " / " + oldCount;
-                $("#simpleQuery_countBadge_" + label).html(newCount);
-                $("#simpleQuery_countBadge_" + label).css("opacity", 1.0)
-                $("#simpleQuery_labelDiv_" + label).prop("title", queryObject.text)
-
-            }
-
-            $("#navbar_graph_Graph_ul").removeClass("d-none");
-            $("#simpleQuery_erase").removeClass("d-none")
-            var withOrphans = $("#query_OrphanNodesSwitch").prop("checked");
-            if (withOrphans && context.cardsMap["*"]) {
+            if (result.data.nodes.length == 0 || withOrphans) {
                 delete  context.cardsMap["*"];
 
                 buildPaths.executeQuery(type, options, function (err, result) {
-                    setCountBadge(result.data)
+                    afterQuery(result.data)
                 })
+                return;
             }
-            else
-                setCountBadge(result.data)
+            else{
+
+                afterQuery(result.data)
+            }
+
+
+
+
 
         })
 

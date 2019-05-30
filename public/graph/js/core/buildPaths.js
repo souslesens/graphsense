@@ -186,7 +186,6 @@ var buildPaths = (function () {
 
             var symbol = alphabet.charAt(index);
 
-
             // set relation where
             var relType = "";
             if (queryObject.incomingRelation) {

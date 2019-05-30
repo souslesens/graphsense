@@ -80,8 +80,8 @@
     <input type="file" accept=".xlsx;.csv" name="file" id="file" class='exportNeo' value="select xlsx..."/><br><br>
 mapping collection<select    onchange="Mappings.initMappingSet($(this).val())" id="dataset_CollectionSelect"name="dataset_CollectionSelect" ></select><br>
 
-    nodes<select multiple="true" size="10" id="nodeMappings_MappingSelect" name="nodeMappings_MappingSelect"></select><br>
-    relations<select   multiple="true" size="10" id="relationMappings_MappingSelect" name="relationMappings_MappingSelect"></select><br>
+    nodes<select multiple="true" size="10" id="nodeMappings_MappingSelect" name="nodeMappings_MappingSelect"></select><button onclick="$('#nodeMappings_MappingSelect').val('xx')">Clear</button> <br>
+    relations<select   multiple="true" size="10" id="relationMappings_MappingSelect" name="relationMappings_MappingSelect"></select><button onclick="$('#relationMappings_MappingSelect').val('xx')">Clear</button> <br>
     subGraph<input name="subGraph" id="subGraph">&nbsp;
     <input type="checkbox" name="replaceSubGraphCbx" id="replaceSubGraphCbx" checked="checked">replace if exists<br><br>
     <button> importer</button>

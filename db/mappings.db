@@ -738,6 +738,50 @@
           "distinctValues": "on",
           "type": "node",
           "mappingset": "graphNlp"
+        },
+        "Component": {
+          "colName": "Component",
+          "colId": "Component",
+          "exportedFields": null,
+          "label": "Component",
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Component",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "graphNlp"
+        },
+        "Characterisation": {
+          "colName": "Characterisation",
+          "colId": "Characterisation",
+          "exportedFields": null,
+          "label": "Characterisation",
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Characterisation",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "graphNlp"
+        },
+        "Time": {
+          "colName": "Time",
+          "colId": "Time",
+          "exportedFields": null,
+          "label": "Time",
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Time",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "graphNlp"
+        },
+        "Temperature": {
+          "colName": "Temperature",
+          "colId": "Temperature",
+          "exportedFields": null,
+          "label": "Temperature",
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Temperature",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "graphNlp"
         }
       },
       "relations": {
@@ -776,6 +820,58 @@
           "colToId": "Phenomenon",
           "neoToLabel": "Phenomenon",
           "neoToId": "Phenomenon",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Paragraph-hasEntity->Component": {
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Paragraph-hasEntity->Component",
+          "colFromId": "ID",
+          "neoFromLabel": "Paragraph",
+          "neoFromId": "ID",
+          "colToId": "Component",
+          "neoToLabel": "Component",
+          "neoToId": "Component",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Paragraph-hasEntity->Characterisation": {
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Paragraph-hasEntity->Characterisation",
+          "colFromId": "ID",
+          "neoFromLabel": "Paragraph",
+          "neoFromId": "ID",
+          "colToId": "Characterisation",
+          "neoToLabel": "Characterisation",
+          "neoToId": "Characterisation",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Paragraph-hasEntity->Time": {
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Paragraph-hasEntity->Time",
+          "colFromId": "ID",
+          "neoFromLabel": "Paragraph",
+          "neoFromId": "ID",
+          "colToId": "Time",
+          "neoToLabel": "Time",
+          "neoToId": "Time",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Paragraph-hasEntity->Temperature": {
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Paragraph-hasEntity->Temperature",
+          "colFromId": "ID",
+          "neoFromLabel": "Paragraph",
+          "neoFromId": "ID",
+          "colToId": "Temperature",
+          "neoToLabel": "Temperature",
+          "neoToId": "Temperature",
           "relationType": "hasEntity",
           "mappingset": "graphNlp",
           "type": "relation"

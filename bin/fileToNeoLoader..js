@@ -39,6 +39,17 @@ var fileToNeoLoader = {
                 var xlsSheets = {}
                 var extension = null;
                 var xlsxFileBuffer = null;
+
+
+                if(req.files.length==0){
+                    var message="ERROR :No File in upload";
+                    socket.message(message)
+                    return callbackOuter(message);
+
+                }
+
+
+
                 async.series([
 
 
