@@ -93,45 +93,69 @@ var GraphExpand = (function () {
 
     }
     self.expandFromTwoNodesShortestPath = function (id1, id2) {
-        var cypher = "MATCH (p1), (p2),path = allShortestPaths((p1)-[*]-(p2)) where ID(p1)=" + id1 + " and ID(p2)=" + id2 + "      return nodes(path) as nodes, relationships(path) as relations"
+        var cypher = "MATCH path = (p1)-[*1..4]-(p2) where ID(p1)=" + id1 + " and ID(p2)=" + id2 + "      return nodes(path) as nodes, relationships(path) as relations"
+
+        var cypher = "MATCH path = (p1)-[:hasEntity|:precede*1..4]-(p2) where ID(p1)=" + id1 + " and ID(p2)=" + id2 + "      return nodes(path) as nodes, relationships(path) as relations"
+
+
 
         var newNodes = [];
         var newEdges = [];
         var newNodeIds = [];
         var mArrayIds = [];
+        var edgeHashes=[]
         var nodes = visjsGraph.nodes._data;
-        var edges = visjsGraph.edges._data;
 
-        Cypher.executeCypher(cypher, function (err, result) {
+
+        Cypher.executeCypher(cypher, function (err, result0) {
             if (err)
                 return console.log(err);
-            result = result[0];
+
+
+
+            result0.forEach(function(result){
             result.nodes.forEach(function (node) {
-                mArrayIds.push(node._id)
-                if (!visjsGraph.nodes._data[node._id]) {
+                if(mArrayIds.indexOf(node._id)<0) {
+                    mArrayIds.push(node._id)
+                    if (!visjsGraph.nodes._data[node._id]) {
 
-                    if (newNodeIds.indexOf(node._id) < 0) {
-                        newNodeIds.push(node._id);
+                        if (newNodeIds.indexOf(node._id) < 0) {
+                            newNodeIds.push(node._id);
 
-                        var visjsNode = visJsDataProcessor.getVisjsNodeFromNeoNode(node, true);
-                        newNodes.push(visjsNode);
+                            var visjsNode = visJsDataProcessor.getVisjsNodeFromNeoNode(node, true);
+                            newNodes.push(visjsNode);
+                        }
                     }
+                    var label = node.labels[0]
+                    if (visjsGraph.legendLabels.indexOf(label) < 0)
+                        visjsGraph.legendLabels.push(label);
                 }
-                var label = node.labels[0]
-                if (visjsGraph.legendLabels.indexOf(label) < 0)
-                    visjsGraph.legendLabels.push(label);
-
             })
+
+                for (var keys in visjsGraph.edges._data){
+
+                var edge=visjsGraph.edges._data[key];
+                    edgeHashes.push(edge.from*edge.to)
+                }
+
+
             result.relations.forEach(function (rel) {
                 var from = rel._fromId;
                 var to = rel._toId;
-                var relId = rel._id
-                var relType = rel._type;
-                var relProps = rel.properties;
 
-                var visjsEdge = visJsDataProcessor.getVisjsRelFromNeoRel(from, to, relId, relType, relProps);
-                newEdges.push(visjsEdge);
+                if(edgeHashes.indexOf(from*to)<0) {
+                    edgeHashes.push(from*to)
+                    var relId = rel._id
+                    var relType = rel._type;
+                    var relProps = rel.properties;
 
+
+                    var visjsEdge = visJsDataProcessor.getVisjsRelFromNeoRel(from, to, relId, relType, relProps);
+                    newEdges.push(visjsEdge);
+                }
+
+
+            })
 
             })
             var allRelTypes = [];// setEdgeColors(result);

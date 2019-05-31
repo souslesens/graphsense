@@ -119,18 +119,20 @@ var visJsDataProcessor = (function () {
             nodeObj.hiddenLabel = labelVisjs;
 
 
-            nodeObj.initialColor = nodeObj.color;
 
-            var labelIcon=context.user.graphDisplaySettings.labels[nodeObj.labelNeo];
-            if(labelIcon){
-                nodeObj.shape = 'circularImage';
-                nodeObj.image = labelIcon;
-                nodeObj.brokenImage = "images/questionmark.png";
-                //   nodeObj.image=encodeURIComponent(nodeNeoProps.icon)
-                nodeObj.borderWidth = 4
-                nodeObj.size = 30;
-                delete nodeObj.color;
-                delete nodeObj.initialColor;
+
+
+
+
+
+            nodeObj.initialColor = nodeObj.color;
+            var labelIcon = null;
+            if (context.user.graphDisplaySettings.labels)
+                labelIcon = context.user.graphDisplaySettings.labels[nodeObj.labelNeo];
+            if (labelIcon) {
+              nodeObj.group=nodeObj.labelNeo;
+                nodeObj.color;
+                nodeObj.initialColor;
             }
 
             else if (nodeNeoProps.image && nodeNeoProps.image.length > 0) {
@@ -412,9 +414,10 @@ var visJsDataProcessor = (function () {
                         labelsMap[fromNode.labelNeo][fromNode.id].connectedTo.push("[" + toNode.labelNeo + "]" + toNode.label);
                 }
             }
+
             function processNodes(fromNode, toNode) {
-                if(toNode)
-                    toNode.name=toNode.neoAttrs[Schema.getNameProperty()]
+                if (toNode)
+                    toNode.name = toNode.neoAttrs[Schema.getNameProperty()]
 
                 if (!labelsMap[fromNode.id]) {
                     var node = fromNode.neoAttrs
@@ -444,21 +447,21 @@ var visJsDataProcessor = (function () {
                 processNodes(node);
             }
 
-            var data=[];
-            var columns=[];
-            for(var key in labelsMap){
-               for(var col in labelsMap[key]){
-                    if(columns.indexOf(col)<0)
+            var data = [];
+            var columns = [];
+            for (var key in labelsMap) {
+                for (var col in labelsMap[key]) {
+                    if (columns.indexOf(col) < 0)
                         columns.push(col);
                 }
                 data.push(labelsMap[key])
             }
 
-          data.forEach(function(line,index){
-                columns.forEach(function(col){
-                    if(!line[col])
-                        data[index][col]=""
-                        })
+            data.forEach(function (line, index) {
+                columns.forEach(function (col) {
+                    if (!line[col])
+                        data[index][col] = ""
+                })
 
             })
 

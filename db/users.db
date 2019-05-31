@@ -13,8 +13,14 @@
         "graphDisplay_damping": "0",
         "graphDisplay_nodeShape": "dot",
         "labels": {
-          "Characterisation": "https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwiC6oOg-sPiAhVCrxoKHYh7BigQjRx6BAgBEAU&url=https%3A%2F%2Ficonscout.com%2Ficon%2Flandslide-weather-insurance-phenomenon-nature-1&psig=AOvVaw03QHngV2RE3zTeJmD81gfP&ust=1559329736104612",
-          "Component": "http://iconshow.me/media/images/Mixed/small-n-flat-icon/png2/512/-component.png"
+          "Characterisation": "f546",
+          "Component": "f013",
+          "Document": "f15c",
+          "Equipement": "f275",
+          "Paragraph": "f11c",
+          "Phenomenon": "f042",
+          "Temperature": "f2ca",
+          "Time": "f017"
         }
       },
       "savedGraphs": {

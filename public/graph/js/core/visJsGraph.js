@@ -88,12 +88,11 @@ var visjsGraph = (function () {
                     selectionWidth: 4,
                     width: self.edgeWidth,
 
-                    smooth: {enabled: self.smooth, type:"continuous"},
+                    smooth: {enabled: self.smooth, type: "continuous"},
                     font: {
                         size: 8
                     }
                 }
-
 
 
             };
@@ -184,6 +183,26 @@ var visjsGraph = (function () {
             self.physics = self.getDefaultPhysics();
 
             options.physics.enabled = true;
+
+            if (context.user.graphDisplaySettings.labels) {
+                if (!options.groups) {
+                    options.groups = {}
+                }
+                for (var key in context.user.graphDisplaySettings.labels) {
+                    options.groups[key] = {
+                        shape: 'icon',
+                        icon: {
+                            face: 'FontAwesome',
+                            code: String.fromCharCode("0x" + context.user.graphDisplaySettings.labels[key]),
+                            size: 50,
+                            color: context.nodeColors[key]
+                        }
+                    }
+                }
+
+            }
+
+
             self.network = new vis.Network(container, data, options);
             self.network.startSimulation();
 

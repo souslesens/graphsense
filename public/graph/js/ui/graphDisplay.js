@@ -153,7 +153,8 @@ var GraphDisplay = (function () {
             })
 
             context.user.graphDisplaySettings.labels=settings;
-            UserController.saveUser()
+            UserController.saveUser();
+            MainController.closeDialog();
 
         })
     }
