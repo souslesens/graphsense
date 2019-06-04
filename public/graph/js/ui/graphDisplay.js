@@ -128,7 +128,7 @@ var GraphDisplay = (function () {
         var savedLabels = context.user.graphDisplaySettings.labels;
         if (!savedLabels)
             savedLabels = {};
-        var html = "<div><form id='graphDisplay_labelIconForm'>";
+        var html = "<div style='overflow: auto;margin: 5px'><form id='graphDisplay_labelIconForm'>";
         labels.forEach(function (label) {
             var value = savedLabels[label];
             if (!value)

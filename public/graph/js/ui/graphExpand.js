@@ -52,6 +52,7 @@ var GraphExpand = (function () {
         self.initialDataset = {
             nodes: mapToArray(visjsGraph.nodes._data),
             edges: mapToArray(visjsGraph.edges._data),
+            type:"graph"
         }
         if (sourceLabel == "" || targetLabel == "")
             return;
@@ -95,7 +96,7 @@ var GraphExpand = (function () {
     self.expandFromTwoNodesShortestPath = function (id1, id2) {
         var cypher = "MATCH path = (p1)-[*1..4]-(p2) where ID(p1)=" + id1 + " and ID(p2)=" + id2 + "      return nodes(path) as nodes, relationships(path) as relations"
 
-        var cypher = "MATCH path = (p1)-[:hasEntity|:precede*1..4]-(p2) where ID(p1)=" + id1 + " and ID(p2)=" + id2 + "      return nodes(path) as nodes, relationships(path) as relations"
+       // var cypher = "MATCH path = (p1)-[:hasEntity|:precede*1..4]-(p2) where ID(p1)=" + id1 + " and ID(p2)=" + id2 + "      return nodes(path) as nodes, relationships(path) as relations"
 
 
 
@@ -122,7 +123,7 @@ var GraphExpand = (function () {
                         if (newNodeIds.indexOf(node._id) < 0) {
                             newNodeIds.push(node._id);
 
-                            var visjsNode = visJsDataProcessor.getVisjsNodeFromNeoNode(node, true);
+                            var visjsNode = visJsDataProcessor.getVisjsNodeFromNeoNode(node, false);
                             newNodes.push(visjsNode);
                         }
                     }
@@ -132,7 +133,7 @@ var GraphExpand = (function () {
                 }
             })
 
-                for (var keys in visjsGraph.edges._data){
+                for (var key in visjsGraph.edges._data){
 
                 var edge=visjsGraph.edges._data[key];
                     edgeHashes.push(edge.from*edge.to)
@@ -474,7 +475,8 @@ var GraphExpand = (function () {
         var allEdges = mapToArray(visjsGraph.edges._data).concat(newEdges);
         var newVisjsData = {
             nodes: allNodes,
-            edges: allEdges
+            edges: allEdges,
+            type:"graph"
 
         }
 
@@ -485,6 +487,9 @@ var GraphExpand = (function () {
         //visjsGraph.drawLegend(labels)
 
     }
+
+
+
     self.listClusterNodes = function () {
         var clusterIds = context.currentNode.neoAttrs.clusterIds;
         context.queryObject = {

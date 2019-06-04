@@ -16,10 +16,13 @@ var GraphController = (function () {
             $("#graphDiv").height(self.containerDims.h + 30);
 
 
-            $("#graph_legendDiv").width(120).css("position", "absolute").css("top", $(".navbar").height() + (self.containerDims.h)).css("left", +(self.containerDims.w - 150));//"background", "none");
+            $("#graph_legendDiv").width(120).css("position", "absolute").css("top", $(".navbar").height() + (self.containerDims.h-100)).css("left", +(self.containerDims.w - 150));//"background", "none");
             $("#graph_infosDiv").width(400).height(40).css("position", "absolute").css("left", self.containerDims.x + 10).css("top", $(".navbar").height() + 100).css("background-color", "#eee");
             $("#GraphHighlight_legendDiv").css("position", "absolute").css("top", 0).css("left", self.containerDims.x + 10).css("top", 80).css("background-color", "#eee");
-            $("#graph_infosDiv").css("visibility", "hidden")
+            $("#graph_infosDiv").css("visibility", "hidden");
+
+
+            $("#genericModalDiv").height(self.containerDims.h)
         }
 
 

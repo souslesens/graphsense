@@ -11,16 +11,13 @@
         "graphDisplay_springLength": "95",
         "graphDisplay_springConstant": "0",
         "graphDisplay_damping": "0",
-        "graphDisplay_nodeShape": "dot",
+        "graphDisplay_nodeShape": "square",
         "labels": {
-          "Characterisation": "f546",
-          "Component": "f013",
           "Document": "f15c",
-          "Equipement": "f275",
-          "Paragraph": "f11c",
-          "Phenomenon": "f042",
-          "Temperature": "f2ca",
-          "Time": "f017"
+          "Paragraph": "f1dd",
+          "Temperature": "f2c8",
+          "Time": "f017",
+          "Vibration": "f4f0"
         }
       },
       "savedGraphs": {

@@ -782,6 +782,17 @@
           "distinctValues": "on",
           "type": "node",
           "mappingset": "graphNlp"
+        },
+        "Vibration": {
+          "colName": "Vibration",
+          "colId": "Vibration",
+          "exportedFields": null,
+          "label": "Vibration",
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Vibration",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "graphNlp"
         }
       },
       "relations": {
@@ -872,6 +883,19 @@
           "colToId": "Temperature",
           "neoToLabel": "Temperature",
           "neoToId": "Temperature",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Paragraph-hasEntity->Vibration": {
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Paragraph-hasEntity->Vibration",
+          "colFromId": "ID",
+          "neoFromLabel": "Paragraph",
+          "neoFromId": "ID",
+          "colToId": "Vibration",
+          "neoToLabel": "Vibration",
+          "neoToId": "Vibration",
           "relationType": "hasEntity",
           "mappingset": "graphNlp",
           "type": "relation"

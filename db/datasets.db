@@ -1156,7 +1156,8 @@
           "Characterisation",
           "Method",
           "Time",
-          "Temperature"
+          "Temperature",
+          "Vibration"
         ]
       }
     }

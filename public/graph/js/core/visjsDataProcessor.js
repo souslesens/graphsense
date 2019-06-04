@@ -131,6 +131,7 @@ var visJsDataProcessor = (function () {
                 labelIcon = context.user.graphDisplaySettings.labels[nodeObj.labelNeo];
             if (labelIcon) {
               nodeObj.group=nodeObj.labelNeo;
+              nodeObj.icon="icon";
                 nodeObj.color;
                 nodeObj.initialColor;
             }
@@ -395,6 +396,7 @@ var visJsDataProcessor = (function () {
 
 
             }
+            visjsData.type="schema"
             return visjsData;
 
         }

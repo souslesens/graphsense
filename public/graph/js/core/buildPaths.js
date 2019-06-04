@@ -395,14 +395,15 @@ var buildPaths = (function () {
 
         var query = nodeSymbol + "." + property + " in ["
         if (property == "_id")
-            query = "ID(n) in ["
+            query = "ID("+nodeSymbol+") in ["
         var quote = "";
         for (var i = 0; i < array.length; i++) {
             if (i > 0 && i < array.length)
                 query += ","
-            else if ((typeof array[i] === 'string'))
+            else if ((property!="_id" && typeof array[i] === 'string'))
                 var quote = "\"";
-            query += quote + array[i] + quote;
+                query += quote + array[i] + quote;
+
         }
         query += "] ";
         return query;
@@ -748,7 +749,7 @@ var buildPaths = (function () {
 
             })
 
-            visjsGraph.draw("graphDiv", {nodes: newNodes, edges: newEdges})
+            visjsGraph.draw("graphDiv", {type:"graph",nodes: newNodes, edges: newEdges})
             visjsGraph.drawLegend(labels, null);
             MainController.closeDialog();
             $('#query_filterLabelDialogModal').modal('hide');

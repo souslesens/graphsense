@@ -114,6 +114,13 @@ var binder=(function(){
           console.log("exportDataModal.html loaded")
       })
 
+      if(Config.plugins.paragraphEntitiesGraph){
+
+          $("#plugin-paragraphEntitiesGraphDiv").load("plugins/paragraphEntitiesGraph/index.html", function () {
+              console.log("exportDataModal.html loaded")
+          })
+
+      }
 
 
 

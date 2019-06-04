@@ -6,7 +6,7 @@ var Tree = (function () {
         self.trees = [];
         self.checkboxChangeTimeStamp = 0;
         self.openingNode = null;
-        self.previousSelectedNodes=[];
+        self.previousSelectedNodes = [];
         var treedivId = "treeDiv";
 
 
@@ -25,7 +25,7 @@ var Tree = (function () {
         }
 
         self.setJsTree = function (jsTreeData, onSelectFn, expandAll) {
-            self.previousSelectedNodes=[];
+            self.previousSelectedNodes = [];
             $('#' + treedivId).html('<div id="' + treedivId + '_tree" style="width:100%;height: 100%">zzzz</div>')
 
 
@@ -53,17 +53,21 @@ var Tree = (function () {
             }).on("select_node.jstree",
                 function (evt, obj) {
 
-                 if(  self.previousSelectedNodes &&   self.previousSelectedNodes.length>0){// unckek nodes from the previous addSelectionToQuery
-                     $('#' + treedivId + "_tree").jstree("deselect_node",self.previousSelectedNodes);
-                     self.previousSelectedNodes.forEach(function(id){
+                    if (self.previousSelectedNodes && self.previousSelectedNodes.length > 0) {// unckek nodes from the previous addSelectionToQuery
+                        $('#' + treedivId + "_tree").jstree("deselect_node", self.previousSelectedNodes);
+                        self.previousSelectedNodes.forEach(function (id) {
 
 
-                     })
+                        })
 
 
-                 }
+                    }
 
 
+                    if (Config.plugins.paragraphEntitiesGraph) {
+                      $("#plugin-paragraphEntitiesAddSelectionBtn").removeClass("d-none");
+                        $("#plugin-paragraphEntitiesGraphDiv").removeClass("d-none");
+                    }
                     $("#tree-searchAddCardButton").removeClass("d-none");
                     $("#tree-hierarchyAddCardButton").removeClass("d-none");
 
@@ -72,6 +76,8 @@ var Tree = (function () {
                 .on("open_node.jstree",
 
                     function (evt, obj) {
+
+                    if(  obj.data &&Config.trees[obj.data._treeKey]) {// only hierarchical tree
 
                         self.openingNode = obj.node;
                         if (obj.node.children.length == 1) {
@@ -84,18 +90,21 @@ var Tree = (function () {
                             self.addChildrenNodes(obj.node);
                             $('#' + treedivId + "_tree").jstree().uncheck_all()
                         }
+                    }
                     })
                 .on('loaded.jstree', function (e, data) {
+                    if (expandAll)
+                        $('#' + treedivId + "_tree").jstree("open_all")
+                  //  $('#' + treedivId + "_tree").jstree("open_all");
                     // invoked after jstree has loaded
                     //   $(this).jstree("open_node", "" + quantum.currentRootNeoId);
                 })
 
-            $('#' + treedivId + "_tree").jstree().hide_icons()
+            $('#' + treedivId + "_tree").jstree().hide_icons();
+
 
 
         }
-
-
 
 
         self.getChildren = function (id) {
@@ -156,6 +165,8 @@ var Tree = (function () {
             }
             common.fillSelectOptionsWithStringArray("tree_labelSelect", treekeys, true);
             Tree.resetTrees();
+
+          //  MainController.openAccordion('hierarchySubMenu')
             /*  Config.simpleSearchTree=new Tree("search_treeContainerDiv");
               Config.hierarchyTree=new Tree("hierarchy_treeContainerDiv");*/
 
@@ -372,10 +383,13 @@ var Tree = (function () {
                 if (id.indexOf("shadow") < 0 && id > -1) {
                     checkedIds.push(id);
                     var node = $('#' + treedivId + "_tree").jstree(true).get_node(id);
-                    if (type == "search") {
+                    if (true || type == "search") {
                         if (!labelsMap[node.parent])
-                            labelsMap[node.parent] = []
-                        labelsMap[node.parent].push(id)
+                            labelsMap[node.parent] = {ids:[],texts:[]};
+                      //  labelsMap[node.parent].push(id)
+                        labelsMap[node.parent].ids.push(id);
+                        labelsMap[node.parent].texts.push(node.parent+"-"+node.text)
+
                     }
                     else {
                         if (!labelsMap[self.currentType])
@@ -386,7 +400,7 @@ var Tree = (function () {
                 }
 
             })
-            self.previousSelectedNodes=checkedIds;
+            self.previousSelectedNodes = checkedIds;
 
             if (checkedIds.length > Config.maxInIdsArrayLength)
                 return MainController.alert("too many nodes selected : max " + Config.maxInIdsArrayLength);
@@ -398,7 +412,8 @@ var Tree = (function () {
                     self.cardIndexes[key] = 0;
                 self.cardIndexes[key] += 1
 
-                var checkedIds = labelsMap[key];
+                var checkedIds = labelsMap[key].ids;
+                var checkedTexts = labelsMap[key].texts;
                 var queryObject = {};
                 var clauseText = " set (" + checkedIds.length + " nodes)";
                 queryObject.label = null;
@@ -412,19 +427,23 @@ var Tree = (function () {
                 queryObject.type = "nodeSet" + key;
                 queryObject.where = buildPaths.getWhereClauseFromArray("_id", checkedIds, "n");
                 queryObject.nodeSetIds = checkedIds;
+                queryObject.nodeSetTexts = checkedTexts;
                 queryObject.inResult = true;
-                queryObject.origin="tree";
+                queryObject.origin = "tree";
 
+                $("#simpleQuery_erase").removeClass("d-none")
+                if (type == "plugin-paragraphEntitiesGraph") {
+                    ParagraphEntitiesGraph.addQueryObject(queryObject)
+                }
+                else {
 
+                    self.drawTreeSelection(queryObject)
+                    //UI_query.addCardToQueryDeck(queryObject);
+                }
 
+                UI_query.showQueryMenu()
 
-
-                self.drawTreeSelection(queryObject)
-                //UI_query.addCardToQueryDeck(queryObject);
             }
-
-            UI_query.showQueryMenu()
-
         }
 
         self.drawTreeSelection = function (queryObject) {
@@ -442,7 +461,7 @@ var Tree = (function () {
             var addToGraph = false;
 
 
-            if (visjsGraph.legendLabels.length==0 ||visjsGraph.legendLabels[0]=="labels") {
+            if (visjsGraph.legendLabels.length == 0 || visjsGraph.legendLabels[0] == "labels") {
                 self.labelIndex = 1
                 queryObject.index = 1;
                 var cardId = label;
@@ -457,7 +476,7 @@ var Tree = (function () {
                 var idsQueryObject = {}
                 idsQueryObject.label = null;
 
-             //   idsQueryObject.type = "nodeSet" + key;
+                //   idsQueryObject.type = "nodeSet" + key;
 
                 idsQueryObject.nodeSetIds = Object.keys(visjsGraph.nodes._data);
                 idsQueryObject.inResult = true;
@@ -474,13 +493,6 @@ var Tree = (function () {
             execQuery(label, addToGraph, function (err, result) {
                 if (err)
                     return console.log(err);
-
-
-
-
-
-
-
 
 
                 $("#navbar_graph_Graph_ul").removeClass("d-none");
@@ -559,7 +571,7 @@ var Tree = (function () {
                   })*/
 
 
-                self.setJsTree(treeData, null);
+                self.setJsTree(treeData, null,true);
                 UI_query.showQueryMenu();
             })
 

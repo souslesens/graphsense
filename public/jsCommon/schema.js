@@ -99,7 +99,11 @@ var Schema = (function () {
                     MainController.alertClose();
                     UI_query.initQueryLabels();
 
-                    Schema.createSchemaNeo4jGraph ();
+                    Schema.createSchemaNeo4jGraph (function(err,result){
+                        if(err)
+                            return console.log(err);
+
+                    });
 
                     if (callback)
                         return callback(null, Schema.schema)
@@ -221,6 +225,10 @@ var Schema = (function () {
 
                 Schema.setLabelsColor();
                 Schema.setLinkColors();
+                UI_graph.showSchema(context.subGraph);
+
+
+
                 if (Schema.schema.Config) {
                     for (var key in Schema.schema.Config) {
                         Config[key] = Schema.schema.Config[key];
@@ -764,7 +772,7 @@ var Schema = (function () {
 
 
 
-        self.createSchemaNeo4jGraph = function () {
+        self.createSchemaNeo4jGraph = function (callbackOuter) {
 
             var nodesCypher = [];
             var relationsCypher = [];
@@ -835,7 +843,9 @@ var Schema = (function () {
                     }
 
                 ], function (err) {
-                    console.log("done")
+                    console.log("done");
+                    if(callbackOuter)
+                        callbackOuter(err, "done");
                 })
 
 

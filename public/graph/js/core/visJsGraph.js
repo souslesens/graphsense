@@ -10,6 +10,7 @@ var visjsGraph = (function () {
 
         self.nodes = [];
         self.edges = [];
+        self.type = null;
         self.network = null;
         self.currentScale;
         self.smooth = true;
@@ -164,6 +165,7 @@ var visjsGraph = (function () {
                 var container = document.getElementById(divId);
                 self.nodes = new vis.DataSet(visjsData.nodes);
                 self.edges = new vis.DataSet(visjsData.edges);
+                self.type = visjsData.type;
             }
             self.drawLegend2()
 
@@ -194,7 +196,7 @@ var visjsGraph = (function () {
                         icon: {
                             face: 'FontAwesome',
                             code: String.fromCharCode("0x" + context.user.graphDisplaySettings.labels[key]),
-                            size: 50,
+                            size: Config.visjs.defaultIconSize,
                             color: context.nodeColors[key]
                         }
                     }
@@ -567,20 +569,36 @@ var visjsGraph = (function () {
                 else
                     fontSize = (Config.visjs.defaultTextSize / (scaleCoef * 1.3));
                 for (var key in self.nodes._data) {
-                    if (self.nodes._data[key].shape != "box") {
 
+                    if (typeof key == "string")
+                        key = parseInt(key);
+                    var shape = self.nodes._data[key].shape;
+                    if (!shape)
+                        shape = Config.visjs.defaultNodeShape;
+                    if (shape != "box") {
+                        var node;
                         if (scale > showNodesLabelMinScale) {
                             self.labelsVisible = true;
-                            nodes.push({
+                            node = {
                                 id: key,
                                 label: (self.nodes._data[key].ishidden ? null : self.nodes._data[key].hiddenLabel),
                                 size: size,
                                 font: {size: fontSize}
-                            });
+                            }
+
+
                         } else {
                             self.labelsVisible = false;
-                            nodes.push({id: key, label: null, size: size, font: {size: fontSize}});
+                            node = {id: key, label: null, size: size, font: {size: fontSize}};
                         }
+                        if (false && self.network.groups.groups) {
+                            for (var key in self.network.groups.groups){
+                                var iconSize=(Config.visjs.defaultIconSize/scaleCoef)*5
+                                self.network.groups.groups[key].icon.size=iconSize;
+                            }
+                            node.icon = {size: size};
+                        }
+                        nodes.push(node);
                     }
                 }
                 self.nodes.update(nodes);

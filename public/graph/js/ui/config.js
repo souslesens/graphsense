@@ -52,7 +52,8 @@ var Config = {
         },
     }
     ,
-    plugins: [],
+
+    plugins: {paragraphEntitiesGraph:true},
     displayVersion: "1_googleLike",
     user: "anonymous",
 
@@ -60,6 +61,7 @@ var Config = {
     //Graph display defaults***************************
     visjs: {
         defaultNodeSize: 10,
+        defaultIconSize:30,
         defaultTextSize: 18,
         defaultNodeColor:"#ccc",
         defaultNodeShape: "box",

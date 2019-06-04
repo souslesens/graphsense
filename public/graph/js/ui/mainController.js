@@ -45,6 +45,9 @@ var MainController = (function () {
             UI_query.newQuery();
             Tree.iniTrees();
 
+            if (Config.plugins.paragraphEntitiesGraph)
+                MainController.openAccordion("searchSubMenu");
+
             // fin reinitialisation
             UI_graph.showSchema(context.subGraph);
             Cache.cacheGraphSchema();
