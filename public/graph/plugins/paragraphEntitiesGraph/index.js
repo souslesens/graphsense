@@ -47,7 +47,12 @@ var ParagraphEntitiesGraph = (function () {
                 return;
             }
             else if (countCards == 2) {
-                self.getPathBetweenTwoEntities(cardKeys, self.processResult);
+                self.getPathBetweenTwoEntities(cardKeys, function (err, result) {
+                    if (err)
+                        return console.log(err);
+
+                    self.processResult(result);
+                });
             }
             else {
                 var combinationResults = {}
@@ -55,8 +60,10 @@ var ParagraphEntitiesGraph = (function () {
 
                 async.eachSeries(combinations, function (combination, callbackEach) {
                         self.getPathBetweenTwoEntities(combination, function (err, result) {
-                            if (result.length > 0)
-                                combinationResults[combination.toString()] = result;
+                            if (result.length > 0) {
+                                var key = JSON.stringify(combination)
+                                combinationResults[key] = result;
+                            }
                             return callbackEach(err);
                         });
 
@@ -69,27 +76,105 @@ var ParagraphEntitiesGraph = (function () {
                             return alert("no result");
 
                         var intersectionResults = [];
-                        var allParagraphs=[];
-                        var index=0;
+                        var allParagraphs = {};
+
+                        var index = 0;
                         for (var key in combinationResults) {
-                            index+=1;
+                            index += 1;
                             var result = combinationResults[key];
-                            if(index==1){
-                                intersectionResults=intersectionResults.concat(result);
-                            else{}
                             result.forEach(function (line) {
                                 line.nodes.forEach(function (node) {
-                                    if(node.labels[0]=="Paragraph"){
-                                        x=1;
-                                    }
+                                    if (node.labels[0] == "Paragraph") {
+                                        if (!allParagraphs[node._id]) {
+                                            allParagraphs[node._id] = {node: node, combinationKeys: [], freq: 1};
 
+                                            if (allParagraphs[node._id].combinationKeys.indexOf(key) < 0) {
+
+                                                allParagraphs[node._id].freq += 1;
+                                                allParagraphs[node._id].combinationKeys.push(key);
+                                            }
+
+                                        }
+
+                                    }
                                 })
                             })
+                        }
+// identification des noeuds ayant toutes les combinaisons
+
+                        var matchingParagraphs = [];
+                        for (var key in allParagraphs) {
+                            var pathsArray = allParagraphs[key].combinationKeys;
+                            if (allParagraphs[key].combinationKeys.length >= combinations.length) {
+
+                                var parag = allParagraphs[key];
+                                var node = parag["node"];
+                                matchingParagraphs.push(node._id);
+                                console.log(JSON.stringify(node, null, 2))
+                            }
+
 
                         }
 
 
+                        // selection des chemins qui passent par les matching nodes;
+                        var matchingPaths = []
+                        for (var key in combinationResults) {
+
+                            combinationResults[key].forEach(function (path) {
+
+                                path.nodes.forEach(function (node) {
+
+
+                                    if (matchingParagraphs.indexOf(node._id) > -1) {
+                                        matchingPaths.push(path)
+                                    }
+
+
+                                })
+
+
+                            })
+                        }
+                        self.processResult(matchingPaths);
+
+
+                        /*  if(!Array.isArray(pathsArray))
+                              var xx=1
+                          if (pathsArray.forEach) {
+                              pathsArray.forEach(function (path) {
+                                  if (allParagraphs[key].combinationKeys.length >= combinations.length) {
+                                      matchingPaths.exact.push(combinationResults[path]);
+                                  }
+                                  else if (allParagraphs[key].combinationKeys.length > 1) {
+                                      matchingPaths.exact.push(combinationResults[path]);
+                                  }
+
+                              })
+                          }*/
+
+
+                        /*   var entitiesArray=[];
+                           for( var key in self.cardsMap){
+                               entitiesArray=entitiesArray.concat(self.cardsMap[key].nodeSetIds)
+                           }
+                           var matchingParagraphsArray=[];
+                           matchingParagraphs.exact.forEach(function(line){
+
+                               matchingParagraphsArray.push(line._id);
+                           })
+
+
+                           var cypher = "MATCH   path=(n)-[:hasEntity]->(x) where ID(n) in ["+matchingParagraphsArray.toString()+"] and x in ["+entitiesArray.toString()+"]";
+                           cypher += " return nodes(path) as nodes, relationships(path) as relations";
+                           Cypher.executeCypher(cypher, function(err, result){
+
+                               var xx=result;
+                           })*/
+
+
                     })
+
 
             }
         }
