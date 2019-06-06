@@ -29,14 +29,23 @@ var ParagraphEntitiesGraph = (function () {
 
             var nodesStr = "";
             for (var key in self.cardsMap) {
-                nodesStr += self.cardsMap[key].nodeSetTexts.toString() + "<br>"
+                nodesStr += "<div id='ParagraphEntitiesGraph-key_" + key + "'>" +
+                    self.cardsMap[key].nodeSetTexts.toString() +
+                    "<button onclick=ParagraphEntitiesGraph.removeEntityFromCards('" + key + "')>X</button></div>"
             }
             $("#plugin-paragraphEntitiesGraph-nodes").html(nodesStr)
             $("#plugin-paragraphEntitiesGraphExec").removeClass("d-none");
         }
 
 
-        self.executeQuery = function () {
+        self.removeEntityFromCards = function (key) {
+            delete self.cardsMap[key];
+            var x = $("#ParagraphEntitiesGraph-key_" + key);
+            $("#ParagraphEntitiesGraph-key_" + key).remove();
+
+        }
+
+        self.executeQuery = function (output) {
 
 
             var cardKeys = Object.keys(self.cardsMap);
@@ -46,12 +55,12 @@ var ParagraphEntitiesGraph = (function () {
             if (countCards <= 1) {
                 return;
             }
-            else if (countCards == 2) {
+            else if (false && countCards == 2) {
                 self.getPathBetweenTwoEntities(cardKeys, function (err, result) {
                     if (err)
                         return console.log(err);
 
-                    self.processResult(result);
+                    self.processResult(result, output);
                 });
             }
             else {
@@ -87,14 +96,18 @@ var ParagraphEntitiesGraph = (function () {
                                     if (node.labels[0] == "Paragraph") {
                                         if (!allParagraphs[node._id]) {
                                             allParagraphs[node._id] = {node: node, combinationKeys: [], freq: 1};
-
-                                            if (allParagraphs[node._id].combinationKeys.indexOf(key) < 0) {
-
-                                                allParagraphs[node._id].freq += 1;
-                                                allParagraphs[node._id].combinationKeys.push(key);
-                                            }
-
                                         }
+
+                                        if (allParagraphs[node._id].combinationKeys.length > 0)
+                                            var x = 0
+                                        if (allParagraphs[node._id].combinationKeys.length > 1)
+                                            var x = 0
+                                        if (allParagraphs[node._id].combinationKeys.indexOf(key) < 0) {
+
+                                            allParagraphs[node._id].freq += 1;
+                                            allParagraphs[node._id].combinationKeys.push(key);
+                                        }
+
 
                                     }
                                 })
@@ -110,7 +123,7 @@ var ParagraphEntitiesGraph = (function () {
                                 var parag = allParagraphs[key];
                                 var node = parag["node"];
                                 matchingParagraphs.push(node._id);
-                                console.log(JSON.stringify(node, null, 2))
+                             //   console.log(JSON.stringify(node, null, 2))
                             }
 
 
@@ -136,7 +149,8 @@ var ParagraphEntitiesGraph = (function () {
 
                             })
                         }
-                        self.processResult(matchingPaths);
+                        matchingPaths= self.filterText(matchingPaths);
+                        self.processResult(matchingPaths, output);
 
 
                         /*  if(!Array.isArray(pathsArray))
@@ -181,7 +195,7 @@ var ParagraphEntitiesGraph = (function () {
 
 
         self.getPathBetweenTwoEntities = function (keys, callback) {
-            var distance = 3;
+            var distance = 1;
             distance = $("#plugin-paragraphEntitiesGraph-distance").val();
             distance = parseInt(distance);
             var where = "";
@@ -204,8 +218,11 @@ var ParagraphEntitiesGraph = (function () {
 
                 withStr += "x" + index + ",";
 
-                if (index == 1)
-                    cypher += "MATCH   path=(x" + index + ")-[:hasEntity|:precede*1.." + distance + "]-(x" + (index + 1) + ")";
+                if (index == 1) {
+                    //  cypher += "MATCH   path=(x" + index + ")-[:hasEntity|:precede*1.." + distance + "]-(x" + (index + 1) + ")";
+
+                    cypher += "MATCH   path=(x" + index + ")<-[:hasEntity]-(p1)-[:precede*0.." + distance + "]-(p2)-[:hasEntity]->(x" + (index + 1) + ")";
+                }
             })
             cypher += where + " return nodes(path) as nodes, relationships(path) as relations";
 
@@ -220,10 +237,36 @@ var ParagraphEntitiesGraph = (function () {
 
         }
 
+        self.filterText = function (result) {
 
-        self.processResult = function (result) {
+            var textFilter = $("#plugin-paragraphEntitiesGraph-textContains").val();
+            if (!textFilter || textFilter == "")
+                return result;
 
-            self.drawGraph(result);
+            var regex = new RegExp(".*" + textFilter + ".*", "gi");
+            var filteredPaths = [];
+            result.forEach(function (path) {
+                var ok = false;
+                path.nodes.forEach(function (node, index) {
+
+                    if (node.labels[0] != "Paragraph") {
+                        return;
+                    }
+                    ok = regex.test(node.properties.ParagraphText)
+                })
+                if (ok) {
+                    filteredPaths.push(path);
+                }
+            })
+            return filteredPaths;
+        }
+
+
+        self.processResult = function (result, output) {
+            if (output == 'graph')
+                self.drawGraph(result);
+            else if (output == 'text')
+                self.displayParagraphText(result)
         }
 
         self.drawGraph = function (result0) {
@@ -246,42 +289,42 @@ var ParagraphEntitiesGraph = (function () {
                 result.nodes.forEach(function (node) {
                     if (mArrayIds.indexOf(node._id) < 0) {
                         mArrayIds.push(node._id)
-                        if (!visjsNodes[node._id]) {
+                        // if (!visjsNodes[node._id]) {
 
-                            if (newNodeIds.indexOf(node._id) < 0) {
-                                newNodeIds.push(node._id);
+                        if (newNodeIds.indexOf(node._id) < 0) {
+                            newNodeIds.push(node._id);
 
-                                var visjsNode = visJsDataProcessor.getVisjsNodeFromNeoNode(node, false);
-                                newNodes.push(visjsNode);
-                            }
+                            var visjsNode = visJsDataProcessor.getVisjsNodeFromNeoNode(node, false);
+                            newNodes.push(visjsNode);
                         }
+                        // }
                         var label = node.labels[0]
                         if (visjsLegendLabels.indexOf(label) < 0)
                             visjsLegendLabels.push(label);
                     }
                 })
 
-                for (var key in visjsEdges) {
+                /*  for (var key in visjsEdges) {
 
-                    var edge = visjsEdges[key];
-                    edgeHashes.push(edge.from * edge.to)
-                }
+                      var edge = visjsEdges[key];
+                      edgeHashes.push(edge.from * edge.to)
+                  }*/
 
 
                 result.relations.forEach(function (rel) {
                     var from = rel._fromId;
                     var to = rel._toId;
 
-                    if (edgeHashes.indexOf(from * to) < 0) {
-                        edgeHashes.push(from * to)
-                        var relId = rel._id
-                        var relType = rel._type;
-                        var relProps = rel.properties;
+                    //  if (edgeHashes.indexOf(from * to) < 0) {
+                    edgeHashes.push(from * to)
+                    var relId = rel._id
+                    var relType = rel._type;
+                    var relProps = rel.properties;
 
 
-                        var visjsEdge = visJsDataProcessor.getVisjsRelFromNeoRel(from, to, relId, relType, relProps);
-                        newEdges.push(visjsEdge);
-                    }
+                    var visjsEdge = visJsDataProcessor.getVisjsRelFromNeoRel(from, to, relId, relType, relProps);
+                    newEdges.push(visjsEdge);
+                    // }
 
 
                 })
@@ -337,45 +380,60 @@ var ParagraphEntitiesGraph = (function () {
 
             var html = "";
             var title = "";
-            var contents = [];
-            result.forEach(function (line, index) {
-                var content = [];
+            /*    var contents = [];
+                result.forEach(function (line, index) {
+                    var content = [];
 
-                for (var key in line) {
-                    if (key.indexOf("x") > -1 && index == 0) {
-                        title += line[key].labels[0] + " : " + line[key].properties.name + "<br>";
-                    }
-                    else if (key.indexOf("p") > -1) {
+                  line.nodes.forEach(function(node) {
+                      var label=node.labels[0];
+                        if (label!="Paragraph" && index == 0) {
+                            title += label+ " : " + node.properties.name + "<br>";
+                        }
+                        else  {
 
-                        content.push(line[key].properties)
+                            content.push(node.properties)
 
-                    }
+                        }
 
-                }
+                    })
 
-                content.sort(function (a, b) {
-                    if (a.index > b.TextOffset)
+                    content.sort(function (a, b) {
+                        if (a.TextOffset > b.TextOffset)
+                            return 1;
+                        if (a.TextOffset < b.TextOffset)
+                            return -1;
+                        return 0;
+                    })
+                    contents.push(content);
+
+
+                })*/
+
+
+            result.forEach(function (path) {
+                html += "<div class='paragraphGroup'>";
+
+                path.nodes.sort(function (a, b) {
+                    if (a.properties.TextOffset > b.properties.TextOffset)
                         return 1;
-                    if (a.index < b.TextOffset)
+                    if (a.properties.TextOffset < b.properties.TextOffset)
                         return -1;
                     return 0;
                 })
-                contents.push(content);
+                var pathStr = "";
+                path.nodes.forEach(function (node, index) {
 
+                    if (node.labels[0] != "Paragraph") {
+                        return;
+                    }
+                    var node = node.properties;
 
-            })
+                    if (pathStr == "")
+                        pathStr += "<b>" + node.Document + "  " + node.ChapterTitle1 + "</b><br>"
 
-
-            contents.forEach(function (content) {
-                html += "<div class='paragraphGroup'>";
-
-                content.forEach(function (line, index) {
-                    if (index == 0)
-                        html += "<b>" + line.Document + "  " + line.ChapterTitle1 + "</b><br>"
-
-                    html += "<b>" + line.TextOffset + "</b>&nbsp;" + line.ParagraphText + "<br>";
+                    pathStr += "<b>" + node.TextOffset + "</b>&nbsp;" + node.ParagraphText + "<br>";
                 })
-                html += "</div>"
+                html += pathStr + "</div>"
             })
 
             html = title + "<br>" + html;

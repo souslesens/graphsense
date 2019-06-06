@@ -265,6 +265,7 @@ var GraphController = (function () {
             var graphData= context.user.savedGraphs[name].graphData;
             graphData=JSON.parse(atob(graphData));
             visjsGraph.importGraph(graphData);
+            $("#navbar_graph_Graph_ul").removeClass("d-none");
         }
 
 

@@ -121,7 +121,7 @@ var importDataIntoNeo4j = {
                                     data.push(obj);
                                 })
                             } else {
-                                data = params.data.data;
+                               data = params.data.data;
                             }
 
 
@@ -962,7 +962,15 @@ var importDataIntoNeo4j = {
     setNodeSourceFieldsToExport: function (params) {
         var exportedFields = params.exportedFields;
         var fields = [];
-        if (!exportedFields || exportedFields == "all")
+        if (!exportedFields){
+            var fields={}
+            fields[params.colName]=1;
+            fields[params.colId]=1;
+            return fields
+        }
+
+
+         else if( exportedFields == "all")
             return null;// on exporte tous les champs source
 
 

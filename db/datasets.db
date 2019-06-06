@@ -1160,6 +1160,29 @@
           "Vibration"
         ]
       }
+    },
+    "graphNlpQuestions": {
+      "export_mec_question#Sheet1": {
+        "datasetCollectionName": "graphNlpQuestions",
+        "name": "export_mec_question#Sheet1",
+        "header": [
+          "ID",
+          "Doc",
+          "Question",
+          "Expected Answer",
+          "Paragraph",
+          "Question_Type",
+          "Type_de_contenu_reponse",
+          "Resultat",
+          "Question_Stop_Words",
+          "Question_Other_Words",
+          "Equipment",
+          "Component",
+          "Phenomenon",
+          "Characterisation",
+          "Method"
+        ]
+      }
     }
   }
 }

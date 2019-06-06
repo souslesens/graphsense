@@ -48,7 +48,7 @@ var GraphSimpleQuery = (function () {
         self.currentLabel = label;
         context.queryObject = {label: label};
 
-
+        $("#simpleQuery_erase").removeClass("d-none")
         var checked = $(input).prop("checked");
         if (checked) {
             // *****************gestion des labels associés****************************
@@ -149,7 +149,7 @@ var GraphSimpleQuery = (function () {
 
 
     self.onLabelSelect = function (obj) {
-
+        $("#simpleQuery_erase").removeClass("d-none")
         var label = obj.node.id;
         var previousLabel = self.currentLabel;
         self.currentLabel = label;

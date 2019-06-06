@@ -706,6 +706,9 @@
           "colId": "ID",
           "exportedFields": [
             "ChapterTitle1",
+            "ChapterTitle2",
+            "ChapterTitle3",
+            "Document",
             "ParagraphText",
             "StyleParagraph",
             "TextOffset"
@@ -790,6 +793,17 @@
           "label": "Vibration",
           "source": "export_doc_chapter_neo#Sheet1",
           "name": "Vibration",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "graphNlp"
+        },
+        "Method": {
+          "colName": "Method",
+          "colId": "Method",
+          "exportedFields": null,
+          "label": "Method",
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Method",
           "distinctValues": "on",
           "type": "node",
           "mappingset": "graphNlp"
@@ -898,6 +912,89 @@
           "neoToId": "Vibration",
           "relationType": "hasEntity",
           "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Paragraph-hasEntity->Method": {
+          "source": "export_doc_chapter_neo#Sheet1",
+          "name": "Paragraph-hasEntity->Method",
+          "colFromId": "ID",
+          "neoFromLabel": "Paragraph",
+          "neoFromId": "ID",
+          "colToId": "Method",
+          "neoToLabel": "Method",
+          "neoToId": "Method",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        }
+      }
+    },
+    "graphNlpQuestions": {
+      "nodes": {
+        "Question": {
+          "colName": "Question",
+          "colId": "ID",
+          "exportedFields": [
+            "Expected Answer",
+            "Question_Type",
+            "Resultat",
+            "Type_de_contenu_reponse"
+          ],
+          "label": "Question",
+          "source": "export_mec_question#Sheet1",
+          "name": "Question",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "graphNlpQuestions"
+        },
+        "Characterisation": {
+          "colName": "Characterisation",
+          "colId": "Characterisation",
+          "exportedFields": null,
+          "label": "Characterisation",
+          "source": "export_mec_question#Sheet1",
+          "name": "Characterisation",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "graphNlpQuestions"
+        },
+        "Words": {
+          "colName": "Question_Other_Words",
+          "colId": "Question_Other_Words",
+          "exportedFields": null,
+          "label": "Words",
+          "source": "export_mec_question#Sheet1",
+          "name": "Words",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "graphNlpQuestions"
+        }
+      },
+      "relations": {
+        "Question-hasWord->Words": {
+          "source": "export_mec_question#Sheet1",
+          "name": "Question-hasWord->Words",
+          "colFromId": "ID",
+          "neoFromLabel": "Question",
+          "neoFromId": "ID",
+          "colToId": "Question_Other_Words",
+          "neoToLabel": "Words",
+          "neoToId": "Question_Other_Words",
+          "relationType": "hasWord",
+          "mappingset": "graphNlpQuestions",
+          "type": "relation"
+        },
+        "Question-hasEntity->Characterisation": {
+          "source": "export_mec_question#Sheet1",
+          "name": "Question-hasEntity->Characterisation",
+          "colFromId": "ID",
+          "neoFromLabel": "Question",
+          "neoFromId": "ID",
+          "colToId": "Characterisation",
+          "neoToLabel": "Characterisation",
+          "neoToId": "Characterisation",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlpQuestions",
           "type": "relation"
         }
       }

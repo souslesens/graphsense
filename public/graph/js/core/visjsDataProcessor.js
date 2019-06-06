@@ -87,7 +87,7 @@ var visJsDataProcessor = (function () {
 
             var labels = nodeNeo.labels;
 
-            var labelVisjs = nodeNeoProps[Config.defaultNodeNameProperty];
+            var labelVisjs = ""+nodeNeoProps[Config.defaultNodeNameProperty];
             if (labelVisjs && labelVisjs.length > Config.nodeMaxTextLength)
                 labelVisjs = labelVisjs.substring(0, Config.nodeMaxTextLength) + "...";
 
