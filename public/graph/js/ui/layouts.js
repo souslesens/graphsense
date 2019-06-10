@@ -41,11 +41,11 @@ var Layouts=(function(){
 
     }
 
-    self.formatNodeRelationsInfo = function (dataSet, options) {
+    self.formatNodeRelationsInfo = function (dataset, options) {
         //var str = "<ul>";
         var str = "<table class='table table-bordered'><thead><tr><th scope='col'>Relation Name</th><th scope='col'>Direction</th><th scope='col'>Node Label</th><th scope='col'>Node Name</th></tr></thead><tbody>";
 
-        dataSet.forEach(function(relation){
+        dataset.forEach(function(relation){
             var relStr;
 
             var relationType  = relation.r.type;
@@ -70,11 +70,11 @@ var Layouts=(function(){
     }
 
 
-    self.formatNodeNeighboursInfo = function (dataSet,options) {
+    self.formatNodeNeighboursInfo = function (dataset,options) {
         //var str = "<ul>";
         var str = "<table class='table table-bordered'><thead><tr><th scope='col'>Node Label</th><th scope='col'>Node Value</th></tr></thead><tbody>";
 
-        dataSet.forEach(function(relation){
+        dataset.forEach(function(relation){
             var nodeType;
             var nodeValue;
             var targetNode;

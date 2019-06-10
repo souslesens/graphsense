@@ -43,7 +43,8 @@ var GraphSimpleQuery = (function () {
 
     self.onSwitchLabelsChange = function (input) {
         var inputId = $(input).attr("id");
-        var label = inputId.substring(inputId.lastIndexOf("_") + 1);
+
+        var label = inputId.substring("simpleQuery_switch_".length );
         var previousLabel = self.currentLabel;
         self.currentLabel = label;
         context.queryObject = {label: label};

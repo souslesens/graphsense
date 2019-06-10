@@ -236,7 +236,12 @@ var jsonDBStorage = {
         return value;
 
     },
-
+    removeDataset: function (datasetCollectionName,datasetName, callback) {
+        var xx= jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).value();
+        var yy= jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).get(datasetName).value();
+        jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).get(datasetName).remove().write()
+        return callback(null, "done")
+    },
 /*****************************************Mappings**************************************/
     writeMapping: function (mappingsetName, json, callback) {
         var db = jsonDBStorage.getMappingDb().get('mappings');
@@ -313,10 +318,7 @@ var jsonDBStorage = {
         return callback(null, keys)
     },
 
-    removeDataSet: function (datasetCollectionName,datasetName, callback) {
-        jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).get(datasetName).remove().write()
-        return callback(null, "done")
-    },
+
     removeMapping: function (mappingsetName,type, mappingName, callback) {
         var xx=jsonDBStorage.getMappingDb().get('mappings').get(mappingsetName).get(type).get(mappingName).value()
         jsonDBStorage.getMappingDb().get('mappings').get(mappingsetName).get(type).get(mappingName).remove().write()

@@ -51,14 +51,16 @@ var datasets = (function () {
     }
     self.removeDataset = function (datasetName) {
         var payload = {
-            removeDataSet: datasetName
+            removeDataset: 1,
+            datasetName:datasetName,
+            datasetCollectionName:context.currentmappingset
         }
         MainController.callServer(MainController.jsonDBStoragePath, payload, function (err, result) {
-            if (err) ;
+            if (err)
+              return   console.log(err);
 
-            var index = context.datasets.indexOf(datasetName);
-            context.datasets.splice(index, 1);
-            UI.setDatasets(context.datasets);
+           delete  context.datasets[datasetName];
+            UI.setDatasets(Object.keys(context.datasets));
 
 
         })

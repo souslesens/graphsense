@@ -12,6 +12,17 @@ var MainController = (function () {
 
     }
 
+
+    self.checkUploadDatasetForm=function(){
+
+        var datasetName=$("#upload_datasetCollectionName").val();
+        if(!datasetName || datasetName=="") {
+            alert("Dataset  Name is mandatory")
+            return false;
+        }
+        document.forms['uploadXlsxForm'].submit()
+        return true;
+    }
     self.showSpinner = function (state) {
         if (state === false)
             $("#waitSpinnerDiv").addClass("d-none")

@@ -284,13 +284,14 @@
 
                     <div class="modal-body">
                         <div class="custom-file">
-                            <form name="uploadXlsxForm" enctype="multipart/form-data" action="/loadRemoteFileForNeo" method="post" target="votar">
+                            <form name="uploadXlsxForm"   enctype="multipart/form-data" action="/loadRemoteFileForNeo" method="post" target="votar">
                                 <!--  <label for="file-input">select file( .csv or .xls) :</label>-->
                                 <input type="file" accept=".xlsx, .csv" name="file" id="file-input" class='btn-secondary' value="select file( .csv or .xls)"/>&nbsp;&nbsp;
-                                <label>Dataset Collection</label>
-                                <input class="form-control" name="datasetCollectionName"/>
-
-                                <button type="button" class="btn btn-primary" onclick="document.forms['uploadXlsxForm'].submit()"> import</button>
+                                <div class="form-row">
+                                    <label>Dataset Collection</label>
+                                <input class="form-control" id="upload_datasetCollectionName" name="datasetCollectionName"/>
+                                <button type="button" class="btn btn-primary" onclick=" MainController.checkUploadDatasetForm()"> import</button>
+                                </div>
 
                             </form>
                             <!--  <input type="file" class="custom-file-input" id="customFile">

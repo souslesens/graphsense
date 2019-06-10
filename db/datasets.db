@@ -1133,6 +1133,30 @@
           "Time",
           "Temperature"
         ]
+      },
+      "export_mec_question (1)#Sheet1": {
+        "datasetCollectionName": "",
+        "name": "export_mec_question (1)#Sheet1",
+        "header": [
+          "Doc",
+          "Question",
+          "Expected Answer",
+          "Paragraph",
+          "Question Type",
+          "Type de contenu réponse",
+          "Résultat",
+          "NLP_Question",
+          "Question_Other_Words",
+          "Question_Noun",
+          "Question_Verb",
+          "Equipment",
+          "Component",
+          "Phenomenon",
+          "Characterisation",
+          "Method",
+          "Question_Noun_Wordnet",
+          "Question_Verb_Wordnet"
+        ]
       }
     },
     "graphNlp": {
@@ -1159,28 +1183,55 @@
           "Temperature",
           "Vibration"
         ]
+      },
+      "thesaurus#Feuil1": {
+        "datasetCollectionName": "graphNlp",
+        "name": "thesaurus#Feuil1",
+        "header": [
+          "id",
+          "concept",
+          "synonyms",
+          "parent",
+          "ancestors"
+        ]
       }
     },
     "graphNlpQuestions": {
-      "export_mec_question#Sheet1": {
+      "export_mec_question (1)#Sheet1": {
         "datasetCollectionName": "graphNlpQuestions",
-        "name": "export_mec_question#Sheet1",
+        "name": "export_mec_question (1)#Sheet1",
         "header": [
           "ID",
           "Doc",
           "Question",
-          "Expected Answer",
+          "Expected_Answer",
           "Paragraph",
           "Question_Type",
-          "Type_de_contenu_reponse",
+          "Type_reponse",
           "Resultat",
-          "Question_Stop_Words",
+          "NLP_Question",
           "Question_Other_Words",
+          "Question_Noun",
+          "Question_Verb",
           "Equipment",
           "Component",
           "Phenomenon",
           "Characterisation",
-          "Method"
+          "Method",
+          "Question_Noun_Wordnet",
+          "Question_Verb_Wordnet"
+        ]
+      }
+    },
+    "thesaurusTotal": {
+      "thesaurus#Feuil1": {
+        "datasetCollectionName": "thesaurusTotal",
+        "name": "thesaurus#Feuil1",
+        "header": [
+          "concept",
+          "synonyms",
+          "parent",
+          "ancestors"
         ]
       }
     }

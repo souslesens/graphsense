@@ -39,7 +39,12 @@
 
             var collection = $("#dataset_CollectionSelect").val();
             if (!collection || collection == "")
-                message += "la collection est oligatoire<br>"
+                message += "la collection est oligatoire<br>";
+            var replaceSubGraph=$("#replaceSubGraphCbx").prop("checked");
+            if(replaceSubGraphCbx) {
+                if (!confirm("Replace existing subGraph (if any) ?"))
+                    message = "cancel import";
+            }
 
             if (message != "") {
                 $("#message").html(message);

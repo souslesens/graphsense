@@ -1,6 +1,6 @@
 var async = require("async")
-var neoProxy=require("../neoProxy.js")
-
+var neoProxy = require("../neoProxy.js");
+var httpProxy = require("../httpProxy.js");
 var ParagraphEntitiesGraph = {
 
     cardsMap: {}
@@ -13,7 +13,7 @@ var ParagraphEntitiesGraph = {
      * match(n:Paragraph)-->(:Document)<--(m:Paragraph) where n.subGraph="entitiesGraph2"  and m.subGraph="entitiesGraph2"  and m.TextOffset-n.TextOffset=1 create (n)-[:precede]->(m)
      *
      *
-     *
+     *match(n:ThesaurusConcept)-[:instanceOf]-(m)--(p:Paragraph)  create (p)-[:hasConcept]->(n)
      *
      */
 
@@ -37,7 +37,13 @@ var ParagraphEntitiesGraph = {
 
     },
 
-    executeQuery: function (output) {
+    executeQuery: function (options, callbackOuter) {
+        var cardsMap = options.cards;
+        var distance = options.distance;
+        var paragraphIds = options.paragraphIds
+
+        if (cardsMap)
+            ParagraphEntitiesGraph.cardsMap = cardsMap;
 
         var cardKeys = Object.keys(ParagraphEntitiesGraph.cardsMap);
         var countCards = cardKeys.length;
@@ -46,115 +52,172 @@ var ParagraphEntitiesGraph = {
         if (countCards <= 1) {
             return;
         }
-        else if (false && countCards == 2) {
-            ParagraphEntitiesGraph.getPathBetweenTwoEntities(cardKeys, function (err, result) {
-                if (err)
-                    return console.log(err);
 
-                ParagraphEntitiesGraph.processResult(result, output);
-            });
-        }
         else {
-            var combinationResults = {}
-            var combinations = ParagraphEntitiesGraph.combination(cardKeys, 2)// combinaisons deux à deux des keys de cards
+            var combinationResults = {};
+            var matchCount = 0
+            var combinations2 = ParagraphEntitiesGraph.combination(cardKeys, 2)// combinaisons deux à deux des keys de cards
+            var combinations1 = ParagraphEntitiesGraph.combination(cardKeys, 1);
 
-            async.eachSeries(combinations, function (combination, callbackEach) {
-                    ParagraphEntitiesGraph.getPathBetweenTwoEntities(combination, function (err, result) {
-                        if (result.length > 0) {
-                            var key = JSON.stringify(combination)
-                            combinationResults[key] = result;
-                        }
-                        return callbackEach(err);
-                    });
+
+            async.series([
+                function (callback) {//combinasons 2à 2
+                    async.eachSeries(combinations2, function (combination, callbackEach) {
+                            ParagraphEntitiesGraph.getPathBetweenTwoEntities(combination, distance, paragraphIds, function (err, result) {
+                                if (result.length > 0) {
+                                    var key = JSON.stringify(combination)
+                                    combinationResults[key] = result;
+                                    matchCount += result.length;
+
+                                }
+                                return callbackEach(err);
+                            });
+
+                        },
+
+                        function (err) {
+
+                            callback(err);
+
+                            // ParagraphEntitiesGraph.processResult(matchingPaths, output);
+
+
+                        })
 
                 },
-
-                function (err) {
-                    if (err)
-                        return console.log(err);
-                    if (Object.keys(combinationResults) == 0)
-                        return alert("no result");
-
-                    var intersectionResults = [];
-                    var allParagraphs = {};
-
-                    var index = 0;
-                    for (var key in combinationResults) {
-                        index += 1;
-                        var result = combinationResults[key];
-                        result.forEach(function (line) {
-                            line.nodes.forEach(function (node) {
-                                if (node.labels[0] == "Paragraph") {
-                                    if (!allParagraphs[node._id]) {
-                                        allParagraphs[node._id] = {node: node, combinationKeys: [], freq: 1};
-                                    }
-
-                                    if (allParagraphs[node._id].combinationKeys.length > 0)
-                                        var x = 0
-                                    if (allParagraphs[node._id].combinationKeys.length > 1)
-                                        var x = 0
-                                    if (allParagraphs[node._id].combinationKeys.indexOf(key) < 0) {
-
-                                        allParagraphs[node._id].freq += 1;
-                                        allParagraphs[node._id].combinationKeys.push(key);
-                                    }
-
+                function (callback) {//chaque entité séparéee si combinaison 2 à 2 echoue
+                    if (matchCount > 0)
+                        return callback()
+                    async.eachSeries(combinations1, function (combination, callbackEach) {
+                            ParagraphEntitiesGraph.getPathBetweenTwoEntities(combination, 1, paragraphIds, function (err, result) {
+                                if (result.length > 0) {
+                                    var key = JSON.stringify(combination)
+                                    combinationResults[key] = result;
 
                                 }
-                            })
-                        })
-                    }
-// identification des noeuds ayant toutes les combinaisons
+                                return callbackEach(err);
+                            });
 
-                    var matchingParagraphs = [];
-                    for (var key in allParagraphs) {
-                        var pathsArray = allParagraphs[key].combinationKeys;
-                        if (allParagraphs[key].combinationKeys.length >= combinations.length) {
+                        },
 
-                            var parag = allParagraphs[key];
-                            var node = parag["node"];
-                            matchingParagraphs.push(node._id);
-                            //   console.log(JSON.stringify(node, null, 2))
-                        }
+                        function (err) {
 
+                            callback(err);
 
-                    }
-
-
-                    // selection des chemins qui passent par les matching nodes;
-                    var matchingPaths = []
-                    for (var key in combinationResults) {
-
-                        combinationResults[key].forEach(function (path) {
-
-                            path.nodes.forEach(function (node) {
-
-
-                                if (matchingParagraphs.indexOf(node._id) > -1) {
-                                    matchingPaths.push(path)
-                                }
-
-
-                            })
+                            // ParagraphEntitiesGraph.processResult(matchingPaths, output);
 
 
                         })
+
+                }
+            ], function (err) {
+
+                return   callbackOuter(err, combinationResults)
+
+              /*  var uniquePaths = [];
+               for( var key in combinationResults){
+                   var paths=combinationResults[key];
+
+                    var pathId="";
+                    path.nodes.forEach(function (node) {
+                        pathId += node.properties.ID;
+                    })
+                    if (uniquePaths.indexOf(pathId) < 0) {
+                        uniquePaths.push(pathId);
+
                     }
-                    matchingPaths = ParagraphEntitiesGraph.filterText(matchingPaths);
-                    ParagraphEntitiesGraph.processResult(matchingPaths, output);
+                }
 
 
-                })
+                callbackOuter(err, uniquePaths)*/
+            })
 
 
         }
     },
 
 
-    getPathBetweenTwoEntities: function (keys, callback) {
-        var distance = 1;
-        distance = $("#plugin-paragraphEntitiesGraph-distance").val();
-        distance = parseInt(distance);
+    processMatchResultOld: function () {
+        if (err)
+            return console.log(err);
+        if (Object.keys(combinationResults) == 0)
+            return alert("no result");
+
+        var intersectionResults = [];
+        var allParagraphs = {};
+
+        var index = 0;
+        for (var key in combinationResults) {
+            index += 1;
+            var result = combinationResults[key];
+            result.forEach(function (line) {
+                line.nodes.forEach(function (node) {
+                    if (node.labels[0] == "Paragraph") {
+                        if (!allParagraphs[node._id]) {
+                            allParagraphs[node._id] = {node: node, combinationKeys: [], freq: 1};
+                        }
+
+                        if (allParagraphs[node._id].combinationKeys.length > 0)
+                            var x = 0
+                        if (allParagraphs[node._id].combinationKeys.length > 1)
+                            var x = 0
+                        if (allParagraphs[node._id].combinationKeys.indexOf(key) < 0) {
+
+                            allParagraphs[node._id].freq += 1;
+                            allParagraphs[node._id].combinationKeys.push(key);
+                        }
+
+
+                    }
+                })
+            })
+        }
+// identification des noeuds ayant toutes les combinaisons
+
+        var matchingParagraphs = [];
+        for (var key in allParagraphs) {
+            var pathsArray = allParagraphs[key].combinationKeys;
+            if (allParagraphs[key].combinationKeys.length >= combinations.length) {
+
+                var parag = allParagraphs[key];
+                var node = parag["node"];
+                matchingParagraphs.push(node._id);
+                //   console.log(JSON.stringify(node, null, 2))
+            }
+
+
+        }
+
+
+        // selection des chemins qui passent par les matching nodes;
+        var matchingPaths = []
+        for (var key in combinationResults) {
+
+            combinationResults[key].forEach(function (path) {
+
+                path.nodes.forEach(function (node) {
+
+
+                    if (matchingParagraphs.indexOf(node._id) > -1) {
+                        matchingPaths.push(path)
+                    }
+
+
+                })
+
+
+            })
+        }
+        matchingPaths = ParagraphEntitiesGraph.filterText(matchingPaths);
+        callback(null, matchingPaths)
+
+    },
+
+
+    getPathBetweenTwoEntities: function (keys, distance, paragraphIds, callback) {
+
+        /*    distance = $("#plugin-paragraphEntitiesGraph-distance").val();
+            distance = parseInt(distance);*/
         var where = "";
         var cypher = "";
         var index = 0;
@@ -162,7 +225,7 @@ var ParagraphEntitiesGraph = {
         keys.forEach(function (key) {
 
             index++;
-            var where2 = buildPaths.getWhereClauseFromArray("_id", ParagraphEntitiesGraph.cardsMap[key].nodeSetIds, "x" + index);
+            var where2 = ParagraphEntitiesGraph.getWhereClauseFromArray("_id", ParagraphEntitiesGraph.cardsMap[key].nodeSetIds, "x" + index);
             if (where2 == null || where2 == "")
                 where2 = "";
             if (where.indexOf(ParagraphEntitiesGraph.cardsMap[key].nodeSetIds) < 0) {//doublons
@@ -177,13 +240,27 @@ var ParagraphEntitiesGraph = {
 
             if (index == 1) {
                 //  cypher += "MATCH   path=(x" + index + ")-[:hasEntity|:precede*1.." + distance + "]-(x" + (index + 1) + ")";
+            /*    if (distance > 1)
+                    cypher += "MATCH   path=(x" + index + ")<-[:hasEntity*0..1]-(p1)-[:precede*0.." + distance + "]-(p2)-[:hasEntity*0..1]->(x" + (index + 1) + ")";
+                else
+                    cypher += "MATCH   path=(x" + index + ")<-[:hasEntity*0..1]-(p1)-[:precede*0.." + distance + "]-(p2)"*/
 
-                cypher += "MATCH   path=(x" + index + ")<-[:hasEntity]-(p1)-[:precede*0.." + distance + "]-(p2)-[:hasEntity]->(x" + (index + 1) + ")";
+
+                if (distance > 1)
+                    cypher += "MATCH   path=(x" + index + ")<-[:instanceOf*0..1]-(c"+ index +":ThesaurusConcept  )<-[:hasConcept*0..1]-(p1)-[:precede*0.." + distance + "]-(p2)-[:hasConcept*0..1]->(c"+ (index+1) +":ThesaurusConcept)<-[:instanceOf*0..1]-(x" + (index + 1) + ")";
+                else
+                    cypher += "MATCH   path=(x" + index + ")<-[:instanceOf*0..1]-(c"+ index +":ThesaurusConcept  )<-[:hasConcept*0..1]-(p1)-[:precede*0.." + distance + "]-(p2)"
             }
         })
+
+        if (paragraphIds && paragraphIds.length > 0) {
+            var whereP1 = ParagraphEntitiesGraph.getWhereClauseFromArray("ID", paragraphIds, "p1");
+            var whereP2 = ParagraphEntitiesGraph.getWhereClauseFromArray("ID", paragraphIds, "p2");
+            where += " AND (" + whereP1 + " OR " + whereP2 + ")"
+        }
         cypher += where + " return nodes(path) as nodes, relationships(path) as relations";
 
-
+        console.log(cypher);
         ParagraphEntitiesGraph.executeCypher(cypher, function (err, result) {
             if (err)
                 return callback(err);
@@ -193,6 +270,31 @@ var ParagraphEntitiesGraph = {
 
 
     },
+    getWhereClauseFromArray: function (property, _array, nodeSymbol) {
+        var array;
+        if (!nodeSymbol)
+            nodeSymbol = "n";
+        if (typeof _array == "string")
+            array = _array.split(",");
+        else
+            array = _array;
+
+        var query = nodeSymbol + "." + property + " in ["
+        if (property == "_id")
+            query = "ID(" + nodeSymbol + ") in ["
+        var quote = "";
+        for (var i = 0; i < array.length; i++) {
+            if (i > 0 && i < array.length)
+                query += ","
+            else if ((property != "_id" && typeof array[i] === 'string'))
+                var quote = "\"";
+            query += quote + array[i] + quote;
+
+        }
+        query += "] ";
+        return query;
+    },
+
 
     filterText: function (result, textFilter) {
 
@@ -377,8 +479,8 @@ var ParagraphEntitiesGraph = {
         return result2;
     }
     ,
-    executeCypher(cypher,callback){
-        neoProxy.match(cypher,callback)
+    executeCypher(cypher, callback) {
+        neoProxy.match(cypher, callback)
 
 
     }
@@ -387,5 +489,4 @@ var ParagraphEntitiesGraph = {
 }
 
 
-
-module.exports=ParagraphEntitiesGraph;
+module.exports = ParagraphEntitiesGraph;
