@@ -231,7 +231,9 @@ var ParagraphEntitiesGraphQuestions = {
 
         var elasticUrl = "http://localhost:9200/paragraphs/_search"
         var query = {
+            "size": 100,
             "query": {
+
                 "bool": {
                     "must": [
                         {
@@ -244,6 +246,7 @@ var ParagraphEntitiesGraphQuestions = {
 
 
         }
+        console.log(JSON.stringify(query, null, 2))
 
         var matchingWordsParagraphs = []
         request({
@@ -310,7 +313,6 @@ var ParagraphEntitiesGraphQuestions = {
 
             })
         }
-
 
         //    console.log(score / path.nodes.length)
         return score;// / pathText.length;
@@ -470,7 +472,7 @@ var ParagraphEntitiesGraphQuestions = {
             strResponse += "<tr><td>score</td><td>" + path.score + "</td></tr> ";
 
             path.paragraphs.forEach(function (paragraph) {
-                strResponse += "<tr><td>"+paragraph.id+"</td><td>" + paragraph.text + "</td></tr> ";
+                strResponse += "<tr><td>" + paragraph.id + "</td><td>" + paragraph.text + "</td></tr> ";
             })
 
         })
@@ -483,6 +485,166 @@ var ParagraphEntitiesGraphQuestions = {
             "</table>"
 
         return strGlobal;
+    },
+
+
+    checkResponseInParagraphs: function () {
+
+
+        var questions = {};
+
+        async.series([
+
+                function (callback) {// take all paragraphs in question
+                    var payload = {
+                        "size": 500,
+                        "query": {
+                            "match_all": {}
+                        }
+                    }
+                    var elasticUrl = "http://localhost:9200/questions/_search"
+                    request({
+                            url: elasticUrl,
+                            json: payload,
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'}
+                        },
+                        function (err, res) {
+
+                            if (err)
+                                callback(err)
+                            else if (res.body && res.body.errors && res.body.errors.length > 0) {
+                                console.log(JSON.stringify(res.body.errors))
+                                callback(res.body.errors)
+                            }
+                            else {
+                                if (res.body.hits.hits.length > 0) {
+                                    var xx = res.body
+                                    res.body.hits.hits.forEach(function (hit) {
+
+                                        questions[hit._source.iD] = {data: hit._source};
+
+                                    })
+                                    callback()
+                                }
+                            }
+
+
+                        })
+                }
+                ,
+                function (callback) {//look response exact match
+
+
+                    async.eachSeries(Object.keys(questions), function (questionId, callbackEach) {
+                            var question = questions[questionId]
+                            var expectedAnswer = question.data.expectedAnswer
+                            var payload = {
+                                "size": 500,
+                                "query": {
+                                    "match_phrase": {
+                                        "paragraphText": expectedAnswer
+                                    }
+                                }
+                            }
+                            var elasticUrl = "http://localhost:9200/paragraphs/_search"
+                            request({
+                                    url: elasticUrl,
+                                    json: payload,
+                                    method: 'POST',
+                                    headers: {'Content-Type': 'application/json'}
+                                },
+                                function (err, res) {
+
+                                    if (err)
+                                        callbackEach(err)
+                                    else if (res.body && res.body.errors && res.body.errors.length > 0) {
+                                        console.log(JSON.stringify(res.body.errors))
+                                        callbackEach(res.body.errors)
+                                    }
+                                    else {
+                                        if (res.body.hits)
+                                            questions[questionId].exactMatch = res.body.hits.total
+                                        else
+                                            questions[questionId].exactMatch = "??"
+
+                                        /*     if(res.body.hits && res.body.hits.hits)
+                                                 console.log(question.iD+"\t"+question.typeReponse+"\t"+question.resultat+"\t"+res.body.hits.hits.length)
+                                             else
+                                                 console.log(question.iD+"\t"+question.typeReponse+"\t"+question.resultat+"\t"+"??")*/
+                                        //   console.log(index);
+                                        callbackEach()
+                                    }
+                                })
+
+
+                        }, function (err) {
+                            callback();
+                        }
+                    )
+                },
+                function (callback) {//look response approx match
+
+                    console.log("-------------------");
+
+                        async.eachSeries(Object.keys(questions), function (questionId, callbackEach) {
+                            var question = questions[questionId]
+                        var expectedAnswer = question.expectedAnswer
+                        var payload = {
+                            "size": 500,
+                            "query": {
+                                "match": {
+                                    "paragraphText": expectedAnswer
+                                }
+                            }
+                        }
+                        var elasticUrl = "http://localhost:9200/paragraphs/_search"
+                        request({
+                                url: elasticUrl,
+                                json: payload,
+                                method: 'POST',
+                                headers: {'Content-Type': 'application/json'}
+                            },
+                            function (err, res) {
+
+                                if (err)
+                                    callbackEach(err)
+                                else if (res.body && res.body.errors && res.body.errors.length > 0) {
+                                    console.log(JSON.stringify(res.body.errors))
+                                    callbackEach(res.body.errors)
+                                }
+                                else {
+                                    if (res.body.hits)
+                                        questions[questionId].approxMatch = res.body.hits.total
+                                    else
+                                        questions[questionId].approxMatch = "??"
+
+                                    callbackEach()
+                                }
+                            })
+
+
+                    }, function (err) {
+                        callback();
+                    })
+                }
+
+
+            ],
+
+            function (err) {
+                Object.keys(questions).forEach(function (questionId) {
+var question=questions[questionId];
+                    console.log(question.data.iD + "\t" + question.data.typeReponse + "\t" + question.data.resultat + "\t" + question.exactMatch + "\t" + question.approxMatch)
+
+
+
+
+                })
+            }
+        )
+
+
     }
 
 
@@ -490,10 +652,10 @@ var ParagraphEntitiesGraphQuestions = {
 module.exports = ParagraphEntitiesGraphQuestions
 
 
-if (true) {
-    ParagraphEntitiesGraphQuestions.testQuestion("nounsFirst", 9, function (err, result) {
-       var print= ParagraphEntitiesGraphQuestions.printQuestionAndResponse(result);
-       console.log(print)
+if (false) {
+    ParagraphEntitiesGraphQuestions.testQuestion("nounsFirst", 63, function (err, result) {
+        var print = ParagraphEntitiesGraphQuestions.printQuestionAndResponse(result);
+        console.log(print)
     });
 }
 
@@ -505,6 +667,11 @@ if (false) {
     ParagraphEntitiesGraphQuestions.testQuestions("nounsFirst", questionIds, function (err, result) {
 
     });
+}
+
+if (true) {
+
+    ParagraphEntitiesGraphQuestions.checkResponseInParagraphs();
 }
 /***
  {

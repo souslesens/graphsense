@@ -247,9 +247,9 @@ var ParagraphEntitiesGraph = {
 
 
                 if (distance > 1)
-                    cypher += "MATCH   path=(x" + index + ")<-[:instanceOf*0..1]-(c"+ index +":ThesaurusConcept  )<-[:hasConcept*0..1]-(p1)-[:precede*0.." + distance + "]-(p2)-[:hasConcept*0..1]->(c"+ (index+1) +":ThesaurusConcept)<-[:instanceOf*0..1]-(x" + (index + 1) + ")";
+                    cypher += "MATCH   path=(x" + index + ")-[:instanceOf*0..1]->(c"+ index +":ThesaurusConcept  )<-[:hasConcept*0..1]-(p1)-[:precede*0.." + distance + "]-(p2)-[:hasConcept*0..1]->(c"+ (index+1) +":ThesaurusConcept)<-[:instanceOf*0..1]-(x" + (index + 1) + ")";
                 else
-                    cypher += "MATCH   path=(x" + index + ")<-[:instanceOf*0..1]-(c"+ index +":ThesaurusConcept  )<-[:hasConcept*0..1]-(p1)-[:precede*0.." + distance + "]-(p2)"
+                    cypher += "MATCH   path=(x" + index + ")-[:instanceOf*0..1]->(c"+ index +":ThesaurusConcept  )<-[:hasConcept*0..1]-(p1)-[:precede*0.." + distance + "]-(p2)"
             }
         })
 

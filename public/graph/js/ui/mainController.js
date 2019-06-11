@@ -8,8 +8,7 @@ var MainController = (function () {
 
     self.init = function () {
 
-
-
+        self.loadPlugins();
         GraphController.initComponentsPositionAndSize("content")
 
         $("#navbar_graph").addClass("d-none");
@@ -22,7 +21,15 @@ var MainController = (function () {
 
 
     }
+self.loadPlugins=function(){
 
+        var queryParams = common.getQueryParams(document.location.search);
+        Config.plugins={};
+        if (queryParams.plugin ) {
+            Config.plugins[queryParams.plugin]=true
+
+        }
+    }
 
     self.initSubGraph = function (subGraph) {
 
@@ -72,9 +79,7 @@ var MainController = (function () {
 
                 common.fillSelectOptionsWithStringArray(mainMenu_subGraphSelect, subgraphs);
 
-                // A vérifier Claude
-                //Selection du 1e subgraph au 1e chargement de la page
-                //MainController.init();
+
                 var queryParams = common.getQueryParams(document.location.search);
                 if (queryParams.subGraph) {
                     context.subGraph = queryParams.subGraph;
