@@ -54,7 +54,7 @@ var httpProxy = {
                 console.log(error.message);
                 // consume response data to free up memory
                 res.resume();
-                return;
+                return  callback(err);
             }
 
             res.setEncoding('utf8');

@@ -48,22 +48,30 @@ var ParagraphEntitiesGraph = {
         var cardKeys = Object.keys(ParagraphEntitiesGraph.cardsMap);
         var countCards = cardKeys.length;
 
+        var combinations2,combinations1;
+        var combinationResults = {};
+        var matchCount = 0;
 
-        if (countCards <= 1) {
-            return;
+        if (countCards ==0) {
+            return callbackOuter(null,{});
+        }
+        else if(countCards ==1) {
+            combinations2 =[]
+            combinations1 =[cardKeys]
         }
 
         else {
-            var combinationResults = {};
-            var matchCount = 0
-            var combinations2 = ParagraphEntitiesGraph.combination(cardKeys, 2)// combinaisons deux à deux des keys de cards
-            var combinations1 = ParagraphEntitiesGraph.combination(cardKeys, 1);
 
+            combinations2 = ParagraphEntitiesGraph.combination(cardKeys, 2)// combinaisons deux à deux des keys de cards
+            combinations1 = ParagraphEntitiesGraph.combination(cardKeys, 1);// liste des keys de cards prises individuelement
+        }
 
             async.series([
                 function (callback) {//combinasons 2à 2
+                    if(combinations2.length==0)
+                       return callback();
                     async.eachSeries(combinations2, function (combination, callbackEach) {
-                            ParagraphEntitiesGraph.getPathBetweenTwoEntities(combination, distance, paragraphIds, function (err, result) {
+                            ParagraphEntitiesGraph.getPathBetweenEntities(combination, distance, paragraphIds, function (err, result) {
                                 if (result.length > 0) {
                                     var key = JSON.stringify(combination)
                                     combinationResults[key] = result;
@@ -89,7 +97,7 @@ var ParagraphEntitiesGraph = {
                     if (matchCount > 0)
                         return callback()
                     async.eachSeries(combinations1, function (combination, callbackEach) {
-                            ParagraphEntitiesGraph.getPathBetweenTwoEntities(combination, 1, paragraphIds, function (err, result) {
+                            ParagraphEntitiesGraph.getPathBetweenEntities(combination, 1, paragraphIds, function (err, result) {
                                 if (result.length > 0) {
                                     var key = JSON.stringify(combination)
                                     combinationResults[key] = result;
@@ -111,110 +119,18 @@ var ParagraphEntitiesGraph = {
 
                 }
             ], function (err) {
-
                 return   callbackOuter(err, combinationResults)
 
-              /*  var uniquePaths = [];
-               for( var key in combinationResults){
-                   var paths=combinationResults[key];
-
-                    var pathId="";
-                    path.nodes.forEach(function (node) {
-                        pathId += node.properties.ID;
-                    })
-                    if (uniquePaths.indexOf(pathId) < 0) {
-                        uniquePaths.push(pathId);
-
-                    }
-                }
-
-
-                callbackOuter(err, uniquePaths)*/
             })
 
 
-        }
-    },
-
-
-    processMatchResultOld: function () {
-        if (err)
-            return console.log(err);
-        if (Object.keys(combinationResults) == 0)
-            return alert("no result");
-
-        var intersectionResults = [];
-        var allParagraphs = {};
-
-        var index = 0;
-        for (var key in combinationResults) {
-            index += 1;
-            var result = combinationResults[key];
-            result.forEach(function (line) {
-                line.nodes.forEach(function (node) {
-                    if (node.labels[0] == "Paragraph") {
-                        if (!allParagraphs[node._id]) {
-                            allParagraphs[node._id] = {node: node, combinationKeys: [], freq: 1};
-                        }
-
-                        if (allParagraphs[node._id].combinationKeys.length > 0)
-                            var x = 0
-                        if (allParagraphs[node._id].combinationKeys.length > 1)
-                            var x = 0
-                        if (allParagraphs[node._id].combinationKeys.indexOf(key) < 0) {
-
-                            allParagraphs[node._id].freq += 1;
-                            allParagraphs[node._id].combinationKeys.push(key);
-                        }
-
-
-                    }
-                })
-            })
-        }
-// identification des noeuds ayant toutes les combinaisons
-
-        var matchingParagraphs = [];
-        for (var key in allParagraphs) {
-            var pathsArray = allParagraphs[key].combinationKeys;
-            if (allParagraphs[key].combinationKeys.length >= combinations.length) {
-
-                var parag = allParagraphs[key];
-                var node = parag["node"];
-                matchingParagraphs.push(node._id);
-                //   console.log(JSON.stringify(node, null, 2))
-            }
-
-
-        }
-
-
-        // selection des chemins qui passent par les matching nodes;
-        var matchingPaths = []
-        for (var key in combinationResults) {
-
-            combinationResults[key].forEach(function (path) {
-
-                path.nodes.forEach(function (node) {
-
-
-                    if (matchingParagraphs.indexOf(node._id) > -1) {
-                        matchingPaths.push(path)
-                    }
-
-
-                })
-
-
-            })
-        }
-        matchingPaths = ParagraphEntitiesGraph.filterText(matchingPaths);
-        callback(null, matchingPaths)
 
     },
 
 
-    getPathBetweenTwoEntities: function (keys, distance, paragraphIds, callback) {
+
+
+    getPathBetweenEntities: function (keys, distance, paragraphIds, callback) {
 
         /*    distance = $("#plugin-paragraphEntitiesGraph-distance").val();
             distance = parseInt(distance);*/
@@ -240,16 +156,18 @@ var ParagraphEntitiesGraph = {
 
             if (index == 1) {
                 //  cypher += "MATCH   path=(x" + index + ")-[:hasEntity|:precede*1.." + distance + "]-(x" + (index + 1) + ")";
-            /*    if (distance > 1)
+                if (distance > 1)
                     cypher += "MATCH   path=(x" + index + ")<-[:hasEntity*0..1]-(p1)-[:precede*0.." + distance + "]-(p2)-[:hasEntity*0..1]->(x" + (index + 1) + ")";
                 else
-                    cypher += "MATCH   path=(x" + index + ")<-[:hasEntity*0..1]-(p1)-[:precede*0.." + distance + "]-(p2)"*/
+                    cypher += "MATCH   path=(x" + index + ")<-[:hasEntity*0..1]-(p1)-[:precede*0.." + distance + "]-(p2)"
 
 
-                if (distance > 1)
+            /*    if (distance > 1)
                     cypher += "MATCH   path=(x" + index + ")-[:instanceOf*0..1]->(c"+ index +":ThesaurusConcept  )<-[:hasConcept*0..1]-(p1)-[:precede*0.." + distance + "]-(p2)-[:hasConcept*0..1]->(c"+ (index+1) +":ThesaurusConcept)<-[:instanceOf*0..1]-(x" + (index + 1) + ")";
                 else
                     cypher += "MATCH   path=(x" + index + ")-[:instanceOf*0..1]->(c"+ index +":ThesaurusConcept  )<-[:hasConcept*0..1]-(p1)-[:precede*0.." + distance + "]-(p2)"
+          */
+          
             }
         })
 

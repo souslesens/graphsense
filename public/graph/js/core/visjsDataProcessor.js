@@ -420,6 +420,8 @@ var visJsDataProcessor = (function () {
             function processNodes(fromNode, toNode) {
                 if (toNode)
                     toNode.name = toNode.neoAttrs[Schema.getNameProperty()]
+                if(!fromNode || !fromNode.id)
+                    return;
 
                 if (!labelsMap[fromNode.id]) {
                     var node = fromNode.neoAttrs

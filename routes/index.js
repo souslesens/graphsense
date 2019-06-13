@@ -25,6 +25,11 @@ var xlsxToNeo = require("../bin/transform/xlsxToNeo..js")
 var jsonDBStorage = require("../bin/jsonDBStorage..js")
 
 
+
+//plugins
+var ParagraphEntitiesGraphQuestions=require("../bin/nlp/paragraphEntitiesQuestions2..js");
+
+
 console.log("***********************serverParams.routesRootUrl " + serverParams.routesRootUrl + "*********")
 
 /*const cors = require('cors');
@@ -569,6 +574,29 @@ router.post(serverParams.routesRootUrl + '/authentication', function (req, respo
         });
 
 });
+
+
+
+router.post(serverParams.routesRootUrl + '/paragraphEntitiesGraph', function (req, response) {
+    if (req.body.getParagraphsMatchingEntitiesAndWords) {
+        var payload = req.body.payload;
+        if (typeof payload == "string")
+            payload = JSON.parse(payload)
+        ParagraphEntitiesGraphQuestions.getParagraphsMatchingEntitiesAndWords(payload, function (error, result) {
+            processResponse(response, error, result)
+        });
+    }
+    if (req.body.extractEntitiesFromPlainTextQuestion) {
+
+        ParagraphEntitiesGraphQuestions.extractEntitiesFromPlainTextQuestion(req.body.questionText, function (error, result) {
+            processResponse(response, error, result)
+        });
+    }
+
+
+});
+
+
 
 
 function processResponse(response, error, result) {
