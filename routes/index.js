@@ -579,10 +579,13 @@ router.post(serverParams.routesRootUrl + '/authentication', function (req, respo
 
 router.post(serverParams.routesRootUrl + '/paragraphEntitiesGraph', function (req, response) {
     if (req.body.getParagraphsMatchingEntitiesAndWords) {
-        var payload = req.body.payload;
-        if (typeof payload == "string")
-            payload = JSON.parse(payload)
-        ParagraphEntitiesGraphQuestions.getParagraphsMatchingEntitiesAndWords(payload, function (error, result) {
+        var question = req.body.question;
+        var options=req.body.options;
+        if (typeof question == "string")
+            question = JSON.parse(question)
+        if (typeof options == "string")
+            options = JSON.parse(options)
+        ParagraphEntitiesGraphQuestions.getParagraphsMatchingEntitiesAndWords(question, options,function (error, result) {
             processResponse(response, error, result)
         });
     }

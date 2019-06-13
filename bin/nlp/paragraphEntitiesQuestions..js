@@ -7,12 +7,12 @@ var fs = require("fs");
 
 var ParagraphEntitiesGraphQuestions = {
 
-    extractEntitiesFromPlainTextQuestion: function (questionText, callback) {
+    extractEntitiesFromPlainTextQuestion:function(questionText,callback){
         var serviceUrl = "http://server-ctg-neo-question.azurewebsites.net/question/";
         request({
-                url: serviceUrl + questionText,
+                url: serviceUrl+questionText,
                 method: 'GET',
-                // headers: {'Content-Type': 'application/json'}
+               // headers: {'Content-Type': 'application/json'}
             },
             function (err, res) {
 
@@ -23,9 +23,9 @@ var ParagraphEntitiesGraphQuestions = {
                     callback(res.body.errors)
                 }
                 else {
-                    var data = res.body;
-                    if (typeof data == "string")
-                        data = JSON.parse(data);
+                   var data=res.body;
+                   if(typeof data=="string")
+                       data=JSON.parse(data);
                     callback(null, data)
                 }
             })
@@ -33,96 +33,97 @@ var ParagraphEntitiesGraphQuestions = {
 
     },
 
-    getParagraphsMatchingEntitiesAndWords: function (questionObj, options, callback) {
+    getParagraphsMatchingEntitiesAndWords: function (questionObj, callback) {
         var response = {}
         var paragraphIdsWordsFilter = [];
         var matchingNeoPaths = {};
-
+        var options = questionObj.options;
         if (!options)
             options = {};
 
         async.series([
+
                 //find Entities neo4j ids
                 function (callbackSeries) {
-                    if (questionObj.format == "TotalQuestionService") {
-                        var entityNames = [];
-                        if (questionObj.question_entities.length == 0)
-                            return callback();
+
+            if(options.format=="TotalQuestionService"){
+                var entityNames = [];
+                if (questionObj.question_entities.length == 0)
+                    return callback();
 
 
-                        var subGraph = options.subGraph;
-                        var subGraphStr = "";
-                        if (subGraph)
-                            subGraphStr = " and n.subGraph='" + subGraph + "' ";
 
-                        function capitalize(str) {
-                            return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+                var subGraph = options.subGraph;
+                var subGraphStr = "";
+                if (subGraph)
+                    subGraphStr = " and n.subGraph='" + subGraph + "' ";
+
+                function capitalize(str){
+                    return str.charAt(0).toUpperCase() + str.slice(1);
+                }
+                var index=0;
+                async.eachSeries(questionObj.question_entities, function (entityObj, callbackEach) {
+
+
+                    var entityType=capitalize(entityObj.question_label)
+                        var cypher = "match (n:" + entityType + ") where n.name='" + entityObj.question_normalized_value + "' " + subGraphStr + " return id(n) as neoId";
+                        neoProxy.match(cypher, function (err, result) {
+                            if (result.length == 0)
+                                return callback("no entity " + entityType + ":" + entityObj.question_normalized_value + " in graph")
+                            if (result.length > 1)
+                                return callback("more than on entity " + entityType + ":" + entityObj.question_normalized_value + " in graph try specify subGraph")
+
+                            questionObj.question_entities[index].neoId = result[0].neoId;
+                            index++;
+                            callbackEach();
+                        })
+
+                    },
+                    function (err) {
+                        return callbackSeries();
+                    })
+
+
+
+            }else {
+
+                var entityNames = [];
+                if (Object.keys(questionObj.entities).length == 0)
+                    return callback();
+
+                for (var key in questionObj.entities) {
+                    var entities = questionObj.entities[key];
+                    entities.forEach(function (entity, index) {
+                        if (!entity.neodId && key) {
+                            entityNames.push({entityType: key, name: entity.name, index: index})
                         }
+                    })
+                }
+                if (entityNames.length == 0)
+                    return callback();
 
-                        var index = 0;
-                        async.eachSeries(questionObj.question_entities, function (entityObj, callbackEach) {
+                var subGraph = options.subGraph;
+                var subGraphStr = "";
+                if (subGraph)
+                    subGraphStr = " and n.subGraph='" + subGraph + "' "
+                async.eachSeries(entityNames, function (entityObj, callbackEach) {
+                        var cypher = "match (n:" + entityObj.entityType + ") where n.name='" + entityObj.name + "' " + subGraphStr + " return id(n) as neoId";
+                        neoProxy.match(cypher, function (err, result) {
+                            if (result.length == 0)
+                                return callback("no entity " + entityObj.entityType + ":" + entityObj.name + " in graph")
+                            if (result.length > 1)
+                                return callback("more than on entity " + entityObj.entityType + ":" + entityObj.name + " in graph try specify subGraph")
 
+                            questionObj.entities[entityObj.entityType][entityObj.index].neoId = result[0].neoId;
+                            callbackEach();
+                        })
 
-                                var entityType = capitalize(entityObj.entity_label)
-                                var cypher = "match (n:" + entityType + ") where n.name='" + entityObj.entity_normalized_value + "' " + subGraphStr + " return id(n) as neoId";
-                                neoProxy.match(cypher, function (err, result) {
-                                    if (result.length == 0)
-                                        return callback("no entity " + entityType + ":" + entityObj.entity_normalized_value + " in graph")
-                                    if (result.length > 1)
-                                        return callback("more than on entity " + entityType + ":" + entityObj.entity_normalized_value + " in graph try specify subGraph")
+                    },
+                    function (err) {
+                        return callbackSeries();
+                    })
 
-                                    questionObj.question_entities[index].neoId = result[0].neoId;
-                                    index++;
-                                    callbackEach();
-                                })
-
-                            },
-                            function (err) {
-                                return callbackSeries();
-                            })
-
-
-                    } else {
-
-
-                        var entityNames = [];
-                        if (Object.keys(questionObj.entities).length == 0)
-                            return callback();
-
-                        for (var key in questionObj.entities) {
-                            var entities = questionObj.entities[key];
-                            entities.forEach(function (entity, index) {
-                                if (!entity.neodId && key) {
-                                    entityNames.push({entityType: key, name: entity.name, index: index})
-                                }
-                            })
-                        }
-                        if (entityNames.length == 0)
-                            return callback();
-
-                        var subGraph = options.subGraph;
-                        var subGraphStr = "";
-                        if (subGraph)
-                            subGraphStr = " and n.subGraph='" + subGraph + "' "
-                        async.eachSeries(entityNames, function (entityObj, callbackEach) {
-                                var cypher = "match (n:" + entityObj.entityType + ") where n.name='" + entityObj.name + "' " + subGraphStr + " return id(n) as neoId";
-                                neoProxy.match(cypher, function (err, result) {
-                                    if (result.length == 0)
-                                        return callback("no entity " + entityObj.entityType + ":" + entityObj.name + " in graph")
-                                    if (result.length > 1)
-                                        return callback("more than on entity " + entityObj.entityType + ":" + entityObj.name + " in graph try specify subGraph")
-
-                                    questionObj.entities[entityObj.entityType][entityObj.index].neoId = result[0].neoId;
-                                    callbackEach();
-                                })
-
-                            },
-                            function (err) {
-                                return callbackSeries();
-                            })
-                    }
-
-
+            }
                 },
 
                 //if options.searchNounsFirst==true : search engine retreive ids of paragraphs matching nouns
@@ -147,53 +148,34 @@ var ParagraphEntitiesGraphQuestions = {
 
                 // query Graph to extract paragraphs matching entities at distance
                 function (callbackSeries) {
-                    var cards = {};
-                    var index = 0;
-                    if (questionObj.format == "TotalQuestionService") {
-                        function capitalize(str) {
-                            return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-                        }
+                    if(options.format=="TotalQuestionService"){
 
-                        var entities = questionObj.question_entities;
-                        entities.forEach(function (entity,index) {
-                            var label= capitalize(entity.entity_label);
+                    }else{
+                    var cards = {};
+                    var index = 0
+                    for (var key in questionObj.entities) {
+                        var entities = questionObj.entities[key];
+                        entities.forEach(function (entity) {
                             var queryObject = {
-                                name: entity.entity_normalized_value,
+                                name: entity.name,
                                 nodeSetIds: [entity.neoId],
-                                label:label
+                                label: key
                             }
-                            cards[label+"-" + index] = queryObject;
+                            cards[key + index] = queryObject;
                             index++;
                         })
-
-
-                    }else {
-
-                        for (var key in questionObj.entities) {
-                            var entities = questionObj.entities[key];
-                            entities.forEach(function (entity) {
-                                var queryObject = {
-                                    name: entity.name,
-                                    nodeSetIds: [entity.neoId],
-                                    label: key
-                                }
-                                cards[key + index] = queryObject;
-                                index++;
-                            })
-
+                        var options = {
+                            cards: cards,
+                            distance: 2,
+                            paragraphIds: paragraphIdsWordsFilter
                         }
                     }
-                    var options = {
-                        cards: cards,
-                        distance: 2,
-                        paragraphIds: paragraphIdsWordsFilter
-                    }
-                        ParagraphEntitiesGraphQuestions.executeNeoPathsQuery(options, function (err, result) {
 
-                            matchingNeoPaths = result
-                            callbackSeries();
-                        })
+                    ParagraphEntitiesGraphQuestions.executeNeoPathsQuery(options, function (err, result) {
 
+                        matchingNeoPaths = result
+                        callbackSeries();
+                    })
                 },
 
 
@@ -204,11 +186,6 @@ var ParagraphEntitiesGraphQuestions = {
                         return callbackSeries();
                     }
 
-                    if (questionObj.format == "TotalQuestionService") {
-
-                    }else{
-
-                    }
                     for (var key in matchingNeoPaths) {
 
                         var paths = matchingNeoPaths[key];
@@ -266,11 +243,9 @@ var ParagraphEntitiesGraphQuestions = {
 
 
             ],
-
             function (err) {
                 return callback(err, {question: questionObj, response: response});
-            }
-        )
+            })
 
 
     },
@@ -565,17 +540,10 @@ var ParagraphEntitiesGraphQuestions = {
 
     ,
     getMatchingWordsParagraphs: function (queryObject, callback) {
-        var matchStr = "";
-        if (queryObject.format == "TotalQuestionService") {
-            matchStr=   queryObject.question_nouns
-
-        }
-        else{
-            queryObject.nouns.forEach(function (noun) {
-                matchStr += noun + " "
-            })
-        }
-
+        var matchStr = ""
+        queryObject.nouns.forEach(function (noun) {
+            matchStr += noun + " "
+        })
 
         var elasticUrl = "http://localhost:9200/paragraphs/_search"
         var query = {
@@ -768,12 +736,12 @@ var ParagraphEntitiesGraphQuestions = {
 
 
     /*
-
+    
     {
       {
       "query": {  "bool" : {
           "must" : [
-
+    
             { "terms" : {
             "ID" : [20, 30,31,32]
         }},
@@ -783,7 +751,7 @@ var ParagraphEntitiesGraphQuestions = {
       }
                }
     }
-
+    
     }
      */
 
