@@ -286,10 +286,12 @@ var GraphSimpleQuery = (function () {
     }
 
     self.onCancelTreeQueryButton = function () {
+        delete context.cardsMap[self.currentLabel];
         $("#simpleQuery_switch_" + self.currentLabel).prop("checked", false);
-        delete context.cardsMap(self.currentLabel);
+
 
     }
+
 
 
     return self;

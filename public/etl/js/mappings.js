@@ -94,6 +94,8 @@ var Mappings = (function () {
 
     }
     self.removeMapping=function(type,mappingName){
+        if(!confirm("Delete mapping "+mappingName))
+            return;
 
         var payload = {
             removeMapping: true,

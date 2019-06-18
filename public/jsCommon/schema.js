@@ -662,22 +662,24 @@ var Schema = (function () {
                 if (relations2) {
                     for (var i = 0; i < relations2.length; i++) {
                         var relation = relations2[i];
-                        relation.properties.forEach(function (property) {
-                            if (properties.indexOf(property) < 0)
-                                properties.push(property);
-                        })
-                        if (relation.direction == "inverse")
-                            continue;
-                        delete relation.direction;
-                        var name = key;
-                        if (i > 0)
-                            var name = key + "--" + (i);
-                        relation.properties.subGraph
-                        relation.type = key;
-                        relation.properties = properties;
+                        if( relation.properties) {
+                            relation.properties.forEach(function (property) {
+                                if (properties.indexOf(property) < 0)
+                                    properties.push(property);
+                            })
 
-                        relationsNewModel[name] = relation;
+                            if (relation.direction == "inverse")
+                                continue;
+                            delete relation.direction;
+                            var name = key;
+                            if (i > 0)
+                                var name = key + "--" + (i);
+                            relation.properties.subGraph
+                            relation.type = key;
+                            relation.properties = properties;
 
+                            relationsNewModel[name] = relation;
+                        }
                     }
                 }
             }

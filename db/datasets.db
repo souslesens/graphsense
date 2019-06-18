@@ -2,7 +2,7 @@
   "datasets": {
     "quantum": {
       "MDM_Quantum#MDM Table Entities": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#MDM Table Entities",
         "header": [
           "Table\r\n Ref",
@@ -18,7 +18,7 @@
         ]
       },
       "MDM_Quantum#tblUnitOfMeasure": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblUnitOfMeasure",
         "header": [
           "ID",
@@ -33,7 +33,7 @@
         ]
       },
       "MDM_Quantum#tblAttribute": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblAttribute",
         "header": [
           "ID",
@@ -55,7 +55,7 @@
         ]
       },
       "MDM_Quantum#tblAttributePickListValue": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblAttributePickListValue",
         "header": [
           "ID",
@@ -75,7 +75,7 @@
         ]
       },
       "MDM_Quantum#tblAttribToAttribPickListValue": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblAttribToAttribPickListValue",
         "header": [
           "ID",
@@ -87,7 +87,7 @@
         ]
       },
       "MDM_Quantum#tblDiscipline": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblDiscipline",
         "header": [
           "ID",
@@ -111,7 +111,7 @@
         ]
       },
       "MDM_Quantum#tblDocumentType": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblDocumentType",
         "header": [
           "ID",
@@ -131,7 +131,7 @@
         ]
       },
       "MDM_Quantum#tblDisciplineDocumentType": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblDisciplineDocumentType",
         "header": [
           "ID",
@@ -168,7 +168,7 @@
         ]
       },
       "MDM_Quantum#tblTagFormat": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblTagFormat",
         "header": [
           "ID",
@@ -177,7 +177,7 @@
         ]
       },
       "MDM_Quantum#tblFunctionalClass": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblFunctionalClass",
         "header": [
           "ID",
@@ -218,7 +218,7 @@
         ]
       },
       "MDM_Quantum#tblPhysicalClass": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblPhysicalClass",
         "header": [
           "ID",
@@ -257,7 +257,7 @@
         ]
       },
       "MDM_Quantum#tblFunctionalClToPhysicalCl": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblFunctionalClToPhysicalCl",
         "header": [
           "ID",
@@ -270,7 +270,7 @@
         ]
       },
       "MDM_Quantum#tblFunPhyDiscDocTyToAttribute": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblFunPhyDiscDocTyToAttribute",
         "header": [
           "ID",
@@ -289,7 +289,7 @@
         ]
       },
       "MDM_Quantum#tblFunPhyCLToDiscDocumentTy": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblFunPhyCLToDiscDocumentTy",
         "header": [
           "ID",
@@ -303,7 +303,7 @@
         ]
       },
       "MDM_Quantum#tblRDLChangeManagement": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblRDLChangeManagement",
         "header": [
           "ID",
@@ -319,7 +319,7 @@
         ]
       },
       "MDM_Quantum#tblOrganisation": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblOrganisation",
         "header": [
           "ID",
@@ -329,7 +329,7 @@
         ]
       },
       "MDM_Quantum#tblDocument": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblDocument",
         "header": [
           "ID",
@@ -340,7 +340,7 @@
         ]
       },
       "MDM_Quantum#tblTag": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblTag",
         "header": [
           "ID",
@@ -353,7 +353,7 @@
         ]
       },
       "MDM_Quantum#tblModel": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblModel",
         "header": [
           "ID",
@@ -364,7 +364,7 @@
         ]
       },
       "MDM_Quantum#tblModelItem": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblModelItem",
         "header": [
           "ID",
@@ -375,7 +375,7 @@
         ]
       },
       "MDM_Quantum#tblDocumentToDocument": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblDocumentToDocument",
         "header": [
           "ID",
@@ -385,7 +385,7 @@
         ]
       },
       "MDM_Quantum#tblTagModelModelItemToDocument": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblTagModelModelItemToDocument",
         "header": [
           "ID",
@@ -397,7 +397,7 @@
         ]
       },
       "MDM_Quantum#tblTagToModel": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblTagToModel",
         "header": [
           "ID",
@@ -406,7 +406,7 @@
         ]
       },
       "MDM_Quantum#tblTagToModelItem": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblTagToModelItem",
         "header": [
           "ID",
@@ -415,7 +415,7 @@
         ]
       },
       "MDM_Quantum#tblTagToAlias": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblTagToAlias",
         "header": [
           "ID",
@@ -425,7 +425,7 @@
         ]
       },
       "MDM_Quantum#tblTagToTag": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblTagToTag",
         "header": [
           "ID",
@@ -437,7 +437,7 @@
         ]
       },
       "MDM_Quantum#tblDocumentModelTagAttribute": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblDocumentModelTagAttribute",
         "header": [
           "ID",
@@ -453,7 +453,7 @@
         ]
       },
       "MDM_Quantum#tblSource": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblSource",
         "header": [
           "ID",
@@ -464,7 +464,7 @@
         ]
       },
       "MDM_Quantum#tblComments": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblComments",
         "header": [
           "ID",
@@ -474,7 +474,7 @@
         ]
       },
       "MDM_Quantum#tblADLChangeManagement": {
-        "datasetCollectionName": "test",
+        "mappingsetName": "test",
         "name": "MDM_Quantum#tblADLChangeManagement",
         "header": [
           "ID",
@@ -490,7 +490,7 @@
         ]
       },
       "ADLElginA#tblTag": {
-        "datasetCollectionName": "quantum",
+        "mappingsetName": "quantum",
         "name": "ADLElginA#tblTag",
         "header": [
           "ID",
@@ -503,7 +503,7 @@
         ]
       },
       "ADLElginA#tblModel (2)": {
-        "datasetCollectionName": "quantum",
+        "mappingsetName": "quantum",
         "name": "ADLElginA#tblModel (2)",
         "header": [
           "ID",
@@ -514,7 +514,7 @@
         ]
       },
       "ADLElginA#tblModelItem (2)": {
-        "datasetCollectionName": "quantum",
+        "mappingsetName": "quantum",
         "name": "ADLElginA#tblModelItem (2)",
         "header": [
           "ID",
@@ -525,7 +525,7 @@
         ]
       },
       "ADLElginA#tblTagToModelItem": {
-        "datasetCollectionName": "quantum",
+        "mappingsetName": "quantum",
         "name": "ADLElginA#tblTagToModelItem",
         "header": [
           "ID",
@@ -996,7 +996,7 @@
     },
     "ThesaurusQuantum": {
       "Thesaurus-05-13#Characterisation-Characterisati": {
-        "datasetCollectionName": "ThesaurusQuantum",
+        "mappingsetName": "ThesaurusQuantum",
         "name": "Thesaurus-05-13#Characterisation-Characterisati",
         "header": [
           "Source",
@@ -1004,7 +1004,7 @@
         ]
       },
       "Thesaurus-05-13#CharacterisationLabel": {
-        "datasetCollectionName": "ThesaurusQuantum",
+        "mappingsetName": "ThesaurusQuantum",
         "name": "Thesaurus-05-13#CharacterisationLabel",
         "header": [
           "Id",
@@ -1015,7 +1015,7 @@
         ]
       },
       "Thesaurus-05-13#Component-ComponentRel": {
-        "datasetCollectionName": "ThesaurusQuantum",
+        "mappingsetName": "ThesaurusQuantum",
         "name": "Thesaurus-05-13#Component-ComponentRel",
         "header": [
           "Source",
@@ -1023,7 +1023,7 @@
         ]
       },
       "Thesaurus-05-13#ComponentLabel": {
-        "datasetCollectionName": "ThesaurusQuantum",
+        "mappingsetName": "ThesaurusQuantum",
         "name": "Thesaurus-05-13#ComponentLabel",
         "header": [
           "Id",
@@ -1034,7 +1034,7 @@
         ]
       },
       "Thesaurus-05-13#Equipment-EquipmentRel": {
-        "datasetCollectionName": "ThesaurusQuantum",
+        "mappingsetName": "ThesaurusQuantum",
         "name": "Thesaurus-05-13#Equipment-EquipmentRel",
         "header": [
           "Source",
@@ -1042,7 +1042,7 @@
         ]
       },
       "Thesaurus-05-13#EquipmentLabel": {
-        "datasetCollectionName": "ThesaurusQuantum",
+        "mappingsetName": "ThesaurusQuantum",
         "name": "Thesaurus-05-13#EquipmentLabel",
         "header": [
           "Id",
@@ -1053,7 +1053,7 @@
         ]
       },
       "Thesaurus-05-13#CTGComponent_QuantumPhysicalCla": {
-        "datasetCollectionName": "ThesaurusQuantum",
+        "mappingsetName": "ThesaurusQuantum",
         "name": "Thesaurus-05-13#CTGComponent_QuantumPhysicalCla",
         "header": [
           "Source",
@@ -1061,7 +1061,7 @@
         ]
       },
       "Thesaurus-05-13#CTGEquipment_QuantumPhysicalCla": {
-        "datasetCollectionName": "ThesaurusQuantum",
+        "mappingsetName": "ThesaurusQuantum",
         "name": "Thesaurus-05-13#CTGEquipment_QuantumPhysicalCla",
         "header": [
           "Source",
@@ -1069,7 +1069,7 @@
         ]
       },
       "Thesaurus-05-13#Quantum_physicalClass": {
-        "datasetCollectionName": "ThesaurusQuantum",
+        "mappingsetName": "ThesaurusQuantum",
         "name": "Thesaurus-05-13#Quantum_physicalClass",
         "header": [
           "label",
@@ -1083,7 +1083,7 @@
         ]
       },
       "Thesaurus-05-13#Quantum_functionalClass": {
-        "datasetCollectionName": "ThesaurusQuantum",
+        "mappingsetName": "ThesaurusQuantum",
         "name": "Thesaurus-05-13#Quantum_functionalClass",
         "header": [
           "label",
@@ -1097,7 +1097,7 @@
         ]
       },
       "Thesaurus-05-13#PhysicalClassToFunctionalClass": {
-        "datasetCollectionName": "ThesaurusQuantum",
+        "mappingsetName": "ThesaurusQuantum",
         "name": "Thesaurus-05-13#PhysicalClassToFunctionalClass",
         "header": [
           "ID",
@@ -1112,7 +1112,7 @@
     },
     "": {
       "export_doc_chapter_neo#Sheet1": {
-        "datasetCollectionName": "",
+        "mappingsetName": "",
         "name": "export_doc_chapter_neo#Sheet1",
         "header": [
           "ID",
@@ -1135,7 +1135,7 @@
         ]
       },
       "export_mec_question (1)#Sheet1": {
-        "datasetCollectionName": "",
+        "mappingsetName": "",
         "name": "export_mec_question (1)#Sheet1",
         "header": [
           "Doc",
@@ -1160,20 +1160,84 @@
       }
     },
     "graphNlp": {
-      "export_doc_chapter_neo#Sheet1": {
-        "datasetCollectionName": "graphNlp",
-        "name": "export_doc_chapter_neo#Sheet1",
+      "thesaurus#Feuil1": {
+        "mappingsetName": "graphNlp",
+        "name": "thesaurus#Feuil1",
+        "header": [
+          "id",
+          "concept",
+          "synonyms",
+          "parent",
+          "ancestors"
+        ]
+      },
+      "export_doc_neo#Sheet1": {
+        "mappingsetName": "graphNlp",
+        "name": "export_doc_neo#Sheet1",
         "header": [
           "ID",
           "Document",
           "Title",
           "Purpose",
+          "Branch",
+          "DocType",
+          "Domain",
+          "Title_Purpose",
+          "NLP_Title_Purpose",
+          "Equipment",
+          "Component",
+          "Phenomenon",
+          "Characterisation",
+          "Method"
+        ]
+      },
+      "export_doc_chapter_neo (6)#Sheet1": {
+        "mappingsetName": "graphNlp",
+        "name": "export_doc_chapter_neo (6)#Sheet1",
+        "header": [
+          "ID",
+          "Document",
+          "Title",
+          "Purpose",
+          "Branch",
+          "DocType",
+          "Domain",
+          "ChapterTitle",
+          "ChapterTitle1",
+          "ChapterTitle2",
+          "ChapterTitle3",
+          "ChapterNumber",
+          "Chapter_ID",
+          "NLP_ChapterTitle",
+          "Equipment",
+          "Component",
+          "Phenomenon",
+          "Characterisation",
+          "Method"
+        ]
+      },
+      "export_doc_chapter_paragraph_neo#Sheet1": {
+        "mappingsetName": "graphNlp",
+        "name": "export_doc_chapter_paragraph_neo#Sheet1",
+        "header": [
+          "Document",
+          "Title",
+          "Purpose",
           "TextOffset",
+          "ChapterOffset",
           "ChapterTitle1",
           "ChapterTitle2",
           "ChapterTitle3",
           "ParagraphText",
           "StyleParagraph",
+          "ChapterNumber",
+          "ChapterTitle",
+          "DocType",
+          "Branch",
+          "Domain",
+          "ID",
+          "NLP_ParagraphText",
+          "ParagraphText_Stop_Words",
           "Equipment",
           "Component",
           "Phenomenon",
@@ -1184,21 +1248,18 @@
           "Vibration"
         ]
       },
-      "thesaurus#Feuil1": {
-        "datasetCollectionName": "graphNlp",
-        "name": "thesaurus#Feuil1",
+      "r_paragraph_chapter#Feuil1": {
+        "mappingsetName": "graphNlp",
+        "name": "r_paragraph_chapter#Feuil1",
         "header": [
-          "id",
-          "concept",
-          "synonyms",
-          "parent",
-          "ancestors"
+          "ID",
+          "ChapterID"
         ]
       }
     },
     "graphNlpQuestions": {
       "export_mec_question (1)#Sheet1": {
-        "datasetCollectionName": "graphNlpQuestions",
+        "mappingsetName": "graphNlpQuestions",
         "name": "export_mec_question (1)#Sheet1",
         "header": [
           "ID",
@@ -1225,12 +1286,13 @@
     },
     "thesaurusTotal": {
       "thesaurus#Feuil1": {
-        "datasetCollectionName": "thesaurusTotal",
+        "mappingsetName": "thesaurusTotal",
         "name": "thesaurus#Feuil1",
         "header": [
+          "id",
           "concept",
-          "synonyms",
           "parent",
+          "synonyms",
           "ancestors"
         ]
       }

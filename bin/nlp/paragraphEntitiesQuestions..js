@@ -126,9 +126,9 @@ var ParagraphEntitiesGraphQuestions = {
             }
                 },
 
-                //if options.searchNounsFirst==true : search engine retreive ids of paragraphs matching nouns
+                //if options.filterNouns==true : search engine retreive ids of paragraphs matching nouns
                 function (callbackSeries) {
-                    if (!options.searchNounsFirst)
+                    if (!options.filterNouns)
                         return callbackSeries();
                     ParagraphEntitiesGraphQuestions.getMatchingWordsParagraphs(questionObj, function (err, result) {
 
@@ -527,7 +527,7 @@ var ParagraphEntitiesGraphQuestions = {
 
             })
             questionObj.options = {
-                searchNounsFirst: false,
+                filterNouns: false,
                 rankPathsByNounfrequency: false,
                 maxParagraphDistance: 2,
             }
@@ -1026,7 +1026,7 @@ if (false) {
 var obj = {
     "options": {
         "maxParagraphDistance": 2,
-        "searchNounsFirst": false,
+        "filterNouns": false,
         "rankPathsByNounfrequency": true,
     },
     "nouns": [

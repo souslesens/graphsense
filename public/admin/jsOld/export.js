@@ -30,7 +30,7 @@
 var newSubgraph = "";
 var fetchSize = 30000
 
-function downloadJson(outputType, type) {
+function exportImport.downloadJson(outputType, type) {
     var limit = parseInt($("#limit").val())
     var subGraphExport = $("#subGraphExportSelect").val();
     var whereSubGraph = "";

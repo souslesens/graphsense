@@ -76,8 +76,11 @@ var buildPaths = (function () {
             if (result.length == 0) {
                 if (false && self.queryObjs.length > 1)
                     return self.drawShortestPathesDialog();
-                else
-                     MainController.alert("No relations found");
+
+                else {
+                    GraphSimpleQuery.onCancelTreeQueryButton()
+                    MainController.alert("No relations found");
+                }
                 if(callback){
 
                     return callback(null,{data:{nodes:[],relations:[]}})

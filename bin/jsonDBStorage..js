@@ -61,7 +61,7 @@ var jsonDBStorage = {
 
 
         if (req.body.removeDataset) {
-            jsonDBStorage.removeDataset(req.body.datasetCollectionName,req.body.datasetName, function (error, result) {
+            jsonDBStorage.removeDataset(req.body.mappingsetName,req.body.datasetName, function (error, result) {
                 callback(error, result);
             });
         }
@@ -193,31 +193,26 @@ var jsonDBStorage = {
 
     writeDataset: function (json, callback) {
 
-        var datasetCollectionName = json.datasetCollectionName;
-        var obj = jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).value()
+        var mappingsetName = json.mappingsetName;
+        var obj = jsonDBStorage.getDatasetDb().get('datasets').get(mappingsetName).value()
         if (obj == null)
-            var obj = jsonDBStorage.getDatasetDb().get('datasets').set(datasetCollectionName, {}).write()
+            var obj = jsonDBStorage.getDatasetDb().get('datasets').set(mappingsetName, {}).write()
 
-        jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).set(json.name, json).write();
+        jsonDBStorage.getDatasetDb().get('datasets').get(mappingsetName).set(json.name, json).write();
         if (callback)
-            return callback(null, "done")
+            return callback(null, json)
     },
 
 
-    addMappingset: function (mappingsetName, json, callback) {
-        var db = jsonDBStorage.getMappingDb().get('mappings')
-        db.set(mappingsetName, {nodes: {}, relations: {}}).write();
-        return callback(null, "done")
-    },
 
 
-    getDatasetNames: function (datasetCollectionName, callback) {
-        var obj = jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).value();
+    getDatasetNames: function (mappingsetName, callback) {
+        var obj = jsonDBStorage.getDatasetDb().get('datasets').get(mappingsetName).value();
         return callback(null, Object.keys(obj))
 
     },
-    getDatasets: function (datasetCollectionName, callback) {
-        var obj = jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).value();
+    getDatasets: function (mappingsetName, callback) {
+        var obj = jsonDBStorage.getDatasetDb().get('datasets').get(mappingsetName).value();
         return callback(null, obj)
 
     },
@@ -236,10 +231,13 @@ var jsonDBStorage = {
         return value;
 
     },
-    removeDataset: function (datasetCollectionName,datasetName, callback) {
-        var xx= jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).value();
-        var yy= jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).get(datasetName).value();
-        jsonDBStorage.getDatasetDb().get('datasets').get(datasetCollectionName).get(datasetName).remove().write()
+    removeDataset: function (mappingsetName,datasetName, callback) {
+       var mappingset= jsonDBStorage.getDatasetDb().get('datasets').get(mappingsetName).value();
+        var obj= jsonDBStorage.getDatasetDb().get('datasets').get(mappingsetName).get(datasetName).value();
+      //  jsonDBStorage.getDatasetDb().get('datasets').get(mappingsetName).get(datasetName).remove().write()
+        delete mappingset[datasetName]//pb delete obliged to rewrite parentObject after delete son in js
+        jsonDBStorage.getDatasetDb().get('datasets').set(mappingsetName,mappingset ).write();
+
         return callback(null, "done")
     },
 /*****************************************Mappings**************************************/
@@ -258,6 +256,11 @@ var jsonDBStorage = {
             return callback(null, "done")
     },
 
+    addMappingset: function (mappingsetName, json, callback) {
+        var db = jsonDBStorage.getMappingDb().get('mappings')
+        db.set(mappingsetName, {nodes: {}, relations: {}}).write();
+        return callback(null, "done")
+    },
 
 
     getMappings: function (mappingsetName, callback) {
@@ -320,8 +323,11 @@ var jsonDBStorage = {
 
 
     removeMapping: function (mappingsetName,type, mappingName, callback) {
-        var xx=jsonDBStorage.getMappingDb().get('mappings').get(mappingsetName).get(type).get(mappingName).value()
-        jsonDBStorage.getMappingDb().get('mappings').get(mappingsetName).get(type).get(mappingName).remove().write()
+        var obj=jsonDBStorage.getMappingDb().get('mappings').get(mappingsetName).get(type).value();
+
+        delete obj[mappingName]
+        //pb delete obliged to rewrite parentObject after delete son in js
+        jsonDBStorage.getMappingDb().get('mappings').get(mappingsetName).set(type,obj ).write();
         return callback(null, "done")
     },
 

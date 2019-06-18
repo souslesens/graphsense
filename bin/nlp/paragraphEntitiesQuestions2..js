@@ -4,7 +4,27 @@ var httpProxy = require("../httpProxy.js");
 var request = require("request");
 var fs = require("fs");
 
-
+/**
+ *
+ *
+ * * creation des chainages de paragrahes
+ *
+ *
+ *  match(n:Paragraph)-->(:Document)<--(m:Paragraph) where n.subGraph="entitiesGraph2"  and m.subGraph="entitiesGraph2"  and m.TextOffset-n.TextOffset=1 create (n)-[:precede]->(m)
+ *
+ *
+ *  match(n:ThesaurusConcept)-[:instanceOf]-(m)--(p:Paragraph)  create (p)-[:hasConcept]->(n)
+ *
+ *
+ * match(c:Equipement)--(n:Document)--(p:Paragraph) create (p)-[:hasEntity{type:"document"}]->(c)
+ *
+ *match(n:Paragraph),(x:temp) where n.ID=x.ID set n.ChapterID=x.ChapterID
+ *
+ *
+ *
+ * /
+ * @type {{extractEntitiesFromPlainTextQuestion: ParagraphEntitiesGraphQuestions.extractEntitiesFromPlainTextQuestion, getParagraphsMatchingEntitiesAndWords: ParagraphEntitiesGraphQuestions.getParagraphsMatchingEntitiesAndWords, executeNeoPathsQuery: ParagraphEntitiesGraphQuestions.executeNeoPathsQuery, testQuestions: ParagraphEntitiesGraphQuestions.testQuestions, testQuestion: ParagraphEntitiesGraphQuestions.testQuestion, getMatchingWordsParagraphs: ParagraphEntitiesGraphQuestions.getMatchingWordsParagraphs, getPathTextScore: ParagraphEntitiesGraphQuestions.getPathTextScore, filterWords: ParagraphEntitiesGraphQuestions.filterWords, callElastic: ParagraphEntitiesGraphQuestions.callElastic, printQuestionAndResponse: ParagraphEntitiesGraphQuestions.printQuestionAndResponse, checkifResponseAreInParagraphs: ParagraphEntitiesGraphQuestions.checkifResponseAreInParagraphs}}
+ */
 var ParagraphEntitiesGraphQuestions = {
 
     extractEntitiesFromPlainTextQuestion: function (questionText, callback) {
@@ -63,7 +83,8 @@ var ParagraphEntitiesGraphQuestions = {
                         async.eachSeries(questionObj.question_entities, function (entityObj, callbackEach) {
 
 
-                                var entityType = capitalize(entityObj.entity_label)
+                               // var entityType = capitalize(entityObj.entity_label)
+                                var entityType = entityObj.entity_label;
                                 var cypher = "match (n:" + entityType + ") where n.name='" + entityObj.entity_normalized_value + "' " + subGraphStr + " return id(n) as neoId";
                                 neoProxy.match(cypher, function (err, result) {
                                     if (result.length == 0)
@@ -125,11 +146,28 @@ var ParagraphEntitiesGraphQuestions = {
 
                 },
 
-                //if options.searchNounsFirst==true : search engine retreive ids of paragraphs matching nouns
+                //if options.filterNouns==true : search engine retreive ids of paragraphs matching nouns
                 function (callbackSeries) {
-                    if (!options.searchNounsFirst)
+
+            var entityTypes=[];
+                    if (options.filterNouns)
+                        entityTypes.push("question_nouns")
+                    if (options.filterAdjs)
+                        entityTypes.push("question_adjs")
+                    if (options.filterVerbs)
+                        entityTypes.push("question_verbs")
+
+
+
+
+                    if (entityTypes.length==0)
                         return callbackSeries();
-                    ParagraphEntitiesGraphQuestions.getMatchingWordsParagraphs(questionObj, function (err, result) {
+                    ParagraphEntitiesGraphQuestions.getMatchingWordsParagraphs(questionObj,entityTypes, function (err, result) {
+
+                        if(result.length==0)
+                            response.maxNounSearchScore = 0;
+                        else
+                            response.maxNounSearchScore = result[0].score;
 
                         result.forEach(function (paragraph) {
                             if (typeof paragraph.id == "string")
@@ -137,7 +175,7 @@ var ParagraphEntitiesGraphQuestions = {
                             else
                                 paragraphIdsWordsFilter.push(paragraph.id)
                         })
-                        response.maxNounSearchScore = result[0].score;
+
                         callbackSeries();
                     })
 
@@ -150,13 +188,11 @@ var ParagraphEntitiesGraphQuestions = {
                     var cards = {};
                     var index = 0;
                     if (questionObj.format == "TotalQuestionService") {
-                        function capitalize(str) {
-                            return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-                        }
+
 
                         var entities = questionObj.question_entities;
                         entities.forEach(function (entity,index) {
-                            var label= capitalize(entity.entity_label);
+                            var label = entity.entity_label;
                             var queryObject = {
                                 name: entity.entity_normalized_value,
                                 nodeSetIds: [entity.neoId],
@@ -195,6 +231,38 @@ var ParagraphEntitiesGraphQuestions = {
                         })
 
                 },
+// sort paragraphs inside each path
+
+                function (callbackSeries) {
+
+
+                    for (var key in matchingNeoPaths) {
+
+                        var paths = matchingNeoPaths[key];
+
+                        paths.forEach(function(path,index){
+                        path.nodes.sort(function (a, b) {
+                            if(a.properties.TextOffset && b.properties.TextOffset) {
+                                if (a.properties.TextOffset > b.properties.TextOffset)
+                                    return 1;
+                                if (a.properties.TextOffset < b.properties.TextOffset)
+                                    return -1;
+                                return 0;
+                            }
+                            else
+                                return 0;
+                        })
+                            matchingNeoPaths[key][index] = path;
+
+                        })
+                    }
+                    callbackSeries();
+                },
+
+
+
+
+
 
 
                 //if option rankPathsByNounfrequency use regex to rank neo path by counting nouns in each path (aggregate or paragraphs between entities)
@@ -236,29 +304,65 @@ var ParagraphEntitiesGraphQuestions = {
 
                 // aggregate question and response paths in response object
                 function (callbackSeries) {
-                    for (var key in matchingNeoPaths) {
-                        var responseObj = {}
-                        var paths = matchingNeoPaths[key];
 
-                        var str = "";
-                        responseObj.paths = [];
+                    if (questionObj.format == "TotalQuestionService") {
+                        response=[];
+                        for (var key in matchingNeoPaths) {
+                            var responseObj = {}
+                            var paths = matchingNeoPaths[key];
 
-                        paths.forEach(function (path, index) {
-                            var responsePathObj = {score: path.score, paragraphs: []};
+                            var str = "";
+                            responseObj.paths = [];
+                            entities=[]
+                            paths.forEach(function (path, index) {
+                                var responsePathObj = {entities:[],score: path.score,location:"", paragraphs: []};
 
-                            path.nodes.forEach(function (node, index) {
-                                if (node.labels[0] != "Paragraph") {
-                                    return;
-                                }
-                                responsePathObj.paragraphs.push({id: node.properties.ID, text: node.properties.ParagraphText})
+                                path.nodes.forEach(function (node, index) {
+                                    if (node.labels[0] != "Paragraph") {
+                                      return  responsePathObj.entities.push({id: node.properties.ID,label:node.labels[0], value: node.properties.name})
+                                    }
+                                    if (responsePathObj.paragraphs.length==0) {
+
+                                        responsePathObj.location={document:node.properties.Document, chapter:node.properties.ChapterTitle1, chapter2:node.properties.ChapterTitle2}
+                                    }
+                                    responsePathObj.paragraphs.push({id: node.properties.ID, text: node.properties.ParagraphText,style:node.properties.StyleParagraph,offset:node.properties.TextOffset})
+                                })
+
+                                response.push(responsePathObj);
                             })
 
-                            responseObj.paths.push(responsePathObj);
-                        })
+
+                         //   response[key] = responseObj;
+                            callbackSeries();
+                        }
+                    }
+                    else {
 
 
-                        response[key] = responseObj;
-                        callbackSeries();
+                        for (var key in matchingNeoPaths) {
+                            var responseObj = {}
+                            var paths = matchingNeoPaths[key];
+
+                            var str = "";
+                            responseObj.paths = [];
+
+                            paths.forEach(function (path, index) {
+                                var responsePathObj = {score: path.score, paragraphs: []};
+
+                                path.nodes.forEach(function (node, index) {
+                                    if (node.labels[0] != "Paragraph") {
+                                        return;
+                                    }
+                                    responsePathObj.paragraphs.push({id: node.properties.ID, text: node.properties.ParagraphText})
+                                })
+
+                                responseObj.paths.push(responsePathObj);
+                            })
+
+
+                            response[key] = responseObj;
+                            callbackSeries();
+                        }
                     }
 
 
@@ -552,7 +656,7 @@ var ParagraphEntitiesGraphQuestions = {
 
             })
             questionObj.options = {
-                searchNounsFirst: false,
+                filterNouns: false,
                 rankPathsByNounfrequency: false,
                 maxParagraphDistance: 2,
             }
@@ -564,18 +668,20 @@ var ParagraphEntitiesGraphQuestions = {
     }
 
     ,
-    getMatchingWordsParagraphs: function (queryObject, callback) {
+    getMatchingWordsParagraphs: function (queryObject,entityTypes, callback) {
         var matchStr = "";
-        if (queryObject.format == "TotalQuestionService") {
-            matchStr=   queryObject.question_nouns
 
-        }
-        else{
-            queryObject.nouns.forEach(function (noun) {
-                matchStr += noun + " "
-            })
-        }
+        entityTypes.forEach(function(type){
+            var obj=queryObject[type];
+            if(Array.isArray(obj)) {
+                obj.forEach(function (val) {
+                    matchStr += val + " "
+                })
+            }
+            else
+                matchStr += obj+" " ;
 
+        })
 
         var elasticUrl = "http://localhost:9200/paragraphs/_search"
         var query = {
@@ -1058,7 +1164,7 @@ if (false) {
 var obj = {
     "options": {
         "maxParagraphDistance": 2,
-        "searchNounsFirst": false,
+        "filterNouns": false,
         "rankPathsByNounfrequency": true,
     },
     "nouns": [

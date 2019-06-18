@@ -86,12 +86,10 @@ var MainController = (function () {
                 if (message.status && message.status == "loaded") {
                     $("#messageDiv").css("color", "green");
                     $("#messageDiv").html(message.message);
-                    context.currentDataSource = message;
+                    context.currentmappingsetName=message.currentmappingsetName
+                   // context.currentDataSource = message;
                     $("#datasetModal").modal("hide");
-                    self.loadDatasetCollectionNames(function(){
-                        datasets.setCurrentDataset(message.name);
-
-                    })
+                    datasets.initDatasetCollection(context.currentmappingsetName);
 
 
                 }

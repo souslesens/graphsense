@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>exportImport</title>
+    <script src="../jsCommon/jquery/jquery.min.js"></script>
+    <script src="../jsCommon/others/socket.io.js"></script>
+    <script src="../jsCommon/others/async.js"></script>
+    <script src="../jsCommon/common.js"></script>
+    <script src="../jsCommon/cypher.js"></script>
+    <script src="../jsCommon/schema.js"></script>
+
+    <script src="./js/exportImport.js"></script>
+    <script src="./js/download.js"></script>
+
+    <script>
+
+        $(function () {
+            exportImport.init();
+        })
+
+
+    </script>
+</head>
+<body>
+EXPORT
+<div id="exportGraphDbDiv" style="height:450px">
+    <div id="exportCypherDivTab">
+
+
+        Export
+
+        sourceSubGraph
+        <select class="exportNeo" id="subGraphExportSelect" onchange="exportImport.onSubGraphExportSelect()">
+            <option value=""></option>
+            <option value="quantum">quantum</option>
+            <option>null</option>
+            <option value="GMmec">GMmec</option>
+            <option value="quantum-04-25">quantum-04-25</option>
+            <option value="quantum-04-26">quantum-04-26</option>
+            <option value="quantum-05-13">quantum-05-13</option>
+            <option value="quantum-04-26b">quantum-04-26b</option>
+            <option value="quantum-04-24">quantum-04-24</option>
+            <option value="quantum-04-28">quantum-04-28</option>
+            <option value="sss">sss</option>
+            <option value="entitiesGraph3">entitiesGraph3</option>
+            <option value="entitiesGraph2">entitiesGraph2</option>
+            <option value="entitiesGraph">entitiesGraph</option>
+            <option value="quantum-05-12">quantum-05-12</option>
+            <option value="thesaurusQuantum">thesaurusQuantum</option>
+            <option value="entitiesGraphQuestions">entitiesGraphQuestions</option>
+        </select>
+        <!-- targetSubGraph <input class='exportNeo' id="targetSubGraph">-->
+        limit<input class="exportNeo" id="limit" value="100000">
+
+
+        <button onclick="exportImport.downloadJson('cypher','node')">download
+            Nodes
+        </button>
+        <button onclick="exportImport.downloadJson('cypher','relation')">download
+            Rels
+        </button>
+
+
+        <br>
+        <table>
+            <tbody>
+            <tr>
+                <td>
+
+                    <div id="labelsDiv"></div>
+                </td>
+
+            </tr>
+
+
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+
+IMPORT
+
+<div id="importGraphDbDiv" style="height:450px">
+    <div id="uploadCypherDivTab">
+        <table>
+            <tbody>
+            <tr>
+                <td>Import</td>
+            </tr>
+            <tr>
+
+                <td>
+                    <form enctype="multipart/form-data" action="../uploadToNeo/" method="post" target="votar">
+                        <input type="file" name="cypher" class="exportNeo" onblur="onFileButton()" ;="">
+                        <input type="submit" value="upload" name="submit" class="exportNeo">
+                    </form>
+                </td>
+
+            </tr>
+
+
+            </tbody>
+        </table>
+
+
+        <br>
+        <table>
+            <tbody>
+            <tr>
+                <td>
+
+                    <div id="labelsDiv"></div>
+                </td>
+
+            </tr>
+
+
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+</body>
+</html>

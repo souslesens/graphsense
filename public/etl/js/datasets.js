@@ -24,11 +24,11 @@ var datasets = (function () {
 
 
 
-    self.initDatasetCollection = function (datasetCollectionName) {
-        context.currentmappingset = datasetCollectionName;
+    self.initDatasetCollection = function (mappingsetName) {
+        context.currentmappingset = mappingsetName;
         var payload = {
 
-            getDatasets: datasetCollectionName
+            getDatasets: mappingsetName
         }
         MainController.callServer(MainController.jsonDBStoragePath, payload, function (err, result) {
             if (err) ;
@@ -45,7 +45,7 @@ var datasets = (function () {
 
         })
 
-        Mappings.initMappingSet(datasetCollectionName)
+        Mappings.initMappingSet(mappingsetName)
 
 
     }
@@ -53,7 +53,7 @@ var datasets = (function () {
         var payload = {
             removeDataset: 1,
             datasetName:datasetName,
-            datasetCollectionName:context.currentmappingset
+            mappingsetName:context.currentmappingset
         }
         MainController.callServer(MainController.jsonDBStoragePath, payload, function (err, result) {
             if (err)

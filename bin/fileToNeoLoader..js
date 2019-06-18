@@ -28,7 +28,7 @@ var fileToNeoLoader = {
                         callback('Error Occured' + err);
                     return;
                 }
-                var datasetCollectionName = req.body.datasetCollectionName;
+                var mappingsetName = req.body.mappingsetName;
                 var selectedNodeMappings = req.body.nodeMappings_MappingSelect;
                 var selectedRelationMappings = req.body.relationMappings_MappingSelect;
                 var collectionName = req.body.dataset_CollectionSelect;
@@ -98,13 +98,13 @@ var fileToNeoLoader = {
                                     }
                                     else { // pas de collection import des header dans la base locale (appel depuis etl studio)
                                         if (extension == "xlsx") {
-                                            fileToNeoLoader.xlsxToNeo(file, datasetCollectionName, function (err, result) {
+                                            fileToNeoLoader.xlsxToNeo(file, mappingsetName, function (err, result) {
                                                 return callbackOuter(err, result);
                                             })
 
                                         } else if (extension == "csv") {
 
-                                            fileToNeoLoader.csvToNeo(file, datasetCollectionName, function (err, result) {
+                                            fileToNeoLoader.csvToNeo(file, mappingsetName, function (err, result) {
                                                 return callbackOuter(err, result);
                                             })
                                         }
@@ -241,7 +241,7 @@ var fileToNeoLoader = {
     ,
 
 
-    csvToNeo: function (file, datasetCollectionName, callback) {
+    csvToNeo: function (file, mappingsetName, callback) {
         var dataArray = [];
         var headers = [];
         var fileName = file.originalname.substring(0, file.originalname.lastIndexOf("."))
@@ -282,18 +282,21 @@ var fileToNeoLoader = {
                 var yy = headers;
 
 
-                jsonDBStorage.writeDataset({datasetCollectionName: datasetCollectionName, name: fileName, header: headers});// data: dataArray})
-                //  fs.writeFileSync(filePath, JSON.stringify({headers: headers, data: results}, null, 2));
-                var result = {
-                    message: "file " + fileName + " loaded",
-                    name: fileName,
-                    header: headers,
-                    type: "csvFile",
-                    status: "loaded"
+                jsonDBStorage.writeDataset({mappingsetName: mappingsetName, name: fileName, header: headers},function(err){
+                    var result = {
+                        message: "file " + fileName + " loaded",
+                        name: fileName,
+                        header: headers,
+                        currentmappingsetName:mappingsetName,
+                        type: "csvFile",
+                        status: "loaded"
 
-                };
-                socket.message(result);
-                callback(null, result);
+                    };
+                    socket.message(result);
+                    callback(null, result);
+                });// data: dataArray})
+                //  fs.writeFileSync(filePath, JSON.stringify({headers: headers, data: results}, null, 2));
+
             }))
         /*  .on('headers', (headers) => {
               console.log(`First header: ${headers[0]}`)
@@ -305,7 +308,7 @@ var fileToNeoLoader = {
     ,
 
 
-    xlsxToNeo: function (file, datasetCollectionName, callbackOuter) {
+    xlsxToNeo: function (file, mappingsetName, callbackOuter) {
 
 
         var sheets = [];
@@ -344,13 +347,14 @@ var fileToNeoLoader = {
                         var fileName = file.originalname.substring(0, file.originalname.lastIndexOf(".")) + "#" + key;
                         var header = sheets[key].header;
                         if (header && header.length > 0)
-                            var header = jsonDBStorage.writeDataset({datasetCollectionName: datasetCollectionName, name: fileName, header: header});// data: dataArray})
+                            var header = jsonDBStorage.writeDataset({mappingsetName: mappingsetName, name: fileName, header: header});// data: dataArray})
                         //  fs.writeFileSync(filePath, JSON.stringify({headers: headers, data: results}, null, 2));
 
                         var result = {
                             message: "file " + fileName + " loaded",
                             name: fileName,
                             header: header,
+                            currentmappingsetName:mappingsetName,
                             type: "csvFile",
                             status: "loaded"
                         }

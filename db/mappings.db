@@ -689,13 +689,17 @@
       "nodes": {
         "Document": {
           "colName": "Document",
-          "colId": "Document",
+          "colId": "ID",
           "exportedFields": [
+            "Branch",
+            "DocType",
+            "Domain",
             "Purpose",
-            "Title"
+            "Title",
+            "Title_Purpose"
           ],
           "label": "Document",
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_neo#Sheet1",
           "name": "Document",
           "distinctValues": "on",
           "type": "node",
@@ -714,7 +718,7 @@
             "TextOffset"
           ],
           "label": "Paragraph",
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Paragraph",
           "distinctValues": "on",
           "type": "node",
@@ -725,7 +729,7 @@
           "colId": "Equipment",
           "exportedFields": null,
           "label": "Equipement",
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Equipement",
           "distinctValues": "on",
           "type": "node",
@@ -736,7 +740,7 @@
           "colId": "Phenomenon",
           "exportedFields": null,
           "label": "Phenomenon",
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Phenomenon",
           "distinctValues": "on",
           "type": "node",
@@ -747,7 +751,7 @@
           "colId": "Component",
           "exportedFields": null,
           "label": "Component",
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Component",
           "distinctValues": "on",
           "type": "node",
@@ -758,7 +762,7 @@
           "colId": "Characterisation",
           "exportedFields": null,
           "label": "Characterisation",
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Characterisation",
           "distinctValues": "on",
           "type": "node",
@@ -769,7 +773,7 @@
           "colId": "Time",
           "exportedFields": null,
           "label": "Time",
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Time",
           "distinctValues": "on",
           "type": "node",
@@ -780,7 +784,7 @@
           "colId": "Temperature",
           "exportedFields": null,
           "label": "Temperature",
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Temperature",
           "distinctValues": "on",
           "type": "node",
@@ -791,7 +795,7 @@
           "colId": "Vibration",
           "exportedFields": null,
           "label": "Vibration",
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Vibration",
           "distinctValues": "on",
           "type": "node",
@@ -802,7 +806,7 @@
           "colId": "Method",
           "exportedFields": null,
           "label": "Method",
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Method",
           "distinctValues": "on",
           "type": "node",
@@ -822,11 +826,41 @@
           "distinctValues": "on",
           "type": "node",
           "mappingset": "graphNlp"
+        },
+        "Chapter": {
+          "colName": "ChapterTitle",
+          "colId": "ID",
+          "exportedFields": [
+            "ChapterNumber",
+            "Chapter_ID",
+            "ChapterTitle1",
+            "ChapterTitle2",
+            "ChapterTitle3"
+          ],
+          "label": "Chapter",
+          "source": "export_doc_chapter_neo (6)#Sheet1",
+          "name": "Chapter",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "graphNlp"
+        },
+        "temp": {
+          "colName": "ID",
+          "colId": "ID",
+          "exportedFields": [
+            "ChapterID"
+          ],
+          "label": "temp",
+          "source": "r_paragraph_chapter#Feuil1",
+          "name": "temp",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "graphNlp"
         }
       },
       "relations": {
         "Paragraph-inDocument->Document": {
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Paragraph-inDocument->Document",
           "colFromId": "ID",
           "neoFromLabel": "Paragraph",
@@ -839,7 +873,7 @@
           "type": "relation"
         },
         "Paragraph-hasEntity->Equipement": {
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Paragraph-hasEntity->Equipement",
           "colFromId": "ID",
           "neoFromLabel": "Paragraph",
@@ -852,7 +886,7 @@
           "type": "relation"
         },
         "Paragraph-hasEntity->Phenomenon": {
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Paragraph-hasEntity->Phenomenon",
           "colFromId": "ID",
           "neoFromLabel": "Paragraph",
@@ -865,7 +899,7 @@
           "type": "relation"
         },
         "Paragraph-hasEntity->Component": {
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Paragraph-hasEntity->Component",
           "colFromId": "ID",
           "neoFromLabel": "Paragraph",
@@ -878,7 +912,7 @@
           "type": "relation"
         },
         "Paragraph-hasEntity->Characterisation": {
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Paragraph-hasEntity->Characterisation",
           "colFromId": "ID",
           "neoFromLabel": "Paragraph",
@@ -891,7 +925,7 @@
           "type": "relation"
         },
         "Paragraph-hasEntity->Time": {
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Paragraph-hasEntity->Time",
           "colFromId": "ID",
           "neoFromLabel": "Paragraph",
@@ -904,7 +938,7 @@
           "type": "relation"
         },
         "Paragraph-hasEntity->Temperature": {
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Paragraph-hasEntity->Temperature",
           "colFromId": "ID",
           "neoFromLabel": "Paragraph",
@@ -917,7 +951,7 @@
           "type": "relation"
         },
         "Paragraph-hasEntity->Vibration": {
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Paragraph-hasEntity->Vibration",
           "colFromId": "ID",
           "neoFromLabel": "Paragraph",
@@ -930,10 +964,218 @@
           "type": "relation"
         },
         "Paragraph-hasEntity->Method": {
-          "source": "export_doc_chapter_neo#Sheet1",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Paragraph-hasEntity->Method",
           "colFromId": "ID",
           "neoFromLabel": "Paragraph",
+          "neoFromId": "ID",
+          "colToId": "Method",
+          "neoToLabel": "Method",
+          "neoToId": "Method",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Document-hasEntity->Equipement": {
+          "source": "export_doc_chapter_Document_neo#Sheet1",
+          "name": "Document-hasEntity->Equipement",
+          "colFromId": "ID",
+          "neoFromLabel": "Document",
+          "neoFromId": "ID",
+          "colToId": "Equipment",
+          "neoToLabel": "Equipement",
+          "neoToId": "Equipment",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Document-hasEntity->Phenomenon": {
+          "source": "export_doc_chapter_Document_neo#Sheet1",
+          "name": "Document-hasEntity->Phenomenon",
+          "colFromId": "ID",
+          "neoFromLabel": "Document",
+          "neoFromId": "ID",
+          "colToId": "Phenomenon",
+          "neoToLabel": "Phenomenon",
+          "neoToId": "Phenomenon",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Document-hasEntity->Component": {
+          "source": "export_doc_chapter_Document_neo#Sheet1",
+          "name": "Document-hasEntity->Component",
+          "colFromId": "ID",
+          "neoFromLabel": "Document",
+          "neoFromId": "ID",
+          "colToId": "Component",
+          "neoToLabel": "Component",
+          "neoToId": "Component",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Document-hasEntity->Characterisation": {
+          "source": "export_doc_chapter_Document_neo#Sheet1",
+          "name": "Document-hasEntity->Characterisation",
+          "colFromId": "ID",
+          "neoFromLabel": "Document",
+          "neoFromId": "ID",
+          "colToId": "Characterisation",
+          "neoToLabel": "Characterisation",
+          "neoToId": "Characterisation",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Document-hasEntity->Time": {
+          "source": "export_doc_chapter_Document_neo#Sheet1",
+          "name": "Document-hasEntity->Time",
+          "colFromId": "ID",
+          "neoFromLabel": "Document",
+          "neoFromId": "ID",
+          "colToId": "Time",
+          "neoToLabel": "Time",
+          "neoToId": "Time",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Document-hasEntity->Temperature": {
+          "source": "export_doc_chapter_Document_neo#Sheet1",
+          "name": "Document-hasEntity->Temperature",
+          "colFromId": "ID",
+          "neoFromLabel": "Document",
+          "neoFromId": "ID",
+          "colToId": "Temperature",
+          "neoToLabel": "Temperature",
+          "neoToId": "Temperature",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Document-hasEntity->Vibration": {
+          "source": "export_doc_chapter_Document_neo#Sheet1",
+          "name": "Document-hasEntity->Vibration",
+          "colFromId": "ID",
+          "neoFromLabel": "Document",
+          "neoFromId": "ID",
+          "colToId": "Vibration",
+          "neoToLabel": "Vibration",
+          "neoToId": "Vibration",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Document-hasEntity->Method": {
+          "source": "export_doc_chapter_Document_neo#Sheet1",
+          "name": "Document-hasEntity->Method",
+          "colFromId": "ID",
+          "neoFromLabel": "Document",
+          "neoFromId": "ID",
+          "colToId": "Method",
+          "neoToLabel": "Method",
+          "neoToId": "Method",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Chapter-hasEntity->Equipement": {
+          "source": "export_doc_chapter_Chapter_neo#Sheet1",
+          "name": "Chapter-hasEntity->Equipement",
+          "colFromId": "ID",
+          "neoFromLabel": "Chapter",
+          "neoFromId": "ID",
+          "colToId": "Equipment",
+          "neoToLabel": "Equipement",
+          "neoToId": "Equipment",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Chapter-hasEntity->Phenomenon": {
+          "source": "export_doc_chapter_Chapter_neo#Sheet1",
+          "name": "Chapter-hasEntity->Phenomenon",
+          "colFromId": "ID",
+          "neoFromLabel": "Chapter",
+          "neoFromId": "ID",
+          "colToId": "Phenomenon",
+          "neoToLabel": "Phenomenon",
+          "neoToId": "Phenomenon",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Chapter-hasEntity->Component": {
+          "source": "export_doc_chapter_Chapter_neo#Sheet1",
+          "name": "Chapter-hasEntity->Component",
+          "colFromId": "ID",
+          "neoFromLabel": "Chapter",
+          "neoFromId": "ID",
+          "colToId": "Component",
+          "neoToLabel": "Component",
+          "neoToId": "Component",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Chapter-hasEntity->Characterisation": {
+          "source": "export_doc_chapter_Chapter_neo#Sheet1",
+          "name": "Chapter-hasEntity->Characterisation",
+          "colFromId": "ID",
+          "neoFromLabel": "Chapter",
+          "neoFromId": "ID",
+          "colToId": "Characterisation",
+          "neoToLabel": "Characterisation",
+          "neoToId": "Characterisation",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Chapter-hasEntity->Time": {
+          "source": "export_doc_chapter_Chapter_neo#Sheet1",
+          "name": "Chapter-hasEntity->Time",
+          "colFromId": "ID",
+          "neoFromLabel": "Chapter",
+          "neoFromId": "ID",
+          "colToId": "Time",
+          "neoToLabel": "Time",
+          "neoToId": "Time",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Chapter-hasEntity->Temperature": {
+          "source": "export_doc_chapter_Chapter_neo#Sheet1",
+          "name": "Chapter-hasEntity->Temperature",
+          "colFromId": "ID",
+          "neoFromLabel": "Chapter",
+          "neoFromId": "ID",
+          "colToId": "Temperature",
+          "neoToLabel": "Temperature",
+          "neoToId": "Temperature",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Chapter-hasEntity->Vibration": {
+          "source": "export_doc_chapter_Chapter_neo#Sheet1",
+          "name": "Chapter-hasEntity->Vibration",
+          "colFromId": "ID",
+          "neoFromLabel": "Chapter",
+          "neoFromId": "ID",
+          "colToId": "Vibration",
+          "neoToLabel": "Vibration",
+          "neoToId": "Vibration",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Chapter-hasEntity->Method": {
+          "source": "export_doc_chapter_Chapter_neo#Sheet1",
+          "name": "Chapter-hasEntity->Method",
+          "colFromId": "ID",
+          "neoFromLabel": "Chapter",
           "neoFromId": "ID",
           "colToId": "Method",
           "neoToLabel": "Method",
@@ -955,68 +1197,29 @@
           "mappingset": "graphNlp",
           "type": "relation"
         },
-        "Component-instanceOf->ThesaurusConcept": {
+        "Equipement-parentOf->Equipement": {
           "source": "thesaurus#Feuil1",
-          "name": "Component-instanceOf->ThesaurusConcept",
-          "colFromId": "synonyms",
-          "neoFromLabel": "Component",
-          "neoFromId": "Component",
-          "colToId": "concept",
-          "neoToLabel": "ThesaurusConcept",
-          "neoToId": "concept",
-          "relationType": "instanceOf",
-          "mappingset": "graphNlp",
-          "type": "relation"
-        },
-        "Characterisation-instanceOf->ThesaurusConcept": {
-          "source": "thesaurus#Feuil1",
-          "name": "Characterisation-instanceOf->ThesaurusConcept",
-          "colFromId": "synonyms",
-          "neoFromLabel": "Characterisation",
-          "neoFromId": "Characterisation",
-          "colToId": "concept",
-          "neoToLabel": "ThesaurusConcept",
-          "neoToId": "concept",
-          "relationType": "instanceOf",
-          "mappingset": "graphNlp",
-          "type": "relation"
-        },
-        "Method-instanceOf->ThesaurusConcept": {
-          "source": "thesaurus#Feuil1",
-          "name": "Method-instanceOf->ThesaurusConcept",
-          "colFromId": "synonyms",
-          "neoFromLabel": "Method",
-          "neoFromId": "Method",
-          "colToId": "concept",
-          "neoToLabel": "ThesaurusConcept",
-          "neoToId": "concept",
-          "relationType": "instanceOf",
-          "mappingset": "graphNlp",
-          "type": "relation"
-        },
-        "Phenomenon-instanceOf->ThesaurusConcept": {
-          "source": "thesaurus#Feuil1",
-          "name": "Phenomenon-instanceOf->ThesaurusConcept",
-          "colFromId": "synonyms",
-          "neoFromLabel": "Phenomenon",
-          "neoFromId": "Phenomenon",
-          "colToId": "concept",
-          "neoToLabel": "ThesaurusConcept",
-          "neoToId": "concept",
-          "relationType": "instanceOf",
-          "mappingset": "graphNlp",
-          "type": "relation"
-        },
-        "Equipement-instanceOf->ThesaurusConcept": {
-          "source": "thesaurus#Feuil1",
-          "name": "Equipement-instanceOf->ThesaurusConcept",
-          "colFromId": "synonyms",
+          "name": "Equipement-parentOf->Equipement",
+          "colFromId": "concept",
           "neoFromLabel": "Equipement",
           "neoFromId": "Equipment",
-          "colToId": "concept",
+          "colToId": "parent",
+          "neoToLabel": "Equipement",
+          "neoToId": "Equipment",
+          "relationType": "parentOf",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Component-hasConcept->ThesaurusConcept": {
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
+          "name": "Component-hasConcept->ThesaurusConcept",
+          "colFromId": "Component",
+          "neoFromLabel": "Component",
+          "neoFromId": "Component",
+          "colToId": "Component",
           "neoToLabel": "ThesaurusConcept",
           "neoToId": "concept",
-          "relationType": "instanceOf",
+          "relationType": "hasConcept",
           "mappingset": "graphNlp",
           "type": "relation"
         }
@@ -1236,6 +1439,40 @@
           "neoToId": "Question_Verb",
           "relationType": "hasVerb",
           "mappingset": "graphNlpQuestions",
+          "type": "relation"
+        }
+      }
+    },
+    "thesaurusTotal": {
+      "nodes": {
+        "Concept": {
+          "colName": "concept",
+          "colId": "id",
+          "exportedFields": [
+            "ancestors",
+            "parent",
+            "synonyms"
+          ],
+          "label": "Concept",
+          "source": "thesaurus#Feuil1",
+          "name": "Concept",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "thesaurusTotal"
+        }
+      },
+      "relations": {
+        "Concept-parentOf->Concept": {
+          "source": "thesaurus#Feuil1",
+          "name": "Concept-parentOf->Concept",
+          "colFromId": "parent",
+          "neoFromLabel": "Concept",
+          "neoFromId": "concept",
+          "colToId": "concept",
+          "neoToLabel": "Concept",
+          "neoToId": "concept",
+          "relationType": "parentOf",
+          "mappingset": "thesaurusTotal",
           "type": "relation"
         }
       }
