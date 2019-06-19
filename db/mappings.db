@@ -709,6 +709,7 @@
           "colName": "ID",
           "colId": "ID",
           "exportedFields": [
+            "ChapterID",
             "ChapterTitle1",
             "ChapterTitle2",
             "ChapterTitle3",
@@ -724,13 +725,13 @@
           "type": "node",
           "mappingset": "graphNlp"
         },
-        "Equipement": {
+        "Equipment": {
           "colName": "Equipment",
           "colId": "Equipment",
           "exportedFields": null,
-          "label": "Equipement",
+          "label": "Equipment",
           "source": "export_doc_chapter_paragraph_neo#Sheet1",
-          "name": "Equipement",
+          "name": "Equipment",
           "distinctValues": "on",
           "type": "node",
           "mappingset": "graphNlp"
@@ -831,8 +832,8 @@
           "colName": "ChapterTitle",
           "colId": "ID",
           "exportedFields": [
+            "ChapterID",
             "ChapterNumber",
-            "Chapter_ID",
             "ChapterTitle1",
             "ChapterTitle2",
             "ChapterTitle3"
@@ -840,19 +841,6 @@
           "label": "Chapter",
           "source": "export_doc_chapter_neo (6)#Sheet1",
           "name": "Chapter",
-          "distinctValues": "on",
-          "type": "node",
-          "mappingset": "graphNlp"
-        },
-        "temp": {
-          "colName": "ID",
-          "colId": "ID",
-          "exportedFields": [
-            "ChapterID"
-          ],
-          "label": "temp",
-          "source": "r_paragraph_chapter#Feuil1",
-          "name": "temp",
           "distinctValues": "on",
           "type": "node",
           "mappingset": "graphNlp"
@@ -872,14 +860,14 @@
           "mappingset": "graphNlp",
           "type": "relation"
         },
-        "Paragraph-hasEntity->Equipement": {
+        "Paragraph-hasEntity->Equipment": {
           "source": "export_doc_chapter_paragraph_neo#Sheet1",
-          "name": "Paragraph-hasEntity->Equipement",
+          "name": "Paragraph-hasEntity->Equipment",
           "colFromId": "ID",
           "neoFromLabel": "Paragraph",
           "neoFromId": "ID",
           "colToId": "Equipment",
-          "neoToLabel": "Equipement",
+          "neoToLabel": "Equipment",
           "neoToId": "Equipment",
           "relationType": "hasEntity",
           "mappingset": "graphNlp",
@@ -976,14 +964,14 @@
           "mappingset": "graphNlp",
           "type": "relation"
         },
-        "Document-hasEntity->Equipement": {
+        "Document-hasEntity->Equipment": {
           "source": "export_doc_chapter_Document_neo#Sheet1",
-          "name": "Document-hasEntity->Equipement",
+          "name": "Document-hasEntity->Equipment",
           "colFromId": "ID",
           "neoFromLabel": "Document",
           "neoFromId": "ID",
           "colToId": "Equipment",
-          "neoToLabel": "Equipement",
+          "neoToLabel": "Equipment",
           "neoToId": "Equipment",
           "relationType": "hasEntity",
           "mappingset": "graphNlp",
@@ -1080,14 +1068,14 @@
           "mappingset": "graphNlp",
           "type": "relation"
         },
-        "Chapter-hasEntity->Equipement": {
+        "Chapter-hasEntity->Equipment": {
           "source": "export_doc_chapter_Chapter_neo#Sheet1",
-          "name": "Chapter-hasEntity->Equipement",
+          "name": "Chapter-hasEntity->Equipment",
           "colFromId": "ID",
           "neoFromLabel": "Chapter",
           "neoFromId": "ID",
           "colToId": "Equipment",
-          "neoToLabel": "Equipement",
+          "neoToLabel": "Equipment",
           "neoToId": "Equipment",
           "relationType": "hasEntity",
           "mappingset": "graphNlp",
@@ -1197,14 +1185,14 @@
           "mappingset": "graphNlp",
           "type": "relation"
         },
-        "Equipement-parentOf->Equipement": {
+        "Equipment-parentOf->Equipment": {
           "source": "thesaurus#Feuil1",
-          "name": "Equipement-parentOf->Equipement",
+          "name": "Equipment-parentOf->Equipment",
           "colFromId": "concept",
-          "neoFromLabel": "Equipement",
+          "neoFromLabel": "Equipment",
           "neoFromId": "Equipment",
           "colToId": "parent",
-          "neoToLabel": "Equipement",
+          "neoToLabel": "Equipment",
           "neoToId": "Equipment",
           "relationType": "parentOf",
           "mappingset": "graphNlp",
@@ -1213,13 +1201,26 @@
         "Component-hasConcept->ThesaurusConcept": {
           "source": "export_doc_chapter_paragraph_neo#Sheet1",
           "name": "Component-hasConcept->ThesaurusConcept",
-          "colFromId": "Component",
-          "neoFromLabel": "Component",
-          "neoFromId": "Component",
-          "colToId": "Component",
-          "neoToLabel": "ThesaurusConcept",
-          "neoToId": "concept",
+          "colFromId": "ID",
+          "neoFromLabel": "Paragraph",
+          "neoFromId": "ID",
+          "colToId": "ChapterID",
+          "neoToLabel": "Chapter",
+          "neoToId": "ChapterID",
           "relationType": "hasConcept",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Paragraph-inChapter->Chapter": {
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
+          "name": "Paragraph-inChapter->Chapter",
+          "colFromId": "ID",
+          "neoFromLabel": "Paragraph",
+          "neoFromId": "ID",
+          "colToId": "ChapterID",
+          "neoToLabel": "Chapter",
+          "neoToId": "ChapterID",
+          "relationType": "inChapter",
           "mappingset": "graphNlp",
           "type": "relation"
         }
@@ -1324,14 +1325,14 @@
           "mappingset": "graphNlpQuestions",
           "type": "relation"
         },
-        "Question-hasEntity->Equipement": {
+        "Question-hasEntity->Equipment": {
           "source": "export_mec_question#Sheet1",
-          "name": "Question-hasEntity->Equipement",
+          "name": "Question-hasEntity->Equipment",
           "colFromId": "ID",
           "neoFromLabel": "Question",
           "neoFromId": "ID",
           "colToId": "Equipment",
-          "neoToLabel": "Equipement",
+          "neoToLabel": "Equipment",
           "neoToId": "Equipment",
           "relationType": "hasEntity",
           "mappingset": "graphNlp",

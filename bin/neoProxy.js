@@ -29,7 +29,7 @@ var neo4j = require('neo4j');
 var async=require('async');
 var request = require("request");
 var serverParams = require("./serverParams.js");
-
+var logger=require("./logger..js");
 
 
 neo4jProxy = {
@@ -74,6 +74,7 @@ neo4jProxy = {
     },
 
     match: function (matchStr, callback) {
+        logger.info(matchStr)
         var neo4jUrl = serverParams.neo4jUrl;
         var db = new neo4j.GraphDatabase(neo4jUrl);
         var obj = {

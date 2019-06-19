@@ -4,6 +4,8 @@ var httpProxy = require("../httpProxy.js");
 var request = require("request");
 var fs = require("fs");
 
+var logger = require("../logger..js");
+
 /**
  *
  *
@@ -55,8 +57,10 @@ var ParagraphEntitiesGraphQuestions = {
 
     getParagraphsMatchingEntitiesAndWords: function (questionObj, options, callback) {
         var response = {}
-        var paragraphIdsWordsFilter = [];
+
         var matchingNeoPaths = {};
+        var paragraphIds = [];
+        var paragraphScores = {};
 
         if (!options)
             options = {};
@@ -66,7 +70,7 @@ var ParagraphEntitiesGraphQuestions = {
                 function (callbackSeries) {
                     if (questionObj.format == "TotalQuestionService") {
                         var entityNames = [];
-                        if (questionObj.question_entities.length == 0)
+                        if (false && questionObj.question_entities.length == 0)
                             return callback();
 
 
@@ -83,7 +87,7 @@ var ParagraphEntitiesGraphQuestions = {
                         async.eachSeries(questionObj.question_entities, function (entityObj, callbackEach) {
 
 
-                               // var entityType = capitalize(entityObj.entity_label)
+                                // var entityType = capitalize(entityObj.entity_label)
                                 var entityType = entityObj.entity_label;
                                 var cypher = "match (n:" + entityType + ") where n.name='" + entityObj.entity_normalized_value + "' " + subGraphStr + " return id(n) as neoId";
                                 neoProxy.match(cypher, function (err, result) {
@@ -149,7 +153,7 @@ var ParagraphEntitiesGraphQuestions = {
                 //if options.filterNouns==true : search engine retreive ids of paragraphs matching nouns
                 function (callbackSeries) {
 
-            var entityTypes=[];
+                    var entityTypes = [];
                     if (options.filterNouns)
                         entityTypes.push("question_nouns")
                     if (options.filterAdjs)
@@ -158,23 +162,20 @@ var ParagraphEntitiesGraphQuestions = {
                         entityTypes.push("question_verbs")
 
 
-
-
-                    if (entityTypes.length==0)
+                    if (entityTypes.length == 0)
                         return callbackSeries();
-                    ParagraphEntitiesGraphQuestions.getMatchingWordsParagraphs(questionObj,entityTypes, function (err, result) {
+                    ParagraphEntitiesGraphQuestions.getMatchingWordsParagraphs(questionObj, entityTypes, function (err, result) {
 
-                        if(result.length==0)
-                            response.maxNounSearchScore = 0;
-                        else
-                            response.maxNounSearchScore = result[0].score;
 
                         result.forEach(function (paragraph) {
+                            var id = paragraph.id;
                             if (typeof paragraph.id == "string")
-                                paragraphIdsWordsFilter.push(parseInt(paragraph.id))
-                            else
-                                paragraphIdsWordsFilter.push(paragraph.id)
+                                id = parseInt(paragraph.id);
+                            paragraphScores[id] = paragraph.score;
+                            paragraphIds.push(id);
+
                         })
+
 
                         callbackSeries();
                     })
@@ -191,19 +192,19 @@ var ParagraphEntitiesGraphQuestions = {
 
 
                         var entities = questionObj.question_entities;
-                        entities.forEach(function (entity,index) {
+                        entities.forEach(function (entity, index) {
                             var label = entity.entity_label;
                             var queryObject = {
                                 name: entity.entity_normalized_value,
                                 nodeSetIds: [entity.neoId],
-                                label:label
+                                label: label
                             }
-                            cards[label+"-" + index] = queryObject;
+                            cards[label + "-" + index] = queryObject;
                             index++;
                         })
 
 
-                    }else {
+                    } else {
 
                         for (var key in questionObj.entities) {
                             var entities = questionObj.entities[key];
@@ -219,16 +220,17 @@ var ParagraphEntitiesGraphQuestions = {
 
                         }
                     }
+
                     var options = {
                         cards: cards,
                         distance: 2,
-                        paragraphIds: paragraphIdsWordsFilter
+                        paragraphIds: paragraphIds
                     }
-                        ParagraphEntitiesGraphQuestions.executeNeoPathsQuery(options, function (err, result) {
+                    ParagraphEntitiesGraphQuestions.executeNeoPathsQuery(options, function (err, result) {
 
-                            matchingNeoPaths = result
-                            callbackSeries();
-                        })
+                        matchingNeoPaths = result
+                        callbackSeries();
+                    })
 
                 },
 // sort paragraphs inside each path
@@ -240,18 +242,18 @@ var ParagraphEntitiesGraphQuestions = {
 
                         var paths = matchingNeoPaths[key];
 
-                        paths.forEach(function(path,index){
-                        path.nodes.sort(function (a, b) {
-                            if(a.properties.TextOffset && b.properties.TextOffset) {
-                                if (a.properties.TextOffset > b.properties.TextOffset)
-                                    return 1;
-                                if (a.properties.TextOffset < b.properties.TextOffset)
-                                    return -1;
-                                return 0;
-                            }
-                            else
-                                return 0;
-                        })
+                        paths.forEach(function (path, index) {
+                            path.nodes.sort(function (a, b) {
+                                if (a.properties.TextOffset && b.properties.TextOffset) {
+                                    if (a.properties.TextOffset > b.properties.TextOffset)
+                                        return 1;
+                                    if (a.properties.TextOffset < b.properties.TextOffset)
+                                        return -1;
+                                    return 0;
+                                }
+                                else
+                                    return 0;
+                            })
                             matchingNeoPaths[key][index] = path;
 
                         })
@@ -260,28 +262,28 @@ var ParagraphEntitiesGraphQuestions = {
                 },
 
 
-
-
-
-
-
                 //if option rankPathsByNounfrequency use regex to rank neo path by counting nouns in each path (aggregate or paragraphs between entities)
                 function (callbackSeries) {
 
                     if (!options.rankPathsByNounfrequency) {
                         return callbackSeries();
                     }
+                    if (!(options.filterNouns || options.filterVerbs || options.filterAdjs))
+                        return callbackSeries();
 
                     if (questionObj.format == "TotalQuestionService") {
 
-                    }else{
+                    } else {
 
                     }
                     for (var key in matchingNeoPaths) {
 
+                        var words = [];
+                        words = words.concat(questionObj.question_nouns).concat(questionObj.question_verbs).concat(questionObj.question_adjs);
                         var paths = matchingNeoPaths[key];
                         paths.forEach(function (path, index) {
-                            var score = ParagraphEntitiesGraphQuestions.getPathTextScore(path, questionObj.nouns);
+
+                            var score = ParagraphEntitiesGraphQuestions.getPathTextScore(path, words);
                             paths[index].score = score;
 
                         })
@@ -306,35 +308,54 @@ var ParagraphEntitiesGraphQuestions = {
                 function (callbackSeries) {
 
                     if (questionObj.format == "TotalQuestionService") {
-                        response=[];
+                        response = [];
                         for (var key in matchingNeoPaths) {
                             var responseObj = {}
                             var paths = matchingNeoPaths[key];
 
                             var str = "";
                             responseObj.paths = [];
-                            entities=[]
+                            entities = []
                             paths.forEach(function (path, index) {
-                                var responsePathObj = {entities:[],score: path.score,location:"", paragraphs: []};
-
+                                var responsePathObj = {entities: [], score: path.score, location: "", paragraphs: []};
+                                responsePathObj.score = 0;
                                 path.nodes.forEach(function (node, index) {
                                     if (node.labels[0] != "Paragraph") {
-                                      return  responsePathObj.entities.push({id: node.properties.ID,label:node.labels[0], value: node.properties.name})
+                                        return responsePathObj.entities.push({id: node.properties.ID, label: node.labels[0], value: node.properties.name})
                                     }
-                                    if (responsePathObj.paragraphs.length==0) {
+                                    if (responsePathObj.paragraphs.length == 0) {
 
-                                        responsePathObj.location={document:node.properties.Document, chapter:node.properties.ChapterTitle1, chapter2:node.properties.ChapterTitle2}
+                                        responsePathObj.location = {document: node.properties.Document, chapter: node.properties.ChapterTitle1, chapter2: node.properties.ChapterTitle2}
                                     }
-                                    responsePathObj.paragraphs.push({id: node.properties.ID, text: node.properties.ParagraphText,style:node.properties.StyleParagraph,offset:node.properties.TextOffset})
+                                    responsePathObj.paragraphs.push({
+                                        id: node.properties.ID,
+                                        text: node.properties.ParagraphText,
+                                        style: node.properties.StyleParagraph,
+                                        offset: node.properties.TextOffset
+                                    })
+                                    responsePathObj.score += paragraphScores[node.properties.ID]
+
                                 })
 
+
                                 response.push(responsePathObj);
+                                response.sort(function (a, b) {
+
+                                    if (a.score < b.score)
+                                        return 1;
+                                    if (a.score > b.score)
+                                        return -1;
+                                    return 0;
+
+
+                                });
                             })
-
-
-                         //   response[key] = responseObj;
-                            callbackSeries();
                         }
+
+
+                        //   response[key] = responseObj;
+                        callbackSeries();
+
                     }
                     else {
 
@@ -501,7 +522,7 @@ var ParagraphEntitiesGraphQuestions = {
             }
             cypher += where + " return nodes(path) as nodes, relationships(path) as relations";
 
-            console.log(cypher);
+            logger.info(cypher);
             neoProxy.match(cypher, function (err, result) {
                 if (err)
                     return callback(err);
@@ -522,12 +543,15 @@ var ParagraphEntitiesGraphQuestions = {
             var cardKeys = Object.keys(cardsMap);
         var countCards = cardKeys.length;
 
-        var combinations2, combinations1;
+        var combinations2, combinations1, combinations0;
         var combinationResults = {};
         var matchCount = 0;
 
         if (countCards == 0) {
-            return callbackOuter(null, {});
+            if (paragraphIds.length > 0)
+                combinations0 = true;
+            else
+                return callbackOuter(null, {});
         }
         else if (countCards == 1) {
             combinations2 = []
@@ -541,11 +565,35 @@ var ParagraphEntitiesGraphQuestions = {
         }
 
         async.series([
+
+            function (callback) {//pas d'entité
+                if (!combinations0)
+                    return callback();
+                var cypher = "MATCH   path=(p1)-[:precede*0.." + distance + "]-(p2)";
+
+                var whereP1 = getWhereClauseFromArray("ID", paragraphIds, "p1");
+                var whereP2 = getWhereClauseFromArray("ID", paragraphIds, "p2");
+
+
+                cypher += " where " + whereP1 + " return nodes(path) as nodes, relationships(path) as relations";
+
+                logger.info(cypher);
+                neoProxy.match(cypher, function (err, result) {
+                    if (err)
+                        return callback(err);
+                    var key = "noMatchingEntities"
+                    combinationResults[key] = result;
+                    return callback(null, result)
+                })
+
+            },
             function (callback) {//combinasons 2à 2
-                if (combinations2.length == 0)
+                if (!combinations2 || combinations2.length == 0)
                     return callback();
                 async.eachSeries(combinations2, function (combination, callbackEach) {
                         getPathBetweenEntities(combination, distance, paragraphIds, function (err, result) {
+                            if (err)
+                                return callback(err);
                             if (result.length > 0) {
                                 var key = JSON.stringify(combination);
 
@@ -572,6 +620,8 @@ var ParagraphEntitiesGraphQuestions = {
                     return callback()
                 async.eachSeries(combinations1, function (combination, callbackEach) {
                         getPathBetweenEntities(combination, 1, paragraphIds, function (err, result) {
+                            if (err)
+                                return callback(err);
                             if (result.length > 0) {
                                 var key = JSON.stringify(combination)
                                 combinationResults[key] = result;
@@ -587,6 +637,7 @@ var ParagraphEntitiesGraphQuestions = {
                     })
 
             }
+            ,
         ], function (err) {
             return callbackOuter(err, combinationResults)
 
@@ -618,7 +669,7 @@ var ParagraphEntitiesGraphQuestions = {
 
         var cypher = "Match path=(q:Question)--(n) where q.subGraph='entitiesGraph2' " + where + " return q,n";
 
-        console.log(cypher);
+        logger.info(cypher);
         neoProxy.match(cypher, function (err, result) {
 
 
@@ -668,20 +719,22 @@ var ParagraphEntitiesGraphQuestions = {
     }
 
     ,
-    getMatchingWordsParagraphs: function (queryObject,entityTypes, callback) {
+    getMatchingWordsParagraphs: function (queryObject, entityTypes, callback) {
         var matchStr = "";
-
-        entityTypes.forEach(function(type){
-            var obj=queryObject[type];
-            if(Array.isArray(obj)) {
+        var matchingWordsParagraphs = []
+        entityTypes.forEach(function (type) {
+            var obj = queryObject[type];
+            if (Array.isArray(obj)) {
                 obj.forEach(function (val) {
                     matchStr += val + " "
                 })
             }
             else
-                matchStr += obj+" " ;
+                matchStr += obj + " ";
 
         })
+        if (matchStr == "")
+            return callback(null, matchingWordsParagraphs)
 
         var elasticUrl = "http://localhost:9200/paragraphs/_search"
         var query = {
@@ -689,7 +742,7 @@ var ParagraphEntitiesGraphQuestions = {
             "query": {
 
                 "bool": {
-                    "must": [
+                    "should": [
                         {
                             "match": {
                                 "paragraphText": matchStr
@@ -700,9 +753,9 @@ var ParagraphEntitiesGraphQuestions = {
 
 
         }
-        console.log(JSON.stringify(query, null, 2))
+        logger.info(JSON.stringify(query, null, 2))
 
-        var matchingWordsParagraphs = []
+
         request({
                 url: elasticUrl,
                 json: query,
@@ -714,7 +767,7 @@ var ParagraphEntitiesGraphQuestions = {
                 if (err)
                     callback(err)
                 else if (res.body && res.body.errors && res.body.errors.length > 0) {
-                    console.log(JSON.stringify(res.body.errors))
+                    logger.error(JSON.stringify(res.body.errors))
                     callback(res.body.errors)
                 }
                 else {
@@ -847,7 +900,7 @@ var ParagraphEntitiesGraphQuestions = {
                 if (err)
                     callbackEach(err)
                 else if (res.body && res.body.errors && res.body.errors.length > 0) {
-                    console.log(JSON.stringify(res.body.errors))
+                    logger.error(JSON.stringify(res.body.errors))
                     callbackEach(res.body.errors)
                 }
                 else {
@@ -975,7 +1028,7 @@ var ParagraphEntitiesGraphQuestions = {
                             if (err)
                                 callback(err)
                             else if (res.body && res.body.errors && res.body.errors.length > 0) {
-                                console.log(JSON.stringify(res.body.errors))
+                                logger.error(JSON.stringify(res.body.errors))
                                 callback(res.body.errors)
                             }
                             else {
@@ -1020,7 +1073,7 @@ var ParagraphEntitiesGraphQuestions = {
                                     if (err)
                                         callbackEach(err)
                                     else if (res.body && res.body.errors && res.body.errors.length > 0) {
-                                        console.log(JSON.stringify(res.body.errors))
+                                        logger.error(JSON.stringify(res.body.errors))
                                         callbackEach(res.body.errors)
                                     }
                                     else {
@@ -1030,10 +1083,10 @@ var ParagraphEntitiesGraphQuestions = {
                                             questions[questionId].exactMatch = "??"
 
                                         /*     if(res.body.hits && res.body.hits.hits)
-                                                 console.log(question.iD+"\t"+question.typeReponse+"\t"+question.resultat+"\t"+res.body.hits.hits.length)
+                                                   logger.info(question.iD+"\t"+question.typeReponse+"\t"+question.resultat+"\t"+res.body.hits.hits.length)
                                              else
-                                                 console.log(question.iD+"\t"+question.typeReponse+"\t"+question.resultat+"\t"+"??")*/
-                                        //   console.log(index);
+                                                   logger.info(question.iD+"\t"+question.typeReponse+"\t"+question.resultat+"\t"+"??")*/
+                                        //     logger.info(index);
                                         callbackEach()
                                     }
                                 })
@@ -1046,7 +1099,7 @@ var ParagraphEntitiesGraphQuestions = {
                 },
                 function (callback) {//look response approx match
 
-                    console.log("-------------------");
+                    logger.info("-------------------");
 
                     async.eachSeries(Object.keys(questions), function (questionId, callbackEach) {
                         var question = questions[questionId]
@@ -1071,7 +1124,7 @@ var ParagraphEntitiesGraphQuestions = {
                                 if (err)
                                     callbackEach(err)
                                 else if (res.body && res.body.errors && res.body.errors.length > 0) {
-                                    console.log(JSON.stringify(res.body.errors))
+                                    logger.error(JSON.stringify(res.body.errors))
                                     callbackEach(res.body.errors)
                                 }
                                 else {
@@ -1096,7 +1149,7 @@ var ParagraphEntitiesGraphQuestions = {
             function (err) {
                 Object.keys(questions).forEach(function (questionId) {
                     var question = questions[questionId];
-                    console.log(question.data.iD + "\t" + question.data.typeReponse + "\t" + question.data.resultat + "\t" + question.exactMatch + "\t" + question.approxMatch)
+                    console.infos(question.data.iD + "\t" + question.data.typeReponse + "\t" + question.data.resultat + "\t" + question.exactMatch + "\t" + question.approxMatch)
 
 
                 })
@@ -1104,11 +1157,93 @@ var ParagraphEntitiesGraphQuestions = {
         )
 
 
+    },
+
+    createPostImportRelations: function () {
+
+        var entities = [
+
+            "Equipment",
+            "Phenomenon",
+            "Component",
+            "Characterisation",
+            "Temperature",
+            "Time",
+            "Vibration",
+            "Method"
+        ]
+        async.series([
+                function (callbackSeries) {  // relation thesaurus entity
+                    return callbackSeries();
+                    async.eachSeries(entities, function (entity, callback) {
+
+
+                        var cypher = "Match(c:ThesaurusConcept),(x:" + entity + ") where c.concept=x.name and  x.subGraph=\"entitiesGraph3\" create(x)-[:instanceOf]->(c)"
+                        neoProxy.match(cypher, function (err, result) {
+                            callback(err);
+
+                        })
+                    }, function (err) {
+
+                        return callbackSeries(err);
+                    })
+                },
+
+                function (callbackSeries) { // relation document Entity to Paragraph entity
+                    return callbackSeries();
+                    async.eachSeries(entities, function (entity, callback) {
+
+                        var cypher = "match(c:" + entity + ")--(n:Document)--(p:Paragraph) where p.subGraph=\"entitiesGraph3\"   create (p)-[:hasEntity{type:\"document\"}]->(c)"
+                        neoProxy.match(cypher, function (err, result) {
+                            callback(err);
+
+                        })
+                    }, function (err) {
+
+                        return callbackSeries(err);
+                    })
+                },
+
+                function (callbackSeries) { // relation document Entity to Paragraph entity
+                 //   return callbackSeries();
+                    async.eachSeries(entities, function (entity, callback) {
+                        // relation chapter Entity to Paragraph entity
+                        var cypher = "match(c:" + entity + ")--(n:Chapter)--(p:Paragraph) where p.subGraph=\"entitiesGraph3\" create (p)-[r:hasEntity{type:\"chapter\"}]->(c) return count(r)"
+                        neoProxy.match(cypher, function (err, result) {
+                            callback(err);
+
+                        })
+                    }, function (err) {
+
+                        return callbackSeries(err);
+                    })
+                },
+
+                function (callbackSeries) {//lien entre paragraphes du meme chapitre (precede)
+                    return callbackSeries();
+
+                    var cypher = "Match(n:Paragraph),(m:Paragraph) where n.subGraph=\"entitiesGraph3\" and  m.subGraph=\"entitiesGraph3\"  and n.Document=m.Document and n._ChapterTitle1=m._ChapterTitle1 and m.TextOffset-n.TextOffset=1 create (m)-[:precede]->(n)"
+                    neoProxy.match(cypher, function (err, result) {
+
+                        return callbackSeries(err);
+                    })
+                },
+            ],
+
+            function (err) {
+                console.log("all done")
+
+            }
+        )
     }
 
 
 }
 module.exports = ParagraphEntitiesGraphQuestions
+
+
+if (false)
+    ParagraphEntitiesGraphQuestions.createPostImportRelations();
 
 
 if (false) {
