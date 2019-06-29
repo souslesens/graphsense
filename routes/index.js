@@ -26,8 +26,7 @@ var jsonDBStorage = require("../bin/jsonDBStorage..js")
 
 
 
-//plugins
-var ParagraphEntitiesGraphQuestions=require("../bin/nlp/paragraphEntitiesQuestions2..js");
+
 
 
 console.log("***********************serverParams.routesRootUrl " + serverParams.routesRootUrl + "*********")
@@ -575,8 +574,9 @@ router.post(serverParams.routesRootUrl + '/authentication', function (req, respo
 
 });
 
-
-
+//plugins
+var ParagraphEntitiesGraphQuestions=require("../bin/nlp/paragraphEntitiesQuestions2..js");
+var InteractiveQuestions=require("../bin/nlp/interactiveQuestions..js");
 router.post(serverParams.routesRootUrl + '/paragraphEntitiesGraph', function (req, response) {
     if (req.body.getParagraphsMatchingEntitiesAndWords) {
         var question = req.body.question;
@@ -596,6 +596,18 @@ router.post(serverParams.routesRootUrl + '/paragraphEntitiesGraph', function (re
         });
     }
 
+    if (req.body.getSentenceEntityProposals) {
+
+        InteractiveQuestions.getSentenceEntityProposals(req.body.sentence, function (error, result) {
+            processResponse(response, error, result)
+        });
+    }
+    if(req.body.getAssociatedEntitiesInsidePaths){
+
+        ParagraphEntitiesGraphQuestions.getAssociatedEntitiesInsidePaths(JSON.parse(req.body.entityIds),req.body.distance, function (error, result) {
+            processResponse(response, error, result)
+        });
+    }
 
 });
 

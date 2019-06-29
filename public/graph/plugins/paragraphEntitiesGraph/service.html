@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Service</title>
 
 
     <script type="text/javascript" src="../../../jsCommon/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="../../../jsCommon/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../../../jsCommon/common.js"></script>
     <script>
-        var paragraphEntitiesProxyUrl = "../../../paragraphEntitiesGraph"
+        var paragraphEntitiesProxyUrl = "../../../paragraphEntitiesGraph";
+        var questionsMap = {};
         $(function () {
 
             var options = {
@@ -16,33 +18,1576 @@
                 "filterNouns": true,
                 "filterAdjs": false,
                 "filterVerbs": false,
-                "rankPathsByNounfrequency": false,
+                "expandToAllChapterParagraphs":false,
                 "subGraph": "entitiesGraph3"
 
             };
+
+
+            var questionTexts = {
+                "header": [
+                    "ID",
+                    "Doc",
+                    "Question",
+                    "Expected Answer",
+                    "Paragraph",
+                    "Question_Type",
+                    "Type_de_contenu_reponse",
+                    "Resultat",
+                    "Question_Stop_Words",
+                    "Question_Other_Words",
+                    "Equipment",
+                    "Component",
+                    "Phenomenon",
+                    "Characterisation",
+                    "Method"
+                ],
+                "data": [
+                    {
+                        "ID": 1,
+                        "Doc": "GM RC MEC 110",
+                        "Question": "What can I do reduce the erosion phenomenon on machinery",
+                        "Expected Answer": "To reduce the erosion phenomenon the solution is to harden the material by using one of the following techniques:\r\n\r\n      Stellite cladding,\r\n\r\n      HVOF tungsten carbide,\r\n\r\n      Diffusion alloying - Boron.\r\n",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "reduce erosion phenomenon machinery",
+                        "Question_Other_Words": "reduce;machinery",
+                        "Phenomenon": "Erosion;Phenomenon"
+                    },
+                    {
+                        "ID": 2,
+                        "Doc": "GM RC MEC 110",
+                        "Question": "which material should I use for soda pump",
+                        "Expected Answer": "By these figures the usage of metallic materials such as 316L is suitable.\r\n",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "material use soda pump",
+                        "Question_Other_Words": "material;use;soda",
+                        "Equipment": "Pump"
+                    },
+                    {
+                        "ID": 3,
+                        "Doc": "GM RC MEC 110",
+                        "Question": "recommandation on barrel arrangement",
+                        "Expected Answer": "9.3.3 -     Barrel arrangement (MSR  A3, S3 )\r\n\r\nThe barrel shall never be painted or coated internally but coated externally; the selected material shall be class A8 according to API 610 (welding-ability, no Charpy test, no corrosion when the barrel is open to atmosphere);\r\n\r\nThe barrel shall be considered as a pressure vessel (In Europe in accordance with PED).\r\n\r\nThe barrel shall be designed in order to allow easy inspection of the welds.\r\n\r\nThe barrel shall be vented and routed to the flare for chilling down before the pump start-up.\r\n\r\nThe barrel shall be designed for complete draining in case of maintenance, or for removing traces of water during pump overhaul.",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "recommandation barrel arrangement",
+                        "Question_Other_Words": "recommandation;barrel;arrangement"
+                    },
+                    {
+                        "ID": 4,
+                        "Doc": "GM RC MEC 117",
+                        "Question": "What is the definition of runout? ",
+                        "Expected Answer": "A source of error on the output signal of a proximity probe transducer system resulting from non- uniform electrical conductivity/resistivity/permeability properties of the observed material shaft surface. Thenon uniform properties may result from rust, engravings, or stencil marks. Electrical runout is a change in the proximity probe output signal that does not result from a probe gap change, neither a geometrical change of the shaft journal.",
+                        "Paragraph": 2.3,
+                        "Question_Type": "Definition",
+                        "Type_de_contenu_reponse": "Text",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "definition runout ?  ",
+                        "Question_Other_Words": "definition;runout;?; "
+                    },
+                    {
+                        "ID": 5,
+                        "Doc": "GM RC MEC 117",
+                        "Question": "What is the grade  balancing of a fan? ",
+                        "Expected Answer": "a fan is according G 6.3, a car wheel is G 60.",
+                        "Paragraph": 3.1,
+                        "Type_de_contenu_reponse": "Text",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "grade   balancing fan ?",
+                        "Question_Other_Words": "grade;  ;balancing;?",
+                        "Equipment": "Fan"
+                    },
+                    {
+                        "ID": 6,
+                        "Doc": "GM RC MEC 117",
+                        "Question": "On which equipments should we High speed balance the rotor",
+                        "Expected Answer": "(MSR A3) From the recent years the high speed balancing become a standard for most of the OEM, TOTAL RC rotors of the listed type of equipments should be high speed balanced:\r\n\r\ncentrifugal compressors,\r\n\r\naxial compressors,\r\n\r\nblowers,\r\n\r\nspecial purpose steam turbines.",
+                        "Paragraph": 4,
+                        "Question_Type": "Equipment",
+                        "Type_de_contenu_reponse": "Text",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "equipments High speed balance rotor",
+                        "Question_Other_Words": "High;speed;balance",
+                        "Equipment": "Equipment",
+                        "Component": "Rotor",
+                        "Method": "HSB"
+                    },
+                    {
+                        "ID": 7,
+                        "Doc": "GM RC MEC 117",
+                        "Question": "What is the vibration limit before to perform an High speed balance. ",
+                        "Expected Answer": "3.2.3 - In case of HSB\r\nWe only take a look at shaft vibrations at nominal speed which shall be lower than 25 μm p.p (run out included) or  whichever is the lower",
+                        "Paragraph": 3.23,
+                        "Question_Type": "Vibration",
+                        "Type_de_contenu_reponse": "Text",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "vibration limit perform High speed balance .",
+                        "Question_Other_Words": "limit;perform;High;speed;balance;.",
+                        "Phenomenon": "Vibration",
+                        "Method": "HSB"
+                    },
+                    {
+                        "ID": 8,
+                        "Doc": "GM RC MEC 117",
+                        "Question": "Which bearing should be used to perform High speed balance",
+                        "Expected Answer": "Rotor and test bench status before HSB:\r\n\r\nbefore HSB, LSB is required to limit the initial rotor response,\r\n\r\nvibrations shall be measured with non contact probes on the rotor tracks. (no accelerometers),\r\n\r\nbearings for HSB shall be the machine bearings (not the test bench bearings),\r\n\r\nrotor is not equipped with accessories (no thrust collar, no coupling hub on free end), key slots shall be filled with 1⁄2 key. For steam turbines rotor balancing the mechanical overspeed trip device shall be installed on the rotor and shall be tested during the balancing.",
+                        "Paragraph": 5,
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "bearing perform High speed balance",
+                        "Question_Other_Words": "perform;High;speed;balance",
+                        "Component": "Bearing",
+                        "Method": "HSB"
+                    },
+                    {
+                        "ID": 9,
+                        "Doc": "GM RC MEC 117",
+                        "Question": "Should we install the coupling hub to perform an High speed balance.",
+                        "Expected Answer": "The rotors shall not be balanced with the coupling hubs fitted for low speed and high speed balancing.",
+                        "Paragraph": 5,
+                        "Question_Type": "Boolean",
+                        "Type_de_contenu_reponse": "Text",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "install coupling hub perform High speed balance .",
+                        "Question_Other_Words": "install;coupling;hub;perform;High;speed;balance;.",
+                        "Component": "Coupling hub",
+                        "Method": "HSB"
+                    },
+                    {
+                        "ID": 10,
+                        "Doc": "GM RC MEC 118",
+                        "Question": "Maximum expectable discharge temperature for valves",
+                        "Expected Answer": "Maximum expectable discharge temperature for any common service is 135°C and restricted to 120°C for H2 rich gas (12 g/mol) services.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "Maximum expectable discharge temperature valves",
+                        "Question_Other_Words": "Maximum;expectable;discharge",
+                        "Component": "Valve",
+                        "Characterisation": "Temperature"
+                    },
+                    {
+                        "ID": 11,
+                        "Doc": "GM RC MEC 118",
+                        "Question": "recommandation on valve spring material",
+                        "Expected Answer": "Spring material shall have excellent fatigue and corrosion resistance when exposed to H2S and chloride traces.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "recommandation valve spring material",
+                        "Question_Other_Words": "recommandation;spring;material",
+                        "Equipment": "Valve"
+                    },
+                    {
+                        "ID": 12,
+                        "Doc": "GM RC MEC 118",
+                        "Question": "What is the recommended maintenance startegy of valves for unspared reciprocating compressors",
+                        "Expected Answer": "A combination of condition based maintenance and preventive maintenance is recommended for the maintenance of reciprocating compressors.",
+                        "Question_Type": "Recommandation",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "recommended maintenance startegy valves unspared reciprocating compressors",
+                        "Question_Other_Words": "recommended;startegy;unspared;reciprocating;compressors",
+                        "Equipment": "Reciprocating compressors (API 618)",
+                        "Component": "Valve",
+                        "Method": "Maintenance"
+                    },
+                    {
+                        "ID": 13,
+                        "Doc": "GM RC MEC 118",
+                        "Question": "What is the normal clerance between unloader spindle and valve lifter ",
+                        "Expected Answer": "Normal clearance in loaded position between unloader spindle and valve lifter is 1.5mm.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "normal clerance unloader spindle valve lifter",
+                        "Question_Other_Words": "normal;clerance;unloader;spindle;lifter",
+                        "Equipment": "Valve"
+                    },
+                    {
+                        "ID": 14,
+                        "Doc": "GM RC MEC 118",
+                        "Question": "What are the recommended spare parts for reciprocating compressors valves",
+                        "Expected Answer": " Stock management\r\n     o Hold one complete set of spare valves for suction and discharge of each cylinder.",
+                        "Question_Type": "Recommandation",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "recommended spare parts reciprocating compressors valves",
+                        "Question_Other_Words": "recommended;spare;parts;reciprocating;compressors",
+                        "Equipment": "Reciprocating compressors (API 618)",
+                        "Component": "Valve"
+                    },
+                    {
+                        "ID": 15,
+                        "Doc": "GM RC MEC 118",
+                        "Question": "when can we do in case of abnormal temperature between 2 valves",
+                        "Expected Answer": "An abnormal temperature rise (from 10°C to 20°C difference between 2 valves on the same effect) indicates a valve leakage.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "case abnormal temperature 2 valves",
+                        "Question_Other_Words": "case;abnormal;2",
+                        "Component": "Valve",
+                        "Characterisation": "Temperature"
+                    },
+                    {
+                        "ID": 16,
+                        "Doc": "GM RC MEC 217",
+                        "Question": "What is the appropriate strategy to apply on stand-by oil pumps. ",
+                        "Expected Answer": "Switch A service pump with B stand-by pump after 4 weeks operation and leave the B stand by pump running during 3 weeks, the A becoming the stand by pump.",
+                        "Paragraph": "6.1",
+                        "Question_Type": "Procedure",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "appropriate strategy apply stand - oil pumps .",
+                        "Question_Other_Words": "appropriate;strategy;apply;stand;-;.",
+                        "Equipment": "Pump"
+                    },
+                    {
+                        "ID": 17,
+                        "Doc": "GM RC MEC 217",
+                        "Question": "Definition for On line monitoring",
+                        "Expected Answer": "It is an on-line treatment of measures on the main critical rotating machines. This method contributes to decrease the risk of having no detection of an earlier major failure and to protect the machines by activating hardware and / or software alarms.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "Definition line monitoring",
+                        "Question_Other_Words": "Definition;line",
+                        "Method": "Monitoring"
+                    },
+                    {
+                        "ID": 18,
+                        "Doc": "GM RC MEC 217",
+                        "Question": "What are the preventiv tasks on a stand-by turbine",
+                        "Expected Answer": "\r\nCheck functionality of steam traps,\r\n\r\nOpen turbine casing drain to check for condensate (drain whenever necessary).\r\n\r\nCheck oil level and check if there is any water builds up at bottom bearing pedestal, drain if required.",
+                        "Paragraph": "6.2",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "preventiv tasks stand - turbine",
+                        "Question_Other_Words": "preventiv;tasks;stand;-",
+                        "Equipment": "Turbine"
+                    },
+                    {
+                        "ID": 19,
+                        "Doc": "GM RC MEC 217",
+                        "Question": "Can I operate a turbine equipped with dry gas seal at slowroll speed",
+                        "Expected Answer": "Turbines using gas seals for shaft sealing or driving a machine fitted with dry gas seals need a minimum speed to create a lift of the seal faces and shall not be operated at slow-roll/stand still.",
+                        "Paragraph": "6.3",
+                        "Question_Type": "Boolean",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "operate turbine equipped dry gas seal slowroll speed",
+                        "Question_Other_Words": "operate;equipped;dry;gas;seal;slowroll;speed",
+                        "Equipment": "Turbine",
+                        "Component": "Gas Seal",
+                        "Characterisation": "Slow-roll Speed"
+                    },
+                    {
+                        "ID": 20,
+                        "Doc": "GM RC MEC 217",
+                        "Question": "Which kind of analysis are recommended on lubrification oil ",
+                        "Expected Answer": "4.4 - Oil analysis (MSR A3)\r\nStandard analysis for oil properties (aspect, acidity, viscosity…) are systematically done for every type of machine, with a sample valve located in the oil tank or in the main machine casing. The way of collecting the sample is given in the document DIG 1500 MEC 001. It is possible to find complementary information in GM RC MEC 214 and ISO 4021",
+                        "Paragraph": "4.4",
+                        "Resultat": "KO - Insuffisant",
+                        "Question_Stop_Words": "kind analysis recommended lubrification oil",
+                        "Question_Other_Words": "kind;analysis;recommended;lubrification"
+                    },
+                    {
+                        "ID": 21,
+                        "Doc": "GM RC MEC 217",
+                        "Question": "What is the definition of a critical equipement level 1",
+                        "Expected Answer": "Requires maintenance and operating strategy that mitigates the risk level. It should consider condition monitoring, predictive and preventive maintenance, critical spares such as complete assemblies, operator check list; maintenance check list; training.",
+                        "Paragraph": 3.1,
+                        "Question_Type": "Definition",
+                        "Type_de_contenu_reponse": "Tableau",
+                        "Resultat": "KO - Insuffisant",
+                        "Question_Stop_Words": "definition critical equipement level 1",
+                        "Question_Other_Words": "definition;critical;level;1",
+                        "Equipment": "Equipment"
+                    },
+                    {
+                        "ID": 22,
+                        "Doc": "GM RC MEC 217",
+                        "Question": "What is the time sampling on PI for major shaft lines",
+                        "Expected Answer": "All these points shall be connected to PI with 1 second time sampling.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "time sampling PI major shaft lines",
+                        "Question_Other_Words": "PI;major;lines",
+                        "Component": "Shaft",
+                        "Characterisation": "Time"
+                    },
+                    {
+                        "ID": 23,
+                        "Doc": "GM RC MEC 217",
+                        "Question": "What should I do on oil result analysis",
+                        "Expected Answer": "The analysis results of the oil samples are compared to the genuine values. Oil physicochemical properties and the quantity of particles are measured. Complementary analyses on metal particles allow characterizing the wearing severity but also which component of the machine is wearing.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "oil result analysis",
+                        "Question_Other_Words": "result;analysis"
+                    },
+                    {
+                        "ID": 24,
+                        "Doc": "GM RC MEC 217",
+                        "Question": "Disadvantages for Stand-by turbines at slow-roll speed",
+                        "Expected Answer": "Disadvantages:\r\n\r\nCost issue:\r\n\r\nBefore taking the decision to keep the stand-by turbine on slow-roll or zero speed the cost for steam consumption should be taken into account.\r\n\r\nTechnical issues:\r\n\r\nOnly turbines using forced lubrication (auxiliary oil pump) can be kept on slow roll.\r\nTurbines with splash lubrication can have lubrication problems running at low speed.\r\n",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "Disadvantages Stand - turbines slow - roll speed",
+                        "Question_Other_Words": "Disadvantages;Stand;-;slow;-;roll",
+                        "Equipment": "Turbine",
+                        "Characterisation": "Speed"
+                    },
+                    {
+                        "ID": 25,
+                        "Doc": "GM RC MEC 170",
+                        "Question": "What are the recommended shutdown functions of a process gas system  of  reciprocating compressors",
+                        "Expected Answer": "Very high level in separator each stage  \r\nVery low suction pressure 1st stage\r\nVery high differential pressure stage 2 and above\r\nVery high discharge temperature at each stage",
+                        "Paragraph": 4,
+                        "Question_Type": "Recommandation",
+                        "Type_de_contenu_reponse": "Tableau",
+                        "Resultat": "KO - Moyen",
+                        "Question_Stop_Words": "recommended shutdown functions process gas system     reciprocating compressors",
+                        "Question_Other_Words": "recommended;shutdown;functions;process;system;    ;reciprocating;compressors",
+                        "Equipment": "Reciprocating compressors (API 618)",
+                        "Component": "Trip Function"
+                    },
+                    {
+                        "ID": 26,
+                        "Doc": "GM RC MEC 170",
+                        "Question": "What is the recommended basic instrumentation for the monitoring and protection of electric motor direct driven reciprocating  compressors",
+                        "Expected Answer": "9.2 - Basic monitoring and protection system (MSR S3, A1)\r\n\r\nBasic monitoring and protection system shall include:\r\n   Dual temperature probes for each main crankshaft bearing\r\n• 2 frame vibration probes\r\n• One crosshead acceleration for each crank\r\n• One piston rod position for each piston rod\r\n• One temperature probe for each suction valve\r\n• One temperature probe for each main packing \r\n• One keyphasor\r\n• 2 accelerometers on each motor bearing if motor with  antifriction bearings or two proximity probes on each motor bearing if motor with sleeve bearings",
+                        "Paragraph": 9.2,
+                        "Question_Type": "Recommandation",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "recommended basic instrumentation monitoring protection electric motor direct driven reciprocating   compressors",
+                        "Question_Other_Words": "recommended;basic;instrumentation;electric;motor;direct;driven;reciprocating;  ",
+                        "Equipment": "Compressor",
+                        "Component": "Electric Motor",
+                        "Method": "Monitoring;Protection"
+                    },
+                    {
+                        "ID": 27,
+                        "Doc": "GM RC MEC 170",
+                        "Question": "MSR alam and shutdown function for Frame lube oil system",
+                        "Expected Answer": "ondition\r\n\r\nAlarm\r\n\r\nShutdown\r\n\r\nNotes\r\n\r\nLow frame lube oil level (R)\r\n\r\nX\r\n\r\n-\r\n\r\n \r\n\r\nLow lube oil pressure (MSR S1, A3)\r\n\r\nX\r\n\r\n-\r\n\r\nStart auxiliary lube oil pump; or automatic switchover of oil pump in case of two independently driven pumps\r\n\r\nVery low lube oil pressure (MSR S1, A3)\r\n\r\nX\r\n\r\nX\r\n\r\n2oo3 configuration is recommended for criticality level 1 (highest criticality level)\r\n\r\nHigh oil filter differential pressure (MSR S1, A3)\r\n\r\nX\r\n\r\n-\r\n\r\n \r\n\r\nLow oil temperature (MSR S1, A3)\r\n\r\nX\r\n\r\n-\r\n\r\nCompressor permissive to start\r\n\r\nHigh oil temperature (MSR S1, A3)\r\n\r\nX\r\n\r\n-\r\n\r\n \r\n\r\nNote: The “X” indicates when the condition occurs, alarm or shutdown is required; “-“ indicates when the conditions occurs, alarm or shutdown is not required.",
+                        "Paragraph": "9,3,1",
+                        "Question_Type": "Recommandation",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "MSR alam shutdown function Frame lube oil system",
+                        "Question_Other_Words": "MSR;alam;shutdown;function;Frame;lube;system",
+                        "Component": "Trip Function"
+                    },
+                    {
+                        "ID": 28,
+                        "Doc": "GM RC MEC 170",
+                        "Question": "Is there a time delay for trip by crosshead vibrations?",
+                        "Expected Answer": "Up to 1 second time delay for trip",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "time delay trip crosshead vibrations ?",
+                        "Question_Other_Words": "time;delay;trip;crosshead;?",
+                        "Phenomenon": "Vibration",
+                        "Characterisation": "Time"
+                    },
+                    {
+                        "ID": 29,
+                        "Doc": "GM RC MEC 170",
+                        "Question": "Is there a time delay for trip by frame vibration ?",
+                        "Expected Answer": "Up to 3 seconds time delay to trip ",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "time delay trip frame vibration ?",
+                        "Question_Other_Words": "time;delay;trip;frame;?",
+                        "Phenomenon": "Vibration",
+                        "Characterisation": "Time"
+                    },
+                    {
+                        "ID": 30,
+                        "Doc": "GM RC MEC 170",
+                        "Question": "How to trip a reciprocating compressor ?",
+                        "Expected Answer": "§9.2 The recommended alarms and shutdown functions are summarized hereafter:\r\n  - Main bearing temperature (MSR)\r\n  - Frame vibration (MSR) [up to 3 seconds time delay for trip]\r\n  - Crosshead vibration (MSR) [up to 1 second time delay for trip]\r\n  - Piston rod run-out (MSR) [up to 1 second time delay for trip]\r\n  - Motor bearing vibration (accelerometer for antifriction bearings) (MSR) [up to 3 seconds time delay for trip]\r\n  - Motor bearing vibration (proximity probes for sleeve bearings) (MSR) [up to 3 seconds time delay for trip]\r\n\r\n§9.2.1 - Combination of trip functions (MSR)\r\n  - Bearing temperature\r\n  - Frame vibrations\r\n  - Crosshead vibrations\r\n  - Piston rod run-out\r\n  - Motor main bearings vibrations.\r\n",
+                        "Question_Type": "Recommandation",
+                        "Resultat": "KO - Insuffisant",
+                        "Question_Stop_Words": "trip reciprocating compressor ?",
+                        "Question_Other_Words": "trip;reciprocating;compressor;?",
+                        "Equipment": "Reciprocating compressors (API 618)"
+                    },
+                    {
+                        "ID": 31,
+                        "Doc": "GM RC MEC 170",
+                        "Question": "what is the typical duration between major overhaul of centrifugal compressor",
+                        "Question_Type": "Logigramme",
+                        "Resultat": "KO - Insuffisant",
+                        "Question_Stop_Words": "typical duration major overhaul centrifugal compressor",
+                        "Question_Other_Words": "typical;duration;major;centrifugal;compressor",
+                        "Equipment": "Centrifugal And Axial-Flow Compressors (API 617)",
+                        "Method": "Overhaul"
+                    },
+                    {
+                        "ID": 32,
+                        "Doc": "GM RC MEC 210",
+                        "Question": "Frequency for mechanical seals",
+                        "Expected Answer": "once per shift",
+                        "Type_de_contenu_reponse": "Table",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "Frequency mechanical seals",
+                        "Question_Other_Words": "mechanical;seals",
+                        "Equipment": "Mechanical Seal",
+                        "Phenomenon": "Frequency"
+                    },
+                    {
+                        "ID": 33,
+                        "Doc": "GM RC MEC 210",
+                        "Question": "minimal frequencies for vibration and oil analysis",
+                        "Expected Answer": "Once a month",
+                        "Type_de_contenu_reponse": "Table",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "minimal frequencies vibration oil analysis",
+                        "Question_Other_Words": "minimal;analysis",
+                        "Phenomenon": "Frequency;Vibration"
+                    },
+                    {
+                        "ID": 34,
+                        "Doc": "GM RC MEC 317",
+                        "Question": "What is the maximum response time of an anti-surge system ",
+                        "Expected Answer": "The anti-surge controller response time shall be suitable for the process application and shall be determine at the beginning of the project phase. It needs to be below 200 ms.",
+                        "Paragraph": "4,3,8,1",
+                        "Question_Type": "Time",
+                        "Type_de_contenu_reponse": "Text",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "maximum response time anti - surge system",
+                        "Question_Other_Words": "maximum;response;time;anti;-;surge;system",
+                        "Component": "Surge System",
+                        "Characterisation": "Time"
+                    },
+                    {
+                        "ID": 35,
+                        "Doc": "GM RC MEC 317",
+                        "Question": "What is the response time of an anti-surge controller",
+                        "Expected Answer": "The anti-surge controller response time shall be suitable for the process application and shall be determine at the beginning of the project phase. It needs to be below 200 ms.",
+                        "Paragraph": 2,
+                        "Question_Type": "Time",
+                        "Type_de_contenu_reponse": "Text",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "response time anti - surge controller",
+                        "Question_Other_Words": "response;time;anti;-;controller",
+                        "Phenomenon": "Surge",
+                        "Characterisation": "Time"
+                    },
+                    {
+                        "ID": 36,
+                        "Doc": "GM RC MEC 317",
+                        "Question": "What is a surge control line",
+                        "Expected Answer": "Line composed with several point in parallel of the SLL where the antisurge system should maintain the compressor flow as a minimum",
+                        "Paragraph": 2,
+                        "Question_Type": "Definition",
+                        "Type_de_contenu_reponse": "Text",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "surge control line",
+                        "Question_Other_Words": "control;line",
+                        "Phenomenon": "Surge"
+                    },
+                    {
+                        "ID": 37,
+                        "Doc": "GM RC MEC 317",
+                        "Question": "What is the definition of the surge",
+                        "Expected Answer": " If the pressure ratio increases across a compressor section the compressorflow will decrease till a flow reversal occurs.",
+                        "Question_Type": "Definition",
+                        "Type_de_contenu_reponse": "Text",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "definition surge",
+                        "Question_Other_Words": "definition",
+                        "Phenomenon": "Surge"
+                    },
+                    {
+                        "ID": 38,
+                        "Doc": "GM RC MEC 317",
+                        "Question": "What is a SCL",
+                        "Expected Answer": "Line composed with several point in parallel of the SLL where the antisurge system should maintain the compressor flow as a minimum",
+                        "Question_Type": "Shall",
+                        "Type_de_contenu_reponse": "Text",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "SCL",
+                        "Question_Other_Words": "SCL"
+                    },
+                    {
+                        "ID": 39,
+                        "Doc": "GM RC MEC 317",
+                        "Question": "What is the definition of the surge phenomenon",
+                        "Expected Answer": "The surge phenomenon in a centrifugal compressor is similar to an aircraft stall.\r\n\r\nIf the pressure ratio increases across a compressor section the compressor flow will decrease till a flow reversal occurs.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "definition surge phenomenon",
+                        "Question_Other_Words": "definition",
+                        "Phenomenon": "Surge;Phenomenon"
+                    },
+                    {
+                        "ID": 40,
+                        "Doc": "GM RC MEC 317",
+                        "Question": "What are the consequence of a surge",
+                        "Expected Answer": "3.3.   Consequence of surge\r\n\r\nThrust bearing damage / failure\r\nSeal damage\r\nProcess upset\r\nCompressor internal damage / impeller failure\r\nCompressor labyrinths wear and loss of performance",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "consequence surge",
+                        "Question_Other_Words": "consequence",
+                        "Phenomenon": "Surge"
+                    },
+                    {
+                        "ID": 41,
+                        "Doc": "GM RC MEC 317",
+                        "Question": "what are the main components of anti surge system",
+                        "Expected Answer": "4.2.   The main components of anti-surge system are\r\n\r\nProcess discharge pipe and check valve\r\nField transmitters:\r\nPs, Ts, Pd, Td, FT (DP), speed, compressor DP\r\nValve + actuator + positionner\r\nAnti-surge controller",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "main components anti surge system",
+                        "Question_Other_Words": "main;components;anti;surge;system",
+                        "Component": "Surge System"
+                    },
+                    {
+                        "ID": 42,
+                        "Doc": "GM RC MEC 317",
+                        "Question": "What are factors which generate surge event",
+                        "Expected Answer": "3.1.   Surge contributing factor\r\n\r\nThe factor / process parameters that generate a surge event are:\r\nIncrease in discharge pressure\r\nDecrease in suction pressure\r\nDecrease in speed (including Shut down)\r\nDecrease in flow\r\nDecrease in gas density",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "factors generate surge event",
+                        "Question_Other_Words": "factors;generate;event",
+                        "Phenomenon": "Surge"
+                    },
+                    {
+                        "ID": 43,
+                        "Doc": "GM RC MEC 317",
+                        "Question": "What is the consequence of compressor flow decrease. ",
+                        "Expected Answer": "3.3.   Consequence of surge\r\n\r\nThrust bearing damage / failure\r\nSeal damage\r\nProcess upset\r\nCompressor internal damage / impeller failure\r\nCompressor labyrinths wear and loss of performance",
+                        "Paragraph": 3.3,
+                        "Resultat": "KO - Moyen",
+                        "Question_Stop_Words": "consequence compressor flow decrease .  ",
+                        "Question_Other_Words": "consequence;.; ",
+                        "Equipment": "Compressor",
+                        "Phenomenon": "Decrease",
+                        "Characterisation": "Flow"
+                    },
+                    {
+                        "ID": 44,
+                        "Doc": "GM RC MEC 317",
+                        "Question": "Do we need redundant anti-surge control system?",
+                        "Expected Answer": "Each anti-surge controller shall be redundant type, with auto-test and switch to a back-up controller and generate an alarm",
+                        "Paragraph": "4,3,8,4",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "need redundant anti - surge control system ?",
+                        "Question_Other_Words": "need;redundant;anti;-;control;system;?",
+                        "Phenomenon": "Surge"
+                    },
+                    {
+                        "ID": 45,
+                        "Doc": "GM RC MEC 317",
+                        "Question": "how we can prevent the surge ?",
+                        "Expected Answer": "In order to prevent surge, an anti-surge control system is checking in real time (high scanning time) the process parameters for each section:\r\n\r\nPs, Ts, Pd, Td, Flow dp, speed and when the compressor operating point approaches the surge area by crossing the \"control line\" an anti-surge valve is open in order to maintain compressor flow / pressure ratio to a minimum value preventing the surge event.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "prevent surge ?",
+                        "Question_Other_Words": "prevent;?",
+                        "Phenomenon": "Surge"
+                    },
+                    {
+                        "ID": 46,
+                        "Doc": "GM RC MEC 317",
+                        "Question": "what are the requirement of the response system to prevent the surge",
+                        "Expected Answer": "In order to prevent surge, an anti-surge control system is checking in real time (high scanning time) the process parameters for each section:\r\n\r\nPs, Ts, Pd, Td, Flow dp, speed and when the compressor operating point approaches the surge area by crossing the \"control line\" an anti-surge valve is open in order to maintain compressor flow / pressure ratio to a minimum value preventing the surge event.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "requirement response system prevent surge",
+                        "Question_Other_Words": "requirement;response;system;prevent",
+                        "Phenomenon": "Surge"
+                    },
+                    {
+                        "ID": 47,
+                        "Doc": "GM RC MEC 317",
+                        "Question": "what is the recommanded strategy to prevent the surge",
+                        "Expected Answer": "In order to prevent surge, an anti-surge control system is checking in real time (high scanning time) the process parameters for each section:\r\n\r\nPs, Ts, Pd, Td, Flow dp, speed and when the compressor operating point approaches the surge area by crossing the \"control line\" an anti-surge valve is open in order to maintain compressor flow / pressure ratio to a minimum value preventing the surge event.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "recommanded strategy prevent surge",
+                        "Question_Other_Words": "recommanded;strategy;prevent",
+                        "Phenomenon": "Surge"
+                    },
+                    {
+                        "ID": 48,
+                        "Doc": "GM RC MEC 317",
+                        "Question": "what are the signs of surge",
+                        "Expected Answer": "3.2.   Signs of surge\r\n\r\nMachine noise\r\nHigh bearing vibration (vibration with sub synchronous frequencies) (note 1&2)\r\nFlow fluctuation / instability\r\nDischarge pressure fluctuation\r\nPossible increase in suction / discharge temperature\r\nPossible increase in bearing temperature.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "signs surge",
+                        "Question_Other_Words": "signs",
+                        "Phenomenon": "Surge"
+                    },
+                    {
+                        "ID": 49,
+                        "Doc": "GM RC MEC 317",
+                        "Question": "which component is able to detect surge events",
+                        "Expected Answer": "H R - The anti-surge Controller shall detect and count surge events.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "component able detect surge events",
+                        "Question_Other_Words": "able;detect;events",
+                        "Component": "Component",
+                        "Phenomenon": "Surge"
+                    },
+                    {
+                        "ID": 50,
+                        "Doc": "GM RC MEC 414",
+                        "Question": "What are the recommended mineral oil grades for reciprocating compressors cylinders lubrication",
+                        "Expected Answer": "CIRKAN RO, DACNIS, RUBIA or ",
+                        "Resultat": "KO - Insuffisant",
+                        "Question_Stop_Words": "recommended mineral oil grades reciprocating compressors cylinders lubrication",
+                        "Question_Other_Words": "recommended;mineral;grades;reciprocating;compressors;cylinders;lubrication",
+                        "Equipment": "Reciprocating compressors (API 618)"
+                    },
+                    {
+                        "ID": 51,
+                        "Doc": "GM RC MEC 414",
+                        "Question": "What is DACNIS lubricant .",
+                        "Expected Answer": "Recommended TOTAL products:\r\n-        If anti-wear additives are recommended by OEM (Example Dresser-Rand): DACNIS 100 , 150 ;\r\n\r\n-        If no anti-wear additives are recommended: CIRKAN RO 100, 150, 220",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "DACNIS lubricant .",
+                        "Question_Other_Words": "DACNIS;."
+                    },
+                    {
+                        "ID": 52,
+                        "Doc": "GM RC MEC 414",
+                        "Question": "On which machines can the lubricant DACNIS be used",
+                        "Expected Answer": "5.1 -      Crankshaft Lubrication\r\nRecommended\r\n-        CIRKAN RO, DACNIS, RUBIA (See paragraph 3.2)\r\n\r\n5.2 -      Cylinder Lube oils\r\nAs a reminder divider blocks are preferred.\r\n\r\n5.2.1 -     Minerals grades: viscosity grade between VG 100 and 220\r\nProperties: do not content any injurious additives for the process (metals or others)\r\nRecommended: CIRKAN RO, DACNIS, RUBIA,",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "machines lubricant DACNIS",
+                        "Question_Other_Words": "machines;DACNIS"
+                    },
+                    {
+                        "ID": 53,
+                        "Doc": "GM RC MEC 414",
+                        "Question": "What is the maximum dead time for the positionner",
+                        "Expected Answer": "Dead time of the positioner shall be less than 300 ms.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "maximum dead time positionner",
+                        "Question_Other_Words": "maximum;dead",
+                        "Component": "Positionner",
+                        "Characterisation": "Time"
+                    },
+                    {
+                        "ID": 54,
+                        "Doc": "GM RC MEC 414",
+                        "Question": "What is the maximum dead time for solenoid valve",
+                        "Expected Answer": "Dead time of solenoid valve shall be less than 100 ms.",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "maximum dead time solenoid valve",
+                        "Question_Other_Words": "maximum;dead;solenoid;valve",
+                        "Component": "Solenoid Valve",
+                        "Characterisation": "Time"
+                    },
+                    {
+                        "ID": 55,
+                        "Doc": "GM RC MEC 414",
+                        "Question": "Is it possible to manually open or close the antisurge valve",
+                        "Expected Answer": "In automatic mode, it shall not be possible to manually open or close the anti-surge valve.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "possible manually open close antisurge valve",
+                        "Question_Other_Words": "possible;manually;open;close;antisurge;valve",
+                        "Component": "Anti Surge Valve"
+                    },
+                    {
+                        "ID": 56,
+                        "Doc": "GM RC MEC 517 ",
+                        "Question": "What is the maximum allowable maximum radial vibration centrifugal compressor",
+                        "Expected Answer": "40µm ",
+                        "Question_Type": "Vibration",
+                        "Type_de_contenu_reponse": "Tableau",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "maximum allowable maximum radial vibration centrifugal compressor",
+                        "Question_Other_Words": "maximum;allowable;maximum;radial;centrifugal;compressor",
+                        "Equipment": "Centrifugal And Axial-Flow Compressors (API 617)",
+                        "Phenomenon": "Vibration"
+                    },
+                    {
+                        "ID": 57,
+                        "Doc": "GM RC MEC 517 ",
+                        "Question": "What is the maximum allowable differential casing temperature on steam turbine",
+                        "Expected Answer": "30°C",
+                        "Question_Type": "Temperature",
+                        "Type_de_contenu_reponse": "Table",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "maximum allowable differential casing temperature steam turbine",
+                        "Question_Other_Words": "maximum;allowable;differential;steam;turbine",
+                        "Equipment": "Casing;Steam Turbine",
+                        "Characterisation": "Temperature"
+                    },
+                    {
+                        "ID": 58,
+                        "Doc": "GM RC MEC 517 ",
+                        "Question": "what is maximum casing differential temperature on steam turbine during startup",
+                        "Expected Answer": "30°C",
+                        "Question_Type": "Temperature",
+                        "Type_de_contenu_reponse": "Table",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "maximum casing differential temperature steam turbine startup",
+                        "Question_Other_Words": "maximum;differential;steam;turbine;startup",
+                        "Equipment": "Casing;Steam Turbine",
+                        "Characterisation": "Temperature"
+                    },
+                    {
+                        "ID": 59,
+                        "Doc": "GM RC MEC 517 ",
+                        "Question": "max bearing temperature for Back Pressure Steam Turbines",
+                        "Expected Answer": "90°C",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "max bearing temperature Pressure Steam Turbines",
+                        "Question_Other_Words": "max;Steam;Turbines",
+                        "Equipment": "Back Pressure Turbine",
+                        "Component": "Bearing",
+                        "Characterisation": "Temperature"
+                    },
+                    {
+                        "ID": 60,
+                        "Doc": "GM RC MEC 517 ",
+                        "Question": "max bearing temperature for Condensing Steam Turbines",
+                        "Expected Answer": "90°C",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "max bearing temperature Condensing Steam Turbines",
+                        "Question_Other_Words": "max;Condensing;Steam;Turbines",
+                        "Equipment": "Condensing Turbine",
+                        "Component": "Bearing",
+                        "Characterisation": "Temperature"
+                    },
+                    {
+                        "ID": 61,
+                        "Doc": "GM RC MEC 517 ",
+                        "Question": "what is the maximum distance for Axial displacement on back pressure Steam Turbines",
+                        "Expected Answer": "Based on axial clearance of the rotor in the casing and thickness of the babbit",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "maximum distance Axial displacement pressure Steam Turbines",
+                        "Question_Other_Words": "maximum;Axial;displacement;Steam;Turbines",
+                        "Equipment": "Back Pressure Turbine",
+                        "Characterisation": "Distance;Axial Displacement"
+                    },
+                    {
+                        "ID": 62,
+                        "Doc": "GM RC MEC 517 ",
+                        "Question": "what is the maximum distance for Axial displacement on condensing steam Turbines",
+                        "Expected Answer": "Based on axial clearance of the rotor in the casing and thickness of the babbit",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "maximum distance Axial displacement condensing steam Turbines",
+                        "Question_Other_Words": "maximum;Axial;displacement;condensing;steam;Turbines",
+                        "Equipment": "Condensing Turbine",
+                        "Characterisation": "Distance;Axial Displacement"
+                    },
+                    {
+                        "ID": 63,
+                        "Doc": "GM RC MEC 517 ",
+                        "Question": "Where shall be located inlet pressure measurment on a steam turbine",
+                        "Expected Answer": " Inlet pressure measurement shall be located as close as possible to the trip valve, and before the trip valve.",
+                        "Question_Type": "Shall",
+                        "Type_de_contenu_reponse": "Text",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "shall located inlet pressure measurment steam turbine",
+                        "Question_Other_Words": "shall;located;inlet;measurment;steam;turbine",
+                        "Equipment": "Steam Turbine",
+                        "Characterisation": "Mawp"
+                    },
+                    {
+                        "ID": 64,
+                        "Doc": "GM RC MEC 517 ",
+                        "Question": "recommandation on Compressor dry gas seal tandem",
+                        "Expected Answer": " \r\n\r\nKey Parameter\r\n\r\nUnit\r\n\r\nLower limit\r\n\r\nUpper limit\r\n\r\nNotes\r\n\r\nMinimum Standard Requirements (MSR S2 A3 R2)\r\n\r\nMSR1\r\n\r\nPrimary seal gas filter differential pressure\r\n\r\nbarg\r\n\r\n \r\n\r\n \r\n\r\n(1)\r\n\r\nMSR2\r\n\r\nPrimary seal gas supply flow\r\n\r\nKg/h or \r\nm3/h\r\n\r\n75% design flow\r\n\r\n200% of design flow\r\n\r\n \r\n\r\nMSR3\r\n\r\nPrimary seal gas supply differential pressure\r\n\r\nBarg\r\n\r\n75% Minimum design deltaP\r\n\r\n \r\n\r\n \r\n\r\nMSR4\r\n\r\nPrimary seal gas supply temperature\r\n\r\n°C\r\n\r\nMargin above dew point\r\n\r\n5% below design temp\r\n\r\n(2)\r\n\r\nMSR5\r\n\r\nPrimary Vent pressure\r\n\r\nbarg\r\n\r\nDepends on back pressure regulation, flare pressure, \r\nprocess pressure\r\n\r\n \r\n\r\nMSR6\r\n\r\nPrimary vent Flow\r\n\r\nKg/h or m3/h\r\n\r\n20% design flow\r\n\r\n300% of guaranteed flow\r\n\r\n(3)\r\n\r\nMSR7\r\n\r\nSecondary seal gas filter differential pressure\r\n\r\nBarg\r\n\r\n \r\n\r\n \r\n\r\n(1)\r\n\r\nMSR8\r\n\r\nSecondary seal gas supply flow\r\n\r\nKg/h or\r\nm3/h\r\n\r\n50% design flow\r\n\r\n200% design flow\r\n\r\n \r\n\r\nMSR9\r\n\r\nSecondary seal supply pressure\r\n\r\nBarg\r\n\r\nAs per design\r\n\r\nAs per design\r\n\r\n \r\n\r\nMSR10\r\n\r\nSeparation seal supply pressure\r\n\r\nBarg\r\n\r\nAs per design\r\n\r\nAs per design\r\n\r\n \r\n\r\nMSR11\r\n\r\nSeparation seal flow\r\n\r\nKg/h or m3/h\r\n\r\n50% of design flow\r\n\r\n \r\n\r\n(1)\r\n\r\nMSR12\r\n\r\nSeparation seal supply to vent differential pressure\r\n\r\nbarg\r\n\r\nAs per design\r\n\r\nAs per design\r\n\r\n \r\n\r\nRecommended Practices (R)\r\n\r\nRP1\r\n\r\nSecondary seal vent\r\n\r\nPpm\r\n\r\nGas detector\r\n\r\nGas Detector\r\n\r\n ",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "recommandation Compressor dry gas seal tandem",
+                        "Question_Other_Words": "recommandation;dry;gas;seal;tandem",
+                        "Equipment": "Compressor",
+                        "Component": "Gas Seal"
+                    },
+                    {
+                        "ID": 65,
+                        "Doc": "GM RC MEC 517 ",
+                        "Question": "what is the minimum inlet pressure for Expanders",
+                        "Expected Answer": "MSR1\r\n\r\nInlet Steam pressure\r\n\r\nBarg\r\n\r\nP° and T° minimum shall be defined to avoid condensates in the turbine\r\n\r\n~ 5% below MAWP\r\n\r\n(1)",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "minimum inlet pressure Expanders",
+                        "Question_Other_Words": "minimum;inlet",
+                        "Equipment": "Expander",
+                        "Characterisation": "Mawp"
+                    },
+                    {
+                        "ID": 66,
+                        "Doc": "GM RC MEC 517 ",
+                        "Question": "what is the normal gaz pressure for oil seal",
+                        "Expected Answer": "GM_RC_MEC_517_EN_01 - 3.4 - Compressor Contact Seals (oil seal)\r\nRecommandation / Minimum standards requirements Key / Parameter Min / Lower Limit Max / Upper Limit Unit\r\nMSR1 Gaz reference pressure for each seal As per design As per design Barg",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "normal gaz pressure oil seal",
+                        "Question_Other_Words": "normal;gaz",
+                        "Component": "Seal",
+                        "Characterisation": "Mawp"
+                    },
+                    {
+                        "ID": 67,
+                        "Doc": "GM RC MEC 613",
+                        "Question": "what is typical filter mesh size for lube oil during flushing",
+                        "Expected Answer": "Replace blinds on lube-oil supply lines by 100 mesh metal screens with anti-explosion back plate (downstream of oil flow)",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "typical filter mesh size lube oil flushing",
+                        "Question_Other_Words": "typical;mesh;size;lube;flushing",
+                        "Component": "Filter"
+                    },
+                    {
+                        "ID": 68,
+                        "Doc": "GM RC MEC 613",
+                        "Question": "what is an acceptable oil cleanliness",
+                        "Expected Answer": "Let the oil purifier running until ISO 44-06 cleanliness level of 17/15/12 is obtained",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "acceptable oil cleanliness",
+                        "Question_Other_Words": "acceptable",
+                        "Characterisation": "Cleanliness"
+                    },
+                    {
+                        "ID": 69,
+                        "Doc": "GM RC MEC 613",
+                        "Question": "on the overhaul of gear unit how can I remove the flushing strainers",
+                        "Expected Answer": "Remove all flushing strainers and close flanges using standard gaskets",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "overhaul gear unit remove flushing strainers",
+                        "Question_Other_Words": "gear;unit;remove;flushing;strainers",
+                        "Method": "Overhaul"
+                    },
+                    {
+                        "ID": 70,
+                        "Doc": "GM RC MEC 614",
+                        "Question": "requirements for sump oil lubricated bearings",
+                        "Expected Answer": "The requirements to be met are:\r\n\r\nSelection of the right oil type and viscosity for the application based on environment, bearing type and size and operating conditions of the equipment\r\n\r\nImplementation of the right method to get the oil to the bearing\r\n\r\nImplementation of the right method to maintain a correct oil level\r\n\r\nImplementation of facilities to monitor the condition of the oil\r\n\r\nImplementation of measures to prolong the life of the oil",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "requirements sump oil lubricated bearings",
+                        "Question_Other_Words": "requirements;sump;lubricated;bearings",
+                        "Component": "Lubricated Bearing"
+                    },
+                    {
+                        "ID": 71,
+                        "Doc": "GM RC MEC 614",
+                        "Question": "What is the life time of the bearing",
+                        "Expected Answer": "Life-time lubricated (sealed) bearings will last only as long as enough grease remains in serviceable condition within the sealed cavity. ",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "life time bearing",
+                        "Question_Other_Words": "life",
+                        "Component": "Bearing",
+                        "Characterisation": "Time"
+                    },
+                    {
+                        "ID": 72,
+                        "Doc": "GM RC MEC 617",
+                        "Question": "What should be the scope for the next overhaul when the impeller has been repaired. ",
+                        "Expected Answer": "Issue since Last TAR",
+                        "Paragraph": "Appendix 1 Logigram",
+                        "Question_Type": "Révision ?",
+                        "Type_de_contenu_reponse": "Liste",
+                        "Resultat": "KO - Insuffisant",
+                        "Question_Stop_Words": "scope overhaul impeller repaired .  ",
+                        "Question_Other_Words": "scope;.; ",
+                        "Component": "Impeller",
+                        "Method": "Overhaul;Repairs"
+                    },
+                    {
+                        "ID": 73,
+                        "Doc": "GM RC MEC 617",
+                        "Question": "When do we need to inspect compressor bearings ",
+                        "Expected Answer": "During major and minor overhaul",
+                        "Paragraph": 4.1,
+                        "Question_Type": "Révision ?",
+                        "Type_de_contenu_reponse": "Liste",
+                        "Resultat": "KO - Insuffisant",
+                        "Question_Stop_Words": "need inspect compressor bearings  ",
+                        "Question_Other_Words": "need;inspect; ",
+                        "Equipment": "Compressor",
+                        "Component": "Bearing"
+                    },
+                    {
+                        "ID": 74,
+                        "Doc": "GM RC MEC 617",
+                        "Question": "When do we need to replace casing bolts on a turbine",
+                        "Expected Answer": "• Overhaul of trip valve, check and replace components (springs, bolts, bushings, valve stem). For bolts which temperature is higher than 300°C replace bolts after 12 years in service",
+                        "Paragraph": 4.3,
+                        "Question_Type": "Révision ?",
+                        "Type_de_contenu_reponse": "Liste",
+                        "Resultat": "KO - Insuffisant",
+                        "Question_Stop_Words": "need replace casing bolts turbine",
+                        "Question_Other_Words": "need;replace",
+                        "Equipment": "Casing;Bolt;Turbine"
+                    },
+                    {
+                        "ID": 75,
+                        "Doc": "GM RC MEC 617",
+                        "Question": "When do we need to inspect turbine bearings ",
+                        "Expected Answer": "During major and minor overhaul",
+                        "Paragraph": 4.3,
+                        "Question_Type": "Révision ?",
+                        "Type_de_contenu_reponse": "Liste",
+                        "Resultat": "KO - Insuffisant",
+                        "Question_Stop_Words": "need inspect turbine bearings",
+                        "Question_Other_Words": "need;inspect",
+                        "Equipment": "Turbine",
+                        "Component": "Bearing"
+                    },
+                    {
+                        "ID": 76,
+                        "Doc": "GM RC MEC 617",
+                        "Question": "Who is in charge to check hangers ",
+                        "Expected Answer": "• Check and replace hangers for inlet and outlet lines  Plant",
+                        "Paragraph": 4.1,
+                        "Question_Type": "Révision ?",
+                        "Type_de_contenu_reponse": "Liste",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "charge check hangers  ",
+                        "Question_Other_Words": "charge;check;hangers; "
+                    },
+                    {
+                        "ID": 77,
+                        "Doc": "GM RC MEC 617",
+                        "Question": "Who is in charge to check the suction strainer",
+                        "Expected Answer": "• Ensure that suction strainers have been checked  Plant",
+                        "Paragraph": 4.1,
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "charge check suction strainer",
+                        "Question_Other_Words": "charge;check;suction;strainer"
+                    },
+                    {
+                        "ID": 78,
+                        "Doc": "GM RC MEC 617",
+                        "Question": "who inspect the radial bearings on minor overhaul",
+                        "Expected Answer": "heck radial and thrust bearing clearances and record Contractor/Plant",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "inspect radial bearings minor overhaul",
+                        "Question_Other_Words": "inspect;radial;bearings;minor",
+                        "Component": "Radial Bearing",
+                        "Method": "Overhaul"
+                    },
+                    {
+                        "ID": 79,
+                        "Question": "who inspect the radial bearings clearance on minor overhaul",
+                        "Expected Answer": "heck radial and thrust bearing clearances and record Contractor/Plant",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "inspect radial bearings clearance minor overhaul",
+                        "Question_Other_Words": "inspect;radial;bearings;minor",
+                        "Component": "Radial Bearing",
+                        "Characterisation": "Distance",
+                        "Method": "Overhaul"
+                    },
+                    {
+                        "ID": 80,
+                        "Doc": "GM RC MEC 617",
+                        "Question": "what is the time period between two major overhaul on centrifugal compressor",
+                        "Type_de_contenu_reponse": "Schema",
+                        "Question_Stop_Words": "time period major overhaul centrifugal compressor",
+                        "Question_Other_Words": "period;major;centrifugal;compressor",
+                        "Equipment": "Centrifugal And Axial-Flow Compressors (API 617)",
+                        "Characterisation": "Time",
+                        "Method": "Overhaul"
+                    },
+                    {
+                        "ID": 81,
+                        "Doc": "GM RC MEC 617",
+                        "Question": "what is the time period between two major overhaul on condensing steam turbine",
+                        "Expected Answer": "Overhaul extraction piloted check valve (if any) for bolts chich temperature is above 300°C replace bolts after 12 years in service",
+                        "Paragraph": "4.4",
+                        "Resultat": "KO - Insuffisant",
+                        "Question_Stop_Words": "time period major overhaul condensing steam turbine",
+                        "Question_Other_Words": "period;major;condensing;steam;turbine",
+                        "Equipment": "Condensing Turbine",
+                        "Characterisation": "Time",
+                        "Method": "Overhaul"
+                    },
+                    {
+                        "ID": 82,
+                        "Doc": "GM RC MEC 617",
+                        "Question": "who is in charge of non return valve overhaul during turnaround on centrifugal compressor",
+                        "Expected Answer": "• Check overhead tank system (including non return valve, level switch, start-up sequence Plant",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "charge non return valve overhaul turnaround centrifugal compressor",
+                        "Question_Other_Words": "charge;non;return;turnaround;centrifugal;compressor",
+                        "Equipment": "Valve;Centrifugal And Axial-Flow Compressors (API 617)",
+                        "Method": "Overhaul"
+                    },
+                    {
+                        "ID": 83,
+                        "Doc": "GM RC MEC 611",
+                        "Question": "what is an acceptable oil cleanliness",
+                        "Expected Answer": "Let the oil purifier running until ISO 44-06 cleanliness level of 17/15/12 is obtained",
+                        "Paragraph": "3,3,2,2",
+                        "Resultat": "KO - Insuffisant",
+                        "Question_Stop_Words": "acceptable oil cleanliness",
+                        "Question_Other_Words": "acceptable",
+                        "Characterisation": "Cleanliness"
+                    },
+                    {
+                        "ID": 84,
+                        "Doc": "GM RC MEC 670",
+                        "Question": "What is trip logic for radial shaft vibration",
+                        "Expected Answer": "Logic Tables:\r\n2oo3S Status Channel 1\r\nStatus Channel 3 = Normal Normal Alert Danger Probe Failure Bypass\r\nStatus Channel 2 Normal          \r\n Alert          \r\n Danger     Trip (1sec) Trip (1sec) Trip (1sec)\r\n Probe Failure     Trip (1sec) Trip (1sec) Trip (1sec)\r\n Bypass     Trip (1sec) Trip (1sec)  \r\n      \r\n2oo3S Status Channel 1\r\nStatus Channel 3 = Alert Normal Alert Danger Probe Failure Bypass\r\nStatus Channel 2 Normal          \r\n Alert          \r\n Danger     Trip (1sec) Trip (1sec) Trip (1sec)\r\n Probe Failure     Trip (1sec) Trip (1sec) Trip (1sec)\r\n Bypass     Trip (1sec) Trip (1sec)  \r\n      \r\n2oo3S Status Channel 1\r\nStatus Channel 3 = Danger Normal Alert Danger Probe Failure Bypass\r\nStatus Channel 2 Normal     Trip (1sec) Trip (1sec) Trip (1sec)\r\n Alert     Trip (1sec) Trip (1sec) Trip (1sec)\r\n Danger Trip (1sec) Trip (1sec) Trip (1sec) Trip (1sec) Trip (1sec)\r\n Probe Failure Trip (1sec) Trip (1sec) Trip (1sec) Trip (1sec) Trip (1sec)\r\n Bypass Trip (1sec) Trip (1sec) Trip (1sec) Trip (1sec) Trip (1sec)",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "trip logic radial shaft vibration",
+                        "Question_Other_Words": "trip;logic;radial",
+                        "Component": "Shaft",
+                        "Phenomenon": "Vibration"
+                    },
+                    {
+                        "ID": 85,
+                        "Doc": "GM RC MEC 670",
+                        "Question": "What is the time delay before a trip on radial vibrations? ",
+                        "Expected Answer": "High vibration signals must remain during 3 seconds (time delay).",
+                        "Question_Type": "Duration",
+                        "Resultat": "KO - Moyen",
+                        "Question_Stop_Words": "time delay trip radial vibrations ?",
+                        "Question_Other_Words": "time;delay;trip;radial;?",
+                        "Phenomenon": "Vibration",
+                        "Characterisation": "Time"
+                    },
+                    {
+                        "ID": 86,
+                        "Doc": "GM RC MEC 670",
+                        "Question": "What is the temperature bearing trip logic",
+                        "Expected Answer": "An alarm (no trip) shall be activated on each radial bearing. Alarm shall be set accordingly to manufacturer recommendation and/or white metal melt point. Alarm set-point shall not exceed 120°C",
+                        "Question_Type": "Temperature",
+                        "Type_de_contenu_reponse": "Text",
+                        "Resultat": "KO - Moyen",
+                        "Question_Stop_Words": "temperature bearing trip logic",
+                        "Question_Other_Words": "trip;logic",
+                        "Component": "Bearing",
+                        "Characterisation": "Temperature"
+                    },
+                    {
+                        "ID": 87,
+                        "Doc": "GM RC MEC 670",
+                        "Question": "What is the maximum allowable vibration on a radial bearing?  ",
+                        "Expected Answer": "A trip shall be activated using dual voting logic per bearing. A trip shall occur when one (X or Y) probe location has “danger” value AND the other has at least alarm (alert). Trip (danger) shall be set at 4 times API maximum vibration value with a maximum of 100 micronspp or not more than 80% of the diametric clearance.",
+                        "Paragraph": "4.2",
+                        "Question_Type": "Shall ?",
+                        "Type_de_contenu_reponse": "Text",
+                        "Resultat": "KO - Moyen",
+                        "Question_Stop_Words": "maximum allowable vibration radial bearing ?  ",
+                        "Question_Other_Words": "maximum;allowable;radial;bearing;?; ",
+                        "Component": "Radial Bearing",
+                        "Phenomenon": "Vibration"
+                    },
+                    {
+                        "ID": 88,
+                        "Doc": "GM RC MEC 670",
+                        "Question": "How many probes should we install for axial displacement monitoring. ",
+                        "Expected Answer": "Axial position shall be monitored by 3 probes.",
+                        "Question_Type": "Shall",
+                        "Type_de_contenu_reponse": "Text",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "probes install axial displacement monitoring .  ",
+                        "Question_Other_Words": "install;axial;displacement;.; ",
+                        "Equipment": "Probe",
+                        "Characterisation": "Axial Displacement",
+                        "Method": "Monitoring"
+                    },
+                    {
+                        "ID": 89,
+                        "Doc": "GM RC MEC 670",
+                        "Question": "How many keyphasors do we need on a shaft line",
+                        "Expected Answer": "1 / shaft lines with a different speed",
+                        "Question_Type": "Shall",
+                        "Type_de_contenu_reponse": "Text",
+                        "Resultat": "KO - Insuffisant",
+                        "Question_Stop_Words": "keyphasors need shaft line",
+                        "Question_Other_Words": "keyphasors;need;line",
+                        "Component": "Shaft"
+                    },
+                    {
+                        "ID": 90,
+                        "Doc": "GM RC MEC 670",
+                        "Question": "What is the recommanded solenoid arrangement for steam turbine ",
+                        "Expected Answer": "There are no best of class design but a safe and acceptable solenoid arrangement shall consist of\r\nde-energize to trip solenoids\r\nfault tolerant including 2oo3 or 2oo4 solenoid valve configurations\r\ntesting capabilities without defeating protection.\r\ninterlock system for isolation valves not to be held in test position (isolating the solenoids)\r\nTesting procedure and frequency",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "recommanded solenoid arrangement steam turbine",
+                        "Question_Other_Words": "recommanded;solenoid;arrangement;steam;turbine",
+                        "Equipment": "Steam Turbine"
+                    },
+                    {
+                        "ID": 91,
+                        "Doc": "GM RC MEC 670",
+                        "Question": "What is the frequency for the overspeed test?",
+                        "Expected Answer": "7.2.2 - Overspeed system testing (MSR S3 A2 for all sub chapters)\r\nThe complete overspeed system shall be tested, in situ, with the turbine running in the following case:\r\n• At each overhaul (minor and major).\r\n• Before coupling to the driven machine\r\n• After maintenance of the overspeed device:\r\n Mechanical overspeed devices (trip bolt, ring or trip lever change)\r\n Electronic detection system (speed sensors change)\r\n• For new turbines or after retrofitting a new system: “uncoupled” test at overspeed trip speed during commissioning of the machine.\r\n• After a minimum of 6 years running",
+                        "Question_Type": "Shall",
+                        "Type_de_contenu_reponse": "Text",
+                        "Resultat": "KO - Moyen",
+                        "Question_Stop_Words": "frequency overspeed test ?",
+                        "Question_Other_Words": "test;?",
+                        "Phenomenon": "Frequency",
+                        "Characterisation": "Overspeed"
+                    },
+                    {
+                        "ID": 92,
+                        "Doc": "GM RC MEC 670",
+                        "Question": "What is the frequency for partial stroke test? ",
+                        "Expected Answer": "Periodicity:\r\naccording to trip valve OEM recommendations or according to LOPA/SIL recommendations.\r\n\r\n      At least, two tests per month",
+                        "Type_de_contenu_reponse": "Text",
+                        "Resultat": "KO - Moyen",
+                        "Question_Stop_Words": "frequency partial stroke test ?",
+                        "Question_Other_Words": "partial;stroke;test;?",
+                        "Phenomenon": "Frequency"
+                    },
+                    {
+                        "ID": 93,
+                        "Doc": "GM RC MEC 670",
+                        "Question": "What is the periodicity for partial stroke test ?",
+                        "Expected Answer": "Periodicity:\r\naccording to trip valve OEM recommendations or according to LOPA/SIL recommendations.\r\n\r\n      At least, two tests per month",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "periodicity partial stroke test ?",
+                        "Question_Other_Words": "periodicity;partial;stroke;test;?"
+                    },
+                    {
+                        "ID": 94,
+                        "Doc": "GM RC MEC 670",
+                        "Question": "what is overpseed margin compared to mcs",
+                        "Expected Answer": "The margin between the rated speed and the maximum continuous speed shall remain 5%",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "overpseed margin compared mcs",
+                        "Question_Other_Words": "overpseed;margin;compared",
+                        "Characterisation": "Maximum Continuous Speed"
+                    },
+                    {
+                        "ID": 95,
+                        "Doc": "GM RC MEC 697",
+                        "Question": "what is the minimum instrumentation for reciprocating compressor",
+                        "Expected Answer": "All reciprocating compressors shall be equipped as a minimum with the following instrumentation measurements :\r\n\r\nsuction pressure at each stage (PIT)\r\ndischarge pressure at each stage (PIT)\r\nsuction temperature at each stage (TIT)\r\ndischarge temperature at each stage (TIT)\r\nflow per each stage for each duty and for each side stream (FI and FIT)",
+                        "Paragraph": "5.7",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "minimum instrumentation reciprocating compressor",
+                        "Question_Other_Words": "minimum;instrumentation;reciprocating;compressor",
+                        "Equipment": "Reciprocating compressors (API 618)"
+                    },
+                    {
+                        "ID": 96,
+                        "Doc": "GS RC MEC 317",
+                        "Question": "What is the lower plant air supply pressure for valve ?",
+                        "Expected Answer": "The valve shall be operated by a pneumatic actuator with an associated pneumatic control panel being able to operate at a minimum plant air supply pressure of 5 barg. ",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "lower plant air supply pressure valve ?",
+                        "Question_Other_Words": "lower;plant;supply;?",
+                        "Equipment": "Valve",
+                        "Characterisation": "Mawp"
+                    },
+                    {
+                        "ID": 97,
+                        "Doc": "GS RC MEC 610",
+                        "Question": "Which GS deals with power recovery turbine ?",
+                        "Expected Answer": "The purpose of this specification is to define the minimum requirements necessary for the design, construction, inspection, testing and supply of centrifugal pump and power recovery turbine sets when TOTAL or the purchaser considers API STD 610 equipment is required.",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "GS deals power recovery turbine ?",
+                        "Question_Other_Words": "GS;deals;recovery;?",
+                        "Equipment": "Turbine",
+                        "Characterisation": "Power"
+                    },
+                    {
+                        "ID": 98,
+                        "Doc": "GS RC MEC 610",
+                        "Question": "When is required a NPSH test for centrifugal pump ?",
+                        "Expected Answer": "§6.1.8 A NPSH test shall be quoted when NPSH margin is less than 2.0m (see § 8.3.4.3) or when the pump is fitted with an inducer.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "required NPSH test centrifugal pump ?",
+                        "Question_Other_Words": "required;NPSH;test;centrifugal;pump;?",
+                        "Equipment": "Centrifugal Well Pumps With Electric Motor"
+                    },
+                    {
+                        "ID": 99,
+                        "Doc": "GS RC MEC 610",
+                        "Question": "Is a Mechanical stress calculation required for an impeller of OH6 pump ?",
+                        "Expected Answer": "§9.1.3.3 Proposed impeller shall have valid references (see 10.2.3 l) with same manufacturing process, same material grade and similar operating conditions. If these references are not available or if tip speed is above 100 m/s, a stress analysis and fatigue calculation shall be performed for the proposed impeller.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "Mechanical stress calculation required impeller OH6 pump ?",
+                        "Question_Other_Words": "Mechanical;stress;calculation;required;OH6;?",
+                        "Equipment": "Pump",
+                        "Component": "Impeller"
+                    },
+                    {
+                        "ID": 100,
+                        "Doc": "GS RC MEC 610",
+                        "Question": "When is required a lateral analysis for pump ?",
+                        "Expected Answer": "§9.2.4.1.3 This paragraph is applicable. In any case, a lateral analysis is required for rated power above 700kW or adjustable-speed drive (ASD).",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "required lateral analysis pump ?",
+                        "Question_Other_Words": "required;lateral;analysis;?",
+                        "Equipment": "Pump"
+                    },
+                    {
+                        "ID": 101,
+                        "Doc": "GS RC MEC 610",
+                        "Question": "When is required journal bearings for pump ?",
+                        "Expected Answer": "§6.10.1.1 Criteria for bearing selection in [API STD 610] Table 10 are modified as follows:\r\n         • Limit of energy density is 2.1 millions [kW.rpm]\r\nWhen radial bearing speed and life are not within limits for rolling-element bearings or energy density is above 2,1.106 kW/min.",
+                        "Resultat": "KO - Insuffisant",
+                        "Question_Stop_Words": "required journal bearings pump ?",
+                        "Question_Other_Words": "required;journal;bearings;?",
+                        "Equipment": "Pump",
+                        "Component": "Journal Bearing"
+                    },
+                    {
+                        "ID": 102,
+                        "Doc": "GS RC MEC 610",
+                        "Question": "What is the balancing grade for impellers of a centrifugal pump ?",
+                        "Expected Answer": "§6.9.4.4 Impellers, balancing drums and similar major rotating components shall be dynamically balanced to ISO 1940-1, grade G1.0.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "balancing grade impellers centrifugal pump ?",
+                        "Question_Other_Words": "balancing;grade;centrifugal;pump;?",
+                        "Equipment": "Centrifugal Well Pumps With Electric Motor",
+                        "Component": "Impeller"
+                    },
+                    {
+                        "ID": 103,
+                        "Doc": "GS RC MEC 610",
+                        "Question": "how many IREX are related to blower",
+                        "Expected Answer": "heatmap",
+                        "Question_Stop_Words": "IREX related blower",
+                        "Question_Other_Words": "IREX;related",
+                        "Equipment": "Blower"
+                    },
+                    {
+                        "ID": 104,
+                        "Doc": "GS RC MEC 610",
+                        "Question": "what is the recommended bearing lifetime for an extruder gear",
+                        "Expected Answer": "Thrust bearings and radial bearings lifetime L-10 (without correction factor) shall be >100,000hr at full torque, full speed.",
+                        "Paragraph": "4.1",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "recommended bearing lifetime extruder gear",
+                        "Question_Other_Words": "recommended;lifetime;gear",
+                        "Equipment": "Extruder",
+                        "Component": "Bearing"
+                    },
+                    {
+                        "ID": 105,
+                        "Doc": "GS RC MEC 610",
+                        "Question": "when can I accept an inducer in a API pump",
+                        "Expected Answer": "if strictly necessary an inducer may be used but pumps without inducer shall …",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "accept inducer API pump",
+                        "Question_Other_Words": "accept;API",
+                        "Equipment": "Pump",
+                        "Component": "Inducer"
+                    },
+                    {
+                        "ID": 106,
+                        "Doc": "GS RC MEC 617",
+                        "Question": "What is the SOP value for a centrifugal compressor ?",
+                        "Expected Answer": "§2.8.1 General \r\nSettling out pressures will be defined in the Job specifications and data sheets.",
+                        "Paragraph": "2.8.1",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "SOP value centrifugal compressor ?",
+                        "Question_Other_Words": "SOP;value;centrifugal;compressor;?",
+                        "Equipment": "Centrifugal And Axial-Flow Compressors (API 617)"
+                    },
+                    {
+                        "ID": 107,
+                        "Doc": "GS RC MEC 617",
+                        "Question": "What are the key performance parameters to provide with a new compressor. ",
+                        "Expected Answer": "Non-dimensional flow / head coefficients, polytropic efficiency and Mach N… ",
+                        "Paragraph": "2.1.1",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "key performance parameters provide new compressor .",
+                        "Question_Other_Words": "key;performance;parameters;provide;new;.",
+                        "Equipment": "Compressor"
+                    },
+                    {
+                        "ID": 108,
+                        "Doc": "GS RC MEC 617",
+                        "Question": "What is the standards and code to apply when pruchasing new compressor ",
+                        "Expected Answer": "NACE MR0103 / API STD 617 /ISO 8821/ ISO 10474 or EN 10204",
+                        "Paragraph": "2.2.1.6",
+                        "Question_Stop_Words": "standards code apply pruchasing new compressor",
+                        "Question_Other_Words": "standards;code;apply;pruchasing;new",
+                        "Equipment": "Compressor"
+                    },
+                    {
+                        "ID": 109,
+                        "Doc": "GS RC MEC 617",
+                        "Question": "Which cast material is recommanded for an impeller. ",
+                        "Expected Answer": "Cast impellers and riveted impellers will not be accepted.",
+                        "Paragraph": "2,5,10,1",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "cast material recommanded impeller .",
+                        "Question_Other_Words": "cast;material;recommanded;.",
+                        "Component": "Impeller"
+                    },
+                    {
+                        "ID": 110,
+                        "Doc": "GS RC MEC 617",
+                        "Question": "What are the criteria to install oil seals on a new compressor",
+                        "Expected Answer": "Oil seals should be only selected in case of dirty gas (i.e. cracked gas) when external clean seal gas source is not available and if the double configuration of self-acting dry gas seals is not considered suitable for the application.",
+                        "Paragraph": "4.10.3",
+                        "Resultat": "KO - Moyen",
+                        "Question_Stop_Words": "criteria install oil seals new compressor",
+                        "Question_Other_Words": "criteria;install;new",
+                        "Equipment": "Compressor",
+                        "Component": "Seal"
+                    },
+                    {
+                        "ID": 111,
+                        "Doc": "GS RC MEC 617",
+                        "Question": "How much margin of power should we add when selecting an electrical motor ",
+                        "Expected Answer": "For fixed speed machine, the electric motor rated output power shall include a minimum margin of 14.4% relative to the maximum calculated absorbed power at motor shaft.",
+                        "Paragraph": "5.1.5",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "margin power add selecting electrical motor",
+                        "Question_Other_Words": "margin;add;selecting;electrical",
+                        "Component": "Motor",
+                        "Characterisation": "Power"
+                    },
+                    {
+                        "ID": 112,
+                        "Doc": "GS RC MEC 618",
+                        "Question": "What is the maximum acceptable piston velocity for a reciprocating compressor ?",
+                        "Expected Answer": "§6.4.1 For piston rings compressors; the average piston speed shall be less than:\r\n    • 4.5m/s for lubricated cylinders,\r\n    • 3.5m/s for dry cylinders.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "maximum acceptable piston velocity reciprocating compressor ?",
+                        "Question_Other_Words": "maximum;acceptable;velocity;reciprocating;compressor;?",
+                        "Equipment": "Reciprocating compressors (API 618)",
+                        "Component": "Piston"
+                    },
+                    {
+                        "ID": 113,
+                        "Doc": "GS RC MEC 618",
+                        "Question": "Which guide and manual is dealing with reciprocating compressors maintenance?",
+                        "Expected Answer": "GS MEC 618",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "guide manual dealing reciprocating compressors maintenance ?",
+                        "Question_Other_Words": "guide;manual;dealing;reciprocating;compressors;?",
+                        "Equipment": "Reciprocating compressors (API 618)",
+                        "Method": "Maintenance"
+                    },
+                    {
+                        "ID": 114,
+                        "Doc": "GS RC MEC 618",
+                        "Question": "What is the maximum rotating speed for compressors with non toxic gases",
+                        "Expected Answer": "For compressors handling non toxic and non flammable gases, the rotating speed shall be less than 750 rpm.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "maximum rotating speed compressors non toxic gases",
+                        "Question_Other_Words": "maximum;rotating;non;toxic",
+                        "Equipment": "Compressor",
+                        "Characterisation": "Speed"
+                    },
+                    {
+                        "ID": 115,
+                        "Doc": "GS RC MEC 618",
+                        "Question": "What is the maximum pressure for the thread root for continuous piston-rod loading ?",
+                        "Expected Answer": "6.10.4.5 The stress at the thread root diameter at the maximum allowable continuous piston-rod loading shall not exceed 550MPa.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "maximum pressure thread root continuous piston - rod loading ?",
+                        "Question_Other_Words": "maximum;thread;root;continuous;-;loading;?",
+                        "Component": "Piston;Rod",
+                        "Characterisation": "Mawp"
+                    },
+                    {
+                        "ID": 116,
+                        "Doc": "GS RC MEC 618",
+                        "Question": "what is the maximum rated power for antifriction bearings",
+                        "Expected Answer": "6.11.2.1 For rated power above 100kW, the use of antifriction bearings shall be submitted to TOTAL approval.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "maximum rated power antifriction bearings",
+                        "Question_Other_Words": "maximum;rated;power;antifriction;bearings",
+                        "Component": "Antifriction Bearing",
+                        "Characterisation": "Rated Power"
+                    },
+                    {
+                        "ID": 117,
+                        "Doc": "GS RC MEC 618",
+                        "Question": "max power for Splash lubrication systems 100kW ?",
+                        "Expected Answer": "Splash lubrication systems are not allowed above 100kW.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "max power Splash lubrication systems 100kW ?",
+                        "Question_Other_Words": "max;Splash;lubrication;systems;100kW;?",
+                        "Characterisation": "Power"
+                    },
+                    {
+                        "ID": 118,
+                        "Doc": "GS RC MEC 618",
+                        "Question": "what shall be the sized of the coupling",
+                        "Expected Answer": "7.2.1.12 The coupling shall be sized on the following basis.\r\n\r\na) The maximum allowable torque of the coupling in continuous operation shall be at least equal to:\r\n\r\n200% of the maximum torque required to cover the specified operating range;\r\nb) The maximum allowable transient torque of the coupling shall be at least equal to:\r\n\r\n120% of the maximum calculated peak torque in transient conditions\r\n300% of the driver rated torque (rated power @ rated speed).\r\nIn case these requirements would be inconsistent with the torsional analysis of the shaft train, an alternative proposal shall be submitted with detailed justification to TOTAL.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "shall sized coupling",
+                        "Question_Other_Words": "shall;sized",
+                        "Component": "Coupling"
+                    },
+                    {
+                        "ID": 119,
+                        "Doc": "GS RC MEC 731",
+                        "Question": "what is the temperature limit for pump",
+                        "Expected Answer": "Even if pumps are designed for temperatures up to +260°C (+500°F), their use shall be limited below +150°C (+302°F).",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "temperature limit pump",
+                        "Question_Other_Words": "limit",
+                        "Equipment": "Pump",
+                        "Characterisation": "Temperature"
+                    },
+                    {
+                        "ID": 120,
+                        "Doc": "GS RC MEC 731",
+                        "Question": "what is the max Impeller diameter for metallic pump",
+                        "Expected Answer": "Impeller(s) shall preferably have a diameter higher than 80% of the maximum\r\n\r\nImpeller(s) shall have a diameter lower than 95% of the maximum.",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "max Impeller diameter metallic pump",
+                        "Question_Other_Words": "max;diameter",
+                        "Equipment": "Pump",
+                        "Component": "Impeller"
+                    },
+                    {
+                        "ID": 121,
+                        "Doc": "221 - REX N°221 - NOR ROT - turbine vapeur VFR rev 2.pdf",
+                        "Question": "When is the last incident related to a trip valve",
+                        "Expected Answer": "february 2015",
+                        "Resultat": "KO - Moyen",
+                        "Question_Stop_Words": "incident related trip valve",
+                        "Question_Other_Words": "incident;related;trip;valve",
+                        "Component": "Trip Valve"
+                    },
+                    {
+                        "ID": 122,
+                        "Doc": "221 - REX N°221 - NOR ROT - turbine vapeur VFR rev 2.pdf",
+                        "Question": "Why the turbine didn't trip",
+                        "Expected Answer": "CAUSES Immediate causes Incorrect re assembly after overhaul \r\nRoot causes Incorrect re assembly after overhaul",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "turbine trip",
+                        "Question_Other_Words": "trip",
+                        "Equipment": "Turbine"
+                    },
+                    {
+                        "ID": 123,
+                        "Doc": "221 - REX N°221 - NOR ROT - turbine vapeur VFR rev 2.pdf",
+                        "Question": "Which site does have a turbine type 44AX",
+                        "Expected Answer": "NOR",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "site turbine type 44AX",
+                        "Question_Other_Words": "site;type;44AX",
+                        "Equipment": "Turbine"
+                    },
+                    {
+                        "ID": 124,
+                        "Doc": "221 - REX N°221 - NOR ROT - turbine vapeur VFR rev 2.pdf",
+                        "Question": "How many incidents do we have with missed trip on steam turbine. ",
+                        "Expected Answer": 0,
+                        "Question_Stop_Words": "incidents missed trip steam turbine .",
+                        "Question_Other_Words": "incidents;missed;trip;steam;turbine;.",
+                        "Equipment": "Steam Turbine"
+                    },
+                    {
+                        "ID": 125,
+                        "Doc": "221 - REX N°221 - NOR ROT - turbine vapeur VFR rev 2.pdf",
+                        "Question": "How many incidents do we have with trip valve failure. ",
+                        "Expected Answer": 1,
+                        "Question_Stop_Words": "incidents trip valve failure .",
+                        "Question_Other_Words": "incidents;trip;valve;failure;.",
+                        "Component": "Trip Valve"
+                    },
+                    {
+                        "ID": 126,
+                        "Doc": "239 -REX N°239 _RC_15_239 REFORMER CT1 vibration.pdf",
+                        "Question": "What is the normal start up time of K801,2 turbine",
+                        "Expected Answer": "10 min but changed after the incident",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "normal start time K801,2 turbine",
+                        "Question_Other_Words": "normal;start;K801,2",
+                        "Equipment": "Turbine",
+                        "Characterisation": "Time"
+                    },
+                    {
+                        "ID": 127,
+                        "Doc": "239 -REX N°239 _RC_15_239 REFORMER CT1 vibration.pdf",
+                        "Question": "What kind of incident could lead to high exhaust temperature on condensing steam turbine. ",
+                        "Expected Answer": "Root causes Gland steam system not know in details No check on guides and washer even at start-up Too short start-up curve to allow a proper and homogenous warming of the turbine",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "kind incident lead high exhaust temperature condensing steam turbine .",
+                        "Question_Other_Words": "kind;incident;lead;high;exhaust;condensing;steam;turbine;.",
+                        "Equipment": "Condensing Turbine",
+                        "Characterisation": "Temperature"
+                    },
+                    {
+                        "ID": 128,
+                        "Doc": "239 -REX N°239 _RC_15_239 REFORMER CT1 vibration.pdf",
+                        "Question": "What are the consequence of a high exhaust temperature on condensing steam turbine. ",
+                        "Expected Answer": "People None Environment None Equipment/material Rotor and stator slightly damaged. Rotor to refurbish Product/process No LO during rotor replacement - slight slowdown on reformer throughput Media/authorities None ",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "consequence high exhaust temperature condensing steam turbine .",
+                        "Question_Other_Words": "consequence;high;exhaust;condensing;steam;turbine;.",
+                        "Equipment": "Condensing Turbine",
+                        "Characterisation": "Temperature"
+                    },
+                    {
+                        "ID": 129,
+                        "Doc": "239 -REX N°239 _RC_15_239 REFORMER CT1 vibration.pdf",
+                        "Question": "Which bearing was damaged on K801,2 incident. ",
+                        "Expected Answer": "After overhaul fact findings reveal that front bearing pedestal (NDE) was found tight, the rotor was probably stressed since 2006.",
+                        "Resultat": "KO - Moyen",
+                        "Question_Stop_Words": "bearing damaged K801,2 incident .  ",
+                        "Question_Other_Words": "damaged;K801,2;incident;.; ",
+                        "Component": "Bearing"
+                    },
+                    {
+                        "ID": 130,
+                        "Doc": "Shut down of the cracked gas compressor caused by leak on balance piston.pdf",
+                        "Question": "In which position should be the anti surge valve during the start up of a recycles compressor",
+                        "Expected Answer": "Modifications of start-up procedures and operator viewing of anti-pumping valves location Modification study of the sequence to forbid recycle start-up closed Study of possibility to open anti-pumping valves when shut down.",
+                        "Resultat": "KO - Insuffisant",
+                        "Question_Stop_Words": "position anti surge valve start recycles compressor",
+                        "Question_Other_Words": "position;anti;surge;valve;start;recycles",
+                        "Equipment": "Compressor",
+                        "Component": "Anti Surge Valve"
+                    },
+                    {
+                        "ID": 131,
+                        "Doc": "Shut down of the cracked gas compressor caused by leak on balance piston.pdf",
+                        "Question": "What are the risks to start a recycle compressor with the anti surge valve closed ",
+                        "Expected Answer": "Shut down of the cracked gas compressor caused by very low differential pressure seal between oil and gas (on coupling side). Gas pressure on the seal beyond the operating window due to the pressure drop increasing in the balance line (increased flow). Increasing of leakage flowrate through the balancing piston seal due to the labyrinth breakage",
+                        "Resultat": "KO - Insuffisant",
+                        "Question_Stop_Words": "risks start recycle compressor anti surge valve closed",
+                        "Question_Other_Words": "risks;start;recycle;anti;surge;valve;closed",
+                        "Equipment": "Compressor",
+                        "Component": "Anti Surge Valve"
+                    },
+                    {
+                        "ID": 132,
+                        "Question": "How many REX do we have on a craked gas compressor",
+                        "Resultat": "OK - Bon",
+                        "Question_Stop_Words": "REX craked gas compressor",
+                        "Question_Other_Words": "REX;craked",
+                        "Equipment": "Compressor"
+                    },
+                    {
+                        "ID": 133,
+                        "Doc": "GS_RC_MEC_675_EN_00.docm",
+                        "Question": "recommendation for the backup position of actuator in case of power failure",
+                        "Expected Answer": "The backup position of actuator in case of power failure shall be specified and submitted to TOTAL.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "recommendation backup position actuator case power failure",
+                        "Question_Other_Words": "backup;position;case;failure",
+                        "Component": "Actuator",
+                        "Characterisation": "Power",
+                        "Method": "Recommendation"
+                    },
+                    {
+                        "ID": 134,
+                        "Doc": "GS_RC_MEC_675_EN_00.docm",
+                        "Question": "what are the lubrication oil for positive displacement pump",
+                        "Expected Answer": "2.11.2 Oil shall be selected among the brand names of lubricants produced by TOTAL. For the alkyl pumps, the Contractor shall check that the oil selected shall not be reactive with alkyls.",
+                        "Resultat": "KO - Insuffisant",
+                        "Question_Stop_Words": "lubrication oil positive displacement pump",
+                        "Question_Other_Words": "lubrication;positive;displacement",
+                        "Equipment": "Pump",
+                        "Characterisation": "Positive Displacement"
+                    },
+                    {
+                        "ID": 135,
+                        "Doc": "GS_RC_MEC_617_EN_04.docx",
+                        "Question": "How much margin of power should we add when selecting an electrical motor",
+                        "Expected Answer": "For fixed speed machine, the electric motor rated output power shall include a minimum margin of 14.4% relative to the maximum calculated absorbed power at motor shaft.",
+                        "Resultat": "OK - Parfait",
+                        "Question_Stop_Words": "margin power add selecting electrical motor",
+                        "Question_Other_Words": "margin;add;selecting;electrical",
+                        "Component": "Motor",
+                        "Characterisation": "Power"
+                    }
+                ]
+            }
+
+            var questionsArray = [];
+
+            questionTexts.data.forEach(function (question) {
+                if (question["Expected Answer"]) {
+                    questionsArray.push({question: question.Question, id: question.ID})
+                    questionsMap[question.ID] = question;
+                }
+
+
+            })
+            questionsArray.sort(function(a,b){
+                if(a.question>b.question)
+                    return 1;
+                if(a.question<b.question)
+                    return -1;
+                return 0;
+
+
+            })
+
+
+            common.fillSelectOptions("plainTextQuestion", questionsArray, "question", "id", true)
+
+
             var questionObj = {
 
-                "nouns": [
-                    "measurment",
-                    "turbine",
-                    "steam",
-                    "inlet"
-                ],
 
-                "entities": {
-                    "Equipement": [
-                        {
-                            "name": "Steam Turbine",
-                            "id": 311014
-                        }
-                    ],
-                    "Characterisation": [
-                        {
-                            "name": "Mawp",
-                            "id": 311227
-                        }
-                    ]
-                }
             }
             $("#question").val(JSON.stringify(questionObj, null, 2))
             $("#questionOptions").val(JSON.stringify(options, null, 2))
@@ -52,8 +1597,9 @@
 
 
         submitPlainTextQuestionToService = function () {
-
-            var txt = $("#plainTextQuestion").val();
+            $("#question").val("{}")
+            var id =parseInt( $("#plainTextQuestion").val());
+            var txt=questionsMap[id].Question;
             txt = encodeURIComponent(txt);
             //    var serviceUrl = "http://server-ctg-neo-question.azurewebsites.net/question/";
 
@@ -68,7 +1614,16 @@
                 data: payload,
                 dataType: "json",
                 success: function (data, textStatus, jqXHR) {
-                    data.format = "TotalQuestionService"
+                    data.format = "TotalQuestionService";
+                   delete data.question_nouns_syn;
+                    delete data.question_verbs_syn;
+                    delete data.question_adjs_syn;
+                    delete data.question_without_stop_words;
+                    delete data.question_without_entities;
+
+
+
+
                     $("#question").val(JSON.stringify(data, null, 2));
 
                 }, error: function (err) {
@@ -92,7 +1647,7 @@
 
         submitQuestion = function () {
 
-
+$("#response").val("searching...");
             var str = $("#question").val();
 
             var optionsStr = $("#questionOptions").val();
@@ -109,7 +1664,7 @@
                     data: payload,
                     dataType: "json",
                     success: function (data, textStatus, jqXHR) {
-
+checkAnswer(data.response)
 
                         $("#response").val(JSON.stringify(data.response, null, 2));
 
@@ -128,6 +1683,89 @@
 
         }
 
+        function onPlainTextQuestion() {
+            var id =parseInt( $("#plainTextQuestion").val());
+            var answer = questionsMap[id]["Expected Answer"];
+            $("#expectedAnswer").html(answer)
+            submitPlainTextQuestionToService();
+
+
+        }
+
+        const levenshtein = (a,b)=>{
+            if(a.length>124)
+                a=a.substring(0,124);
+            if(b.length>125)
+                b=b.substring(0,124);
+            let alen = a.length;
+            let blen = b.length;
+            if (alen === 0) return blen;
+            if (blen=== 0) return alen;
+            let tmp, i, j, prev, val, row, ma, mb, mc, md, bprev;
+
+            if (alen> blen) {
+                tmp = a;
+                a = b;
+                b = tmp;
+            }
+
+            row = new Int8Array(alen+1);
+            // init the row
+            for (i = 0; i <= alen; i++) {
+                row[i] = i;
+            }
+
+            // fill in the rest
+            for (i = 1; i <= blen; i++) {
+                prev = i;
+                bprev = b[i - 1]
+                for (j = 1; j <= alen; j++) {
+                    if (bprev === a[j - 1]) {
+                        val = row[j-1];
+                    } else {
+                        ma = prev+1;
+                        mb = row[j]+1;
+                        mc = ma - ((ma - mb) & ((mb - ma) >> 7));
+                        md = row[j-1]+1;
+                        val = mc - ((mc - md) & ((md - mc) >> 7));
+                    }
+                    row[j - 1] = prev;
+                    prev = val;
+                }
+                row[alen] = prev;
+            }
+            return row[alen];
+        }
+
+
+
+
+
+        function checkAnswer(response){
+            return
+            var minParagraph=-1;var minDistance=99999999999;
+            var expectedAnswer=$("#expectedAnswer").html();
+
+            response.forEach(function(path) {
+                path.paragraphs.forEach(function (paragraph) {
+                   var distance= levenshtein(paragraph.text,expectedAnswer);
+                   if(distance<minDistance){
+                       minParagraph=paragraph.id;
+                       minDistance=distance;
+                   }
+
+                })
+            })
+
+
+            $("#mostMatchingParagraph").html(minParagraph)
+
+
+
+
+
+        }
+
 
     </script>
 
@@ -135,7 +1773,8 @@
 </head>
 <body>
 
-question text<input id="plainTextQuestion" size="50" value="what is the maximum response time anti surge system">
+question text<select id="plainTextQuestion" onchange="onPlainTextQuestion()"></select><br>
+expected answer <span id="expectedAnswer"></span> most matching §<span id="mostMatchingParagraph"></span>
 <button onclick="submitPlainTextQuestionToService()">Analyze</button>
 
 
@@ -147,7 +1786,7 @@ question text<input id="plainTextQuestion" size="50" value="what is the maximum 
             options
 
 
-            <textarea cols="50" rows="5" id="questionOptions">
+            <textarea cols="50" rows="8" id="questionOptions">
 
             </textarea>
 
@@ -158,7 +1797,7 @@ question text<input id="plainTextQuestion" size="50" value="what is the maximum 
         </td>
     </tr>
     <td>
-            <textarea cols="50" rows="50" id="question">
+            <textarea cols="50" rows="40" id="question">
 
             </textarea>
 
@@ -171,7 +1810,7 @@ question text<input id="plainTextQuestion" size="50" value="what is the maximum 
         response
     </td>
     <td>
-            <textarea cols="100" rows="50" id="response">
+            <textarea cols="100" rows="40" id="response">
 
 
 

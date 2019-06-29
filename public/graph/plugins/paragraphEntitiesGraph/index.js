@@ -98,10 +98,6 @@ var ParagraphEntitiesGraph = (function () {
                                             allParagraphs[node._id] = {node: node, combinationKeys: [], freq: 1};
                                         }
 
-                                        if (allParagraphs[node._id].combinationKeys.length > 0)
-                                            var x = 0
-                                        if (allParagraphs[node._id].combinationKeys.length > 1)
-                                            var x = 0
                                         if (allParagraphs[node._id].combinationKeys.indexOf(key) < 0) {
 
                                             allParagraphs[node._id].freq += 1;

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bot</title>
+
+    <script type="text/javascript" src="../../../jsCommon/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../jsCommon/jquery/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="../../../jsCommon/common.js"></script>
+
+    <script>
+
+        var paragraphEntitiesProxyUrl = "../../../paragraphEntitiesGraph";
+        $(function () {
+
+            $("#ProposedEntitiesDivXXX").keyup(function (event) {
+                var char = event.which
+                if (char == 32)
+                    submitPlainTextQuestionToService(  $("#ProposedEntitiesDiv").html())
+
+            })
+
+
+
+        })
+
+        analyze=function(){
+            submitPlainTextQuestionToService(  $("#ProposedEntitiesDiv").html())
+        }
+
+        submitPlainTextQuestionToService = function (sentence) {
+
+            function decodeHtml(html) {
+                var txt = document.createElement("textarea");
+                txt.innerHTML = html;
+                return txt.value;
+            }
+
+            sentence=decodeHtml(sentence);
+
+            sentence=sentence.replace(/<[^>]*>/g,"")
+        //    var sentence = encodeURIComponent(sentence);
+            //    var serviceUrl = "http://server-ctg-neo-question.azurewebsites.net/question/";
+
+            sentence=sentence.trim();
+            var payload = {
+                extractEntitiesFromPlainTextQuestion: 1,
+                questionText: sentence
+            };
+
+            var payload = {
+                getSentenceEntityProposals: 1,
+                sentence: sentence
+            };
+            $.ajax({
+                type: "POST",
+                url: paragraphEntitiesProxyUrl,
+                data: payload,
+                dataType: "json",
+                success: function (data, textStatus, jqXHR) {
+                    processProposedEntities(data)
+
+
+                    $("#question").val(JSON.stringify(data, null, 2));
+
+                }, error: function (err) {
+                    alert(JSON.stringify(err, null, 2))
+
+                }
+            })
+        }
+
+
+        processProposedEntities = function (data) {
+
+            var entities={};
+            data.question_entities.forEach(function (entity) {
+                var entityId=entity.entity_normalized_value.toLowerCase();
+                var entityStr="<span id='" + entity.entity_label + "-" + entity.entity_normalized_value + "' class='entity " + entity.entity_label + "' >" + entity.entity_label + ":" + entity.entity_value + "</span>"
+entities[entityId]=entityStr;
+
+            })
+
+            var rawSentence=$("#ProposedEntitiesDiv").html().toLowerCase();
+            var analyzedSentence =rawSentence;
+            for(var key in entities){
+                analyzedSentence= analyzedSentence.replace(key,entities[key])
+
+
+            }
+
+
+
+
+
+
+            $("#ProposedEntitiesDiv").html(analyzedSentence);
+
+
+
+        }
+
+
+        getEntities = function () {
+
+            var sentence = $("#sentence").val();
+
+
+            var payload = {
+
+                getSentenceEntityProposals: 1,
+                sentence: sentence,
+
+            };
+            $.ajax({
+                type: "POST",
+                url: paragraphEntitiesProxyUrl,
+                data: payload,
+                dataType: "json",
+                success: function (data, textStatus, jqXHR) {
+
+                    var xx = data;
+                    $("#response").val(JSON.stringify(data.response, null, 2));
+
+                }, error: function (err) {
+                    alert(JSON.stringify(err, null, 2))
+
+                }
+            })
+
+
+        }
+
+
+    </script>
+    <style>
+        #ProposedEntitiesDiv {
+            width: 800px;
+            height: 100px;
+            background-color: #eee;
+            border: #261803 solid 1px;
+
+
+        }
+
+
+
+        .entity {
+
+
+            padding: 2px;
+            margin: 10px;
+            font-family: Verdana;
+            text-decoration: underline;
+
+        }
+        .Equipment {
+
+            text-decoration-color: #d9bb73;
+        }
+
+        .Phenomenon {
+            text-decoration-color: #0f6848;
+
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+<div id="ProposedEntitiesDiv"   contentEditable="true" class="analyseDiv"></div>
+
+<button onclick="analyze()" >Analyza</button>
+</body>
+</html>
