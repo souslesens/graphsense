@@ -7,59 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c0b8677d-dbc9-4124-b08c-92f03bd70409" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/bin/nlp/interactiveQuestions..js" afterPath="$PROJECT_DIR$/bin/nlp/interactiveQuestions..js" />
-      <change beforePath="$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js" afterPath="$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/index.html" afterPath="$PROJECT_DIR$/public/graph/index.html" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTree/jstree.min.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTree/themes/default-dark/32px.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTree/themes/default-dark/40px.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTree/themes/default-dark/style.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTree/themes/default-dark/style.min.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTree/themes/default-dark/throbber.gif" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTree/themes/default/32px.png" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/default/32px.png" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTree/themes/default/40px.png" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/default/40px.png" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTree/themes/default/style.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTree/themes/default/style.min.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTree/themes/default/throbber.gif" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/default/throbber.gif" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTree/treeController.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/jstree.js" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/jstree.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/jstree.min.js" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/jstree.min.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/libs/bootstrap/css/bootstrap-theme.css" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/libs/bootstrap/css/bootstrap-theme.css" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/libs/bootstrap/css/bootstrap-theme.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/libs/bootstrap/css/bootstrap-theme.min.css" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/libs/bootstrap/css/bootstrap.css" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/libs/bootstrap/css/bootstrap.css" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/libs/bootstrap/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/libs/bootstrap/css/bootstrap.min.css" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/libs/bootstrap/fonts/glyphicons-halflings-regular.eot" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/libs/bootstrap/fonts/glyphicons-halflings-regular.eot" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/libs/bootstrap/fonts/glyphicons-halflings-regular.svg" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/libs/bootstrap/fonts/glyphicons-halflings-regular.svg" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/libs/bootstrap/fonts/glyphicons-halflings-regular.ttf" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/libs/bootstrap/fonts/glyphicons-halflings-regular.ttf" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/libs/bootstrap/fonts/glyphicons-halflings-regular.woff" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/libs/bootstrap/fonts/glyphicons-halflings-regular.woff" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/libs/bootstrap/js/bootstrap.js" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/libs/bootstrap/js/bootstrap.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/libs/bootstrap/js/bootstrap.min.js" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/libs/bootstrap/js/bootstrap.min.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/libs/jquery.js" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/libs/jquery.js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/default/30px.png" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/default/30px.png" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/default/32px.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/default/40px.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/default/style.css" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/default/style.css" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/default/style.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/default/style.min.css" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/default/throbber.gif" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/proton/throbber.gif" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/proton/30px.png" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/proton/30px.png" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/proton/32px.png" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/proton/32px.png" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-bold-webfont.eot" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-bold-webfont.eot" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-bold-webfont.svg" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-bold-webfont.svg" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-bold-webfont.ttf" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-bold-webfont.ttf" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-bold-webfont.woff" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-bold-webfont.woff" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-extralight-webfont.eot" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-extralight-webfont.eot" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-extralight-webfont.svg" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-extralight-webfont.svg" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-extralight-webfont.ttf" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-extralight-webfont.ttf" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-extralight-webfont.woff" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-extralight-webfont.woff" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-regular-webfont.eot" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-regular-webfont.eot" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-regular-webfont.svg" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-regular-webfont.svg" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-regular-webfont.ttf" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-regular-webfont.ttf" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-regular-webfont.woff" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/proton/fonts/titillium/titilliumweb-regular-webfont.woff" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/proton/style.css" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/proton/style.css" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/proton/style.min.css" afterPath="$PROJECT_DIR$/public/jsCommon/others/jsTreeBootstrap/themes/proton/style.min.css" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/others/jsTreeBootstrap/themes/proton/throbber.gif" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/tree.js" afterPath="$PROJECT_DIR$/public/graph/js/ui/tree.js" />
       <change beforePath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot0.html" afterPath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot0.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -80,18 +28,19 @@
       <file leaf-file-name="paragraphEntitiesQuestions2..js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1631">
-              <caret line="491" column="16" lean-forward="false" selection-start-line="491" selection-start-column="16" selection-end-line="491" selection-end-column="16" />
+            <state relative-caret-position="184">
+              <caret line="907" column="22" lean-forward="false" selection-start-line="907" selection-start-column="22" selection-end-line="907" selection-end-column="22" />
               <folding>
-                <element signature="e#1747#2729#0" expanded="false" />
                 <element signature="e#7910#9052#0" expanded="false" />
                 <element signature="e#9181#10354#0" expanded="false" />
                 <element signature="e#10499#10969#0" expanded="false" />
                 <element signature="e#11162#12114#0" expanded="false" />
+                <element signature="e#12253#14697#0" expanded="false" />
                 <element signature="e#19255#22063#0" expanded="false" />
                 <element signature="e#22208#22542#0" expanded="false" />
                 <element signature="e#22966#23746#0" expanded="false" />
                 <element signature="e#23796#24959#0" expanded="false" />
+                <element signature="e#25047#27282#0" expanded="false" />
                 <element signature="e#27369#31443#0" expanded="false" />
                 <element signature="e#35357#38733#0" expanded="false" />
                 <element signature="e#39107#41088#0" expanded="false" />
@@ -111,8 +60,8 @@
       <file leaf-file-name="interactiveQuestions..js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bin/nlp/interactiveQuestions..js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="50" column="45" lean-forward="true" selection-start-line="50" selection-start-column="45" selection-end-line="50" selection-end-column="45" />
+            <state relative-caret-position="315">
+              <caret line="52" column="30" lean-forward="true" selection-start-line="52" selection-start-column="30" selection-end-line="52" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -121,8 +70,8 @@
       <file leaf-file-name="bot0.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot0.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="257" column="55" lean-forward="false" selection-start-line="257" selection-start-column="55" selection-end-line="257" selection-end-column="55" />
+            <state relative-caret-position="48">
+              <caret line="739" column="13" lean-forward="true" selection-start-line="739" selection-start-column="13" selection-end-line="739" selection-end-column="13" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#div#1;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -221,13 +170,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>foundPaths</find>
-      <find>draggableEntity</find>
-      <find>computePathsIntersection</find>
-      <find>return</find>
-      <find>entities</find>
-      <find>path.entities</find>
-      <find>path.entities</find>
       <find>jstree.js</find>
       <find>jstree.min</find>
       <find>jstree.min.js</find>
@@ -236,7 +178,6 @@
       <find>SelectedEntitiesDiv</find>
       <find>removeEntityFromSelectedEntitiesDiv</find>
       <find>S_</find>
-      <find>processProposedEntities</find>
       <find>showSuggestedEntities</find>
       <find>select_node.jstree</find>
       <find>cards)</find>
@@ -250,6 +191,14 @@
       <find>executeNeoPathsQuery</find>
       <find>getAssociatedEntitiesInsidePaths</find>
       <find>responseToJsTree</find>
+      <find>analm</find>
+      <find>processProposedEntities</find>
+      <find>analyze</find>
+      <find>proposedEntities</find>
+      <find>proposedEntitiesNames</find>
+      <find>responseToJsTree</find>
+      <find>responseToCards</find>
+      <find>entityLabelsDivs</find>
       <find>location</find>
     </findStrings>
     <replaceStrings>
@@ -639,12 +588,12 @@
       <workItem from="1560409026321" duration="65325000" />
       <workItem from="1561105831320" duration="1095000" />
       <workItem from="1561131199817" duration="37424000" />
-      <workItem from="1561481103654" duration="81058000" />
+      <workItem from="1561481103654" duration="95560000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1038808000" />
+    <option name="totallyTimeSpent" value="1053310000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -670,7 +619,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21285564" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22717391" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16520211" sideWeight="0.50468385" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32173914" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28586957" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -710,11 +659,35 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
+        <line-breakpoint type="javascript">
           <url>file://$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js</url>
           <line>491</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="905" />
+        </line-breakpoint>
+        <line-breakpoint type="javascript">
+          <url>file://$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js</url>
+          <line>31</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="910" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot0.html</url>
+          <line>258</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="912" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot0.html</url>
+          <line>76</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="913" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot0.html</url>
+          <line>70</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="914" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -725,7 +698,7 @@
           <properties />
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="910" />
+      <option name="time" value="923" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1094,20 +1067,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/bin/nlp/interactiveQuestions..js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="52" column="30" lean-forward="true" selection-start-line="52" selection-start-column="30" selection-end-line="52" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1631">
-          <caret line="491" column="16" lean-forward="false" selection-start-line="491" selection-start-column="16" selection-end-line="491" selection-end-column="16" />
+        <state relative-caret-position="184">
+          <caret line="907" column="22" lean-forward="false" selection-start-line="907" selection-start-column="22" selection-end-line="907" selection-end-column="22" />
           <folding>
-            <element signature="e#1747#2729#0" expanded="false" />
             <element signature="e#7910#9052#0" expanded="false" />
             <element signature="e#9181#10354#0" expanded="false" />
             <element signature="e#10499#10969#0" expanded="false" />
             <element signature="e#11162#12114#0" expanded="false" />
+            <element signature="e#12253#14697#0" expanded="false" />
             <element signature="e#19255#22063#0" expanded="false" />
             <element signature="e#22208#22542#0" expanded="false" />
             <element signature="e#22966#23746#0" expanded="false" />
             <element signature="e#23796#24959#0" expanded="false" />
+            <element signature="e#25047#27282#0" expanded="false" />
             <element signature="e#27369#31443#0" expanded="false" />
             <element signature="e#35357#38733#0" expanded="false" />
             <element signature="e#39107#41088#0" expanded="false" />
@@ -1123,18 +1105,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bin/nlp/interactiveQuestions..js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="50" column="45" lean-forward="true" selection-start-line="50" selection-start-column="45" selection-end-line="50" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot0.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="257" column="55" lean-forward="false" selection-start-line="257" selection-start-column="55" selection-end-line="257" selection-end-column="55" />
+        <state relative-caret-position="48">
+          <caret line="739" column="13" lean-forward="true" selection-start-line="739" selection-start-column="13" selection-end-line="739" selection-end-column="13" />
           <folding>
             <element signature="n#style#0;n#div#1;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#div#1;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
