@@ -62,6 +62,8 @@ var ParagraphEntitiesGraphQuestions = {
     },
 
     getAssociatedEntitiesInsidePaths: function (entityIds, distance, callback) {
+
+
         if (entityIds.length == 0)
             return callback(null, [])
         var cypher = "match(n) where ID(n) in " + JSON.stringify(entityIds) + " return n"
@@ -88,7 +90,8 @@ var ParagraphEntitiesGraphQuestions = {
             var options = {
                 "cards": cards,
                 "distance": distance,
-                "paragraphIds": []
+                "paragraphIds": [],
+                "limit": 1000
             }
 
             ParagraphEntitiesGraphQuestions.executeNeoPathsQuery(options, function (err, result) {
@@ -98,8 +101,8 @@ var ParagraphEntitiesGraphQuestions = {
                 var allParagraphsIds = [];
                 var nPaths = 0
                 result.forEach(function (path) {
-                    if(path.entities.length>=Object.keys(options.cards).length) {
-                        nPaths+=1;
+                    if (path.entities.length >= Object.keys(options.cards).length) {
+                        nPaths += 1;
                         path.forEach(function (node) {
                             allParagraphsIds.push(node._id)
                         })
@@ -147,143 +150,250 @@ var ParagraphEntitiesGraphQuestions = {
 
             if (!options)
                 options = {};
-
+            if (!options.matchEntitiesLimit)
+                options.matchEntitiesLimit = 1000;
             async.series([
 
 
-                    //find Entities neo4j ids
-                    function (callbackSeries) {
+                //find Entities neo4j ids
+                function (callbackSeries) {
 
-                        var entityNames = [];
-                        if (false && questionObj.question_entities.length == 0)
-                            return callback();
-
-
-                        var subGraph = options.subGraph;
-                        var subGraphStr = "";
-                        if (subGraph)
-                            subGraphStr = " and n.subGraph='" + subGraph + "' ";
-
-                        function capitalize(str) {
-                            return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-                        }
-
-                        var index = 0;
-                        async.eachSeries(questionObj.question_entities, function (entityObj, callbackEach) {
+                    var entityNames = [];
+                    if (false && questionObj.question_entities.length == 0)
+                        return callback();
 
 
-                                // var entityType = capitalize(entityObj.entity_label)
-                                var entityType = entityObj.entity_label;
-                                var cypher = "match (n:" + entityType + ") where n.name='" + entityObj.entity_normalized_value + "' " + subGraphStr + " return id(n) as neoId";
-                                neoProxy.match(cypher, function (err, result) {
-                                    if (err)
-                                        callbackEach(err);
-                                    if (result.length == 0)
-                                        return callback("no entity " + entityType + ":" + entityObj.entity_normalized_value + " in graph")
-                                    if (result.length > 1)
-                                        return callback("more than on entity " + entityType + ":" + entityObj.entity_normalized_value + " in graph try specify subGraph")
+                    var subGraph = options.subGraph;
+                    var subGraphStr = "";
+                    if (subGraph)
+                        subGraphStr = " and n.subGraph='" + subGraph + "' ";
 
-                                    questionObj.question_entities[index].neoId = result[0].neoId;
-                                    index++;
-                                    callbackEach();
-                                })
+                    function capitalize(str) {
+                        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+                    }
 
-                            },
-                            function (err) {
-                                return callbackSeries(err);
+                    var index = 0;
+                    async.eachSeries(questionObj.question_entities, function (entityObj, callbackEach) {
+
+
+                            // var entityType = capitalize(entityObj.entity_label)
+                            var entityType = entityObj.entity_label;
+                            var cypher = "match (n:" + entityType + ") where n.name='" + entityObj.entity_normalized_value + "' " + subGraphStr + " return id(n) as neoId";
+                            neoProxy.match(cypher, function (err, result) {
+                                if (err)
+                                    callbackEach(err);
+                                if (result.length == 0)
+                                    return callback("no entity " + entityType + ":" + entityObj.entity_normalized_value + " in graph")
+                                if (result.length > 1)
+                                    return callback("more than on entity " + entityType + ":" + entityObj.entity_normalized_value + " in graph try specify subGraph")
+
+                                questionObj.question_entities[index].neoId = result[0].neoId;
+                                index++;
+                                callbackEach();
                             })
 
-
-                    },
-
-                    //if options.filterNouns==true : search engine retreive ids of paragraphs matching nouns if no entities matching paragraphs
-                    function (callbackSeries) {
-                        if (true)
-                            return callbackSeries();
-                        var entityTypes = [];
-                        if (options.filterNouns)
-                            entityTypes.push("question_nouns")
-                        if (options.filterAdjs)
-                            entityTypes.push("question_adjs")
-                        if (options.filterVerbs)
-                            entityTypes.push("question_verbs")
-
-
-                        if (entityTypes.length == 0)
-                            return callbackSeries();
-                        ParagraphEntitiesGraphQuestions.getMatchingWordsParagraphs(questionObj, entityTypes, function (err, result) {
-
-
-                            result.forEach(function (paragraph) {
-                                var id = paragraph.id;
-                                if (typeof paragraph.id == "string")
-                                    id = parseInt(paragraph.id);
-                                //    paragraphScores[id] = paragraph.score;
-                                paragraphIds.push(id);
-
-                            })
-
-
-                            callbackSeries();
+                        },
+                        function (err) {
+                            return callbackSeries(err);
                         })
 
 
-                    },
+                },
+
+                //if options.filterNouns==true : search engine retreive ids of paragraphs matching nouns if no entities matching paragraphs
+                function (callbackSeries) {
+                    if (true)
+                        return callbackSeries();
+                    var entityTypes = [];
+                    if (options.filterNouns)
+                        entityTypes.push("question_nouns")
+                    if (options.filterAdjs)
+                        entityTypes.push("question_adjs")
+                    if (options.filterVerbs)
+                        entityTypes.push("question_verbs")
 
 
-                    // query Graph to extract paragraphs matching entities at distance
-                    function (callbackSeries) {
+                    if (entityTypes.length == 0)
+                        return callbackSeries();
+                    ParagraphEntitiesGraphQuestions.getMatchingWordsParagraphs(questionObj, entityTypes, function (err, result) {
 
-                        var index = 0;
 
-                        var entities = questionObj.question_entities;
+                        result.forEach(function (paragraph) {
+                            var id = paragraph.id;
+                            if (typeof paragraph.id == "string")
+                                id = parseInt(paragraph.id);
+                            //    paragraphScores[id] = paragraph.score;
+                            paragraphIds.push(id);
 
-                        if (entities.length == 0)
-                            return callbackSeries(null, []);
-                        entities.forEach(function (entity, index) {
-                            var label = entity.entity_label;
-                            var queryObject = {
-                                name: entity.entity_normalized_value,
-                                nodeSetIds: [entity.neoId],
-                                label: label
-                            }
-                            cards[label + "-" + index] = queryObject;
-                            index++;
                         })
 
-                        var options = {
-                            cards: cards,
-                            distance: 2,
-                            paragraphIds: paragraphIds
+
+                        callbackSeries();
+                    })
+
+
+                },
+
+
+                // query Graph to extract paragraphs matching entities at distance
+                function (callbackSeries) {
+
+                    var index = 0;
+
+                    var entities = questionObj.question_entities;
+
+                    if (entities.length == 0)
+                        return callbackSeries(null, []);
+                    entities.forEach(function (entity, index) {
+                        var label = entity.entity_label;
+                        var queryObject = {
+                            name: entity.entity_normalized_value,
+                            nodeSetIds: [entity.neoId],
+                            label: label
                         }
-                        ParagraphEntitiesGraphQuestions.executeNeoPathsQuery(options, function (err, result) {
+                        cards[label + "-" + index] = queryObject;
+                        index++;
+                    })
+
+                    var options2 = {
+                        cards: cards,
+                        distance: 2,
+                        paragraphIds: paragraphIds,
+                        limit: options.matchEntitiesLimit
+                    }
+                    ParagraphEntitiesGraphQuestions.executeNeoPathsQuery(options2, function (err, result) {
 
 
-                            matchingNeoPaths = result
-                            callbackSeries();
-                        })
+                        matchingNeoPaths = result
+                        callbackSeries();
+                    })
 
-                    },
+                },
 // if option strictMatching take only path whit a number of entities >= au nombre d'entité en entree
-                    function (callbackSeries) {
-                        if (false)
-                            return callbackSeries();
-                        var filteredNeoPaths = []
-                        matchingNeoPaths.forEach(function (path) {
-                            if (path.entities.length >= Object.keys(cards).length)
-                                filteredNeoPaths.push(path);
+                function (callbackSeries) {
+                    if (false)
+                        return callbackSeries();
+                    var filteredNeoPaths = []
+                    matchingNeoPaths.forEach(function (path) {
+                        if (path.entities.length >= Object.keys(cards).length)
+                            filteredNeoPaths.push(path);
+                    })
+                    matchingNeoPaths = filteredNeoPaths;
+                    return callbackSeries();
+
+                },
+
+
+                //OBSOLETE : use search only for scoring : if options.filterNouns==true : search engine retreive ids of paragraphs matching nouns
+
+                function (callbackSeries) {
+                    return callbackSeries();
+                    var entityTypes = [];
+                    if (options.filterNouns)
+                        entityTypes.push("question_nouns")
+                    if (options.filterAdjs)
+                        entityTypes.push("question_adjs")
+                    if (options.filterVerbs)
+                        entityTypes.push("question_verbs")
+
+
+                    if (entityTypes.length == 0)
+                        return callbackSeries();
+
+                    if (Object.keys(matchingNeoPaths).length == 0) {// pas de path avec entités -> recherche plein text seulement
+                        ParagraphEntitiesGraphQuestions.getMatchingWordsParagraphs(questionObj, entityTypes, function (err, result) {
+                            callbackSeries(err);
                         })
-                        matchingNeoPaths = filteredNeoPaths;
+                    } else {
+                        callbackSeries();
+
+                    }
+
+                }
+                ,
+
+
+                // aggregate question and response paths in response object
+                function (callbackSeries) {
+
+                    response = [];
+
+
+                    //  for (var key in matchingNeoPaths) {
+                    var responseObj = {}
+                    var paths = matchingNeoPaths;
+                    if (paths.length == 0)
+                        return callback(null, response)
+
+                    var str = "";
+                    responseObj.paths = [];
+
+                    paths.forEach(function (path, index) {
+
+
+                        var responsePathObj = {entities: [], wordsScore: 0, entitiesScore: path.entitiesScore, globalScore: 0, location: "", paragraphs: []};
+                        //  responsePathObj.score = 0;
+                        var pathParagraphsIdsStr = ""
+                        path.entities.forEach(function (entity) {
+                            responsePathObj.entities.push({id: entity.nodeSetIds[0], label: entity.label, value: entity.name});
+                        })
+                        path.nodes.forEach(function (node, index) {
+
+                            pathParagraphsIdsStr += node.properties.ID + "_";
+                            if (responsePathObj.paragraphs.length == 0) {
+                                var chapterNum = node.properties.ChapterID.substring(node.properties.ChapterID.lastIndexOf("_") + 1)
+                                responsePathObj.location = {
+                                    document: node.properties.Document,
+                                    chapter: node.properties.ChapterTitle1,
+                                    chapterNum: chapterNum,
+                                    chapter2: node.properties.ChapterTitle2,
+                                    chapterId: node.properties.ChapterID
+                                }
+                            }
+                            responsePathObj.paragraphs.push({
+                                id: node.properties.ID,
+                                text: node.properties.ParagraphText,
+                                style: node.properties.StyleParagraph,
+                                offset: node.properties.TextOffset
+                            })
+
+
+                        })
+
+                        responsePathObj.pathParagraphsIdsStr = pathParagraphsIdsStr
+                        response.push(responsePathObj);
+
+                    })
+                    // }
+
+
+                    //   response[key] = responseObj;
+                    callbackSeries();
+
+
+                },
+
+
+                //scoring using plain text search
+                function (callbackSeries) {
+
+                    if (response.length == 0)
                         return callbackSeries();
 
-                    },
 
+                    var index = -1;
+                    async.eachSeries(response, function (path, callbackEachPath) {
+                        index += 1;
+                        var paragraphIds = [];
+                        path.paragraphs.forEach(function (node) {
 
+                            paragraphIds.push(node.id);
 
-                    //if options.filterNouns==true : search engine retreive ids of paragraphs matching nouns
+                        })
 
-                    function (callbackSeries) {
-                        return callbackSeries();
+                        if (paragraphIds.length == 0)
+                            return callbackEachPath(null, 0)
+
                         var entityTypes = [];
                         if (options.filterNouns)
                             entityTypes.push("question_nouns")
@@ -296,214 +406,197 @@ var ParagraphEntitiesGraphQuestions = {
                         if (entityTypes.length == 0)
                             return callbackSeries();
 
-                        if (Object.keys(matchingNeoPaths).length == 0) {// pas de path avec entités -> recherche plein text seulement
-                            ParagraphEntitiesGraphQuestions.getMatchingWordsParagraphs(questionObj, entityTypes, function (err, result) {
-                                callbackSeries(err);
-                            })
-                        } else {
-                            callbackSeries();
+                        ParagraphEntitiesGraphQuestions.getPathWordMatchingScore(questionObj, entityTypes, paragraphIds, function (err, result) {
 
-                        }
-
-                    }
-                    ,
+                            var score = result / paragraphIds.length; //avg
+                            score = Math.round(score * 100) / 100
+                            response[index].wordsScore = score;
+                            if (response[index].entitiesScore)
+                                response[index].globalScore = response[index].entitiesScore + score;
+                            else
+                                response[index].globalScore = score
 
 
-                    // aggregate question and response paths in response object
-                    function (callbackSeries) {
-
-                        response = [];
-
-
-                        //  for (var key in matchingNeoPaths) {
-                        var responseObj = {}
-                        var paths = matchingNeoPaths;
-                        if (paths.length == 0)
-                            return callback(null, response)
-
-                        var str = "";
-                        responseObj.paths = [];
-
-                        paths.forEach(function (path, index) {
-
-
-                            var responsePathObj = {entities: [], wordsScore: 0, entitiesScore: path.entitiesScore, globalScore: 0, location: "", paragraphs: []};
-                            //  responsePathObj.score = 0;
-                            var pathParagraphsIdsStr = ""
-                            path.entities.forEach(function (entity) {
-                                responsePathObj.entities.push({id: entity.nodeSetIds[0], label: entity.label, value: entity.name});
-                            })
-                            path.nodes.forEach(function (node, index) {
-
-                                pathParagraphsIdsStr += node.properties.ID + "_";
-                                if (responsePathObj.paragraphs.length == 0) {
-                                    var chapterNum = node.properties.ChapterID.substring(node.properties.ChapterID.lastIndexOf("_") + 1)
-                                    responsePathObj.location = {
-                                        document: node.properties.Document,
-                                        chapter: node.properties.ChapterTitle1,
-                                        chapterNum: chapterNum,
-                                        chapter2: node.properties.ChapterTitle2,
-                                        chapterId: node.properties.ChapterID
-                                    }
-                                }
-                                responsePathObj.paragraphs.push({
-                                    id: node.properties.ID,
-                                    text: node.properties.ParagraphText,
-                                    style: node.properties.StyleParagraph,
-                                    offset: node.properties.TextOffset
-                                })
-
-
-                            })
-
-                            responsePathObj.pathParagraphsIdsStr = pathParagraphsIdsStr
-                            response.push(responsePathObj);
-
-                        })
-                        // }
-
-
-                        //   response[key] = responseObj;
-                        callbackSeries();
-
-
-                    },
-
-
-
-
-                    //scoring using plain text search
-                    function (callbackSeries) {
-
-                        if (response.length == 0)
-                            return callbackSeries();
-
-
-                        var index = -1;
-                        async.eachSeries(response, function (path, callbackEachPath) {
-                            index += 1;
-                            var paragraphIds = [];
-                            path.paragraphs.forEach(function (node) {
-
-                                paragraphIds.push(node.id);
-
-                            })
-
-                            if (paragraphIds.length == 0)
-                                return callbackEachPath(null, 0)
-
-                            var entityTypes = [];
-                            if (options.filterNouns)
-                                entityTypes.push("question_nouns")
-                            if (options.filterAdjs)
-                                entityTypes.push("question_adjs")
-                            if (options.filterVerbs)
-                                entityTypes.push("question_verbs")
-
-
-                            if (entityTypes.length == 0)
-                                return callbackSeries();
-
-                            ParagraphEntitiesGraphQuestions.getPathWordMatchingScore(questionObj, entityTypes, paragraphIds, function (err, result) {
-
-                                var score = result / paragraphIds.length; //avg
-                                score = Math.round(score * 100) / 100
-                                response[index].wordsScore = score;
-                                if (response[index].entitiesScore)
-                                    response[index].globalScore = response[index].entitiesScore + score;
-                                else
-                                    response[index].globalScore = score
-
-
-                                callbackEachPath(err);
-                            })
-
-
-                        }, function (err) {
-
-
-                            response.sort(function (a, b) {
-                                if (a.globalScore < b.globalScore)
-                                    return 1;
-                                if (a.globalScore > b.globalScore)
-                                    return -1;
-                                return 0;
-
-
-                            });
-                            response.forEach(function (path, index) {
-                                response[index].rank = (index + 1);
-                            })
-
-                            callbackSeries(err);
-
+                            callbackEachPath(err);
                         })
 
 
-                    },
-
-                    //concatenate path following each other (sharing at least in the same chapter
-
-                    function (callbackSeries) {
+                    }, function (err) {
 
 
-                return callbackSeries();
+                        response.sort(function (a, b) {
+                            if (a.globalScore < b.globalScore)
+                                return 1;
+                            if (a.globalScore > b.globalScore)
+                                return -1;
+                            return 0;
 
 
-                var chapterIds={};
-                        response.forEach(function (path, pathIndex) {
-                            var chapterId=path.location.chapterId;
-                            if(!chapterIds[chapterId])
-                                chapterIds[chapterId]={}
-                            chapterIds[chapterId][pathIndex]=[];
-
-                            var pathParagraph=[];
-                            path.paragraphs.forEach(function (paragraph, index) {
-                                for(var pathIndex in chapterIds[chapterId]) {
-                                    if (chapterIds[chapterId][pathIndex].indexOf(paragraph.id) < 0) {// le paragrph n'est encore dans aucun autre chemin pour ce chapitre
-                                        chapterIds[chapterId][pathIndex].push(paragraph.id);
-
-                                    }
-                                    else {
-                                        chapterIds[chapterId].commonPaths.push(pathIndex)
-                                    }
-                                }
-                            })
-
+                        });
+                        response.forEach(function (path, index) {
+                            response[index].rank = (index + 1);
                         })
-var concatenedMathingPaths=[];
-                        for(var key in chapterIds){
+
+                        callbackSeries(err);
+
+                    })
 
 
-                        }
+                },
 
-                        callbackSeries();
+                //Reformat response to structure entities/chapter/path/text
+
+                function (callbackSeries) {
+
+                    if (false)
+                        return callbackSeries();
 
 
-
-
-                    },
-
-                    function (callbackSeries) {
-                        if (!options.expandToAllChapterParagraphs)
-                            return callbackSeries();
-
-                        ParagraphEntitiesGraphQuestions.expandToAllChapterParagraphs(response, function (err, result) {
-                            response = result;
-                            callbackSeries(err);
-
+                    var tree = {};
+                    response.forEach(function (path, pathIndex) {
+                        var chapterId = path.location.chapterId;
+                        var chapterNum = chapterId.substring(chapterId.lastIndexOf("_") + 1)
+                        var documentRef = path.location.document;
+                        var entitiesKey = "";
+                        path.entities.forEach(function (entity, entityIndex) {
+                            if (entityIndex > 0)
+                                entitiesKey += ";"
+                            entitiesKey += entity.label + "_" + entity.value;
                         })
 
 
+                        if (!tree[entitiesKey])
+                            tree[entitiesKey] = {documents: {}}
+                        if (!tree[entitiesKey].documents[documentRef])
+                            tree[entitiesKey].documents[documentRef] = {title: "???", reference: documentRef, chapters: {}}
+                        if (!tree[entitiesKey].documents[documentRef].chapters[chapterId])
+                            tree[entitiesKey].documents[documentRef].chapters[chapterId] = {chapterId: chapterId, title: "???", paths: []}
+
+
+                    tree[entitiesKey].documents[documentRef].chapters[chapterId].paths.push(path.paragraphs)
+
+
+                })
+
+
+          /*  var matchingChapters = []
+            for (var entitiesKey in tree) {
+                var entityObj = tree[entitiesKey]
+                for (var documentKey in entityObj) {
+                    var chapterObj = entityObj[documentKey];
+                    chapterObj.forEach(function(path))
+                        var chapterObj = entityObj[document];
+
+
+                }*/
+                response = tree;
+
+                callbackSeries();
+
+
+            }
+        ,
+
+// OLD VERSION TO DELETE
+            function (callbackSeries) {
+
+                if (true)
+                    return callbackSeries();
+
+
+                var chapterIds = {};
+                response.forEach(function (path, pathIndex) {
+                    var chapterId = path.location.chapterId;
+                    var entitiesKey = "";
+                    path.entities.forEach(function (entity, entityIndex) {
+                        if (entityIndex > 0)
+                            entitiesKey += ";"
+                        entitiesKey += entity.label + "_" + entity.value;
+                    })
+
+                    if (!chapterIds[chapterId])
+                        chapterIds[chapterId] = {location: path.location, entities: {}}
+                    if (!chapterIds[chapterId].entities[entitiesKey])
+                        chapterIds[chapterId].entities[entitiesKey] = {entities: path.entities, paragraphs: []}
+
+                    var pathParagraph = [];
+
+                    function myIndexOf(array, field, value) {
+                        var index = -1
+                        array.forEach(function (line, arrayIndex) {
+                            if (line[field] == value)
+                                return index = arrayIndex;
+                        })
+                        return index;
                     }
 
+                    path.paragraphs.forEach(function (paragraph, index) {
+                        if (myIndexOf(chapterIds[chapterId].entities[entitiesKey].paragraphs, "id", paragraph.id) < 0) {
+                            chapterIds[chapterId].entities[entitiesKey].paragraphs.push(paragraph);
+                        }
+                    })
 
-                ],
+                })
 
-                function (err) {
-                    return callback(err, {   matchingPathsNumber : response.length,question: questionObj, response: response});
+
+                var matchingChapters = []
+                for (var chapterId in chapterIds) {
+                    var chapterObj = {location: chapterIds[chapterId].location, entities: []};
+
+
+                    for (var entityKey in chapterIds[chapterId].entities) {
+
+                        var paragraphs = [];
+
+
+                        chapterIds[chapterId].entities[entityKey].paragraphs.forEach(function (paragraph) {
+                            paragraphs.push(paragraph);
+                        })
+                        paragraphs.sort(function (a, b) {
+                            if (a.TestOffset > b.textOffset)
+                                return 1;
+                            if (a.TestOffset < b.textOffset)
+                                return -1;
+                            return 0;
+                        })
+                        chapterObj.entities.push({entities: chapterIds[chapterId].entities[entityKey].entities, paragraphs: paragraphs})
+
+                    }
+                    matchingChapters.push(chapterObj);
+
                 }
-            )
+                response = matchingChapters;
+
+                callbackSeries();
+
+
+            }
+
+        ,
+
+
+            //if option expandToAllChapterParagraphs add all chapter paragraphs to each path
+            function (callbackSeries) {
+                if (!options.expandToAllChapterParagraphs)
+                    return callbackSeries();
+
+                ParagraphEntitiesGraphQuestions.expandToAllChapterParagraphs(response, function (err, result) {
+                    response = result;
+                    callbackSeries(err);
+
+                })
+
+
+            }
+
+
+        ],
+
+            function (err) {
+                return callback(err, {matchingPathsNumber: response.length, question: questionObj, response: response});
+            }
+
+        )
         }
         catch
             (err) {
@@ -538,7 +631,6 @@ var concatenedMathingPaths=[];
             query += "] ";
             return query;
         }
-
         var combination = function (arr, length) {
             var i, j, temp
             var result = []
@@ -580,8 +672,7 @@ var concatenedMathingPaths=[];
 
             return result2;
         };
-
-        var getPathBetweenEntities = function (keys, distance, paragraphIds, callback) {
+        var getPathBetweenEntities = function (keys, options, paragraphIds, callback) {
 
             var where = "";
             var cypher = "";
@@ -608,16 +699,9 @@ var concatenedMathingPaths=[];
                 if (index == 1) {
                     //  cypher += "MATCH   path=(x" + index + ")-[:hasEntity|:precede*1.." + distance + "]-(x" + (index + 1) + ")";
                     if (keys.length == 2)
-                        cypher += "MATCH   path=(x" + index + ")<-[r:hasEntity*" + minCardinality + "..1]-(p1:Paragraph)-[:precede*0.." + distance + "]-(p2:Paragraph)-[:hasEntity*" + minCardinality + "..1]->(x" + (index + 1) + ")";
+                        cypher += "MATCH   path=(x" + index + ")<-[r:hasEntity*" + minCardinality + "..1]-(p1:Paragraph)-[:precede*0.." + options.distance + "]-(p2:Paragraph)-[:hasEntity*" + minCardinality + "..1]->(x" + (index + 1) + ")";
                     else
                         cypher += "MATCH   path=(x" + index + ")<-[r:hasEntity*" + minCardinality + "..1]-(p1:Paragraph)";//-[:precede*0.." + distance + "]-(p2)"
-
-
-                    /*    if (distance > 1)
-                            cypher += "MATCH   path=(x" + index + ")-[:instanceOf*0..1]->(c"+ index +":ThesaurusConcept  )<-[:hasConcept*0..1]-(p1)-[:precede*0.." + distance + "]-(p2)-[:hasConcept*0..1]->(c"+ (index+1) +":ThesaurusConcept)<-[:instanceOf*0..1]-(x" + (index + 1) + ")";
-                        else
-                            cypher += "MATCH   path=(x" + index + ")-[:instanceOf*0..1]->(c"+ index +":ThesaurusConcept  )<-[:hasConcept*0..1]-(p1)-[:precede*0.." + distance + "]-(p2)"
-                  */
 
                 }
             })
@@ -635,8 +719,8 @@ var concatenedMathingPaths=[];
 
 
             }
-            var limit = 100;
-            cypher += where + " return distinct nodes(path) as nodes, relationships(path) as relations , count(r) as count order by count desc limit " + limit;
+
+            cypher += where + " return distinct nodes(path) as nodes, relationships(path) as relations , count(r) as count order by count desc limit " + options.limit;
 
             logger.info(cypher);
             neoProxy.match(cypher, function (err, result) {
@@ -647,10 +731,8 @@ var concatenedMathingPaths=[];
             })
 
         }
-
-
         var computePathsIntersection = function (combinationResults, combinationsMap) {
-
+// voir algo Neo https://stackoverflow.com/questions/35229964/need-only-common-nodes-across-multiple-paths-neo4j-cypher
 
             var intersectionResults = [];
             var allParagraphsMap = {};
@@ -671,11 +753,10 @@ var concatenedMathingPaths=[];
                     path.nodes.forEach(function (node) {
                         if (node.labels[0] == "Paragraph") {
                             pathParagraphs.push(node);
-                            //   pathKey+=node._id;// on concatene les id de paragraphe pour l'unicité des chemins
                             if (!allParagraphsMap[node._id]) {
                                 allParagraphsMap[node._id] = {node: node, combinationKeys: [], freq: 1};
                             }
-
+// on affecte la combinaison du chemin a chaque noeud de celui-ci
                             if (allParagraphsMap[node._id].combinationKeys.indexOf(combinationName) < 0) {
 
                                 allParagraphsMap[node._id].freq += 1;
@@ -699,7 +780,6 @@ var concatenedMathingPaths=[];
 
 
             //scoring of paths based on number of entity combinations it matches in its paragraphs
-
 
             // selection des chemins qui passent par les matching nodes;
             var matchingPaths = []
@@ -727,11 +807,11 @@ var concatenedMathingPaths=[];
                 if (allPathNodeIdsStr.indexOf(pathNodeIdsStr) < 0) {
                     allPathNodeIdsStr += pathNodeIdsStr;
                     var pathEntities = [];
-                   var  pathEntitiesKeys=[];
+                    var pathEntitiesKeys = [];
                     pathEntityCombinations.forEach(function (combinationKey) {
                         var keys = JSON.parse(combinationKey);
                         keys.forEach(function (key) {
-                            if(pathEntitiesKeys.indexOf(key)<0){
+                            if (pathEntitiesKeys.indexOf(key) < 0) {
                                 pathEntitiesKeys.push(key);
                                 var card = cardsMap[key];
                                 pathEntities.push(card)
@@ -747,7 +827,7 @@ var concatenedMathingPaths=[];
                     matchingPaths.push(path)
                 }
                 else {
-                    xx = 1
+
                 }
 
             })
@@ -826,7 +906,7 @@ var concatenedMathingPaths=[];
                 if (!combinations2 || combinations2.length == 0)
                     return callback();
                 async.eachSeries(combinations2, function (combination, callbackEach) {
-                        getPathBetweenEntities(combination, distance, paragraphIds, function (err, result) {
+                        getPathBetweenEntities(combination, options, paragraphIds, function (err, result) {
                             if (err)
                                 return callback(err);
                             if (result.length > 0) {
@@ -854,7 +934,7 @@ var concatenedMathingPaths=[];
                 if (matchCount > 0)
                     return callback()
                 async.eachSeries(combinations1, function (combination, callbackEach) {
-                        getPathBetweenEntities(combination, 1, paragraphIds, function (err, result) {
+                        getPathBetweenEntities(combination, {distance: 1, limit: options.limit}, paragraphIds, function (err, result) {
                             if (err)
                                 return callback(err);
                             if (result.length > 0) {
@@ -994,64 +1074,6 @@ var concatenedMathingPaths=[];
     ,
 
 
-    testQuestion: function (method, id, callback) {
-
-        var where = "";
-        if (id)
-            where = " and q.id=" + id + " "
-
-        var cypher = "Match path=(q:Question)--(n) where q.subGraph='entitiesGraph2' " + where + " return q,n";
-
-        logger.info(cypher);
-        neoProxy.match(cypher, function (err, result) {
-
-
-            var questionObj = {
-                question: {},
-                words: [],
-                nouns: [],
-                verbs: [],
-                entities: {}
-            }
-            var questionNode;
-
-
-            result.forEach(function (node, index) {
-                if (index == 0)
-                    questionObj.question = node.q.properties
-                var node = node.n;
-                var label = node.labels[0];
-                if (label == "Question_Noun") {
-                    questionObj.nouns.push(node.properties.name)
-                }
-                else if (label == "Question_Verb") {
-                    questionObj.verbs.push(node.properties.name)
-                }
-                else if (label == "Words") {
-                    questionObj.words.push(node.properties.name)
-                }
-                else {
-                    if (!questionObj.entities[label])
-                        questionObj.entities[label] = [];
-                    questionObj.entities[label].push({name: node.properties.name, id: node._id})
-
-                }
-
-
-            })
-            questionObj.options = {
-                filterNouns: false,
-                rankPathsByNounfrequency: false,
-                maxParagraphDistance: 2,
-            }
-
-            ParagraphEntitiesGraphQuestions.getParagraphsMatchingEntitiesAndWords(questionObj, callback)
-
-        })
-
-    }
-
-    ,
     getMatchingWordsParagraphs: function (queryObject, wordEntityTypes, callback) {
         var matchStr = "";
         var matchingWordsParagraphs = []
@@ -1345,27 +1367,6 @@ var concatenedMathingPaths=[];
     ,
 
 
-    /*
-
-    {
-      {
-      "query": {  "bool" : {
-          "must" : [
-
-            { "terms" : {
-            "ID" : [20, 30,31,32]
-        }},
-             { "match": {
-          "ParagraphText": "surge "
-        }}]
-      }
-               }
-    }
-
-    }
-     */
-
-
     printQuestionAndResponse: function (obj) {
 
 
@@ -1656,9 +1657,67 @@ var concatenedMathingPaths=[];
             }
         )
     }
+    ,
+    testQuestion: function (method, id, callback) {
 
+        var where = "";
+        if (id)
+            where = " and q.id=" + id + " "
+
+        var cypher = "Match path=(q:Question)--(n) where q.subGraph='entitiesGraph2' " + where + " return q,n";
+
+        logger.info(cypher);
+        neoProxy.match(cypher, function (err, result) {
+
+
+            var questionObj = {
+                question: {},
+                words: [],
+                nouns: [],
+                verbs: [],
+                entities: {}
+            }
+            var questionNode;
+
+
+            result.forEach(function (node, index) {
+                if (index == 0)
+                    questionObj.question = node.q.properties
+                var node = node.n;
+                var label = node.labels[0];
+                if (label == "Question_Noun") {
+                    questionObj.nouns.push(node.properties.name)
+                }
+                else if (label == "Question_Verb") {
+                    questionObj.verbs.push(node.properties.name)
+                }
+                else if (label == "Words") {
+                    questionObj.words.push(node.properties.name)
+                }
+                else {
+                    if (!questionObj.entities[label])
+                        questionObj.entities[label] = [];
+                    questionObj.entities[label].push({name: node.properties.name, id: node._id})
+
+                }
+
+
+            })
+            questionObj.options = {
+                filterNouns: false,
+                rankPathsByNounfrequency: false,
+                maxParagraphDistance: 2,
+            }
+
+            ParagraphEntitiesGraphQuestions.getParagraphsMatchingEntitiesAndWords(questionObj, callback)
+
+        })
+
+    }
 
 }
+
+
 module.exports = ParagraphEntitiesGraphQuestions
 
 
@@ -1693,87 +1752,4 @@ if (true) {
 
 
 }
-/***
- {
-  "mappings": {
-    "type_name": {
-      "properties": {
-        "idNeo": {
-          "type": "integer"
-        },
 
-        "vectors": {
-        "type":        "text",
-        "term_vector": "with_positions_offsets"
-      }
-      }
-    }
-  }
-
-}
-
-
-
-
-
-
-
- */
-
-var obj = {
-    "options": {
-        "maxParagraphDistance": 2,
-        "filterNouns": false,
-        "rankPathsByNounfrequency": true,
-    },
-    "nouns": [
-        "measurment",
-        "turbine",
-        "steam",
-        "inlet"
-    ],
-
-    "entities": {
-        "Equipement": [
-            {
-                "name": "Steam Turbine",
-                "id": 311014
-            }
-        ],
-        "Characterisation": [
-            {
-                "name": "Mawp",
-                "id": 311227
-            }
-        ]
-    }
-}
-
-
-var xx = {
-    "size": 100,
-    "query": {
-        "bool": [
-            {
-                "must": [
-                    {
-                        "iD": "4794"
-                    }
-                ]
-            },
-
-
-            {
-                "should":
-                    [
-                        {
-                            "match": {
-                                "paragraphText": "maximum "
-                            }
-                        }
-                    ]
-            }
-        ]
-    }
-
-}

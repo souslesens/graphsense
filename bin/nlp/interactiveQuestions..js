@@ -11,7 +11,7 @@ var InteractiveQuestions={
 
     getSentenceEntityProposals:function(sentence,callback){
 
-        var words=sentence.split();
+        var words=sentence.split(" ");
 
         var proposals=[];
         async.eachSeries(words,function(word,callbackEach){
@@ -50,7 +50,7 @@ var InteractiveQuestions={
                         if (res.body.hits.hits.length > 0) {
                             var xx = res.body
                             res.body.hits.hits.forEach(function (hit) {
-                                var obj = {id: hit._source.iD, score: hit._score,data:hit._source};
+                                var obj = {id: hit._iD, score: hit._score,data:hit._source};
                                 proposals.push(obj)
                             })
                         }

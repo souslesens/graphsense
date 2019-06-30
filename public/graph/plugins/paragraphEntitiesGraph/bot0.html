@@ -10,10 +10,12 @@
     <script type="text/javascript" src="../../../jsCommon/cypher.js"></script>
     <script type="text/javascript" src="../../../jsCommon/others/async.js"></script>
 
+    <link rel="stylesheet" href="../../../jsCommon/others/jsTreeBootstrap/themes/default/style.min.css"/>
+    <script src="../../../jsCommon/others/jsTreeBootstrap/jstree.min.js"></script>
     <script>
 
         var paragraphEntitiesProxyUrl = "../../../paragraphEntitiesGraph";
-
+        var jsTreeObj = null;
         var proposedEntities = {};
         var MainController = {
             showSpinner: function () {
@@ -32,10 +34,11 @@
             analyze = function () {
                 selectedEntities = {};
                 $("#ProposedEntitiesDiv").html("");
-                $("#SuggestedEntitiesDiv").html("");
+                //    $("#SuggestedEntitiesDiv").html("");
                 $("#SelectedEntitiesDiv").html("");
                 $("#PathsResult").html("");
                 $("#foundPaths").html("");
+                $("#textDetailsDiv").text('');
 
                 submitPlainTextQuestionToService($("#sentence").val())
             }
@@ -83,6 +86,25 @@
             }
 
 
+            $('.draggableEntity').bind("click",function(){
+                var obj=$(this).detach();
+                obj.appendTo($("#SelectedEntitiesDiv"));
+
+
+
+             $(this).append("<button onclick='removeEntityFromSelectedEntitiesDiv(" + ui.draggable.attr('id') + ")'>X</button>");
+
+
+                var selectedId = [];
+
+                $("#SelectedEntitiesDiv").children().each(function (child) {
+                    selectedId.push(parseInt($(this).attr("id")));
+                })
+
+                showSuggestedEntities(selectedId);
+
+
+            })
             $('#SelectedEntitiesDiv').droppable({
                 drop: function (event, ui) {
 
@@ -92,7 +114,7 @@
                     draggable.appendTo(this).offset(offset);
                     ui.draggable.css({'top': '', 'left': ''});
 
-                    ui.draggable.append("<button onclick='removeEntityFromSelectedEntitiesDiv(" +  ui.draggable.attr('id')+ ")'>X</button>");
+                    ui.draggable.append("<button onclick='removeEntityFromSelectedEntitiesDiv(" + ui.draggable.attr('id') + ")'>X</button>");
 
 
                     var selectedId = [];
@@ -102,6 +124,7 @@
                     })
 
                     showSuggestedEntities(selectedId);
+                    responseToJsTree([])
 
                     //     $("#"+draggableId).detach().appendTo("#SelectedEntitiesDiv");
 
@@ -114,7 +137,8 @@
 
         showSuggestedEntities = function (entityIds) {
 
-
+            if (entityIds.length == 0)
+                analyze();
 
 
             //   var cypher = "Match (n)-[:hasEntity]-(p:Paragraph)-[:hasEntity]-(m) where id(n)="+entityId+"  and id(m)<>"+entityId+" and n.subGraph=\"entitiesGraph3\"  return m, collect(p) as paragraphs limit 1000"
@@ -137,11 +161,14 @@
                     $("#foundPaths").html(nPaths)
                     var entityLabels = {};
                     data.entities.forEach(function (line) {
-                        if (!entityLabels[line.label])
-                            entityLabels[line.label] = [];
-                        entityLabels[line.label].push(line);
+                        if (entityIds.indexOf(line.id) < 0) {
 
-                        proposedEntities[line.id] = {name: line.name, nParaGraphs: line.nParaGraphs, id: line.id, label: line.label}
+                            if (!entityLabels[line.label])
+                                entityLabels[line.label] = [];
+                            entityLabels[line.label].push(line);
+
+                            proposedEntities[line.id] = {name: line.name, nParaGraphs: line.nParaGraphs, id: line.id, label: line.label}
+                        }
                     })
 
 
@@ -153,7 +180,7 @@
 
                         entitiesMatchingParagrahs.forEach(function (entity) {
 
-                            var entitySpan = "<span  id='" + entity.id + "" + "' class='draggableEntity " + label + "' >" + entity.name + "(" + entity.nParaGraphs+ ")</span>";
+                            var entitySpan = "<span  id='" + entity.id + "" + "' class='draggableEntity " + label + "' >" + entity.name + "(" + entity.nParaGraphs + ")</span>";
                             html += entitySpan
                         })
                         html += "</div>"
@@ -161,7 +188,8 @@
                     }
 
                     html += "</div>"
-                    $("#SuggestedEntitiesDiv").html(html);
+                    //  $("#SuggestedEntitiesDiv").html(html);
+                    $("#ProposedEntitiesDiv").html(html);
                     $(".draggableEntity").draggable();
 
                 }, error: function (err) {
@@ -227,14 +255,16 @@
 
             var entitiesByLabel = {}
             data.forEach(function (entity) {
-                var ancestors = entity.data.ancestors.split(";")
-                var label = ancestors[0]
-                var name = entity.data.concept;
+                if(entity.data && entity.data.ancestors) {
+                    var ancestors = entity.data.ancestors.split(";")
+                    var label = ancestors[0]
+                    var name = entity.data.concept;
 
 
-                if (!entitiesByLabel[label])
-                    entitiesByLabel[label] = [];
-                entitiesByLabel[label].push(name)
+                    if (!entitiesByLabel[label])
+                        entitiesByLabel[label] = [];
+                    entitiesByLabel[label].push(name)
+                }
 
 
             })
@@ -292,8 +322,18 @@
 
         }
 
-        removeEntityFromSelectedEntitiesDiv=function(id){
-$("#"+id).remove();
+        removeEntityFromSelectedEntitiesDiv = function (id) {
+
+            $("#" + id).detach()
+
+            var selectedIds = [];
+
+            $("#SelectedEntitiesDiv").children().each(function (child) {
+                var id = $(this).attr("id")
+                selectedIds.push(parseInt(id));
+            })
+            showSuggestedEntities(selectedIds)
+            responseToJsTree([]);
         }
 
 
@@ -330,7 +370,7 @@ $("#"+id).remove();
         showSelectedPaths = function () {
             var entities = []
             $("#SelectedEntitiesDiv").children().each(function () {
-                var id = parseInt($(this).attr("id"))
+                var id = parseInt($(this).attr("id"));
                 var entity = proposedEntities[id]
                 entities.push({
                     "entity_label": entity.label,
@@ -339,18 +379,15 @@ $("#"+id).remove();
                 });
 
 
-
-
             })
-            var question={
-                "question_entities":entities,
+            var question = {
+                "question_entities": entities,
                 "question_nouns": [],
-                "question_verbs": [
-                ],
-                "question_adjs":[],
+                "question_verbs": [],
+                "question_adjs": [],
                 "format": "TotalQuestionService"
             };
-            var options={
+            var options = {
                 "maxParagraphDistance": 2,
                 "filterNouns": false,
                 "filterAdjs": false,
@@ -359,15 +396,15 @@ $("#"+id).remove();
                 "subGraph": "entitiesGraph3"
             }
 
-            if($("#allChapterCbx").prop("checked")){
-                options.expandToAllChapterParagraphs=true;
+            if ($("#allChapterCbx").prop("checked")) {
+                options.expandToAllChapterParagraphs = true;
             }
             try {
                 var payload = {
 
                     getParagraphsMatchingEntitiesAndWords: 1,
                     question: JSON.stringify(question),
-                    options:  JSON.stringify(options),
+                    options: JSON.stringify(options),
                 };
                 $.ajax({
                     type: "POST",
@@ -375,6 +412,7 @@ $("#"+id).remove();
                     data: payload,
                     dataType: "json",
                     success: function (data, textStatus, jqXHR) {
+                        responseToJsTree(data.response);
 
                         $("#PathsResult").val(JSON.stringify(data.response, null, 2));
 
@@ -391,14 +429,64 @@ $("#"+id).remove();
             }
 
 
-
-
         }
 
+        responseToJsTree = function (response) {
+            return;
+            var treeJsonArray = []
+            response.forEach(function (chapter) {
+                var chapterId = chapter.location.chapterId
+                treeJsonArray.push({id: chapterId, text: chapterId, parent: "#"});
+                chapter.entities.forEach(function (entities, entitiesIndex) {
+                    var entityText = "";
+                    entities.entities.forEach(function (entity, entityIndex) {
+                        if (entityIndex > 0)
+                            entityText += "-"
+                        entityText = "[" + entity.label + "]" + entity.value;
+                    })
+                    treeJsonArray.push({id: chapterId + "_" + entitiesIndex, text: entityText, parent: chapterId});
+                    entities.paragraphs.forEach(function (paragraph) {
+                        treeJsonArray.push({id: chapterId + "_" + entitiesIndex + "_" + paragraph.id, text: paragraph.text, parent: chapterId + "_" + entitiesIndex});
+
+
+                    })
+
+
+                })
+
+
+            })
+
+            if (jsTreeObj) {
+
+                $('#jstreeResult').jstree(true).settings.core.data = treeJsonArray;
+               // $('#jstreeResult').jstree(true).redraw(true)
+                $('#jstreeResult').jstree().refresh()
+
+
+            } else {
+
+
+                jsTreeObj = $("#jstreeResult").jstree({
+                    'core': {
+                        'data': treeJsonArray
+                    }
+                }).on('loaded.jstree', function () {
+                    $("#jstreeResult").jstree('open_all');
+                }).on('refresh.jstree', function () {
+                    $("#jstreeResult").jstree('open_all');
+                }).on("select_node.jstree",function(evt, obj) {
+                    var text=obj.node.text
+                    $("#textDetailsDiv").text(text);
+                })
+
+                 ;
+            }
+        }
 
     </script>
     <style>
-        #ProposedEntitiesDiv, #SuggestedEntitiesDiv {
+        #ProposedEntitiesDiv, #SuggestedEntitiesDiv, SelectedEntitiesDiv {
             width: 500px;
             min-height: 400px;
             max-height: 800px;
@@ -409,8 +497,8 @@ $("#"+id).remove();
         }
 
         #SelectedEntitiesDiv {
-            width: 200px;
-            min-height: 400px;
+
+            min-height: 100px;
 
             background-color: #dddddd;
             border: #261803 solid 2px;
@@ -442,7 +530,8 @@ $("#"+id).remove();
             border-radius: 2px;
 
         }
-        #PathsResult{
+
+        #PathsResult {
             width: 800px;
             min-height: 400px;
             max-height: 800px;
@@ -493,37 +582,30 @@ $("#"+id).remove();
 <table>
 
 
-    <tr>
 
-        <td>
-            Sentence analysis
 
-        </td>
+    <tr valign="top">
         <td>
-            Question
-
-        </td>
-        <td>
-            Suggestions § distance<input id="suggestionParagraphDistance" size="2" value="2">
-
-        </td>
-    </tr>
-    <tr>
-        <td>
+            Proposed Entities (drag)
             <div id="ProposedEntitiesDiv" class="mainDivs"></div>
 
+           <div id="textDetailsDiv"></div>
+
         </td>
+
+
         <td>
+
+            Selected Entities (drop)
             <div id="SelectedEntitiesDiv" class="mainDivs"></div>
-            paths found
-            <span id="foundPaths"></span><input type="checkbox" id="allChapterCbx"> allChapter
-                <button onclick="showSelectedPaths()"> OK</button>
+
+           <div style="background-color: #ddd;border: solid #261803 1px;width: 600px;padding: 3px">
+            § distance<input id="suggestionParagraphDistance" size="2" value="2"><br>
+               paths found<span id="foundPaths" style="font-size: 18px;font-weight: bold"></span>
+            <button onclick="showSelectedPaths()">Show paragraphs </button><input type="checkbox" id="allChapterCbx"> All Chapter Paragrpahs</div>
+            <div id="jstreeResult" class="mainDivs" style="width: 500px; height: 500px;overflow: auto"></div>
         </td>
 
-        <td>
-            <div id="SuggestedEntitiesDiv" class="mainDivs"></div>
-
-        </td>
     </tr>
     </tr>
     <tr>
@@ -535,6 +617,7 @@ $("#"+id).remove();
 
     <tr>
         <td colspan="3">
+
             <textarea id="PathsResult"></textarea>
 
         </td>

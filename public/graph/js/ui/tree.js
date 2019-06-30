@@ -36,6 +36,7 @@ var Tree = (function () {
 
 
             $('#' + treedivId + '_tree').jstree({
+                'check_callback' : true,
                 'core': {
                     'check_callback': true,
                     'data': jsTreeData,
