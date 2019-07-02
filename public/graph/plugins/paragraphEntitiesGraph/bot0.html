@@ -298,7 +298,7 @@
 
             var entityLabels = Object.keys(entitiesByLabel);
             async.eachSeries(entityLabels, function (entityLabel, callbackEach) {
-                html += " <div class='entityLabelsDivs'><span class=" + entityLabel + "> " + entityLabel + "</span><br>"
+                html += " <div class='entityLabelsDivs'><span style='height: 20px;font-weight: bold' class=" + entityLabel + "> " + entityLabel + "</span><br>"
 
                 var ids = JSON.stringify(entitiesByLabel[entityLabel]);
                 var cypher = "Match (n:" + entityLabel + ")--(p:Paragraph) where n.name in " + ids + " and n.subGraph=\"entitiesGraph3\"  return n, collect(p) as paragraphs limit 1000"
@@ -367,9 +367,9 @@
                 }
 
 
-                   recurseDrawEntitiesTree(entitiesTree, "ProposedEntitiesDiv",0)
+                 //  recurseDrawEntitiesTree(entitiesTree, "ProposedEntitiesDiv",0)
 
-             //   $("#ProposedEntitiesDiv").append(html);
+              $("#ProposedEntitiesDiv").append(html);
                 $('.draggableEntity').draggable({});
             })
 
@@ -503,6 +503,7 @@
                         }
 
                         if (level == 4) {//paragraph
+
                             text=line.text;
                         }
 
@@ -510,7 +511,8 @@
                         $("#" + domId).append(html);
                       //  if(level<4)
                         if(level==4)
-                            return;
+                            return ;
+                        else
                             recurseDrawResponse(line, id, level + 1)
 
 
@@ -532,7 +534,7 @@
                                 text = key;
 
                             var html = "<div class=' cardResponseDiv' id='" + id + "'> " + key + "</div>";
-                            $("#" + domId).append(html);
+                            $("#" + id).append(html);
 
                             var childNode = node[key];
                             if (level == 0)//document
@@ -620,7 +622,7 @@
             background-color: #dddddd;
             border: #261803 solid 2px;
             border-radius: 10px;
-            display: flex;
+          //  display: flex;
             flex-flow: row wrap;
         }
 
@@ -639,15 +641,15 @@
 
         }
 
-        .entityLabelsDivs {
-
+        .entityLabelsDivsXXX {
+            max-width: 200px;
             padding: 5px;
             margin: 5px;
             border: #261803 solid 1px;
             border-radius: 5px;
 
         }
-        .entityLabelsDivsXX{
+        .entityLabelsDivs{
             width: 450px;
             padding: 5px;
             margin: 5px;
@@ -659,13 +661,14 @@
         }
 
         .draggableEntity {
+            height: 20px;
             border: solid 1px;
             font-style: normal;
             font-size: 12px;
             padding: 2px;
             margin: 2px;
             font-family: Verdana;
-            border-radius: 2px;
+            border-radius: 10px;
 
         }
 
