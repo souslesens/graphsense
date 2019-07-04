@@ -1656,7 +1656,8 @@ $("#response").val("searching...");
 
                     getParagraphsMatchingEntitiesAndWords: 1,
                     question: str,
-                    options: optionsStr
+                    options: optionsStr,
+                    uniqueId:Math.random()
                 };
                 $.ajax({
                     type: "POST",

@@ -12,7 +12,7 @@ var logger = require("../logger..js");
  * * creation des chainages de paragrahes
  *
  *
- *  match(n:Paragraph)-->(:Document)<--(m:Paragraph) where n.subGraph="entitiesGraph2"  and m.subGraph="entitiesGraph2"  and m.TextOffset-n.TextOffset=1 create (n)-[:precede]->(m)
+ *  match(n:Paragraph)-->(:Document)<--(m:Paragraph) where n.subGraph="entitiesGraph2"  and m.subGraph="entitiesGraph2"  and n.chapterId=m.chapterId and m.TextOffset-n.TextOffset=1 create (n)-[:precede]->(m)
  *
  *
  *  match(n:ThesaurusConcept)-[:instanceOf]-(m)--(p:Paragraph)  create (p)-[:hasConcept]->(n)
@@ -453,64 +453,59 @@ var ParagraphEntitiesGraphQuestions = {
                     function (callbackSeries) {
                         if (false)
                             callbackSeries();
-
-
-                        var allParagraphsPath = {};
                         var paths = response;
-                        paths.forEach(function (path, pathIndex) {
-                            var chapterId = path.location.chapterId;
-                            paths[pathIndex].paragraphIds = [];
-                            path.paragraphs.forEach(function (paragraph, paragraphIndex) {
-                                paths[pathIndex].paragraphIds.push(paragraph.id);
-                                if (!allParagraphsPath[paragraph.id])
-                                    allParagraphsPath[paragraph.id] = [];
-                                allParagraphsPath[paragraph.id].push(pathIndex)
 
 
+                        function unionArray(a, b) {
+                            var aIds=[];
+                           a.forEach(function(item){
+                               aIds.push(item.id)
+                           })
+                          return   a.concat(b.filter(function (item) {
+                                return aIds.indexOf(item.id) < 0;
+                            }));
+
+                        }
+
+
+
+
+                        paths.forEach(function (path1, pathIndex1) {
+
+                            path1.paragraphs.forEach(function (paragraph, paragraphIndex) {
+                                var hasCommonParagraphs = false;
+                                paths.forEach(function (path2, pathIndex2) {
+                                    if(pathIndex1==pathIndex2)
+                                        return;
+                                    if (myIndexOf(path2.paragraphs, "id", paragraph.id) > -1) {// paragraphs en commun
+                                        var unionParagraphs = unionArray(path1.paragraphs, path2.paragraphs)
+
+                                        paths[pathIndex1].paragraphs = unionParagraphs;
+                                        paths[pathIndex2].paragraphs=[];
+
+
+                                    }
+                                })
                             })
-
                         })
 
 
-                        paths.forEach(function (path, pathIndex1) {
-                            path.paragraphs.forEach(function (paragraph, paragraphIndex) {
-                                if (allParagraphsPath[paragraph.id].length > 1) {// si le paragraphe est commun à plusieurs paths
-                                    allParagraphsPath[paragraph.id].forEach(function (pathIndex2) {// pour chacun des paragraphes communs
-                                        paths[pathIndex2].toDelete = true;
-                                        paths[pathIndex2].paragraphs.forEach(function (paragraph2, index2) {// si le paragraphe n'est pas déjà présent dans le path1
-                                            if (myIndexOf(paths[pathIndex1].paragraphs,"id",paragraph2.id) <0) {
-                                                if (paths[pathIndex1].location.chapterId == paths[pathIndex2].location.chapterId) {
-                                                    paths[pathIndex1].paragraphs.push(paths[pathIndex2].paragraphs[index2]);
-
-                                                }
-                                            }
-                                        })
-
-
-                                    })
-                                }
-
-                            })
-
-                        })
                         response = [];
                         paths.forEach(function (path, pathIndex) {
 
 
-
-
-                            if (path.toDelete)
+                            if ( path.paragraphs.length==0)
                                 return;
 
-
-                            path.paragraphs.sort(function(a,b){
-                                if(a.offset>b.offset)
-                                return 1;
-                                if(b.offset<a.offset)
-                                return -1;
+                            path.paragraphs.sort(function (a, b) {
+                                if (a.offset > b.offset)
+                                    return 1;
+                                if (b.offset < a.offset)
+                                    return -1;
                                 return 0;
 
                             })
+
                             response.push(path);
 
 

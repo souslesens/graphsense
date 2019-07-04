@@ -7,9 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c0b8677d-dbc9-4124-b08c-92f03bd70409" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js" afterPath="$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js" />
+      <change beforePath="$PROJECT_DIR$/db/datasets.db" afterPath="$PROJECT_DIR$/db/datasets.db" />
+      <change beforePath="$PROJECT_DIR$/db/mappings.db" afterPath="$PROJECT_DIR$/db/mappings.db" />
       <change beforePath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot0.html" afterPath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot0.html" />
+      <change beforePath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/service.html" afterPath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/service.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,31 +31,41 @@
       <file leaf-file-name="paragraphEntitiesQuestions2..js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="496" column="24" lean-forward="false" selection-start-line="496" selection-start-column="24" selection-end-line="496" selection-end-column="24" />
+            <state relative-caret-position="360">
+              <caret line="20" column="2" lean-forward="true" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="97" />
               <folding>
-                <element signature="e#8054#9284#0" expanded="false" />
-                <element signature="e#9421#10694#0" expanded="false" />
-                <element signature="e#10843#11353#0" expanded="false" />
-                <element signature="e#11554#12578#0" expanded="false" />
-                <element signature="e#12729#15337#0" expanded="false" />
-                <element signature="e#15441#17999#0" expanded="false" />
-                <element signature="e#26262#26652#0" expanded="false" />
-                <element signature="e#27099#27879#0" expanded="false" />
-                <element signature="e#27929#29092#0" expanded="false" />
-                <element signature="e#29180#31415#0" expanded="false" />
-                <element signature="e#31502#35576#0" expanded="false" />
-                <element signature="e#39490#42866#0" expanded="false" />
-                <element signature="e#43240#45221#0" expanded="false" />
-                <element signature="e#45322#47626#0" expanded="false" />
-                <element signature="e#47679#48665#0" expanded="false" />
-                <element signature="e#48713#49677#0" expanded="false" />
-                <element signature="e#49713#51515#0" expanded="false" />
-                <element signature="e#51569#53344#0" expanded="false" />
-                <element signature="e#53401#60071#0" expanded="false" />
-                <element signature="e#60122#63147#0" expanded="false" />
-                <element signature="e#63204#64897#0" expanded="false" />
+                <element signature="e#8082#9312#0" expanded="false" />
+                <element signature="e#9449#10722#0" expanded="false" />
+                <element signature="e#10871#11381#0" expanded="false" />
+                <element signature="e#11582#12606#0" expanded="false" />
+                <element signature="e#12757#15365#0" expanded="false" />
+                <element signature="e#15469#18027#0" expanded="false" />
+                <element signature="e#25661#26051#0" expanded="false" />
+                <element signature="e#26498#27278#0" expanded="false" />
+                <element signature="e#27328#28491#0" expanded="false" />
+                <element signature="e#28579#30814#0" expanded="false" />
+                <element signature="e#30901#34975#0" expanded="false" />
+                <element signature="e#38889#42265#0" expanded="false" />
+                <element signature="e#42639#44620#0" expanded="false" />
+                <element signature="e#44721#47025#0" expanded="false" />
+                <element signature="e#47078#48064#0" expanded="false" />
+                <element signature="e#48112#49076#0" expanded="false" />
+                <element signature="e#49112#50914#0" expanded="false" />
+                <element signature="e#50968#52743#0" expanded="false" />
+                <element signature="e#52800#59470#0" expanded="false" />
+                <element signature="e#59521#62546#0" expanded="false" />
+                <element signature="e#62603#64296#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="importDataIntoNeo4j.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bin/importDataIntoNeo4j.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="441">
+              <caret line="549" column="12" lean-forward="false" selection-start-line="549" selection-start-column="12" selection-end-line="549" selection-end-column="12" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -68,16 +80,16 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bot0.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="bot0.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot0.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="79">
-              <caret line="514" column="28" lean-forward="true" selection-start-line="512" selection-start-column="23" selection-end-line="514" selection-end-column="28" />
+            <state relative-caret-position="-1530">
+              <caret line="127" column="40" lean-forward="false" selection-start-line="127" selection-start-column="40" selection-end-line="127" selection-end-column="40" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#div#1;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#2;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <marker date="1562050758766" expanded="true" signature="11098:11128" ph="..." />
+                <marker date="1562088684657" expanded="true" signature="11098:11128" ph="..." />
               </folding>
             </state>
           </provider>
@@ -139,8 +151,8 @@
       <file leaf-file-name="service.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/service.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30240">
-              <caret line="1680" column="13" lean-forward="false" selection-start-line="1653" selection-start-column="10" selection-end-line="1680" selection-end-column="13" />
+            <state relative-caret-position="267">
+              <caret line="1650" column="43" lean-forward="false" selection-start-line="1650" selection-start-column="43" selection-end-line="1650" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -160,10 +172,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>jstree.min.js</find>
-      <find>PathsResult</find>
-      <find>SuggestedEntitiesDiv</find>
-      <find>SelectedEntitiesDiv</find>
       <find>removeEntityFromSelectedEntitiesDiv</find>
       <find>S_</find>
       <find>showSuggestedEntities</find>
@@ -183,13 +191,17 @@
       <find>analyze</find>
       <find>proposedEntities</find>
       <find>proposedEntitiesNames</find>
-      <find>responseToCards</find>
       <find>9200</find>
       <find>entityLabelsDivs</find>
       <find>location</find>
       <find>min-wid</find>
-      <find>myIn</find>
       <find>domId</find>
+      <find>responseToCards</find>
+      <find>jstreeResult</find>
+      <find>myIn</find>
+      <find>submitQuestion()</find>
+      <find>subm</find>
+      <find>sortdone</find>
     </findStrings>
     <replaceStrings>
       <replace>MDM_Quantum#</replace>
@@ -285,13 +297,13 @@
         <option value="$PROJECT_DIR$/db/mappings.db" />
         <option value="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/index.js" />
         <option value="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot.html" />
-        <option value="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/service.html" />
         <option value="$PROJECT_DIR$/routes/index.js" />
         <option value="$PROJECT_DIR$/public/graph/index.html" />
         <option value="$PROJECT_DIR$/public/graph/js/ui/tree.js" />
         <option value="$PROJECT_DIR$/bin/nlp/interactiveQuestions..js" />
-        <option value="$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js" />
         <option value="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot0.html" />
+        <option value="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/service.html" />
+        <option value="$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js" />
       </list>
     </option>
   </component>
@@ -313,9 +325,10 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="5" />
-    <option name="width" value="1281" />
-    <option name="height" value="685" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -479,7 +492,7 @@
     <property name="nodejs_interpreter_path" value="node" />
     <property name="javascript.nodejs.core.library.configured.version" value="8.10.0" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../souslesensGraph/souslesensGraph" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../bailletArchives" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
@@ -579,12 +592,12 @@
       <workItem from="1561105831320" duration="1095000" />
       <workItem from="1561131199817" duration="37424000" />
       <workItem from="1561481103654" duration="106021000" />
-      <workItem from="1562046160041" duration="3422000" />
+      <workItem from="1562046160041" duration="21957000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1067193000" />
+    <option name="totallyTimeSpent" value="1085728000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -599,7 +612,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23498419" sideWeight="0.49531615" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17755532" sideWeight="0.49531615" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -609,7 +622,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21285564" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22717391" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16520211" sideWeight="0.50468385" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30652174" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21956521" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -652,7 +665,7 @@
       <breakpoints>
         <line-breakpoint type="javascript">
           <url>file://$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js</url>
-          <line>569</line>
+          <line>564</line>
           <option name="timeStamp" value="905" />
         </line-breakpoint>
         <line-breakpoint type="javascript">
@@ -677,9 +690,9 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot0.html</url>
-          <line>513</line>
+          <line>552</line>
           <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="968" />
+          <option name="timeStamp" value="969" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -690,7 +703,7 @@
           <properties />
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="969" />
+      <option name="time" value="1004" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -934,13 +947,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bin/importDataIntoNeo4j.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9882">
-          <caret line="549" column="12" lean-forward="false" selection-start-line="549" selection-start-column="12" selection-end-line="549" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions..js" />
     <entry file="file://$PROJECT_DIR$/bin/nlp/paragraphEntitiesGraph..js" />
     <entry file="file://$PROJECT_DIR$/node_modules/async/dist/async.js">
@@ -971,14 +977,6 @@
           <folding>
             <marker date="1561450579311" expanded="true" signature="15491:15497" ph=" " />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/service.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30240">
-          <caret line="1680" column="13" lean-forward="false" selection-start-line="1653" selection-start-column="10" selection-end-line="1680" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1040,46 +1038,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="496" column="24" lean-forward="false" selection-start-line="496" selection-start-column="24" selection-end-line="496" selection-end-column="24" />
-          <folding>
-            <element signature="e#8054#9284#0" expanded="false" />
-            <element signature="e#9421#10694#0" expanded="false" />
-            <element signature="e#10843#11353#0" expanded="false" />
-            <element signature="e#11554#12578#0" expanded="false" />
-            <element signature="e#12729#15337#0" expanded="false" />
-            <element signature="e#15441#17999#0" expanded="false" />
-            <element signature="e#26262#26652#0" expanded="false" />
-            <element signature="e#27099#27879#0" expanded="false" />
-            <element signature="e#27929#29092#0" expanded="false" />
-            <element signature="e#29180#31415#0" expanded="false" />
-            <element signature="e#31502#35576#0" expanded="false" />
-            <element signature="e#39490#42866#0" expanded="false" />
-            <element signature="e#43240#45221#0" expanded="false" />
-            <element signature="e#45322#47626#0" expanded="false" />
-            <element signature="e#47679#48665#0" expanded="false" />
-            <element signature="e#48713#49677#0" expanded="false" />
-            <element signature="e#49713#51515#0" expanded="false" />
-            <element signature="e#51569#53344#0" expanded="false" />
-            <element signature="e#53401#60071#0" expanded="false" />
-            <element signature="e#60122#63147#0" expanded="false" />
-            <element signature="e#63204#64897#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot0.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="514" column="28" lean-forward="true" selection-start-line="512" selection-start-column="23" selection-end-line="514" selection-end-column="28" />
+        <state relative-caret-position="-1530">
+          <caret line="127" column="40" lean-forward="false" selection-start-line="127" selection-start-column="40" selection-end-line="127" selection-end-column="40" />
           <folding>
             <element signature="n#style#0;n#div#1;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#div#1;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#2;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1562050758766" expanded="true" signature="11098:11128" ph="..." />
+            <marker date="1562088684657" expanded="true" signature="11098:11128" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/service.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="1650" column="43" lean-forward="false" selection-start-line="1650" selection-start-column="43" selection-end-line="1650" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="20" column="2" lean-forward="true" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="97" />
+          <folding>
+            <element signature="e#8082#9312#0" expanded="false" />
+            <element signature="e#9449#10722#0" expanded="false" />
+            <element signature="e#10871#11381#0" expanded="false" />
+            <element signature="e#11582#12606#0" expanded="false" />
+            <element signature="e#12757#15365#0" expanded="false" />
+            <element signature="e#15469#18027#0" expanded="false" />
+            <element signature="e#25661#26051#0" expanded="false" />
+            <element signature="e#26498#27278#0" expanded="false" />
+            <element signature="e#27328#28491#0" expanded="false" />
+            <element signature="e#28579#30814#0" expanded="false" />
+            <element signature="e#30901#34975#0" expanded="false" />
+            <element signature="e#38889#42265#0" expanded="false" />
+            <element signature="e#42639#44620#0" expanded="false" />
+            <element signature="e#44721#47025#0" expanded="false" />
+            <element signature="e#47078#48064#0" expanded="false" />
+            <element signature="e#48112#49076#0" expanded="false" />
+            <element signature="e#49112#50914#0" expanded="false" />
+            <element signature="e#50968#52743#0" expanded="false" />
+            <element signature="e#52800#59470#0" expanded="false" />
+            <element signature="e#59521#62546#0" expanded="false" />
+            <element signature="e#62603#64296#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/importDataIntoNeo4j.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="441">
+          <caret line="549" column="12" lean-forward="false" selection-start-line="549" selection-start-column="12" selection-end-line="549" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>

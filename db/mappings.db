@@ -844,6 +844,17 @@
           "distinctValues": "on",
           "type": "node",
           "mappingset": "graphNlp"
+        },
+        "Product": {
+          "colName": "Product",
+          "colId": "Product",
+          "exportedFields": null,
+          "label": "Product",
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
+          "name": "Product",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "graphNlp"
         }
       },
       "relations": {
@@ -1221,6 +1232,32 @@
           "neoToLabel": "Chapter",
           "neoToId": "ChapterID",
           "relationType": "inChapter",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Paragraph-hasEntity->Product": {
+          "source": "export_doc_chapter_paragraph_neo#Sheet1",
+          "name": "Paragraph-hasEntity->Product",
+          "colFromId": "ID",
+          "neoFromLabel": "Paragraph",
+          "neoFromId": "ID",
+          "colToId": "Product",
+          "neoToLabel": "Product",
+          "neoToId": "Product",
+          "relationType": "hasEntity",
+          "mappingset": "graphNlp",
+          "type": "relation"
+        },
+        "Document-hasEntity->Product": {
+          "source": "export_doc_neo#Sheet1",
+          "name": "Document-hasEntity->Product",
+          "colFromId": "Document",
+          "neoFromLabel": "Document",
+          "neoFromId": "Document",
+          "colToId": "Product",
+          "neoToLabel": "Product",
+          "neoToId": "Product",
+          "relationType": "hasEntity",
           "mappingset": "graphNlp",
           "type": "relation"
         }
