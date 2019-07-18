@@ -18,7 +18,8 @@
                 "filterNouns": true,
                 "filterAdjs": false,
                 "filterVerbs": false,
-                "expandToAllChapterParagraphs":false,
+                "matchAlsoChapters": false,
+                "matchAlsoDocuments": false,
                 "subGraph": "entitiesGraph3"
 
             };
@@ -1571,10 +1572,10 @@
 
 
             })
-            questionsArray.sort(function(a,b){
-                if(a.question>b.question)
+            questionsArray.sort(function (a, b) {
+                if (a.question > b.question)
                     return 1;
-                if(a.question<b.question)
+                if (a.question < b.question)
                     return -1;
                 return 0;
 
@@ -1585,10 +1586,7 @@
             common.fillSelectOptions("plainTextQuestion", questionsArray, "question", "id", true)
 
 
-            var questionObj = {
-
-
-            }
+            var questionObj = {}
             $("#question").val(JSON.stringify(questionObj, null, 2))
             $("#questionOptions").val(JSON.stringify(options, null, 2))
 
@@ -1598,8 +1596,8 @@
 
         submitPlainTextQuestionToService = function () {
             $("#question").val("{}")
-            var id =parseInt( $("#plainTextQuestion").val());
-            var txt=questionsMap[id].Question;
+            var id = parseInt($("#plainTextQuestion").val());
+            var txt = questionsMap[id].Question;
             txt = encodeURIComponent(txt);
             //    var serviceUrl = "http://server-ctg-neo-question.azurewebsites.net/question/";
 
@@ -1615,13 +1613,11 @@
                 dataType: "json",
                 success: function (data, textStatus, jqXHR) {
                     data.format = "TotalQuestionService";
-                   delete data.question_nouns_syn;
+                    delete data.question_nouns_syn;
                     delete data.question_verbs_syn;
                     delete data.question_adjs_syn;
                     delete data.question_without_stop_words;
                     delete data.question_without_entities;
-
-
 
 
                     $("#question").val(JSON.stringify(data, null, 2));
@@ -1647,7 +1643,7 @@
 
         submitQuestion = function () {
 
-$("#response").val("searching...");
+            $("#response").val("searching...");
             var str = $("#question").val();
 
             var optionsStr = $("#questionOptions").val();
@@ -1657,7 +1653,7 @@ $("#response").val("searching...");
                     getParagraphsMatchingEntitiesAndWords: 1,
                     question: str,
                     options: optionsStr,
-                    uniqueId:Math.random()
+                    uniqueId: Math.random()
                 };
                 $.ajax({
                     type: "POST",
@@ -1665,7 +1661,7 @@ $("#response").val("searching...");
                     data: payload,
                     dataType: "json",
                     success: function (data, textStatus, jqXHR) {
-checkAnswer(data.response)
+                        checkAnswer(data.response)
 
                         $("#response").val(JSON.stringify(data.response, null, 2));
 
@@ -1685,7 +1681,7 @@ checkAnswer(data.response)
         }
 
         function onPlainTextQuestion() {
-            var id =parseInt( $("#plainTextQuestion").val());
+            var id = parseInt($("#plainTextQuestion").val());
             var answer = questionsMap[id]["Expected Answer"];
             $("#expectedAnswer").html(answer)
             submitPlainTextQuestionToService();
@@ -1693,24 +1689,24 @@ checkAnswer(data.response)
 
         }
 
-        const levenshtein = (a,b)=>{
-            if(a.length>124)
-                a=a.substring(0,124);
-            if(b.length>125)
-                b=b.substring(0,124);
+        const levenshtein = (a, b) => {
+            if (a.length > 124)
+                a = a.substring(0, 124);
+            if (b.length > 125)
+                b = b.substring(0, 124);
             let alen = a.length;
             let blen = b.length;
             if (alen === 0) return blen;
-            if (blen=== 0) return alen;
+            if (blen === 0) return alen;
             let tmp, i, j, prev, val, row, ma, mb, mc, md, bprev;
 
-            if (alen> blen) {
+            if (alen > blen) {
                 tmp = a;
                 a = b;
                 b = tmp;
             }
 
-            row = new Int8Array(alen+1);
+            row = new Int8Array(alen + 1);
             // init the row
             for (i = 0; i <= alen; i++) {
                 row[i] = i;
@@ -1722,12 +1718,12 @@ checkAnswer(data.response)
                 bprev = b[i - 1]
                 for (j = 1; j <= alen; j++) {
                     if (bprev === a[j - 1]) {
-                        val = row[j-1];
+                        val = row[j - 1];
                     } else {
-                        ma = prev+1;
-                        mb = row[j]+1;
+                        ma = prev + 1;
+                        mb = row[j] + 1;
                         mc = ma - ((ma - mb) & ((mb - ma) >> 7));
-                        md = row[j-1]+1;
+                        md = row[j - 1] + 1;
                         val = mc - ((mc - md) & ((md - mc) >> 7));
                     }
                     row[j - 1] = prev;
@@ -1739,30 +1735,25 @@ checkAnswer(data.response)
         }
 
 
-
-
-
-        function checkAnswer(response){
+        function checkAnswer(response) {
             return
-            var minParagraph=-1;var minDistance=99999999999;
-            var expectedAnswer=$("#expectedAnswer").html();
+            var minParagraph = -1;
+            var minDistance = 99999999999;
+            var expectedAnswer = $("#expectedAnswer").html();
 
-            response.forEach(function(path) {
+            response.forEach(function (path) {
                 path.paragraphs.forEach(function (paragraph) {
-                   var distance= levenshtein(paragraph.text,expectedAnswer);
-                   if(distance<minDistance){
-                       minParagraph=paragraph.id;
-                       minDistance=distance;
-                   }
+                    var distance = levenshtein(paragraph.text, expectedAnswer);
+                    if (distance < minDistance) {
+                        minParagraph = paragraph.id;
+                        minDistance = distance;
+                    }
 
                 })
             })
 
 
             $("#mostMatchingParagraph").html(minParagraph)
-
-
-
 
 
         }

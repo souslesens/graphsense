@@ -1192,7 +1192,7 @@
           "Method"
         ]
       },
-      "export_doc_chapter_neo (6)#Sheet1": {
+      "export_doc_chapter_neo#Sheet1": {
         "mappingsetName": "graphNlp",
         "name": "export_doc_chapter_neo (6)#Sheet1",
         "header": [
@@ -1216,6 +1216,14 @@
           "Phenomenon",
           "Characterisation",
           "Method"
+        ]
+      },
+      "r_paragraph_chapter#Feuil1": {
+        "mappingsetName": "graphNlp",
+        "name": "r_paragraph_chapter#Feuil1",
+        "header": [
+          "ID",
+          "ChapterID"
         ]
       },
       "export_doc_chapter_paragraph_neo#Sheet1": {
@@ -1250,14 +1258,6 @@
           "Time",
           "Temperature",
           "Vibration"
-        ]
-      },
-      "r_paragraph_chapter#Feuil1": {
-        "mappingsetName": "graphNlp",
-        "name": "r_paragraph_chapter#Feuil1",
-        "header": [
-          "ID",
-          "ChapterID"
         ]
       }
     },

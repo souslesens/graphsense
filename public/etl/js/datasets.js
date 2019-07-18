@@ -12,7 +12,8 @@ var datasets = (function () {
             getDatasetCollectionNames: true
         }
         MainController.callServer(MainController.jsonDBStoragePath, payload, function (err, result) {
-            if (err) ;
+            if (err)
+               return console.log(err);
             result.sort();
             common.fillSelectOptionsWithStringArray("dataset_CollectionSelect", result,true);
             if(callback)

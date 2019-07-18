@@ -74,8 +74,9 @@
                     data: payload,
                     dataType: "json",
                     success: function (data, textStatus, jqXHR) {
-                        processProposedEntities(data.entities)
-                        processProposedWords(data.words)
+                        console.log(JSON.stringify(data, null, 2))
+                        processProposedEntities(data.question_entities)
+                        processProposedWords(data)
 
 
                         $("#question").val(JSON.stringify(data, null, 2));
@@ -257,46 +258,66 @@
         processProposedEntities = function (data) {
 
             var entitiesByLabel = {};
-            var entitiesTree = {}
-            data.forEach(function (entity) {
-                if (entity.data && entity.data.ancestors) {
-                    var ancestors = entity.data.ancestors.split(";")
-                    ancestors.push(entity.data.concept)
-                    var label = ancestors[0]
+            /*   var entitiesTree = {}
+               data.forEach(function (entity) {
+                   if (entity.data && entity.data.ancestors) {
+                       var ancestors = entity.data.ancestors.split(";")
+                       ancestors.push(entity.data.concept)
+                       var label = ancestors[0]
 
 
-                    function recurseBuildTree(node, ancestors, level) {
-                        if (level >= ancestors.length)
-                            return node;
+                       function recurseBuildTree(node, ancestors, level) {
+                           if (level >= ancestors.length)
+                               return node;
 
-                        var ancestor = label + "_" + ancestors[level].replace(/ /g, "");
-                        if (!node[ancestor])
-                            node[ancestor] = {}
-                        if (ancestors.length > 0)
-                            recurseBuildTree(node[ancestor], ancestors, level + 1)
-                        return node;
-                    }
+                           var ancestor = label + "_" + ancestors[level].replace(/ /g, "");
+                           if (!node[ancestor])
+                               node[ancestor] = {}
+                           if (ancestors.length > 0)
+                               recurseBuildTree(node[ancestor], ancestors, level + 1)
+                           return node;
+                       }
 
-                    entitiesTree = recurseBuildTree(entitiesTree, ancestors, 0);
-
-
-                    var name = entity.data.concept;
+                       entitiesTree = recurseBuildTree(entitiesTree, ancestors, 0);
 
 
-                    if (!entitiesByLabel[label])
-                        entitiesByLabel[label] = [];
-                    entitiesByLabel[label].push(name)
-                }
+                       var name = entity.data.concept;
 
 
-            })
+                       if (!entitiesByLabel[label])
+                           entitiesByLabel[label] = [];
+                       entitiesByLabel[label].push(name)
+                   }
+
+
+               })*/
 
 
             $("#ProposedEntitiesDiv").html("");
             var html = "";
+            var entitiesMatchingParagrahs = []
+            var labels = Object.keys(data);
+            labels.forEach(function (label) {
+                html += " <div class='entityLabelsDivs'><span style='height: 20px;font-weight: bold' class=" + label + "> " + label + "</span><br>";
+                var entities = data[label];
+                entities.forEach(function (entity) {
+
+                    entitiesMatchingParagrahs.push({name: entity.entity_normalized_value, nParaGraphs: entity.paragraphsCount, id: entity.neoId})
+                    proposedEntities[entity.neoId] = {name: entity.entity_normalized_value, nParaGraphs: entity.paragraphsCount, id: entity.neoId, label: label}
+                    proposedEntitiesNames[label + "_" + entity.entity_normalized_value.replace(/ /g, "")] = {name: entity.entity_normalized_value, nParaGraphs: entity.paragraphsCount, id: entity.id, label: label};
+
+                    var entitySpan = "<span id='" + entity.neoId + "" + "' class='draggableEntity " + label + "' >" + entity.entity_normalized_value + "(" + entity.paragraphsCount + ")</span>";
+                    html += entitySpan
+                })
+                html += "</div>"
+
+                })
+            $("#ProposedEntitiesDiv").append(html);
+            $('.draggableEntity').draggable({});
 
 
-            var entityLabels = Object.keys(entitiesByLabel);
+/*
+            var entityLabels = Object.keys(data);
             async.eachSeries(entityLabels, function (entityLabel, callbackEach) {
                 html += " <div class='entityLabelsDivs'><span style='height: 20px;font-weight: bold' class=" + entityLabel + "> " + entityLabel + "</span><br>"
 
@@ -367,11 +388,11 @@
                 }
 
 
-                 //  recurseDrawEntitiesTree(entitiesTree, "ProposedEntitiesDiv",0)
+                //  recurseDrawEntitiesTree(entitiesTree, "ProposedEntitiesDiv",0)
 
-              $("#ProposedEntitiesDiv").append(html);
+                $("#ProposedEntitiesDiv").append(html);
                 $('.draggableEntity').draggable({});
-            })
+            })*/
 
 
         }
@@ -446,7 +467,8 @@
                 "filterNouns": false,
                 "filterAdjs": false,
                 "filterVerbs": false,
-                "expandToAllChapterParagraphs": false,
+                "matchAlsoChapters": true,
+                "matchAlsoDocuments": true,
                 "subGraph": "entitiesGraph3"
             }
 
@@ -471,7 +493,6 @@
                         responseToCards(data.response);
 
 
-
                     }, error: function (err) {
                         alert(JSON.stringify(err, null, 2))
 
@@ -493,37 +514,32 @@
 
             $("#jstreeResult").html("");
             var index = 0;
-            var pathIndex=0
+            var pathIndex = 0
+
             function recurseDrawResponse(node, domId, level) {
 
                 if (Array.isArray(node)) {
                     var id;
-                        node.forEach(function (line, index) {
+                    node.forEach(function (line, index) {
 
                         var text = "";
                         if (level == 3) {//path
-                           var idPath ="Path_"+(pathIndex++);
-                            text="path"+(index+1)
+                            var idPath = "Path_" + (pathIndex++);
+                            text = "path" + (index + 1)
                             var html = "<div class=' cardResponseDiv' id='" + idPath + "'> " + text + "</div>";
                             $("#" + domId).append(html);
                             line.forEach(function (paragraph, index2) {
                                 var idParagraph = paragraph.id
-                                text=paragraph.text;
+                                text = paragraph.text;
                                 var html = "<div class=' cardResponseDiv' id='" + idParagraph + "'> " + text + "</div>";
                                 $("#" + idPath).append(html);
                             })
-                        //    recurseDrawResponse(line, id, level + 1);
-                           index++;
+                            //    recurseDrawResponse(line, id, level + 1);
+                            index++;
                         }
 
 
-
-
-
-
-
                     })
-
 
 
                 }
@@ -631,7 +647,7 @@
             background-color: #dddddd;
             border: #261803 solid 2px;
             border-radius: 10px;
-          //  display: flex;
+        / / display: flex;
             flex-flow: row wrap;
         }
 
@@ -658,7 +674,8 @@
             border-radius: 5px;
 
         }
-        .entityLabelsDivs{
+
+        .entityLabelsDivs {
             width: 450px;
             padding: 5px;
             margin: 5px;
@@ -680,7 +697,6 @@
             border-radius: 10px;
 
         }
-
 
         #PathsResult {
             width: 800px;
@@ -719,7 +735,7 @@
             background-color: #6f42c1;
         }
 
-        .cardResponseDiv{
+        .cardResponseDiv {
             margin-left: 5px;
             margin: 2px;
             padding: 5px;
@@ -761,7 +777,7 @@
                 § distance<input id="suggestionParagraphDistance" size="2" value="2"><br>
                 paths found<span id="foundPaths" style="font-size: 18px;font-weight: bold"></span>
                 <button onclick="showSelectedPaths()">Show paragraphs</button>
-             <!--   <input type="checkbox" id="allChapterCbx"> All Chapter Paragrpahs-->
+                <!--   <input type="checkbox" id="allChapterCbx"> All Chapter Paragrpahs-->
             </div>
             <div id="jstreeResult" class="mainDivs" style="width: 500px; height: 500px;overflow: auto"></div>
         </td>

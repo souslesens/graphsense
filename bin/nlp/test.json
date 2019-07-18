@@ -1,0 +1,41 @@
+{
+  "entities": [
+    {
+      "id": 51049,
+      "name": "Surge System",
+      "nParaGraphs": 2,
+      "label": "Component"
+    },
+    {
+      "id": 51005,
+      "name": "Valve",
+      "nParaGraphs": 1,
+      "label": "Component"
+    },
+    {
+      "id": 51028,
+      "name": "Actuator",
+      "nParaGraphs": 1,
+      "label": "Component"
+    },
+    {
+      "id": 50911,
+      "name": "Booster",
+      "nParaGraphs": 1,
+      "label": "Equipment"
+    },
+    {
+      "id": 51144,
+      "name": "100 seconds",
+      "nParaGraphs": 1,
+      "label": "Time"
+    },
+    {
+      "id": 50874,
+      "name": "Valve",
+      "nParaGraphs": 1,
+      "label": "Equipment"
+    }
+  ],
+  "nPaths": 1
+}
