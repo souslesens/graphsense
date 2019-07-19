@@ -1,40 +1,55 @@
 {
   "entities": [
     {
-      "id": 51049,
-      "name": "Surge System",
-      "nParaGraphs": 2,
-      "label": "Component"
+      "concept_name": "Component",
+      "entities": [
+        {
+          "entity_neoId": 501605,
+          "entity_normalized_value": "Surge System",
+          "entity_paragraphsCount": 2,
+          "entity_label": "Component"
+        },
+        {
+          "entity_neoId": 501584,
+          "entity_normalized_value": "Actuator",
+          "entity_paragraphsCount": 1,
+          "entity_label": "Component"
+        },
+        {
+          "entity_neoId": 501561,
+          "entity_normalized_value": "Valve",
+          "entity_paragraphsCount": 1,
+          "entity_label": "Component"
+        }
+      ]
     },
     {
-      "id": 51005,
-      "name": "Valve",
-      "nParaGraphs": 1,
-      "label": "Component"
+      "concept_name": "Equipment",
+      "entities": [
+        {
+          "entity_neoId": 501467,
+          "entity_normalized_value": "Booster",
+          "entity_paragraphsCount": 1,
+          "entity_label": "Equipment"
+        },
+        {
+          "entity_neoId": 501430,
+          "entity_normalized_value": "Valve",
+          "entity_paragraphsCount": 1,
+          "entity_label": "Equipment"
+        }
+      ]
     },
     {
-      "id": 51028,
-      "name": "Actuator",
-      "nParaGraphs": 1,
-      "label": "Component"
-    },
-    {
-      "id": 50911,
-      "name": "Booster",
-      "nParaGraphs": 1,
-      "label": "Equipment"
-    },
-    {
-      "id": 51144,
-      "name": "100 seconds",
-      "nParaGraphs": 1,
-      "label": "Time"
-    },
-    {
-      "id": 50874,
-      "name": "Valve",
-      "nParaGraphs": 1,
-      "label": "Equipment"
+      "concept_name": "Time",
+      "entities": [
+        {
+          "entity_neoId": 501715,
+          "entity_normalized_value": "100 seconds",
+          "entity_paragraphsCount": 1,
+          "entity_label": "Time"
+        }
+      ]
     }
   ],
   "nPaths": 1

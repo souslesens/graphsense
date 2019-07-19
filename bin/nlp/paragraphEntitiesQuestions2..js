@@ -130,6 +130,8 @@ var ParagraphEntitiesGraphQuestions = {
                 var xx = result;
                 var allParagraphsIds = [];
                 var nPaths = 0
+                if(!result.forEach)
+                    return callback("result.forEach is not a function line 134");
                 result.forEach(function (path) {
                     if (path.entities.length >= Object.keys(options.cards).length) {
                         nPaths += 1;
@@ -145,16 +147,39 @@ var ParagraphEntitiesGraphQuestions = {
                     if (err)
                         return callback(err);
 
-                    var associatedEntities = [];
+
+                    var associatedEntitiesMap={}
                     result2.forEach(function (line) {
-                        associatedEntities.push({
-                            id: line.entity._id,
-                            name: line.entity.properties.name,
-                            nParaGraphs: line.count,
-                            label: line.entity.labels[0]
+                        var label=line.entity.labels[0];
+                        if(!associatedEntitiesMap[label])
+                            associatedEntitiesMap[label]=[]
+                        associatedEntitiesMap[label].push({
+                            entity_neoId: line.entity._id,
+                            entity_normalized_value: line.entity.properties.name,
+                            entity_paragraphsCount: line.count,
+                            entity_label: line.entity.labels[0]
                         })
 
                     })
+
+
+                    var associatedEntities = [];
+                    for(var key in associatedEntitiesMap){
+                       var  entities=associatedEntitiesMap[key];
+
+                        associatedEntities.push({
+                            concept_name: key,
+                            entities:entities
+                        })
+
+
+
+
+                    }
+
+
+
+
 
                     return callback(null, {entities: associatedEntities, nPaths: nPaths});
 

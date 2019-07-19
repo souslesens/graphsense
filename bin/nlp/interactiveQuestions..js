@@ -28,7 +28,8 @@ var InteractiveQuestions = {
 
 
             var entityLabels = Object.keys(entitiesByLabel);
-            var entitiesMatchingParagrahs = {}
+            var entitiesMatchingParagrahs = {};
+            var entitiesMatchingParagrahsArray=[]
             async.eachSeries(entityLabels, function (label, callbackEach2) {
                     var concepts = JSON.stringify(entitiesByLabel[label].concepts);
                     var cypher = "Match (n:" + label + ")--(p:Paragraph) where n.name in " + concepts + " and n.subGraph=\"entitiesGraph3\"  return n, count(p) as paragraphsCount order by paragraphsCount desc limit 1000"
@@ -40,9 +41,10 @@ var InteractiveQuestions = {
                                 entitiesMatchingParagrahs[label]=[]
                             entitiesByLabel[label].entities.forEach(function (obj, index) {
                                 if (obj.entity_normalized_value == line.n.properties.name) {
-                                    obj.neoId = line.n._id;
-                                    obj.paragraphsCount = line.paragraphsCount;
+                                    obj.entity_neoId = line.n._id;
+                                    obj.entity_paragraphsCount = line.paragraphsCount;
                                     //  entitiesByLabel[label].entities[index] = obj;
+                                    entitiesMatchingParagrahsArray.push(obj)
                                     entitiesMatchingParagrahs[label].push(obj)
 
 
@@ -58,6 +60,9 @@ var InteractiveQuestions = {
                     })
                 },function(err){
                     // console.log(JSON.stringify(entitiesMatchingParagrahs, null, 2));
+                if(true)//en tableau
+                    resultPJ.question_entities=entitiesMatchingParagrahsArray;
+                else// groupés par label
                 resultPJ.question_entities=entitiesMatchingParagrahs;
                     callback(err, resultPJ)
                 }
