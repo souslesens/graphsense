@@ -97,6 +97,8 @@ const EntitiesGraph = {
                             // pour chaque fichier avec ses mappings
                             async.eachSeries(fileNames, function (fileName, callbackEachFile) {
 
+                                if(fileName==params.xlsxFileOrDir)
+                                    return callbackEachFile();
 
                                 var fileMapping = fileMappingsMap[fileName];
                                 var file;
@@ -111,6 +113,7 @@ const EntitiesGraph = {
                                         console.log(e)
                                         return callbackEachFile();
                                     }
+
                                 }
                                 else {// fichier déclaré dans params
                                     file = params.xlsxFileOrDir;
@@ -184,6 +187,8 @@ const EntitiesGraph = {
                                 return callBackOuter("no files associated");
                             // pour chaque fichier avec ses mappings
                             async.eachSeries(fileNames, function (fileName, callbackEachFile) {
+                                if(fileName==params.xlsxFileOrDir)
+                                    return callbackEachFile();
 
                                 var fileMapping = fileMappingsMap[fileName];
                                 var file;
@@ -316,7 +321,7 @@ module.exports = EntitiesGraph;
 var allParams = {
     subGraph: "entitiesGraph3",
     mappings: [
-       {
+      {
               mappingSetName: "thesaurusTotal",
               xlsxFileOrDir: "D:\\Total\\graphNLP\\thesaurus.xlsx",
               subGraph: "entitiesGraph4",
@@ -327,10 +332,11 @@ var allParams = {
             mappingSetName: "graphNlp",
             xlsxFileOrDir: "D:\\Total\\graphNLP\\17_06\\",
             replaceGraph: false,
-            mappingSetNodeMappings: ["Paragraph", "Chapter", "Component", "Equipment", "Phenomenon", "Method", "Product", "Characterisation", "Vibration", "Time", "Temperature","Document",],
+         // mappingSetNodeMappings: [ "Chapter", "Document"],
+          mappingSetNodeMappings: ["Paragraph", "Chapter", "Component", "Equipment", "Phenomenon", "Method", "Product", "Characterisation", "Vibration", "Time", "Temperature","Document"],
             mappingSetRelationMappings: [
 
-                "Paragraph-hasEntity->Equipment",
+            "Paragraph-hasEntity->Equipment",
                 "Paragraph-hasEntity->Phenomenon",
                 "Paragraph-hasEntity->Component",
                 "Paragraph-hasEntity->Characterisation",
@@ -362,7 +368,7 @@ var allParams = {
                 "Chapter-hasEntity->Method",
                 "Chapter-hasEntity->Product",
 
-                "ThesaurusConcept-childConceptOf->ThesaurusConcept",
+               "ThesaurusConcept-childConceptOf->ThesaurusConcept",
                 "Equipment-parentOf->Equipment",
                 "Component-hasConcept->ThesaurusConcept",
                 "Paragraph-inChapter->Chapter",

@@ -96,6 +96,8 @@ var ParagraphEntitiesGraphQuestions = {
 
         if (entityIds.length == 0)
             return callback(null, [])
+        if (!Array.isArray(entityIds))
+            entityIds = [entityIds];
         var cypher = "match(n) where ID(n) in " + JSON.stringify(entityIds) + " return n"
         neoProxy.match(cypher, function (err, result) {
 
@@ -130,7 +132,7 @@ var ParagraphEntitiesGraphQuestions = {
                 var xx = result;
                 var allParagraphsIds = [];
                 var nPaths = 0
-                if(!result.forEach)
+                if (!result.forEach)
                     return callback("result.forEach is not a function line 134");
                 result.forEach(function (path) {
                     if (path.entities.length >= Object.keys(options.cards).length) {
@@ -148,11 +150,11 @@ var ParagraphEntitiesGraphQuestions = {
                         return callback(err);
 
 
-                    var associatedEntitiesMap={}
+                    var associatedEntitiesMap = {}
                     result2.forEach(function (line) {
-                        var label=line.entity.labels[0];
-                        if(!associatedEntitiesMap[label])
-                            associatedEntitiesMap[label]=[]
+                        var label = line.entity.labels[0];
+                        if (!associatedEntitiesMap[label])
+                            associatedEntitiesMap[label] = []
                         associatedEntitiesMap[label].push({
                             entity_neoId: line.entity._id,
                             entity_normalized_value: line.entity.properties.name,
@@ -164,21 +166,16 @@ var ParagraphEntitiesGraphQuestions = {
 
 
                     var associatedEntities = [];
-                    for(var key in associatedEntitiesMap){
-                       var  entities=associatedEntitiesMap[key];
+                    for (var key in associatedEntitiesMap) {
+                        var entities = associatedEntitiesMap[key];
 
                         associatedEntities.push({
                             concept_name: key,
-                            entities:entities
+                            entities: entities
                         })
 
 
-
-
                     }
-
-
-
 
 
                     return callback(null, {entities: associatedEntities, nPaths: nPaths});
@@ -572,9 +569,6 @@ var ParagraphEntitiesGraphQuestions = {
                     },
 
 
-
-
-
                     //if option expandToAllChapterParagraphs add all chapter paragraphs to each path
                     function (callbackSeries) {
                         if (!options.expandToAllChapterParagraphs)
@@ -588,67 +582,116 @@ var ParagraphEntitiesGraphQuestions = {
 
 
                     },
-                // add chapter title to each chapterId
-                function (callbackSeries) {
-
-                    if (false)
-                        return callbackSeries();
-                    var chapterIds=[];
-                    response.forEach(function (path, pathIndex) {
-                        var chapterId = path.location.chapterId;
-                        if(chapterIds.indexOf(chapterId)<0)
-                            chapterIds.push(chapterId);
-                    })
-
-                    var cypher="Match(n:Chapter) where n.ChapterId in "+JSON.stringify(chapterIds)+" return n.ChapterId as chapterId, n.ChapterTitle as ChapterTitle "
-                        neoProxy.match(cypher,function(err, result){
-                            if(err)
-                                return callback(err) ;
-                            if(result.length==0)
-                                return callbackSeries();
-                          result.forEach(function(line){
-                              response.forEach(function (path, pathIndex) {
-                                  if(path.location.chapterId==line.chapterId)
-                                  response[pathIndex].location.chapterTitle=line.ChapterTitle;
-                              })
-
-                          })
-                            return callbackSeries();
-
-                        })
-
-
-
-                },
-
-                    // add Document title to each chapterId
+                    // add chapter title to each chapterId
                     function (callbackSeries) {
 
                         if (false)
                             return callbackSeries();
-                        var documentIds=[];
+                        var chapterIds = [];
                         response.forEach(function (path, pathIndex) {
-                            var documentId = path.location.document;
-                            if(documentIds.indexOf(documentId)<0)
-                                documentIds.push(documentId);
+                            var chapterId = path.location.chapterId;
+                            if (chapterIds.indexOf(chapterId) < 0)
+                                chapterIds.push(chapterId);
                         })
 
-                        var cypher="Match(n:Document) where n.Document in "+JSON.stringify(documentIds)+" return n.Document as DocumentId, n.Title as DocumentTitle "
-                        neoProxy.match(cypher,function(err, result){
-                            if(err)
-                                return callback(err) ;
-                            if(result.length==0)
+                        var cypher = "Match(n:Chapter) where n.ChapterId in " + JSON.stringify(chapterIds) + " return n.ChapterId as chapterId, n.ChapterTitle as ChapterTitle "
+                        neoProxy.match(cypher, function (err, result) {
+                            if (err)
+                                return callback(err);
+                            if (result.length == 0)
                                 return callbackSeries();
-                            result.forEach(function(line){
+                            result.forEach(function (line) {
                                 response.forEach(function (path, pathIndex) {
-                                    if(path.location.document==line.DocumentId)
-                                        response[pathIndex].location.documentTitle=line.DocumentTitle;
+                                    if (path.location.chapterId == line.chapterId)
+                                        response[pathIndex].location.chapterTitle = line.ChapterTitle;
                                 })
 
                             })
                             return callbackSeries();
 
                         })
+
+
+                    },
+
+                    // add Document title to each chapterId
+                    function (callbackSeries) {
+
+                        if (false)
+                            return callbackSeries();
+                        var documentIds = [];
+                        response.forEach(function (path, pathIndex) {
+                            var documentId = path.location.document;
+                            if (documentIds.indexOf(documentId) < 0)
+                                documentIds.push(documentId);
+                        })
+
+                        var cypher = "Match(n:Document) where n.Document in " + JSON.stringify(documentIds) + " return n.Document as DocumentId, n.Title as DocumentTitle "
+                        neoProxy.match(cypher, function (err, result) {
+                            if (err)
+                                return callback(err);
+                            if (result.length == 0)
+                                return callbackSeries();
+                            result.forEach(function (line) {
+                                response.forEach(function (path, pathIndex) {
+                                    if (path.location.document == line.DocumentId)
+                                        response[pathIndex].location.documentTitle = line.DocumentTitle;
+                                })
+
+                            })
+                            return callbackSeries();
+
+                        })
+                    },
+
+                    // addEntities to each paragraph if option.paragraphEntities
+
+                    function (callbackSeries) {
+                        if (false && !options.paragraphEntities)
+                            return callbackSeries();
+                        var paragraphIds = []
+                        response.forEach(function (path, pathIndex) {
+                            path.paragraphs.forEach(function (paragraph, paragraphIndex) {
+                                paragraphIds.push(paragraph.id)
+                            });
+                        });
+                        var cypher = " match(n:Paragraph)-[:hasEntity]-(m) where n.ID in " + JSON.stringify(paragraphIds) + " and n.subGraph='"+options.subGraph+"' return n.id as paragraphId, collect (m) as entities"
+                        neoProxy.match(cypher, function (err, result) {
+                            if (err)
+                                return callback(err);
+                            var paragraphEntitiesMap = {};
+                            response.allAssociatedEntities = []
+                            result.forEach(function (line) {
+                                var entities = []
+                                line.entities.forEach(function (entity) {
+                                    var obj = {entity_label: entity.labels[0], entity_normalized_value: entity.properties.name, entity_neoId: entity._id}
+                                    entities.push(obj);
+                                    var exists = false
+                                    response.allAssociatedEntities.forEach(function (entity2) {
+                                        if (entity2.entity_neoId == entity.entity_neoId)
+                                            exists = true;
+                                    })
+                                    if (!exists)
+                                        response.allAssociatedEntities.push(obj)
+                                })
+                                if(line.paragraphId==1724)
+                                    var xx=1;
+                                paragraphEntitiesMap[line.paragraphId] = entities;
+                            })
+
+
+                            response.forEach(function (path, pathIndex) {
+
+                                path.paragraphs.forEach(function (paragraph, paragraphIndex) {
+
+                                    response[pathIndex].paragraphs[paragraphIndex].paragraphEntities = paragraphEntitiesMap[paragraph.id];
+
+                                })
+
+                            });
+                            return callbackSeries();
+                        })
+
                     },
 
                     //Reformat response to structure entities/chapter/path/text
@@ -664,8 +707,8 @@ var ParagraphEntitiesGraphQuestions = {
                             var chapterId = path.location.chapterId;
                             var chapterNum = path.location.chapterNum;
                             var documentRef = path.location.document;
-                            var docTitle= path.location.documentTitle
-                            var chapterTitle= path.location.chapterTitle
+                            var docTitle = path.location.documentTitle
+                            var chapterTitle = path.location.chapterTitle
                             var entitiesKey = "";
                             path.entities.forEach(function (entity, entityIndex) {
                                 if (entityIndex > 0)
@@ -695,7 +738,7 @@ var ParagraphEntitiesGraphQuestions = {
 
                             var totalEntityPaths = 0
                             var entityLine = tree[entityKey];
-                            treeArray.push({entities:  questionObj.question_entities, pathsCount: 0, documents: []});
+                            treeArray.push({entities: questionObj.question_entities, pathsCount: 0, documents: [], allAssociatedEntities: response.allAssociatedEntities});
                             var documentKeys = Object.keys(entityLine.documents)
                             documentKeys.forEach(function (documentKey, indexDocument) {
                                 var documentLine = entityLine.documents[documentKey];
@@ -720,9 +763,17 @@ var ParagraphEntitiesGraphQuestions = {
 
                     }
                     ,
-
+// change question entity.neoId to question entity.entity_neo_id
+                    function (callbackSeries) {
+                        questionObj.question_entities.forEach(function (entity, index) {
+                            questionObj.question_entities[index].entity_neoId = questionObj.question_entities[index].neoId;
+                            delete  questionObj.question_entities[index].neoId;
+                        })
+                        callbackSeries();
+                    }
 
                 ],
+
 
                 function (err) {
                     return callback(err, {matchingPathsNumber: response.length, question: questionObj, response: response});
@@ -817,7 +868,7 @@ var ParagraphEntitiesGraphQuestions = {
                 if (where2 == null || where2 == "")
                     where2 = "";
                 if (where.indexOf(cardsMap[key].nodeSetIds) < 0) {//doublons
-                    if (index == 1 && keys.length==2)
+                    if (index == 1 && keys.length == 2)
                         where += " WHERE " + where2
                     else
                         where += " AND " + where2

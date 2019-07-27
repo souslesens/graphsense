@@ -16,6 +16,8 @@ var InteractiveQuestions = {
     getSentenceEntityProposals: function (sentence, callback) {
 
         ParagraphEntitiesGraphQuestions.extractEntitiesFromPlainTextQuestion(sentence,function(err,resultPJ){
+            if(err)
+                return callback(err);
 
             var entitiesByLabel={};
             resultPJ.question_entities.forEach(function(entity){

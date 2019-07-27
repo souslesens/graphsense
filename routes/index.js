@@ -604,7 +604,10 @@ router.post(serverParams.routesRootUrl + '/paragraphEntitiesGraph', function (re
     }
     if(req.body.getAssociatedEntitiesInsidePaths){
 
-        ParagraphEntitiesGraphQuestions.getAssociatedEntitiesInsidePaths(JSON.parse(req.body.entityIds),req.body.distance, function (error, result) {
+        var ids=req.body.entityIds;
+        if(typeof ids==="string")
+            ids=JSON.parse(ids)
+        ParagraphEntitiesGraphQuestions.getAssociatedEntitiesInsidePaths(ids,req.body.distance, function (error, result) {
             processResponse(response, error, result)
         });
     }
