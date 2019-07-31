@@ -644,10 +644,10 @@ var ParagraphEntitiesGraphQuestions = {
                         })
                     },
 
-                    // addEntities to each paragraph if option.paragraphEntities
+                    // addEntities to each paragraph if option.withParagraphEntities
 
                     function (callbackSeries) {
-                        if (false && !options.paragraphEntities)
+                        if (!options.withParagraphEntities)
                             return callbackSeries();
                         var paragraphIds = []
                         response.forEach(function (path, pathIndex) {

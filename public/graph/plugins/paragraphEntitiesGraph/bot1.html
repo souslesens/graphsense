@@ -150,18 +150,7 @@
             }
 
 
-         /*   $('.draggableEntity').bind("click", function () {
-                var obj = $(this).detach();
-                obj.appendTo($("#SelectedEntitiesDiv"));
-                $(this).unbind("click")
 
-                $(this).append("<button onclick='removeEntityFromSelectedEntitiesDiv(" + ui.draggable.attr('id') + ")'>X</button>");
-
-
-
-
-
-            })*/
             $('#SelectedEntitiesDiv').droppable({
                 drop: function (event, ui) {
 
@@ -267,7 +256,10 @@ function addEntityToSelectedEntityDiv(entity){
                 edges: edges
             };
             var options = {
+                height: '100%',
+                width: '100%',
                 nodes: {
+
                     shape: 'dot',
 
 
@@ -371,7 +363,10 @@ function addEntityToSelectedEntityDiv(entity){
                 edges: edges
             };
             var options = {
+                height: '100%',
+                width: '100%',
                 nodes: {
+
                     shape: 'dot',
                     scaling: {
                         customScalingFunction: function (min, max, total, value) {
@@ -543,6 +538,8 @@ function addEntityToSelectedEntityDiv(entity){
                 edges: edges
             };
             var options = {
+                height: '100%',
+                width: '100%',
                 nodes: {
                     shape: 'dot',
                     size: 12,
@@ -731,55 +728,6 @@ function addEntityToSelectedEntityDiv(entity){
             })
 
 
-            /*     var cypher = "Match (n)-[:hasEntity]-(p:Paragraph)-[:precede*0.." + distance + "]-(p2:Paragraph)-[:hasEntity]-(m) where id(n) in" + JSON.stringify(entityIds) + "  and  id(n)<>id(m) and n.subGraph=\"entitiesGraph3\"  return m, collect(p) as paragraphs limit 1000"
-                 console.log(cypher);
-
-                 Cypher.executeCypher(cypher, function (err, result) {
-                     var x = result;
-                     var entityLabels = {}
-                     var entitiesMatchingParagrahs = []
-                     result.forEach(function (line) {
-                         var name = line.m.properties.name;
-                         var nParaGraphs = line.paragraphs.length;
-                         var id = line.m._id;
-                         var label = line.m.labels[0]
-                         if (!entityLabels[label])
-                             entityLabels[label] = [];
-                         entityLabels[label].push({name: name, nParaGraphs: nParaGraphs, id: id, label: label})
-
-                     })
-
-                     var html = "";
-                     for (var label in entityLabels) {
-                         html += " <div class='entityLabelsDivs'><span class=" + label + "> " + label + "</span><br>"
-                         var entitiesMatchingParagrahs = entityLabels[label];
-                         entitiesMatchingParagrahs.sort(function (a, b) {
-
-                             if (a.nParaGraphs > b.nParaGraphs)
-                                 return -1;
-                             if (a.nParaGraphs < b.nParaGraphs)
-                                 return 1;
-                             return 0;
-
-                         })
-
-
-                         entitiesMatchingParagrahs.forEach(function (entity) {
-
-                             var entitySpan = "<span id='" + entity.id + "" + "' class='draggableEntity " + label + "' >" + entity.name + "(" + entity.nParaGraphs + ")</span>";
-                             html += entitySpan
-                         })
-                         html += "</div>"
-
-                     }
-
-                     html += "</div>"
-                     $("#SuggestedEntitiesDiv").html(html);
-                     $(".draggableEntity").draggable();
-
-                 })*/
-
-
         }
 
         processProposedWords = function (words) {
@@ -788,40 +736,6 @@ function addEntityToSelectedEntityDiv(entity){
         processProposedEntities = function (data) {
 
             var entitiesByLabel = {};
-            /*   var entitiesTree = {}
-               data.forEach(function (entity) {
-                   if (entity.data && entity.data.ancestors) {
-                       var ancestors = entity.data.ancestors.split(";")
-                       ancestors.push(entity.data.concept)
-                       var label = ancestors[0]
-
-
-                       function recurseBuildTree(node, ancestors, level) {
-                           if (level >= ancestors.length)
-                               return node;
-
-                           var ancestor = label + "_" + ancestors[level].replace(/ /g, "");
-                           if (!node[ancestor])
-                               node[ancestor] = {}
-                           if (ancestors.length > 0)
-                               recurseBuildTree(node[ancestor], ancestors, level + 1)
-                           return node;
-                       }
-
-                       entitiesTree = recurseBuildTree(entitiesTree, ancestors, 0);
-
-
-                       var name = entity.data.concept;
-
-
-                       if (!entitiesByLabel[label])
-                           entitiesByLabel[label] = [];
-                       entitiesByLabel[label].push(name)
-                   }
-
-
-               })*/
-
 
             $("#ProposedEntitiesDiv").html("");
             var html = "";
@@ -856,87 +770,6 @@ function addEntityToSelectedEntityDiv(entity){
 
             })
             $("#ProposedEntitiesDiv").append(html);
-            //    $('.draggableEntity').draggable({});
-
-
-            /*
-                        var entityLabels = Object.keys(data);
-                        async.eachSeries(entityLabels, function (entityLabel, callbackEach) {
-                            html += " <div class='entityLabelsDivs'><span style='height: 20px;font-weight: bold' class=" + entityLabel + "> " + entityLabel + "</span><br>"
-
-                            var ids = JSON.stringify(entitiesByLabel[entityLabel]);
-                            var cypher = "Match (n:" + entityLabel + ")--(p:Paragraph) where n.name in " + ids + " and n.subGraph=\"entitiesGraph3\"  return n, collect(p) as paragraphs limit 1000"
-                            console.log(cypher);
-                            Cypher.executeCypher(cypher, function (err, result) {
-                                var x = result;
-                                var entitiesMatchingParagrahs = []
-                                result.forEach(function (line) {
-                                    var name = line.n.properties.name;
-                                    var nParaGraphs = line.paragraphs.length;
-                                    var id = line.n._id;
-                                    entitiesMatchingParagrahs.push({name: name, nParaGraphs: nParaGraphs, id: id})
-                                    proposedEntities[id] = {name: name, nParaGraphs: nParaGraphs, id: id, label: entityLabel}
-                                    proposedEntitiesNames[entityLabel + "_" + name.replace(/ /g, "")] = {name: name, nParaGraphs: nParaGraphs, id: id, label: entityLabel}
-                                })
-
-                                entitiesMatchingParagrahs.sort(function (a, b) {
-
-                                    if (a.nParaGraphs > b.nParaGraphs)
-                                        return -1;
-                                    if (a.nParaGraphs < b.nParaGraphs)
-                                        return 1;
-                                    return 0;
-
-                                })
-
-
-                                entitiesMatchingParagrahs.forEach(function (entity) {
-
-                                    var entitySpan = "<span id='" + entity.id + "" + "' class='draggableEntity " + entityLabel + "' >" + entity.name + "(" + entity.nParaGraphs + ")</span>";
-                                    html += entitySpan
-                                })
-                                html += "</div>"
-
-                                callbackEach();
-
-                            })
-
-
-                        }, function (err) {
-
-
-                            $("#ProposedEntitiesDiv").html("");
-
-                            function recurseDrawEntitiesTree(node, domId, level) {
-
-                                for (var entityName in node) {
-                                    var entityObj = node[entityName]
-                                    if (proposedEntitiesNames[entityName]) {
-                                        var entity = proposedEntitiesNames[entityName]
-
-                                        var entityDiv = "<div id='" + entity.id + "" + "' class='draggableEntity " + entity.label + "' >" + entity.name + "(" + entity.nParaGraphs + ")</div>";
-                                        $("#" + domId).append(entityDiv);
-                                        recurseDrawEntitiesTree(entityObj, entity.id, level + 1)
-                                    }
-                                    else {// label
-                                        if (level > 1)
-                                            var xxx = 1
-                                        var labelDiv = " <div id='" + entityName + "' class='entityLabelsDivs'><span class=" + entityName + "> " + entityName + "</span><br>"
-                                        $("#" + domId).append(labelDiv);
-                                        recurseDrawEntitiesTree(entityObj, entityName, level + 1)
-                                    }
-
-
-                                }
-                            }
-
-
-                            //  recurseDrawEntitiesTree(entitiesTree, "ProposedEntitiesDiv",0)
-
-                            $("#ProposedEntitiesDiv").append(html);
-                            $('.draggableEntity').draggable({});
-                        })*/
-
 
         }
 
@@ -1017,7 +850,9 @@ function addEntityToSelectedEntityDiv(entity){
                 "filterVerbs": false,
                 "matchAlsoChapters": false,
                 "matchAlsoDocuments": false,
-                "subGraph": "entitiesGraph3"
+                "withParagraphEntities":1,
+                "subGraph": "entitiesGraph3",
+
             }
 
             if ($("#allChapterCbx").prop("checked")) {
@@ -1236,11 +1071,11 @@ function addEntityToSelectedEntityDiv(entity){
         }
 
         #PathsResult {
-            width: 800px;
+            width: 400px;
             min-height: 400px;
-            max-height: 800px;
+            max-height: 1000px;
             overflow: auto;
-            background-color: #dddddd;
+            background-color: #eee;
             border: #261803 solid 2px;
             border-radius: 10px;
         }
@@ -1281,8 +1116,8 @@ function addEntityToSelectedEntityDiv(entity){
             border-radius: 10px;
         }
 
-        #ProposedEntitiesDiv, #SuggestedEntitiesDiv, SelectedEntitiesDiv {
-            width: 500px;
+        #ProposedEntitiesDiv, #SuggestedEntitiesDiv, #SelectedEntitiesDiv {
+            width: 400px;
             min-height: 200px;
             max-height: 200px;
             overflow: auto;
@@ -1309,13 +1144,13 @@ function addEntityToSelectedEntityDiv(entity){
 
 
     <tr valign="top">
-        <td>
+       <!-- <td>
             Proposed Entities (drag)
             <div id="ProposedEntitiesDiv" class="mainDivs"></div>
 
             <div id="textDetailsDiv"></div>
 
-        </td>
+        </td>-->
 
 
         <td>
@@ -1323,7 +1158,7 @@ function addEntityToSelectedEntityDiv(entity){
             Selected Entities (drop)
             <div id="SelectedEntitiesDiv" class="mainDivs"></div>
 
-            <div style="background-color: #ddd;border: solid #261803 1px;width: 600px;padding: 3px">
+            <div style="background-color: #ddd;border: solid #261803 1px;width: 300px;padding: 3px">
                 § distance<input id="suggestionParagraphDistance" size="2" value="2"><br>
                 paths found<span id="foundPaths" style="font-size: 18px;font-weight: bold"></span>
                 <button onclick="showSelectedPaths()">Show paragraphs</button>
@@ -1333,17 +1168,14 @@ function addEntityToSelectedEntityDiv(entity){
 
         </td>
 
-    </tr>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <div id="graphDiv" style="width: 1000px;height: 500px"></div>
+        <td rowspan="2">
+            <div id="graphDiv" style="width: 800px;height: 1000px"></div>
 
         </td>
     </tr>
 
     <tr>
-        <td colspan="3">
+        <td colspan="1">
 
             <textarea id="PathsResult"></textarea>
 
