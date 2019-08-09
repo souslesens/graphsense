@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0b8677d-dbc9-4124-b08c-92f03bd70409" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/entitiesPathsVisjsGraph.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot1.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/entitiesPathsVisjsGraph.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/entitiesPathsVisjsGraph.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -158,7 +158,7 @@
       <workItem from="1563888102268" duration="118000" />
       <workItem from="1563888452273" duration="35862000" />
       <workItem from="1564235530698" duration="22115000" />
-      <workItem from="1565335548909" duration="2344000" />
+      <workItem from="1565335548909" duration="4305000" />
     </task>
     <servers />
   </component>

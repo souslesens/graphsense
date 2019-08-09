@@ -1,5 +1,49 @@
+/*******************************************************************************
+ * SOUSLESENS LICENSE************************
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2016-2019 Claude Fauconnet claude.fauconnet@neuf.fr
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ ******************************************************************************/
+
+
+
+
+
+
 var entitiesPathsVisjsGraph = (function () {
     self = {};
+
+    /**
+     * draws suggested entities in the graph
+     *
+     * @param graphDiv : div id(string) of the graph
+     * @param data :  array of entities objects  retrieved by service getAssociatedEntitiesInsidePaths (select entities property in retreived object : data.entities
+     * @param _options : object that contains callback methods corresponding to each gaph event (by now only click) exemple
+        * options={click: myMethodOnClick} : myMethodOnClick is a function pointer . when click event on a graph node myMethodOnClick(myNodeObject) is called with myNodeObject as parameter
+     *
+     *
+     *
+     */
 
     self.drawProposedEntitiesGraph = function (graphDiv, data, _options) {
         if (!_options)
@@ -39,15 +83,6 @@ var entitiesPathsVisjsGraph = (function () {
             } else {// sentence analysis : no group
 
 
-                /*  if (!labels[entity.entity_label]) {
-                                var labelNode = {
-                                    id: entity.entity_label,
-                                    label: entity.entity_label
-                                }
-                                labels[labelNode.id] = labelNode;
-                                visjsData.nodes.push(labelNode)
-                            }*/
-
                 var entityNode = {
                     id: entity.entity_neoId,
                     label: entity.entity_normalized_value,
@@ -57,7 +92,7 @@ var entitiesPathsVisjsGraph = (function () {
                 }
                 proposedEntities[entityNode.id] = entity;
                 visjsData.nodes.push(entityNode)
-                // visjsData.edges.push({from:labelNode.id,to:entityNode.id})
+
             }
 
         })
@@ -130,74 +165,21 @@ var entitiesPathsVisjsGraph = (function () {
 
     }
 
-/*
-    self.drawEntitiesGraph = function (graphDiv, entityLabels, options) {
-        if (!options)
-            options = {};
-        var visjsData = {nodes: [], edges: []}
-
-        var rootNode = {
-            id: "0000",
-            label: "Question",
-            value: "10",
-        }
-        visjsData.nodes.push(rootNode);
-
-        for (var key in entityLabels) {
-            var labelParagraphsCount = 0;
-
-            var labelNode = {
-                id: key,
-                label: key
-            }
-            entityLabels[key].forEach(function (entity) {
-
-                var entityNode = {
-                    id: entity.entity_neoId,
-                    label: entity.entity_normalized_value,
-                    value: entity.entity_paragraphsCount,
-                }
-                labelParagraphsCount += entity.entity_paragraphsCount;
-                visjsData.nodes.push(entityNode);
-                visjsData.edges.push({from: labelNode.id, to: entityNode.id});
-            })
-            labelNode.value = labelParagraphsCount;
-            visjsData.nodes.push(labelNode);
-            visjsData.edges.push({from: rootNode.id, to: labelNode.id});
-
-
-        }
-        var nodes = new vis.DataSet(visjsData.nodes);
-        var edges = new vis.DataSet(visjsData.edges);
-
-        // create a network
-        var container = document.getElementById(graphDiv);
-        var data = {
-            nodes: nodes,
-            edges: edges
-        };
-        var options = {
-            height: '100%',
-            width: '100%',
-            nodes: {
-
-                shape: 'dot',
-                scaling: {
-                    customScalingFunction: function (min, max, total, value) {
-                        return value / total;
-                    },
-                    min: 5,
-                    max: 150
-                }
-            }
-        };
-        var network = new vis.Network(container, data, options);
-
-
-    }*/
 
 
 
+    /**
+     * draws documents, chapters andaragraphs paths (excerpts) and all their related entities (optional: see WARNING) in the graph
+     * by now the selected entities are not drawn because they often overload the graph (too many adges)
+     *
+     * @param graphDiv : div id(string) of the graph
+     * @param data :  array  retrieved by service getParagraphsMatchingEntitiesAndWords (select  data.response property in retreived object : data.response)
+     *   WARNING !! : if service options  "withParagraphEntities" is set to true or 1 all entites related to the paragraphs will be drawn , if not only doc chapters and , paths will be drawn
+     * @param _options : object that contains callback methods corresponding to each gaph event (by now only click) exemple
+     * options={click: myMethodOnClick} : myMethodOnClick is a function pointer . when click event on a graph node myMethodOnClick(myNodeObject) is called with myNodeObject as parameter
+     *
+     *
+     */
 
     self.drawParagraphsGraph = function (graphDiv, responseTree, _options) {
         if (!_options)
@@ -206,14 +188,6 @@ var entitiesPathsVisjsGraph = (function () {
         var maxPathCountForPathNodes = 10;
         var visjsData = {nodes: [], edges: []}
 
-        /*   var rootNode = {
-               shape: "star",
-               id: "0000",
-               label: "",
-               color: "red",
-
-           }
- visjsData.nodes.push(rootNode);*/
         var totalPathsCount = responseTree[0].pathsCount;
         var inputEntitiesIds = []
         responseTree[0].entities.forEach(function (entity) {
@@ -223,7 +197,9 @@ var entitiesPathsVisjsGraph = (function () {
 
         var entitiesMap = {}
         var allLabels = [];
-        var allDocuments = []
+        var allDocuments = [];
+        if(! responseTree[0].allAssociatedEntities)
+            responseTree[0].allAssociatedEntities=[];
         responseTree[0].allAssociatedEntities.forEach(function (entity) {
 
             // on ne dessine que les entités associées hors entités de la question
@@ -259,11 +235,7 @@ var entitiesPathsVisjsGraph = (function () {
                 neoLabel: "label",
                 color: color
             }
-            /*   visjsData.nodes.push(labelNode);
-              for(var key in  entitiesMap) {
-                  var color = hexToRgba(entitiesLabelColors[label], 0.2);
-                  visjsData.edges.push({from: entitiesMap[key].id, to: labelNode.id,color :color });
-              }*/
+
         })
 
         responseTree[0].documents.forEach(function (document) {
@@ -344,9 +316,6 @@ var entitiesPathsVisjsGraph = (function () {
             })
         })
 
-
-//console.log(JSON.stringify(visjsData.nodes,null,2))
-        //  console.log(JSON.stringify(visjsData.edges,null,2))
         var nodes = new vis.DataSet(visjsData.nodes);
         var edges = new vis.DataSet(visjsData.edges);
 
@@ -362,13 +331,6 @@ var entitiesPathsVisjsGraph = (function () {
             nodes: {
                 shape: 'dot',
                 size: 12,
-                /*   scaling: {
-                       customScalingFunction: function (min,max,total,value) {
-                           return value/total;
-                       },
-                       min:5,
-                       max:150
-                   },*/
 
             },
             edges: {
@@ -378,14 +340,6 @@ var entitiesPathsVisjsGraph = (function () {
                     roundness: 0.4
                 }
             },
-
-            /*  layout: {
-                     hierarchical: {
-                         direction: "UD",
-                         levelSeparation:60,
-                         sortMethod:"directed"
-                     }
-                 },*/
             physics: true
         };
         var network = new vis.Network(container, data, options);
@@ -452,6 +406,73 @@ var entitiesPathsVisjsGraph = (function () {
 
 
     }
+
+
+    /*
+    self.drawEntitiesGraph = function (graphDiv, entityLabels, options) {
+        if (!options)
+            options = {};
+        var visjsData = {nodes: [], edges: []}
+
+        var rootNode = {
+            id: "0000",
+            label: "Question",
+            value: "10",
+        }
+        visjsData.nodes.push(rootNode);
+
+        for (var key in entityLabels) {
+            var labelParagraphsCount = 0;
+
+            var labelNode = {
+                id: key,
+                label: key
+            }
+            entityLabels[key].forEach(function (entity) {
+
+                var entityNode = {
+                    id: entity.entity_neoId,
+                    label: entity.entity_normalized_value,
+                    value: entity.entity_paragraphsCount,
+                }
+                labelParagraphsCount += entity.entity_paragraphsCount;
+                visjsData.nodes.push(entityNode);
+                visjsData.edges.push({from: labelNode.id, to: entityNode.id});
+            })
+            labelNode.value = labelParagraphsCount;
+            visjsData.nodes.push(labelNode);
+            visjsData.edges.push({from: rootNode.id, to: labelNode.id});
+
+
+        }
+        var nodes = new vis.DataSet(visjsData.nodes);
+        var edges = new vis.DataSet(visjsData.edges);
+
+        // create a network
+        var container = document.getElementById(graphDiv);
+        var data = {
+            nodes: nodes,
+            edges: edges
+        };
+        var options = {
+            height: '100%',
+            width: '100%',
+            nodes: {
+
+                shape: 'dot',
+                scaling: {
+                    customScalingFunction: function (min, max, total, value) {
+                        return value / total;
+                    },
+                    min: 5,
+                    max: 150
+                }
+            }
+        };
+        var network = new vis.Network(container, data, options);
+
+
+    }*/
 
 
     return self;
