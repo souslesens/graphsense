@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/public/graph/js/ui/graphSimpleQuery.js" line="96" />
-    <bookmark url="file://$PROJECT_DIR$/public/graph/htmlSnippets/login.html" line="11" />
-    <bookmark url="file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/index.js" line="97" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="c0b8677d-dbc9-4124-b08c-92f03bd70409" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js" afterPath="$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js" />
-      <change beforePath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot1.html" afterPath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot1.html" />
+      <change afterPath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/entitiesPathsVisjsGraph.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot1.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot1.html" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/.tmp/" />
-    <ignored path="$PROJECT_DIR$/temp/" />
-    <ignored path="$PROJECT_DIR$/tmp/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,278 +15,18 @@
   <component name="FavoritesManager">
     <favorites_list name="souslesens" />
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="interactiveQuestions..js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bin/nlp/interactiveQuestions..js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="17" column="8" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bot1.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot1.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="856" column="0" lean-forward="true" selection-start-line="856" selection-start-column="0" selection-end-line="856" selection-end-column="0" />
-              <folding>
-                <element signature="n#style#0;n#div#1;n#td#0;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <marker date="1564332050805" expanded="true" signature="29114:29144" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bot0.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot0.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="813" column="0" lean-forward="true" selection-start-line="813" selection-start-column="0" selection-end-line="813" selection-end-column="0" />
-              <folding>
-                <element signature="n#style#0;n#div#1;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#div#1;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <marker date="1564259673358" expanded="true" signature="12012:12042" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="entitieGraph..js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bin/nlp/entitieGraph..js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="315" column="1" lean-forward="true" selection-start-line="315" selection-start-column="1" selection-end-line="315" selection-end-column="1" />
-              <folding>
-                <element signature="e#3609#4164#0" expanded="false" />
-                <element signature="e#14762#15896#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mappings.db" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db/mappings.db">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="836" column="28" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1532" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="datasets.db" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db/datasets.db">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="1051" column="20" lean-forward="true" selection-start-line="1051" selection-start-column="20" selection-end-line="1051" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="visJsGraph.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/graph/js/core/visJsGraph.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="66" column="27" lean-forward="true" selection-start-line="66" selection-start-column="27" selection-end-line="66" selection-end-column="27" />
-              <folding>
-                <marker date="1559630368351" expanded="true" signature="17384:17459" ph="..." />
-                <marker date="1559630368351" expanded="true" signature="17461:17467" ph=" " />
-                <marker date="1559630368351" expanded="true" signature="17467:17473" ph=" " />
-                <marker date="1559630368351" expanded="true" signature="17473:17479" ph=" " />
-                <marker date="1559630368351" expanded="true" signature="17508:17523" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="graphController.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/graph/js/ui/graphController.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
-              <caret line="37" column="66" lean-forward="false" selection-start-line="37" selection-start-column="66" selection-end-line="37" selection-end-column="66" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="hex-to-rgba.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/graph/js/others/hex-to-rgba.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="10" column="55" lean-forward="false" selection-start-line="10" selection-start-column="55" selection-end-line="10" selection-end-column="55" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="paragraphEntitiesQuestions2..js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="649" column="58" lean-forward="false" selection-start-line="649" selection-start-column="37" selection-end-line="649" selection-end-column="58" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="AMD JavaScript File" />
-        <option value="JavaScript File" />
         <option value="JS module" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>dragga</find>
-      <find>draggableEntity</find>
-      <find>onSuggestedEntitySelect</find>
-      <find>alph</find>
-      <find>click</find>
-      <find>maxPathCountForPathNodes</find>
-      <find>documentReference</find>
-      <find>Path</find>
-      <find>neoId</find>
-      <find>selectedEntit</find>
-      <find>remove</find>
-      <find>export_doc_chapter_neo</find>
-      <find>17_06</find>
-      <find>fileMappingsMap</find>
-      <find>Document</find>
-      <find>document</find>
-      <find>onSuggestedEntitySelect(this)</find>
-      <find>analyze()</find>
-      <find>proposedEntities</find>
-      <find>drawProposedEntitiesGraph</find>
-      <find>showSuggestedEntities</find>
-      <find>setTimeout</find>
-      <find>removeEntityFromSelectedEntitiesDiv</find>
-      <find>showSele</find>
-      <find>xlsxFileOrDir</find>
-      <find>900</find>
-      <find>width</find>
-      <find>nodes</find>
-      <find>heig</find>
-      <find>supprimer l'enregistrement</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>createSchemaNeo4jGraph</replace>
-      <replace>simpleQuery_</replace>
-      <replace>schemaCurrentNode</replace>
-      <replace>drawLabelsWithSwitch</replace>
-      <replace>addToGraph</replace>
-      <replace>onExecQueryButton</replace>
-      <replace>plugin-paragraphEntitiesGraph</replace>
-      <replace>Config.plugins.ParagraphEntitiesGraph</replace>
-      <replace>allParagraphs</replace>
-      <replace>ParagraphEntitiesGraph</replace>
-      <replace>checkifResponseAreInParagraphs</replace>
-      <replace>getPathBetweenEntities</replace>
-      <replace>executeNeoPathsQuery</replace>
-      <replace>getParagraphsMatchingEntitiesAndWords</replace>
-      <replace>filterNouns</replace>
-      <replace>mappingsetName</replace>
-      <replace>paragraphEntitiesProxyUrl</replace>
-      <replace>exportImport.downloadJson</replace>
-      <replace>export_doc_chapter_paragraph_neo</replace>
-      <replace>logger.error</replace>
-      <replace>Equipment</replace>
-      <replace>logger.info</replace>
-      <replace>paragraphIdsFromFulltextSearch</replace>
-      <replace>proposedEntities</replace>
-      <replace>callbackSeries</replace>
-      <replace>export_doc_neo</replace>
-      <replace>export_doc_chapter_neo</replace>
-      <replace>chapterId</replace>
-      <replace>mappingName</replace>
-      <replace>export_doc_chapter_neo#Sheet1</replace>
-    </replaceStrings>
-    <dirStrings>
-      <dir>D:\GitHub\souslesens</dir>
-      <dir>D:\GitHub\souslesens\public\graphPJ</dir>
-      <dir>D:\GitHub\souslesens\node_modules\node-json-db</dir>
-      <dir>D:\GitHub\souslesens\node_modules\lowdb</dir>
-      <dir>D:\GitHub\souslesens\public</dir>
-      <dir>D:\GitHub\souslesens\public\graphth</dir>
-      <dir>D:\GitHub\souslesens\public\graph</dir>
-      <dir>D:\GitHub\souslesens\public\etl</dir>
-      <dir>D:\GitHub\souslesens\</dir>
-    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/public/graph/htmlSnippets/query/queryFilterLabelModal.html" />
-        <option value="$PROJECT_DIR$/public/admin/jsOld/admin2.js" />
-        <option value="$PROJECT_DIR$/public/graph/js/ui/ParagraphEntitiesGraph.js" />
-        <option value="$PROJECT_DIR$/public/graph/htmlSnippets/plugins.html" />
-        <option value="$PROJECT_DIR$/public/graph/js/ui/config.js" />
-        <option value="$PROJECT_DIR$/public/graph/js/core/visJsGraph.js" />
-        <option value="$PROJECT_DIR$/public/graph/js/ui/graphDisplay.js" />
-        <option value="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/index..html" />
-        <option value="$PROJECT_DIR$/public/graph/js/ui/binder.js" />
-        <option value="$PROJECT_DIR$/public/graph/js/ui/graphExpand.js" />
-        <option value="$PROJECT_DIR$/public/graph/js/ui/graphController.js" />
-        <option value="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/index.html" />
-        <option value="$PROJECT_DIR$/bin/importDataIntoNeo4j.js" />
-        <option value="$PROJECT_DIR$/bin/NLP.html" />
-        <option value="$PROJECT_DIR$/public/etl/index.html" />
-        <option value="$PROJECT_DIR$/bin/nlp/thesaurusTotal..js" />
-        <option value="$PROJECT_DIR$/public/graph/js/ui/mainController.js" />
-        <option value="$PROJECT_DIR$/bin/nlp/paragraphEntitiesGraph..js" />
-        <option value="$PROJECT_DIR$/public/graph/js/core/visjsDataProcessor.js" />
-        <option value="$PROJECT_DIR$/bin/httpProxy.js" />
-        <option value="$PROJECT_DIR$/bin/nlp/paragraphEntitiesGraphQuestions..js" />
-        <option value="$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions..js" />
-        <option value="$PROJECT_DIR$/public/graph/js/core/buildPaths.js" />
-        <option value="$PROJECT_DIR$/public/graph/js/ui/graphSimpleQuery.js" />
-        <option value="$PROJECT_DIR$/bin/fileToNeoLoader..js" />
-        <option value="$PROJECT_DIR$/public/etl/js/mainController.js" />
-        <option value="$PROJECT_DIR$/bin/jsonDBStorage..js" />
-        <option value="$PROJECT_DIR$/public/etl/js/mappings.js" />
-        <option value="$PROJECT_DIR$/public/etl/import.html" />
-        <option value="$PROJECT_DIR$/public/jsCommon/neo4jDataModel.js" />
-        <option value="$PROJECT_DIR$/public/jsCommon/schema.js" />
-        <option value="$PROJECT_DIR$/public/etl/js/exportImport.js" />
-        <option value="$PROJECT_DIR$/public/etl/exportImport.html" />
-        <option value="$PROJECT_DIR$/bin/authentication..js" />
-        <option value="$PROJECT_DIR$/bin/neoProxy.js" />
-        <option value="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/index.js" />
-        <option value="$PROJECT_DIR$/public/graph/js/ui/tree.js" />
-        <option value="$PROJECT_DIR$/public/etl/js/datasets.js" />
-        <option value="$PROJECT_DIR$/db/mappings.db" />
-        <option value="$PROJECT_DIR$/db/datasets.db" />
-        <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/service.html" />
-        <option value="$PROJECT_DIR$/bin/nlp/test.json" />
-        <option value="$PROJECT_DIR$/routes/index.js" />
-        <option value="$PROJECT_DIR$/public/graph/index.html" />
-        <option value="$PROJECT_DIR$/bin/nlp/interactiveQuestions..js" />
-        <option value="$PROJECT_DIR$/bin/nlp/entitieGraph..js" />
-        <option value="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot.html" />
-        <option value="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot0.html" />
-        <option value="$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js" />
-        <option value="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot1.html" />
-      </list>
-    </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
-    <package-json value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
@@ -303,144 +34,20 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="NodeModulesDirectoryManager">
-    <handled-path value="$PROJECT_DIR$/node_modules" />
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1296" />
-    <option name="height" value="696" />
-  </component>
+  <component name="ProjectId" id="1PB7H5WPPjzQ9LiuMRG3StVr0Qc" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
-              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
-              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
-              <item name="bin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
-              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
-              <item name="bin" type="462c0819:PsiDirectoryNode" />
-              <item name="nlp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
-              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
-              <item name="bin" type="462c0819:PsiDirectoryNode" />
-              <item name="transform" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
-              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
-              <item name="db" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
-              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
-              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="graph" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
-              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="graph" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
-              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="graph" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
-              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="graph" type="462c0819:PsiDirectoryNode" />
-              <item name="js" type="462c0819:PsiDirectoryNode" />
-              <item name="others" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
-              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="graph" type="462c0819:PsiDirectoryNode" />
-              <item name="plugins" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
-              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="graph" type="462c0819:PsiDirectoryNode" />
-              <item name="plugins" type="462c0819:PsiDirectoryNode" />
-              <item name="paragraphEntitiesGraph" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
-              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="jsCommon" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="souslesens" type="b2602c69:ProjectViewProjectNode" />
-              <item name="souslesens" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="jsCommon" type="462c0819:PsiDirectoryNode" />
-              <item name="others" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
-  </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="nodejs_interpreter_path" value="node" />
-    <property name="javascript.nodejs.core.library.configured.version" value="8.10.0" />
-    <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../souslesensGraph/souslesensGraph" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="restartRequiresConfirmation" value="false" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="javascript.nodejs.core.library.configured.version" value="10.16.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path" value="node" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -470,32 +77,39 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Node.js.entitieGraph..js">
-    <configuration name="entitieGraph..js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="entitieGraph..js" working-dir="$PROJECT_DIR$/bin/nlp" />
-    <configuration name="interactiveQuestions..js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="interactiveQuestions..js" working-dir="$PROJECT_DIR$/bin/nlp" />
-    <configuration name="paragraphEntitiesGraphQuestions..js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="paragraphEntitiesGraphQuestions..js" working-dir="$PROJECT_DIR$/bin/nlp" />
-    <configuration name="paragraphEntitiesQuestions2..js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="paragraphEntitiesQuestions2..js" working-dir="$PROJECT_DIR$/bin/nlp" />
-    <configuration name="thesaurusTotal..js" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-js-file="thesaurusTotal..js" working-dir="$PROJECT_DIR$/bin/nlp" />
-    <list size="6">
-      <item index="0" class="java.lang.String" itemvalue="Node.js.bin\www" />
-      <item index="1" class="java.lang.String" itemvalue="Node.js.paragraphEntitiesGraphQuestions..js" />
-      <item index="2" class="java.lang.String" itemvalue="Node.js.thesaurusTotal..js" />
-      <item index="3" class="java.lang.String" itemvalue="Node.js.paragraphEntitiesQuestions2..js" />
-      <item index="4" class="java.lang.String" itemvalue="Node.js.entitieGraph..js" />
-      <item index="5" class="java.lang.String" itemvalue="Node.js.interactiveQuestions..js" />
+  <component name="RunManager" selected="Node.js.bin\www">
+    <configuration name="entitieGraph..js" type="NodeJSConfigurationType" temporary="true" path-to-js-file="entitieGraph..js" working-dir="$PROJECT_DIR$/bin/nlp">
+      <method v="2" />
+    </configuration>
+    <configuration name="interactiveQuestions..js" type="NodeJSConfigurationType" temporary="true" path-to-js-file="interactiveQuestions..js" working-dir="$PROJECT_DIR$/bin/nlp">
+      <method v="2" />
+    </configuration>
+    <configuration name="paragraphEntitiesGraphQuestions..js" type="NodeJSConfigurationType" temporary="true" path-to-js-file="paragraphEntitiesGraphQuestions..js" working-dir="$PROJECT_DIR$/bin/nlp">
+      <method v="2" />
+    </configuration>
+    <configuration name="paragraphEntitiesQuestions2..js" type="NodeJSConfigurationType" temporary="true" path-to-js-file="paragraphEntitiesQuestions2..js" working-dir="$PROJECT_DIR$/bin/nlp">
+      <method v="2" />
+    </configuration>
+    <configuration name="thesaurusTotal..js" type="NodeJSConfigurationType" temporary="true" path-to-js-file="thesaurusTotal..js" working-dir="$PROJECT_DIR$/bin/nlp">
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Node.js.bin\www" />
+      <item itemvalue="Node.js.paragraphEntitiesGraphQuestions..js" />
+      <item itemvalue="Node.js.thesaurusTotal..js" />
+      <item itemvalue="Node.js.paragraphEntitiesQuestions2..js" />
+      <item itemvalue="Node.js.entitieGraph..js" />
+      <item itemvalue="Node.js.interactiveQuestions..js" />
     </list>
     <recent_temporary>
-      <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Node.js.entitieGraph..js" />
-        <item index="1" class="java.lang.String" itemvalue="Node.js.paragraphEntitiesQuestions2..js" />
-        <item index="2" class="java.lang.String" itemvalue="Node.js.interactiveQuestions..js" />
-        <item index="3" class="java.lang.String" itemvalue="Node.js.thesaurusTotal..js" />
-        <item index="4" class="java.lang.String" itemvalue="Node.js.paragraphEntitiesGraphQuestions..js" />
+      <list>
+        <item itemvalue="Node.js.entitieGraph..js" />
+        <item itemvalue="Node.js.paragraphEntitiesQuestions2..js" />
+        <item itemvalue="Node.js.interactiveQuestions..js" />
+        <item itemvalue="Node.js.thesaurusTotal..js" />
+        <item itemvalue="Node.js.paragraphEntitiesGraphQuestions..js" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
   </component>
   <component name="StructureViewFactory">
     <option name="ACTIVE_ACTIONS" value=",ALPHA_COMPARATOR" />
@@ -544,11 +158,9 @@
       <workItem from="1563888102268" duration="118000" />
       <workItem from="1563888452273" duration="35862000" />
       <workItem from="1564235530698" duration="22115000" />
+      <workItem from="1565335548909" duration="2344000" />
     </task>
     <servers />
-  </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1231957000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -559,56 +171,19 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
-  <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20021075" sideWeight="0.49531615" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16520211" sideWeight="0.50468385" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21232876" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15651135" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16520211" sideWeight="0.50468385" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970226" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-    </layout>
-    <layout-to-restore>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934782" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16520211" sideWeight="0.50468385" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22717391" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32970226" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19968387" sideWeight="0.49531615" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27818757" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16520211" sideWeight="0.50468385" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26956522" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-    </layout-to-restore>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -619,434 +194,20 @@
           <option name="timeStamp" value="1258" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot1.html</url>
-          <line>432</line>
-          <option name="timeStamp" value="1273" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot1.html</url>
-          <line>431</line>
-          <option name="timeStamp" value="1274" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot1.html</url>
-          <line>434</line>
-          <option name="timeStamp" value="1276" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot1.html</url>
-          <line>499</line>
-          <option name="timeStamp" value="1278" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/bin/nlp/entitieGraph..js</url>
           <line>24</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1286" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/public/graph/js/core/visJsGraph.js</url>
           <line>242</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1296" />
         </line-breakpoint>
       </breakpoints>
-      <breakpoints-dialog>
-        <breakpoints-dialog />
-      </breakpoints-dialog>
       <default-breakpoints>
-        <breakpoint type="dart-exception">
-          <properties />
-        </breakpoint>
+        <breakpoint type="dart-exception" />
       </default-breakpoints>
-      <option name="time" value="1297" />
     </breakpoint-manager>
-    <watches-manager />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="32" lean-forward="false" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/jsCommon/cypher.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="22" column="10" lean-forward="false" selection-start-line="8" selection-start-column="7" selection-end-line="22" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/request/request.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="1151" column="29" lean-forward="false" selection-start-line="1151" selection-start-column="29" selection-end-line="1151" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/nlp/paragraphEntitiesGraphQuestions..js" />
-    <entry file="file://$PROJECT_DIR$/bin/httpProxy.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="51" column="13" lean-forward="false" selection-start-line="51" selection-start-column="13" selection-end-line="51" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/graphSimpleQuery.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="554">
-          <caret line="288" column="51" lean-forward="false" selection-start-line="288" selection-start-column="7" selection-end-line="288" selection-end-column="51" />
-          <folding>
-            <marker date="1560578593809" expanded="true" signature="370:444" ph="..." />
-            <marker date="1560578593809" expanded="true" signature="485:546" ph="..." />
-            <marker date="1560578593809" expanded="true" signature="1405:1459" ph="..." />
-            <marker date="1560578593809" expanded="true" signature="1525:1596" ph="..." />
-            <marker date="1560578593809" expanded="true" signature="1744:1773" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/jsonDBStorage..js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="328" column="69" lean-forward="false" selection-start-line="328" selection-start-column="69" selection-end-line="328" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/etl/js/UI.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="75" column="51" lean-forward="false" selection-start-line="75" selection-start-column="51" selection-end-line="75" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/jsCommon/neo4jDataModel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="122" column="45" lean-forward="true" selection-start-line="122" selection-start-column="45" selection-end-line="122" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/jsCommon/schema.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="675" column="18" lean-forward="true" selection-start-line="675" selection-start-column="18" selection-end-line="675" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/etl/importXlsx.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="3" lean-forward="false" selection-start-line="5" selection-start-column="3" selection-end-line="5" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/etl/js/download.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1934">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/jsCommon/common.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/etl/js/exportImport.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="57" column="20" lean-forward="false" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/etl/exportImport.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1548">
-          <caret line="86" column="33" lean-forward="false" selection-start-line="86" selection-start-column="33" selection-end-line="86" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/logger..js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/authentication..js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="18" column="18" lean-forward="false" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions..js" />
-    <entry file="file://$PROJECT_DIR$/bin/nlp/paragraphEntitiesGraph..js" />
-    <entry file="file://$PROJECT_DIR$/node_modules/async/dist/async.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="3109" column="15" lean-forward="false" selection-start-line="3109" selection-start-column="15" selection-end-line="3109" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/nlp/thesaurusTotal..js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="34" column="34" lean-forward="true" selection-start-line="34" selection-start-column="34" selection-end-line="34" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1170">
-          <caret line="86" column="33" lean-forward="false" selection-start-line="86" selection-start-column="33" selection-end-line="86" selection-end-column="33" />
-          <folding>
-            <marker date="1561450579311" expanded="true" signature="15491:15497" ph=" " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/core/buildPaths.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5634">
-          <caret line="313" column="46" lean-forward="false" selection-start-line="313" selection-start-column="39" selection-end-line="313" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/tree.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="972">
-          <caret line="54" column="37" lean-forward="false" selection-start-line="54" selection-start-column="25" selection-end-line="54" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/etl/import.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="7" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/etl/js/mainController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="52" lean-forward="false" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/etl/js/mappings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="9" column="66" lean-forward="false" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/transform/xlsxToNeo..js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="129" column="8" lean-forward="false" selection-start-line="129" selection-start-column="8" selection-end-line="129" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/etl/js/datasets.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="43" lean-forward="true" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/fileToNeoLoader..js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2844">
-          <caret line="158" column="37" lean-forward="false" selection-start-line="158" selection-start-column="37" selection-end-line="158" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/importDataIntoNeo4j.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8568">
-          <caret line="476" column="54" lean-forward="false" selection-start-line="476" selection-start-column="54" selection-end-line="476" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/nodeJSdata/backup/public/toutlesens/js/d3/d3.treemap2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/service.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="28" column="27" lean-forward="false" selection-start-line="28" selection-start-column="27" selection-end-line="28" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/www">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="48" lean-forward="false" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/neoProxy.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1584">
-          <caret line="88" column="12" lean-forward="false" selection-start-line="88" selection-start-column="12" selection-end-line="88" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/nlp/test.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="42" column="5" lean-forward="false" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10404">
-          <caret line="578" column="72" lean-forward="false" selection-start-line="578" selection-start-column="72" selection-end-line="578" selection-end-column="72" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2070">
-          <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="116" selection-end-column="114" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/jsCommon/others/hex-to-rgba.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/others/hex-to-rgba.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="55" lean-forward="false" selection-start-line="10" selection-start-column="55" selection-end-line="10" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/nlp/interactiveQuestions..js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" column="8" lean-forward="false" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/ui/graphController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="37" column="66" lean-forward="false" selection-start-line="37" selection-start-column="66" selection-end-line="37" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/datasets.db">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="1051" column="20" lean-forward="true" selection-start-line="1051" selection-start-column="20" selection-end-line="1051" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/mappings.db">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="836" column="28" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1532" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="60" column="17" lean-forward="false" selection-start-line="60" selection-start-column="17" selection-end-line="60" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/nlp/entitieGraph..js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="315" column="1" lean-forward="true" selection-start-line="315" selection-start-column="1" selection-end-line="315" selection-end-column="1" />
-          <folding>
-            <element signature="e#3609#4164#0" expanded="false" />
-            <element signature="e#14762#15896#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/js/core/visJsGraph.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="66" column="27" lean-forward="true" selection-start-line="66" selection-start-column="27" selection-end-line="66" selection-end-column="27" />
-          <folding>
-            <marker date="1559630368351" expanded="true" signature="17384:17459" ph="..." />
-            <marker date="1559630368351" expanded="true" signature="17461:17467" ph=" " />
-            <marker date="1559630368351" expanded="true" signature="17467:17473" ph=" " />
-            <marker date="1559630368351" expanded="true" signature="17473:17479" ph=" " />
-            <marker date="1559630368351" expanded="true" signature="17508:17523" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot0.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="813" column="0" lean-forward="true" selection-start-line="813" selection-start-column="0" selection-end-line="813" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#div#1;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1564259673358" expanded="true" signature="12012:12042" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/nlp/paragraphEntitiesQuestions2..js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="649" column="58" lean-forward="false" selection-start-line="649" selection-start-column="37" selection-end-line="649" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot1.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="856" column="0" lean-forward="true" selection-start-line="856" selection-start-column="0" selection-end-line="856" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#td#0;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1564332050805" expanded="true" signature="29114:29144" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
   </component>
   <component name="masterDetails">
     <states>
