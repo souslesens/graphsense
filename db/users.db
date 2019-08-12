@@ -7,12 +7,11 @@
       "graphDisplaySettings": {
         "graphDisplay_nodeSize": "8",
         "graphDisplay_gravitationalConstant": "-2000",
-        "graphDisplay_centralGravity": "0",
+        "graphDisplay_centralGravity": "7",
         "graphDisplay_springLength": "95",
         "graphDisplay_springConstant": "0",
         "graphDisplay_damping": "0",
-        "graphDisplay_nodeShape": "square",
-        "labels": {}
+        "graphDisplay_nodeShape": "square"
       },
       "savedGraphs": {
         "test1": {
