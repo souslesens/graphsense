@@ -26,7 +26,17 @@
  ******************************************************************************/
 
 
-
+/**
+ *
+ * usage : insert in your html page header :
+ *
+ *    <script type="text/javascript" src="https://unpkg.com/vis-network@latest/dist/vis-network.min.js"></script>
+ *    <link href="https://unpkg.com/vis-network@latest/dist/vis-network.min.css" rel="stylesheet" type="text/css"/>
+ *
+ *    <script type="text/javascript" src=" entitiesPathsVisjsGraph.js"></script>
+ *
+ *
+ */
 
 
 
