@@ -43,8 +43,7 @@ var GraphFilter = (function () {
             common.fillSelectOptionsWithStringArray("graphFilter_labelSelect", visjsGraph.legendLabels);
             self.setLabelPropertiesSelect(visjsGraph.legendLabels[0])
 
-        }
-        else
+        } else
             common.fillSelectOptionsWithStringArray("graphFilter_labelSelect", visjsGraph.legendLabels, true);
     }
 
@@ -52,27 +51,82 @@ var GraphFilter = (function () {
         if (label == "")
             return;
         var properties = Schema.getLabelProperties(label)
-        common.fillSelectOptionsWithStringArray("graphFilter_propertySelect", properties,true);
+        common.fillSelectOptionsWithStringArray("graphFilter_propertySelect", properties, true);
     }
-
 
 
     self.validateDialog = function (booleanOption) {
 
-        var label=$("#graphFilter_labelSelect").val();
-        if(label=="" && booleanOption!="none")
-           return common.alert("#graphFilter_alertDiv"," select a label first");
+        var label = $("#graphFilter_labelSelect").val();
+        if (label == "" && booleanOption != "none")
+            return common.alert("#graphFilter_alertDiv", " select a label first");
         else
             common.clearAlert("#graphFilter_alertDiv");
 
         $("#GraphFilterModalMenu").modal("hide");
-        context.queryObject={}
-        var queryObj=UI_query.setContextQueryObjectParams("graphFilter");
-        visjsGraph.filterGraph(booleanOption,queryObj.label, queryObj.property, queryObj.operator, queryObj.value);
+        context.queryObject = {}
+        var queryObj = UI_query.setContextQueryObjectParams("graphFilter");
+        self.filterGraph(booleanOption, queryObj.label, queryObj.property, queryObj.operator, queryObj.value);
     }
 
 
+    self.filterGraph = function (booleanOption, label, property, operator, value) {
+        var objectType = "node";
 
+        if (objectType == "node") {
+            var selectedNodes = [];
+            var selectedEdges = [];
+            var nodes = visjsGraph.data.nodes.get();
+            nodes.forEach(function (node) {
+                var hidden = false;
+
+                if (context.currentNode && context.currentNode.id && context.currentNode.id == node.id)
+                    ;
+
+                else if (booleanOption == "none") {
+                    ;
+                } else {
+
+                    var nodeOk = visJsDataProcessor.isLabelNodeOk(node, label, property, operator, value);
+                    if (booleanOption == "not")
+                        hidden = nodeOk;
+                    else
+                        hidden = !nodeOk;
+                }
+                var color = node.initialColor;
+                var vijsLabel = node.hiddenLabel;
+
+                if (hidden) {
+                    color = hexToRgba(node.initialColor, 0.1);
+                    vijsLabel = null;
+                }
+
+                node.color = color;
+                node.ishidden = hidden;
+                node.label = vijsLabel;
+
+                var connectedEdgesIds = visjsGraph.network.getConnectedEdges(node.id);
+                connectedEdgesIds.forEach(function (edgeId) {
+                    var edgeColor = "#333"
+                    if (hidden)
+                        edgeColor = "#ddd"
+                    else
+                        edgeColor = "#ddd"
+
+                    selectedEdges.push({id: edgeId, color: edgeColor})
+                })
+
+
+            })
+            visjsGraph.data.nodes.update(nodes);
+            visjsGraph.data.edges.update(selectedEdges);
+
+
+        } else if (objectType == "relation") {
+
+            //    TO DO   !!!!
+        }
+    }
 
 
     return self;

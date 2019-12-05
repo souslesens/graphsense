@@ -50,24 +50,13 @@ var GraphExpand = (function () {
         var showAllNewNodesrelations = false;//$("#expand_showAllrelationsCbx").prop("checked");
         self.expandedNodes = []
         self.initialDataset = {
-            nodes: visjsGraph.data.nodes.get(),
-            edges: visjsGraph.data.edges.get(),
+            nodes: visjsGraph.nodesDS.get(),
+            edges: visjsGraph.edgesDS.get(),
             type: "graph"
         }
         if (sourceLabel == "" || targetLabel == "")
             return;
-
-
-        var ids = visjsGraph.data.nodes.getIds({
-
-                filter: (function (item) {
-                    return item.labelNeo = sourceLabel
-
-                })
-            }
-        )
-
-     //   var ids = visjsGraph.getNodesNeoIdsByLabelNeo(sourceLabel);
+        var ids = visjsGraph.getNodesNeoIdsByLabelNeo(sourceLabel);
         var where = buildPaths.getWhereClauseFromArray("_id", ids, "n");
         var directionNormalStr = "";
         var directionInverseStr = "";
@@ -231,8 +220,6 @@ var GraphExpand = (function () {
             var allRelTypes = setEdgeColors(result);
 
 
-            var oldNodeIds=visjsGraph.data.nodes.getIds();
-            var oldEdges=visjsGraph.data.edges.get()
             result.forEach(function (line) {
                 var size = line.mArray.length;
 
@@ -270,7 +257,7 @@ var GraphExpand = (function () {
                     if (visjsGraph.legendLabels.indexOf(targetLabel) < 0)
                         visjsGraph.legendLabels.push(targetLabel);
 
-                    //   var visjsNode = visJsDataProcessor.getVisjsNodeFromNeoNode(nodeNeo, true);
+                 //   var visjsNode = visJsDataProcessor.getVisjsNodeFromNeoNode(nodeNeo, true);
                     var visjsNode = visJsDataProcessor.getVisjsNodeFromNeoNode(nodeNeo, false);
 
                     var nodeSize = scaleSizefn(size);
@@ -285,12 +272,12 @@ var GraphExpand = (function () {
                     newEdges.push(visjsEdge);
 
 
-                    // **********************NOT CLUSTER*******************
+                    // **********************NOT CLUSTER  make one node containing all clustered nodes and link it*******************
                 } else {// make visjs node and rel for each neo4jnode
 
                     line.mArray.forEach(function (neoNode) {
                         mArrayIds.push(neoNode._id)
-                        if (oldNodeIds.indexOf(neoNode._id)<0) {
+                        if (!visjsGraph.nodesDS.get(neoNode._id)) {
                             self.expandedNodes.push(neoNode._id)
                             if (newNodeIds.indexOf(neoNode._id) < 0) {
                                 newNodeIds.push(neoNode._id);
@@ -361,7 +348,7 @@ var GraphExpand = (function () {
                         var clusterId = "cluster" + line.clusterLabel + "_" + line.nId;
                         visjsGraph.nodesDS.get().forEach(function (node) {
 
-                            if (("" + node.id).indexOf("cluster") == 0) {
+                            if ((""+node.id).indexOf("cluster") == 0) {
 
                                 var clusterIds = node.neoAttrs.clusterIds;
                                 if (clusterIds && clusterIds.indexOf(line.nId) > -1) {
@@ -481,12 +468,8 @@ var GraphExpand = (function () {
 
     self.drawGraph = function (newNodes, newEdges, targetLabel) {
 
-        visjsGraph.data.nodes.add(newNodes);
-        visjsGraph.data.edges.add(newEdges);
 
-return;
-
-        var allNodes = visjsGraph.data.nodes.get().concat(newNodes);
+        var allNodes = visjsGraph.nodesDS.get().concat(newNodes);
         var allEdges = visjsGraph.edgesDS.get().concat(newEdges);
         var newVisjsData = {
             nodes: allNodes,

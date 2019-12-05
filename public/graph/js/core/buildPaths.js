@@ -54,6 +54,8 @@ var buildPaths = (function () {
         self.currentNodesDistance = 1;
 
 
+            return     requestProcessor.showGraph("graph");
+
         //if input cypher from ui
         var uiCypher = $('#buildPaths_cypherTA').val();
         if (true || uiCypher == "") {

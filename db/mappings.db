@@ -1528,6 +1528,408 @@
           "type": "relation"
         }
       }
+    },
+    "REX": {
+      "nodes": {
+        "Component": {
+          "colName": "Concepts",
+          "colId": "Concepts",
+          "exportedFields": [
+            "Component_Concepts_1",
+            "Component_Concepts_2",
+            "Component_Concepts_3",
+            "Component_Concepts_4",
+            "Component_Concepts_5",
+            "Component_Concepts_6",
+            "Component_Concepts_7"
+          ],
+          "label": "Component",
+          "source": "Import-BI-Rex-Data#Component",
+          "name": "Component",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "REX"
+        },
+        "REX": {
+          "colName": "Id",
+          "colId": "Id",
+          "exportedFields": [
+            "",
+            "Date",
+            "Event",
+            "Id",
+            "Site",
+            "Type"
+          ],
+          "label": "REX",
+          "source": "Import-BI-Rex-Data#REX",
+          "name": "REX",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "REX"
+        },
+        "Equipment": {
+          "colName": "Concepts",
+          "colId": "Concepts",
+          "exportedFields": [
+            "Equipment_Concepts_1",
+            "Equipment_Concepts_2",
+            "Equipment_Concepts_3",
+            "Equipment_Concepts_4",
+            "Equipment_Concepts_5",
+            "Equipment_Concepts_6",
+            "Equipment_Concepts_7"
+          ],
+          "label": "Equipment",
+          "source": "Import-BI-Rex-Data#Equipment",
+          "name": "Equipment",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "REX"
+        },
+        "FailureCause": {
+          "colName": "Concepts",
+          "colId": "Concepts",
+          "exportedFields": [
+            "Failure_Cause_Concepts_1",
+            "Failure_Cause_Concepts_2",
+            "Failure_Cause_Concepts_3",
+            "Failure_Cause_Concepts_4",
+            "Failure_Cause_Concepts_5",
+            "Failure_Cause_Concepts_6",
+            "Failure_Cause_Concepts_7"
+          ],
+          "label": "FailureCause",
+          "source": "Import-BI-Rex-Data#Failure_Cause",
+          "name": "FailureCause",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "REX"
+        },
+        "FailureEffect": {
+          "colName": "Concepts",
+          "colId": "Concepts",
+          "exportedFields": [
+            "Failure_Effect_Concepts_1",
+            "Failure_Effect_Concepts_2",
+            "Failure_Effect_Concepts_3",
+            "Failure_Effect_Concepts_4",
+            "Failure_Effect_Concepts_5",
+            "Failure_Effect_Concepts_6",
+            "Failure_Effect_Concepts_7"
+          ],
+          "label": "FailureEffect",
+          "source": "Import-BI-Rex-Data#Failure_Effect",
+          "name": "FailureEffect",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "REX"
+        },
+        "FailureMode": {
+          "colName": "Concepts",
+          "colId": "Concepts",
+          "exportedFields": [
+            "Failure_Mode_Concepts_1",
+            "Failure_Mode_Concepts_2",
+            "Failure_Mode_Concepts_3",
+            "Failure_Mode_Concepts_4",
+            "Failure_Mode_Concepts_5",
+            "Failure_Mode_Concepts_6",
+            "Failure_Mode_Concepts_7"
+          ],
+          "label": "FailureMode",
+          "source": "Import-BI-Rex-Data#Failure_Mode",
+          "name": "FailureMode",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "REX"
+        },
+        "Manufacturer": {
+          "colName": "Concepts",
+          "colId": "Concepts",
+          "exportedFields": [
+            "Manufacturer_Concepts_1",
+            "Manufacturer_Concepts_2",
+            "Manufacturer_Concepts_3",
+            "Manufacturer_Concepts_4",
+            "Manufacturer_Concepts_5",
+            "Manufacturer_Concepts_6",
+            "Manufacturer_Concepts_7"
+          ],
+          "label": "Manufacturer",
+          "source": "Import-BI-Rex-Data#Manufacturer",
+          "name": "Manufacturer",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "REX"
+        },
+        "Method": {
+          "colName": "Concepts",
+          "colId": "Concepts",
+          "exportedFields": [
+            "Method_Concepts_1",
+            "Method_Concepts_2",
+            "Method_Concepts_3",
+            "Method_Concepts_4",
+            "Method_Concepts_5",
+            "Method_Concepts_6",
+            "Method_Concepts_7"
+          ],
+          "label": "Method",
+          "source": "Import-BI-Rex-Data#Method",
+          "name": "Method",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "REX"
+        },
+        "Phenomenon": {
+          "colName": "Concepts",
+          "colId": "Concepts",
+          "exportedFields": [
+            "Phenomenon_Concepts_1",
+            "Phenomenon_Concepts_2",
+            "Phenomenon_Concepts_3",
+            "Phenomenon_Concepts_4",
+            "Phenomenon_Concepts_5",
+            "Phenomenon_Concepts_6",
+            "Phenomenon_Concepts_7"
+          ],
+          "label": "Phenomenon",
+          "source": "Import-BI-Rex-Data#Phenomenon",
+          "name": "Phenomenon",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "REX"
+        },
+        "Product": {
+          "colName": "Concepts",
+          "colId": "Concepts",
+          "exportedFields": [
+            "Product_Concepts_1",
+            "Product_Concepts_2",
+            "Product_Concepts_3",
+            "Product_Concepts_4",
+            "Product_Concepts_5",
+            "Product_Concepts_6",
+            "Product_Concepts_7"
+          ],
+          "label": "Product",
+          "source": "Import-BI-Rex-Data#Product",
+          "name": "Product",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "REX"
+        },
+        "Unit": {
+          "colName": "Concepts",
+          "colId": "Concepts",
+          "exportedFields": [
+            "Unit_Concepts_1",
+            "Unit_Concepts_2",
+            "Unit_Concepts_3",
+            "Unit_Concepts_4",
+            "Unit_Concepts_5",
+            "Unit_Concepts_6",
+            "Unit_Concepts_7"
+          ],
+          "label": "Unit",
+          "source": "Import-BI-Rex-Data#Unit",
+          "name": "Unit",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "REX"
+        }
+      },
+      "relations": {
+        "REX-hasComponent->Component": {
+          "source": "Import-BI-Rex-Data#Component",
+          "name": "REX-hasComponent->Component",
+          "colFromId": "Id",
+          "neoFromLabel": "REX",
+          "neoFromId": "Id",
+          "colToId": "Concepts",
+          "neoToLabel": "Component",
+          "neoToId": "Concepts",
+          "relationType": "hasComponent",
+          "mappingset": "REX",
+          "type": "relation"
+        },
+        "Equipment-hasEquipment->REX": {
+          "source": "Import-BI-Rex-Data#Equipment",
+          "name": "Equipment-hasEquipment->REX",
+          "colFromId": "Concepts",
+          "neoFromLabel": "Equipment",
+          "neoFromId": "Concepts",
+          "colToId": "Id",
+          "neoToLabel": "REX",
+          "neoToId": "Id",
+          "relationType": "hasEquipment",
+          "mappingset": "REX",
+          "type": "relation"
+        },
+        "FailureCause-hasFailureCause->REX": {
+          "source": "Import-BI-Rex-Data#Failure_Cause",
+          "name": "FailureCause-hasFailureCause->REX",
+          "colFromId": "Concepts",
+          "neoFromLabel": "FailureCause",
+          "neoFromId": "Concepts",
+          "colToId": "Id",
+          "neoToLabel": "REX",
+          "neoToId": "Id",
+          "relationType": "hasFailureCause",
+          "mappingset": "REX",
+          "type": "relation"
+        },
+        "FailureEffect-hasFailureEffect->REX": {
+          "source": "Import-BI-Rex-Data#Failure_Effect",
+          "name": "FailureEffect-hasFailureEffect->REX",
+          "colFromId": "Concepts",
+          "neoFromLabel": "FailureEffect",
+          "neoFromId": "Concepts",
+          "colToId": "Id",
+          "neoToLabel": "REX",
+          "neoToId": "Id",
+          "relationType": "hasFailureEffect",
+          "mappingset": "REX",
+          "type": "relation"
+        },
+        "FailureMode-hasFailureMode->REX": {
+          "source": "Import-BI-Rex-Data#Failure_Mode",
+          "name": "FailureMode-hasFailureMode->REX",
+          "colFromId": "Concepts",
+          "neoFromLabel": "FailureMode",
+          "neoFromId": "Concepts",
+          "colToId": "Id",
+          "neoToLabel": "REX",
+          "neoToId": "Id",
+          "relationType": "hasFailureMode",
+          "mappingset": "REX",
+          "type": "relation"
+        },
+        "Manufacturer-hasManufacturer->REX": {
+          "source": "Import-BI-Rex-Data#Manufacturer",
+          "name": "Manufacturer-hasManufacturer->REX",
+          "colFromId": "Concepts",
+          "neoFromLabel": "Manufacturer",
+          "neoFromId": "Concepts",
+          "colToId": "Id",
+          "neoToLabel": "REX",
+          "neoToId": "Id",
+          "relationType": "hasManufacturer",
+          "mappingset": "REX",
+          "type": "relation"
+        },
+        "Method-hasMethod->REX": {
+          "source": "Import-BI-Rex-Data#Method",
+          "name": "Method-hasMethod->REX",
+          "colFromId": "Concepts",
+          "neoFromLabel": "Method",
+          "neoFromId": "Concepts",
+          "colToId": "Id",
+          "neoToLabel": "REX",
+          "neoToId": "Id",
+          "relationType": "hasMethod",
+          "mappingset": "REX",
+          "type": "relation"
+        },
+        "Phenomenon-hasPhenomenon->REX": {
+          "source": "Import-BI-Rex-Data#Phenomenon",
+          "name": "Phenomenon-hasPhenomenon->REX",
+          "colFromId": "Concepts",
+          "neoFromLabel": "Phenomenon",
+          "neoFromId": "Concepts",
+          "colToId": "Id",
+          "neoToLabel": "REX",
+          "neoToId": "Id",
+          "relationType": "hasPhenomenon",
+          "mappingset": "REX",
+          "type": "relation"
+        },
+        "Product-hasProduct->REX": {
+          "source": "Import-BI-Rex-Data#Product",
+          "name": "Product-hasProduct->REX",
+          "colFromId": "Concepts",
+          "neoFromLabel": "Product",
+          "neoFromId": "Concepts",
+          "colToId": "Id",
+          "neoToLabel": "REX",
+          "neoToId": "Id",
+          "relationType": "hasProduct",
+          "mappingset": "REX",
+          "type": "relation"
+        },
+        "Unit-hasUnit->REX": {
+          "source": "Import-BI-Rex-Data#Unit",
+          "name": "Unit-hasUnit->REX",
+          "colFromId": "Concepts",
+          "neoFromLabel": "Unit",
+          "neoFromId": "Concepts",
+          "colToId": "Id",
+          "neoToLabel": "REX",
+          "neoToId": "Id",
+          "relationType": "hasUnit",
+          "mappingset": "REX",
+          "type": "relation"
+        }
+      }
+    },
+    "thelanthropia": {
+      "nodes": {
+        "Vedette": {
+          "colName": "vedette",
+          "colId": "vedette",
+          "exportedFields": [
+            "freq"
+          ],
+          "label": "Vedette",
+          "source": "kohaGraphImport#vedettes",
+          "name": "Vedette",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "thelanthropia"
+        },
+        "Auteur": {
+          "colName": "auteur",
+          "colId": "auteur",
+          "exportedFields": [
+            ""
+          ],
+          "label": "Auteur",
+          "source": "kohaGraphImport#rVedetteAuteur",
+          "name": "Auteur",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "thelanthropia"
+        }
+      },
+      "relations": {
+        "Auteur-aVedette->Vedette": {
+          "source": "kohaGraphImport#rVedetteAuteur",
+          "name": "Auteur-aVedette->Vedette",
+          "colFromId": "auteur",
+          "neoFromLabel": "Auteur",
+          "neoFromId": "auteur",
+          "colToId": "vedette",
+          "neoToLabel": "Vedette",
+          "neoToId": "vedette",
+          "relationType": "aVedette",
+          "mappingset": "thelanthropia",
+          "type": "relation"
+        },
+        "Vedette-lieA->Vedette": {
+          "source": "kohaGraphImport#rVedetteVedette",
+          "name": "Vedette-lieA->Vedette",
+          "colFromId": "vedette1",
+          "neoFromLabel": "Vedette",
+          "neoFromId": "vedette",
+          "colToId": "vedette2",
+          "neoToLabel": "Vedette",
+          "neoToId": "freq",
+          "relationType": "lieA",
+          "mappingset": "thelanthropia",
+          "type": "relation"
+        }
+      }
     }
   }
 }

@@ -41,6 +41,10 @@ var GraphSimpleQuery = (function () {
         $("#cardMenu").collapse('show');
     }
 
+
+
+
+
     self.onSwitchLabelsChange = function (input) {
         var inputId = $(input).attr("id");
 
@@ -79,7 +83,8 @@ var GraphSimpleQuery = (function () {
                 self.filterDialogBinded = true;
 
                 $("#query_validateQueryGraphButton").bind('click', function (target) {
-                    self.onExecQueryButton("graph");
+
+                   self.onExecQueryButton("graph");
                 })
                 $("#query_validateQueryTableButton").bind('click', function (target) {
                     self.onExecQueryButton("dataTable");
@@ -95,31 +100,12 @@ var GraphSimpleQuery = (function () {
             delete context.cardsMap[self.currentLabel];
             delete context.cardsMap["*"];
             //***********suppression des noeuds ert relations du graphe correspondant au label unchecked
-            var nodes = [];
-            var nodeIds = [];
-            for (var key in visjsGraph.nodes._data) {
-                var node = visjsGraph.nodes._data[key];
-                if (node.labelNeo == self.currentLabel) {
-                    nodeIds.push(node.id)
-                    nodes.push({id: node.id, hidden: true})
-                }
-            }
-            visjsGraph.nodes.remove(nodeIds);
-            var edges = [];
-            for (var key in visjsGraph.edges._data) {
-
-                var edge = visjsGraph.edges._data[key];
-                if (nodeIds.indexOf(edge.from) > -1 || nodeIds.indexOf(edge.to) > -1) {
-                    //edges.push({id:edge.id,hidden:true})
-                    edges.push(edge.id)
-                }
-            }
-            visjsGraph.edges.remove(edges);
+            visjsGraph.removeNodes("labelNeo", self.currentLabel, true);
             visjsGraph.legendLabels.splice(visjsGraph.legendLabels.indexOf(label), 1);
             //***********fin suppression des noeuds ert relations du graphe correspondant au label unchecked
 
 
-            visjsGraph.drawLegend2(visjsGraph.legendLabels)
+            visjsGraph.drawLegend(visjsGraph.legendLabels)
 
             if (visjsGraph.legendLabels.length == 0)
                 $("#simpleQuery_erase").addClass("d-none")
@@ -227,7 +213,8 @@ var GraphSimpleQuery = (function () {
             var idsQueryObject = {}
             idsQueryObject.label = null;//tous les labels
             idsQueryObject.type = "nodeSet" + label;
-            idsQueryObject.nodeSetIds = Object.keys(visjsGraph.nodes._data);
+         //   idsQueryObject.nodeSetIds = Object.keys(visjsGraph.nodes._data);
+            idsQueryObject.nodeSetIds=visjsGraph.data.nodes.getIds();
             idsQueryObject.inResult = true;
             idsQueryObject.origin = "simpleQueryTree";
 
@@ -236,7 +223,7 @@ var GraphSimpleQuery = (function () {
 
         }
 
-        function afterQuery(data) {
+       self.afterQuery=function(data) {
             var oldCount = self.labelObjs[label];
             var newCount = "" + data.nodes.length + " / " + oldCount;
             $("#simpleQuery_countBadge_" + label).html(newCount);
@@ -259,6 +246,11 @@ var GraphSimpleQuery = (function () {
         }
         var withOrphans = $("#query_OrphanNodesSwitch").prop("checked");
 
+
+
+
+
+
         buildPaths.executeQuery(type, options, function (err, result) {
             if (err)
                 return console.log(err);
@@ -267,13 +259,13 @@ var GraphSimpleQuery = (function () {
                 delete  context.cardsMap["*"];
 
                 buildPaths.executeQuery(type, options, function (err, result) {
-                    afterQuery(result.data)
+                    self.afterQuery(result.data)
                 })
                 return;
             }
             else{
 
-                afterQuery(result.data)
+                self.afterQuery(result.data)
             }
 
 

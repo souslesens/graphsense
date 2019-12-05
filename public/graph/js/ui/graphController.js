@@ -14,11 +14,15 @@ var GraphController = (function () {
             self.containerDims.y = $("#" + containerId).position().top;
             $("#graphDiv").width(self.containerDims.w - 2);
             $("#graphDiv").height(self.containerDims.h + 30);
+            var legendPosition = {
+                x:  $("#" + containerId).width()-200,
+                y: $("#" + containerId).position().top + $("#" + containerId).height() -300
+            };
 
 
-            $("#graph_legendDiv").width(120).css("position", "absolute").css("top", $(".navbar").height() + (self.containerDims.h-100)).css("left", +(self.containerDims.w - 150));//"background", "none");
+            $("#graph_legendDiv").width(120).css("position", "absolute").css("top", $(".navbar").height() + (self.containerDims.h - 100)).css("left", +(self.containerDims.w - 150));//"background", "none");
             $("#graph_infosDiv").width(400).height(40).css("position", "absolute").css("left", self.containerDims.x + 10).css("top", $(".navbar").height() + 100).css("background-color", "#eee");
-            $("#GraphHighlight_legendDiv").css("position", "absolute").css("top", 0).css("left", self.containerDims.x + 10).css("top", 80).css("background-color", "#eee");
+            $("#GraphHighlight_legendDiv").css("position", "absolute").css("top", legendPosition.y).css("left", legendPosition.x).css("background-color", "#eee");
             $("#graph_infosDiv").css("visibility", "hidden");
 
 
@@ -43,8 +47,7 @@ var GraphController = (function () {
                 self.schemaCurrentNode = node;
                 self.showPopoverAtPosition("GraphSchemaPopoverDiv", point);
 
-            }
-            else {
+            } else {
 
                 self.showPopoverAtPosition("GraphNodePopoverDiv", point);
                 var permittedLabels = Schema.getPermittedLabels(node.labelNeo, true, true);
@@ -159,9 +162,8 @@ var GraphController = (function () {
                 var text = context.queryObject.label + ":" + context.queryObject.text
 
                 var obj = {id: self.schemaCurrentNode.id, label: text, borderWidth: 3, color: "white", font: {color: context.nodeColors[context.queryObject.label]}}
-                visjsGraph.nodes.update(obj);
-            }
-            else {//calcul des chemins
+                visjsGraph.nodesDS.update(obj);
+            } else {//calcul des chemins
 
                 Schema.getPathsBetweenLabels(self.schemaPreviousNode.label, self.schemaCurrentNode.label, function (err, result) {
 
@@ -184,7 +186,7 @@ var GraphController = (function () {
 
                                 var nodeId = "schemaLabel_" + queryObject.label;
                                 var obj = {id: nodeId, borderWidth: 3, color: "white", font: {color: context.nodeColors[queryObject.label]}}
-                                visjsGraph.nodes.update(obj);
+                                visjsGraph.nodesDS.update(obj);
 
 
                             }
@@ -195,11 +197,11 @@ var GraphController = (function () {
 
                             var relId = "schemaRelation_" + labelsRels[relation._fromId] + "_" + labelsRels[relation._toId];
                             var obj = {id: relId, color: "white", width: 4}
-                            visjsGraph.edges.update(obj);
+                            visjsGraph.edgesDS.update(obj);
 
                             var relId = "schemaRelation_" + labelsRels[relation._toId] + "_" + labelsRels[relation._fromId];
                             var obj = {id: relId, color: "white", width: 4}
-                            visjsGraph.edges.update(obj);
+                            visjsGraph.edgesDS.update(obj);
                         })
 
                     })
@@ -227,18 +229,18 @@ var GraphController = (function () {
             var name = $("#GraphSave_name").val();
             var description = $("#GraphSave_description").val();
 
-            if(!name || name==""){
-              return   alert("name is mandatory");
+            if (!name || name == "") {
+                return alert("name is mandatory");
             }
 
-            var graphData=visjsGraph.exportGraph();
-            var graphData=btoa(JSON.stringify(graphData));
+            var graphData = visjsGraph.exportGraph();
+            var graphData = btoa(JSON.stringify(graphData));
 
             var settings = {
-                visibility:visibility,
-                name:name,
-                description:description.trim(),
-                graphData:graphData
+                visibility: visibility,
+                name: name,
+                description: description.trim(),
+                graphData: graphData
             }
 
             if (!context.user.savedGraphs)
@@ -251,19 +253,18 @@ var GraphController = (function () {
         }
 
 
-
-        self.setSavedGraphSelect=function(){
-            if(context.user && context.user.savedGraphs) {
+        self.setSavedGraphSelect = function () {
+            if (context.user && context.user.savedGraphs) {
                 var graphNames = Object.keys(context.user.savedGraphs);
                 graphNames.sort();
-                common.fillSelectOptionsWithStringArray("GraphSaved_nameSelect",graphNames,true);
+                common.fillSelectOptionsWithStringArray("GraphSaved_nameSelect", graphNames, true);
 
             }
 
         }
-        self.drawSavedGraph=function(name){
-            var graphData= context.user.savedGraphs[name].graphData;
-            graphData=JSON.parse(atob(graphData));
+        self.drawSavedGraph = function (name) {
+            var graphData = context.user.savedGraphs[name].graphData;
+            graphData = JSON.parse(atob(graphData));
             visjsGraph.importGraph(graphData);
             $("#navbar_graph_Graph_ul").removeClass("d-none");
         }

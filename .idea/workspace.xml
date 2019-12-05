@@ -2,9 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0b8677d-dbc9-4124-b08c-92f03bd70409" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/public/graph/js/core/requestProcessor.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/graph/js/core/visjsGraph2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/graph/js/ui/graphExpandOld.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot1.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/bot1.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/entitiesPathsVisjsGraph.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/plugins/paragraphEntitiesGraph/entitiesPathsVisjsGraph.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/www" beforeDir="false" afterPath="$PROJECT_DIR$/bin/www" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/datasets.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/datasets.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/mappings.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/mappings.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/graph/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/core/buildPaths.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/core/buildPaths.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/core/visJsGraph.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/core/visJsGraph.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/core/visjsDataProcessor.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/core/visjsDataProcessor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/ui/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/graphController.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/ui/graphController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/graphDisplay.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/ui/graphDisplay.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/graphExpand.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/ui/graphExpand.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/graphFilter.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/ui/graphFilter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/graphHighlight.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/ui/graphHighlight.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/graphSimpleQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/ui/graphSimpleQuery.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,26 +58,26 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.16.0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/graph/js/ui" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\GitHub\souslesens\public\graph\plugins\paragraphEntitiesGraph" />
-      <recent name="D:\GitHub\souslesens\public\jsCommon\others" />
-      <recent name="D:\GitHub\souslesens\bin" />
-      <recent name="D:\GitHub\souslesens\public\etl\js" />
-      <recent name="D:\GitHub\souslesens\bin\nlp" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\GitHub\souslesens\public\jsCommon\others" />
       <recent name="D:\GitHub\souslesens\public\graph\plugins\paragraphEntitiesGraph" />
       <recent name="D:\GitHub\souslesens\public\graph\plugins" />
       <recent name="D:\GitHub\souslesens\public\graph" />
       <recent name="D:\GitHub\souslesens\bin" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\GitHub\souslesens\public\graph\js\ui" />
+      <recent name="D:\GitHub\souslesens\public\graph\plugins\paragraphEntitiesGraph" />
+      <recent name="D:\GitHub\souslesens\public\jsCommon\others" />
+      <recent name="D:\GitHub\souslesens\bin" />
+      <recent name="D:\GitHub\souslesens\public\etl\js" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -159,7 +174,22 @@
       <workItem from="1563888452273" duration="35862000" />
       <workItem from="1564235530698" duration="22115000" />
       <workItem from="1565335548909" duration="6972000" />
-      <workItem from="1565628676412" duration="516000" />
+      <workItem from="1565628676412" duration="1828000" />
+      <workItem from="1565695061451" duration="649000" />
+      <workItem from="1567870621405" duration="8260000" />
+      <workItem from="1568013880710" duration="1264000" />
+      <workItem from="1568220180418" duration="1195000" />
+      <workItem from="1568652607129" duration="1823000" />
+      <workItem from="1568965111364" duration="75000" />
+      <workItem from="1571668838452" duration="1577000" />
+      <workItem from="1571727099453" duration="1818000" />
+      <workItem from="1572537573267" duration="16000" />
+      <workItem from="1574353373340" duration="1568000" />
+      <workItem from="1574417921582" duration="4980000" />
+      <workItem from="1574689661290" duration="593000" />
+      <workItem from="1574703538251" duration="4492000" />
+      <workItem from="1574878162591" duration="2098000" />
+      <workItem from="1575048440886" duration="39310000" />
     </task>
     <servers />
   </component>
@@ -205,6 +235,18 @@
           <url>file://$PROJECT_DIR$/public/graph/js/core/visJsGraph.js</url>
           <line>242</line>
           <option name="timeStamp" value="1296" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/public/graph/js/ui/graphExpand.js</url>
+          <line>182</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1297" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/public/graph/js/ui/graphExpand.js</url>
+          <line>327</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1299" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

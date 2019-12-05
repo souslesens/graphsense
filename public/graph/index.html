@@ -113,7 +113,8 @@
 
   <!--  <script type="text/javascript" src="https://visjs.org/dist/vis.js"></script>
     <link href="https://visjs.org/dist/vis-network.min.css" rel="stylesheet" type="text/css" />-->
-    <script type="text/javascript" src="https://unpkg.com/vis-network@latest/dist/vis-network.min.js"></script>
+   <!-- <script type="text/javascript" src="https://unpkg.com/vis-network@latest/dist/vis-network.min.js"></script>-->
+    <script type="text/javascript" src="https://unpkg.com/vis-network@latest/dist/vis-network.js"></script>
     <link href="https://unpkg.com/vis-network@latest/dist/vis-network.min.css" rel="stylesheet" type="text/css" />
 
 
@@ -121,8 +122,9 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
-    <script src="js/core/visJsGraph.js"></script>
+    <script src="js/core/visJsGraph2.js"></script>
     <script src="js/core/visjsDataProcessor.js"></script>
+    <script src="js/core/requestProcessor.js"></script>
 
     <!---------- fin scripts visjs ----------->
 
@@ -130,12 +132,22 @@
     <!-- tree JS -->
     <link rel="stylesheet" href="../jsCommon/others/jsTreeBootstrap/themes/default/style.min.css"/>
     <script src="../jsCommon/others/jsTreeBootstrap/jstree.min.js"></script>
+
+
+
+
+
+
     <!-- <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>-->
 
     <script>
         //when page loaded
         $(function () {
             context = new Context();
+            if(true) {
+                context.user={graphDisplaySettings:{}}
+                return MainController.init();
+            }
             $("#LoginModalMenu").load("htmlSnippets/login.html", function () {
 
             })

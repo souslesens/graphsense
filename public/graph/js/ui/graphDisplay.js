@@ -19,7 +19,7 @@ var GraphDisplay = (function () {
         for(var id in nodes){
             newNodes.push({id:id,shape:shape,size:size});
         }
-        visjsGraph.nodes.update(newNodes)
+        visjsGraph.nodesDS.update(newNodes)
 
 
     }*/
@@ -37,7 +37,7 @@ var GraphDisplay = (function () {
         for (var id in visjsGraph.nodes._data) {
             newNodes.push({id: id, shape: shape});
         }
-        visjsGraph.nodes.update(newNodes)
+        visjsGraph.nodesDS.update(newNodes)
 
     }
     self.setGraphNodeSize = function (size) {
@@ -48,7 +48,7 @@ var GraphDisplay = (function () {
         for (var id in visjsGraph.nodes._data) {
             newNodes.push({id: id, size: size});
         }
-        visjsGraph.nodes.update(newNodes)
+        visjsGraph.nodesDS.update(newNodes)
 
     }
 

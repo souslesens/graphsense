@@ -1300,6 +1300,233 @@
           "ancestors"
         ]
       }
+    },
+    "REX": {
+      "Import-BI-Rex-Data#REX": {
+        "mappingsetName": "REX",
+        "name": "Import-BI-Rex-Data#REX",
+        "header": [
+          "Id",
+          "Date",
+          "Site",
+          "Type",
+          "Texte",
+          "Event"
+        ]
+      },
+      "Import-BI-Rex-Data#Equipment": {
+        "mappingsetName": "REX",
+        "name": "Import-BI-Rex-Data#Equipment",
+        "header": [
+          "Id",
+          "Concepts",
+          "Equipment_Concepts_1",
+          "Equipment_Concepts_2",
+          "Equipment_Concepts_3",
+          "Equipment_Concepts_4",
+          "Equipment_Concepts_5",
+          "Equipment_Concepts_6",
+          "Equipment_Concepts_7"
+        ]
+      },
+      "Import-BI-Rex-Data#Component": {
+        "mappingsetName": "REX",
+        "name": "Import-BI-Rex-Data#Component",
+        "header": [
+          "Id",
+          "Concepts",
+          "Component_Concepts_1",
+          "Component_Concepts_2",
+          "Component_Concepts_3",
+          "Component_Concepts_4",
+          "Component_Concepts_5",
+          "Component_Concepts_6",
+          "Component_Concepts_7"
+        ]
+      },
+      "Import-BI-Rex-Data#Product": {
+        "mappingsetName": "REX",
+        "name": "Import-BI-Rex-Data#Product",
+        "header": [
+          "Id",
+          "Concepts",
+          "Product_Concepts_1",
+          "Product_Concepts_2",
+          "Product_Concepts_3",
+          "Product_Concepts_4",
+          "Product_Concepts_5",
+          "Product_Concepts_6",
+          "Product_Concepts_7"
+        ]
+      },
+      "Import-BI-Rex-Data#Method": {
+        "mappingsetName": "REX",
+        "name": "Import-BI-Rex-Data#Method",
+        "header": [
+          "Id",
+          "Concepts",
+          "Method_Concepts_1",
+          "Method_Concepts_2",
+          "Method_Concepts_3",
+          "Method_Concepts_4",
+          "Method_Concepts_5",
+          "Method_Concepts_6",
+          "Method_Concepts_7"
+        ]
+      },
+      "Import-BI-Rex-Data#Phenomenon": {
+        "mappingsetName": "REX",
+        "name": "Import-BI-Rex-Data#Phenomenon",
+        "header": [
+          "Id",
+          "Concepts",
+          "Phenomenon_Concepts_1",
+          "Phenomenon_Concepts_2",
+          "Phenomenon_Concepts_3",
+          "Phenomenon_Concepts_4",
+          "Phenomenon_Concepts_5",
+          "Phenomenon_Concepts_6",
+          "Phenomenon_Concepts_7"
+        ]
+      },
+      "Import-BI-Rex-Data#Failure_Mode": {
+        "mappingsetName": "REX",
+        "name": "Import-BI-Rex-Data#Failure_Mode",
+        "header": [
+          "Id",
+          "Concepts",
+          "Failure_Mode_Concepts_1",
+          "Failure_Mode_Concepts_2",
+          "Failure_Mode_Concepts_3",
+          "Failure_Mode_Concepts_4",
+          "Failure_Mode_Concepts_5",
+          "Failure_Mode_Concepts_6",
+          "Failure_Mode_Concepts_7"
+        ]
+      },
+      "Import-BI-Rex-Data#Failure_Effect": {
+        "mappingsetName": "REX",
+        "name": "Import-BI-Rex-Data#Failure_Effect",
+        "header": [
+          "Id",
+          "Concepts",
+          "Failure_Effect_Concepts_1",
+          "Failure_Effect_Concepts_2",
+          "Failure_Effect_Concepts_3",
+          "Failure_Effect_Concepts_4",
+          "Failure_Effect_Concepts_5",
+          "Failure_Effect_Concepts_6",
+          "Failure_Effect_Concepts_7"
+        ]
+      },
+      "Import-BI-Rex-Data#Failure_Cause": {
+        "mappingsetName": "REX",
+        "name": "Import-BI-Rex-Data#Failure_Cause",
+        "header": [
+          "Id",
+          "Concepts",
+          "Failure_Cause_Concepts_1",
+          "Failure_Cause_Concepts_2",
+          "Failure_Cause_Concepts_3",
+          "Failure_Cause_Concepts_4",
+          "Failure_Cause_Concepts_5",
+          "Failure_Cause_Concepts_6",
+          "Failure_Cause_Concepts_7"
+        ]
+      },
+      "Import-BI-Rex-Data#Unit": {
+        "mappingsetName": "REX",
+        "name": "Import-BI-Rex-Data#Unit",
+        "header": [
+          "Id",
+          "Concepts",
+          "Unit_Concepts_1",
+          "Unit_Concepts_2",
+          "Unit_Concepts_3",
+          "Unit_Concepts_4",
+          "Unit_Concepts_5",
+          "Unit_Concepts_6",
+          "Unit_Concepts_7"
+        ]
+      },
+      "Import-BI-Rex-Data#Manufacturer": {
+        "mappingsetName": "REX",
+        "name": "Import-BI-Rex-Data#Manufacturer",
+        "header": [
+          "Id",
+          "Concepts",
+          "Manufacturer_Concepts_1",
+          "Manufacturer_Concepts_2",
+          "Manufacturer_Concepts_3",
+          "Manufacturer_Concepts_4",
+          "Manufacturer_Concepts_5",
+          "Manufacturer_Concepts_6",
+          "Manufacturer_Concepts_7"
+        ]
+      },
+      "Import-BI-Rex-Data#Tree": {
+        "mappingsetName": "REX",
+        "name": "Import-BI-Rex-Data#Tree",
+        "header": [
+          "Id",
+          "Source_Concept",
+          "Source_Concept_Concepts_1",
+          "Source_Concept_Concepts_2",
+          "Source_Concept_Concepts_3",
+          "Source_Concept_Concepts_4",
+          "Source_Concept_Concepts_5",
+          "Source_Concept_Concepts_6",
+          "Source_Concept_Concepts_7",
+          "Destination_Concept",
+          "Destination_Concept_Concepts_1",
+          "Destination_Concept_Concepts_2",
+          "Destination_Concept_Concepts_3",
+          "Destination_Concept_Concepts_4",
+          "Destination_Concept_Concepts_5",
+          "Destination_Concept_Concepts_6",
+          "Destination_Concept_Concepts_7",
+          "Concept_Source_Name",
+          "Concept_Destination_Name",
+          "Relation_Type"
+        ]
+      }
+    },
+    "thelanthropia": {
+      "kohaGraphImport#rVedetteOuvrage": {
+        "mappingsetName": "thelanthropia",
+        "name": "kohaGraphImport#rVedetteOuvrage",
+        "header": [
+          "vedette",
+          "ouvrage",
+          "isbn"
+        ]
+      },
+      "kohaGraphImport#rVedetteAuteur": {
+        "mappingsetName": "thelanthropia",
+        "name": "kohaGraphImport#rVedetteAuteur",
+        "header": [
+          "vedette",
+          "auteur",
+          "freq"
+        ]
+      },
+      "kohaGraphImport#rVedetteVedette": {
+        "mappingsetName": "thelanthropia",
+        "name": "kohaGraphImport#rVedetteVedette",
+        "header": [
+          "vedette1",
+          "vedette2",
+          "freq"
+        ]
+      },
+      "kohaGraphImport#vedettes": {
+        "mappingsetName": "thelanthropia",
+        "name": "kohaGraphImport#vedettes",
+        "header": [
+          "vedette",
+          "freq"
+        ]
+      }
     }
   }
 }

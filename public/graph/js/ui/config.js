@@ -68,6 +68,7 @@ var Config = {
         defaultNodeShape: "dot",
         defaultLayout: "random",
         graphBackgroundColor:"#999",
+        showNodesLabelMinScale : .5
 
 
     },

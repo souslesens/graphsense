@@ -2,6 +2,55 @@ var visJsDataProcessor = (function () {
         var self = {};
 
 
+self.transformNeo2Visj=function(neoData){
+    var visjsData = {nodes: [], edges: [], labels: []};
+    visjsData.labels = neoData.labels;
+    var uniqueNodes = [];
+    var uniqueRels = [];
+    neoData.data.nodes.forEach(function (line, indexLine) {
+        for (var nodeKey in line) {
+            var nodeNeo = line[nodeKey];
+            if (uniqueNodes.indexOf(nodeNeo.id) < 0) {
+                uniqueNodes.push(nodeNeo.id);
+
+                var visjsNode = nodeNeo;
+                visjsData.nodes.push(visjsNode);
+            }
+        }
+        var previousSymbol;
+        neoData.labelSymbols.forEach(function (symbol, indexSymbol) {
+            if (indexSymbol > 0) {
+                var fromNode = line[previousSymbol];
+                var toNode = line[symbol];
+                var relNeo = line[symbol].incomingRelation;
+                if (uniqueRels.indexOf(relNeo.id) < 0) {
+                    uniqueRels.push(relNeo.id);
+                    var relObj = visJsDataProcessor.getVisjsRelFromNeoRel(fromNode.id, toNode.id, relNeo.id, relNeo.type, relNeo.neoAttrs, false, false);
+
+
+                    visjsData.edges.push(relObj);
+                }
+
+            }
+            previousSymbol = symbol;
+
+        })
+    })
+
+    return visjsData;
+}
+
+
+
+
+
+
+
+
+
+
+
+
         self.drawGraph = function (dataset, options, callback) {
             var visjsData = {nodes: [], edges: [], labels: []};
             visjsData.labels = dataset.labels;
@@ -61,8 +110,8 @@ var visJsDataProcessor = (function () {
 
                 })
 
-                visjsGraph.nodes.update(newNodes)
-                visjsGraph.edges.update(newEdges)
+                visjsGraph.nodesDS.update(newNodes)
+                visjsGraph.edgesDS.update(newEdges)
                 visjsGraph.drawLegend2(visjsData.labels, null);
                 if (callback)
                     callback(null, {data: {nodes: newNodes, relations: newEdges}});

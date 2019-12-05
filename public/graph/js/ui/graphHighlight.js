@@ -45,8 +45,7 @@ var GraphHighlight = (function () {
                 common.fillSelectOptionsWithStringArray("graphHighlight_labelSelect", visjsGraph.legendLabels);
                 self.setLabelPropertiesSelect(visjsGraph.legendLabels[0])
 
-            }
-            else
+            } else
                 common.fillSelectOptionsWithStringArray("graphHighlight_labelSelect", visjsGraph.legendLabels, true);
         }
 
@@ -91,71 +90,7 @@ var GraphHighlight = (function () {
             self.currentColor = self.colorsPalette(index);
         }
 
-
-        self.paintClasses = function (property) {
-
-
-            ordinalLegendMap = {};
-            var nClasses = palettes[palettes.length - 1].length;// parseInt($("#paintDialog_NclassesInput").val());
-            var size = Config.visjs.defaultNodeSize;// parseInt($("#paintDialog_circleRadiusInput").val() * 2);
-
-
-            self.currentHighlightProperty = property;
-
-
-            function getData() {
-                var data = []
-
-
-                var allGraphNodes = visjsGraph.nodes.get();
-                for (var i = 0; i < allGraphNodes.length; i++) {
-                    var nodeData = allGraphNodes[i];
-                    if (nodeData.neoAttrs) {
-                        var value = nodeData.neoAttrs[property];
-                        if (value)
-                            data.push({id: nodeData.id, value: value});
-                    }
-                }
-                return data;
-            }
-
-
-            var allGraphNodes = visjsGraph.nodes.get();
-
-            if (property == "") {
-
-
-                $("#GraphHighlight_legendDiv").html("").css("visibility", "hidden");
-
-                var targetNodes = [];
-
-                for (var i = 0; i < allGraphNodes.length; i++) {
-                    targetNodes.push({
-                        id: "" + allGraphNodes[i].id,
-                        color: allGraphNodes[i].initialColor,
-                        shape: Config.visjs.defaultNodeShape,
-                        hidden: false
-                    });
-
-                }
-
-                visjsGraph.nodes.update(targetNodes);
-                return;
-            }
-            var data = getData();
-
-
-            if (data.length == 0) {
-                return common.alert("#graphHighlight_alertDiv", "No values  in graph for  property " + property);
-
-            }
-            else
-                $("#GraphHighlightModalMenu").modal("hide");
-
-
-            ticksColors = [];
-
-
+        self.getD3Scale = function (data, nClasses) {
             var min = d3.min(data, function (d) {
                 return d.value;
             });
@@ -176,13 +111,12 @@ var GraphHighlight = (function () {
                     scale = d3.scale.linear().domain().interpolator(d3.interpolateRainbow);
                 //  scale = d3.scaleLinear().domain().interpolator(d3.interpolateRainbow);
                 else
-                    var xx= d3.scale.quantize().domain([min, max])
-               scale = d3.scale.quantize().domain([min, max]).range(palette);
+                    var xx = d3.scale.quantize().domain([min, max])
+                scale = d3.scale.quantize().domain([min, max]).range(palette);
 
-                   // scale = d3.scale.quantize().domain([min, max]).nice().range(palette);
+                // scale = d3.scale.quantize().domain([min, max]).nice().range(palette);
 
-            }
-            else {
+            } else {
                 if (false && d3.scalePoint)
                     domain = d3.scalePoint().domain(data).range([0, palette.length]);
                 //  domain = d3.scale.point().domain(data).range([0, palette.length]);
@@ -193,113 +127,90 @@ var GraphHighlight = (function () {
                 scale = d3.scale.ordinal().domain(data).range(palette);
                 //  scale = d3.scaleOrdinal().domain(data).range(palette);
             }
-
-
-            var colorClasses = {};
-            var allIds = [];
-            var targetNodes = [];
-            var targetIds = [];
-            var shapes = ["dot", "diamond", "triangle", "trangleDown", "square", "star"];
-            var shapeIndex = 0;
-            var size = 10;
-            for (var i = 0; i < data.length; i++) {
-
-
-                allIds.push("" + data[i].id)
-                var color;
-                if (scaleType == "ordinal") {
-                    color = scale(data[i].value);
-                    color = self.rgb2hex(color);
-
-                }
-                else {
-                    var index = Math.round(domain(data[i].value));
-                    //   color = palette[index];
-                    color = scale(data[i].value);
-                    color = self.rgb2hex(color);
-                }
-                //   console.log(data[i].value+"  "+color)
-                if (!color) {
-                    color = "#333";
-                }
-                if (!ordinalLegendMap[data[i].value])
-                    ordinalLegendMap[data[i].value] = color;
-
-                targetIds.push("" + data[i].id);
-                targetNodes.push({
-                    id: "" + data[i].id,
-                    color: color,
-                    size: (Config.visjs.defaultNodeSize * 1.5),
-                    hidden: false
-                });
-                if (false && i % nClasses == 0)
-                    shapeIndex += 1
-
-
-            }
-
-            //   if (searchNodes.previousAction.indexOf("graph") > -1) {
-            var neutralColor = Config.visjs.defaultNodeColor;
-            var neutralSize = Config.visjs.defaultNodeSize;
-            var neutralShape = Config.visjs.defaultNodeShape
-
-            for (var i = 0; i < allGraphNodes.length; i++) {
-                var id = allGraphNodes[i].id;
-                if (targetIds.indexOf("" + id) < 0) {
-                    targetNodes.push({
-                        id: "" + id,
-                        color: neutralColor,
-                        //  shape: neutralShape,
-                        hidden: false
-                    });
-                }
-            }
-
-
-            visjsGraph.nodes.update(targetNodes);
-
-
-            //  }
-            /*  else if (searchNodes.previousAction.indexOf("treeMap") > -1) {
-                  d3.selectAll(".leafGroup1").each(function (d) {
-                      if (d.neoAttrs[self.currentHighlightProperty]) {
-                          var index = targetIds.indexOf("R_" + d.neoAttrs.id);
-                          if (index > -1) {
-                              d3.select(this).select("rect").style("fill", targetNodes[index].color);
-                          }
-                      }
-
-                  });
-                  d3.selectAll(".leafGroup").each(function (d) {
-                      if (d.neoAttrs[self.currentHighlightProperty]) {
-                          var index = targetIds.indexOf("R_" + d.neoAttrs.id);
-                          if (index > -1) {
-                              d3.select(this).select("rect").style("fill", targetNodes[index].color);
-                          }
-                      }
-
-                  });
-
-
-              }*/
-
-
-            self.drawPaletteColorLegend(scale, domain, palette, nClasses);
-
-
+            return scale;
         }
 
 
-        self.drawPaletteColorLegend = function (scale, domain, palette, nClasses) {
+        self.paintClasses = function (property) {
+
+
+
+
+            var nClasses = palettes[palettes.length - 1].length;// parseInt($("#paintDialog_NclassesInput").val());
+            var palette = palettes[nClasses];
+            var size = Config.visjs.defaultNodeSize;// parseInt($("#paintDialog_circleRadiusInput").val() * 2);
+            self.currentHighlightProperty = property;
+
+            if (property == "") {
+                $("#GraphHighlight_legendDiv").html("").css("visibility", "hidden");
+                var targetNodes = [];
+                var nodes = visjsGraph.data.nodes.get();
+                nodes.forEach(function (node) {
+                    node.color = node.initialColor,
+                        node.shape = node.shape || Config.visjs.defaultNodeShape,
+                        node.hidden = false
+                })
+                visjsGraph.data.nodes.update(nodes);
+
+            } else {
+                var data = visjsGraph.data.nodes.get({})
+
+
+                if (data.length == 0) {
+                    return common.alert("#graphHighlight_alertDiv", "No values  in graph for  property " + property);
+                } else
+                    $("#GraphHighlightModalMenu").modal("hide");
+
+                data.forEach(function (item) {
+                    item.highlightedProperty = item.neoAttrs[property]
+                })
+
+
+
+                var d3Scale = self.getD3Scale(data, nClasses);
+
+                data.forEach(function (item) {
+
+
+                    if (item.highlightedProperty) {
+
+                      var color;
+                        if (scaleType == "ordinal") {
+                            color = d3Scale(item.highlightedProperty);
+                            color = self.rgb2hex(color);
+
+                        } else {
+                            var index = Math.round(domain(data[i].highlightedProperty));
+                            color = d3Scale(item.highlightedProperty);
+                            color = self.rgb2hex(color);
+
+                        }
+                        item.color = color;
+                        if (!ordinalLegendMap[item.highlightedProperty])
+                            ordinalLegendMap[item.highlightedProperty] = color;
+                    }
+                    else{
+                        item.color = Config.visjs.defaultNodeColor;
+                    }
+                })
+                visjsGraph.data.nodes.update(data);
+            }
+
+            self.drawPaletteColorLegend(scale, domain, palette, nClasses,ordinalLegendMap);
+        }
+
+
+        self.drawPaletteColorLegend = function (scale, domain, palette, nClasses,ordinalLegendMap) {
             $("#GraphHighlight_legendDiv").html("").css("visibility", "visible");
 
             var ticks;
             var type;
+            ticksColors = [];
 
             if (domain.ticks) {
                 type = "linear";
                 ticks = domain.ticks(nClasses);
-              //  ticks = scale.ticks(nClasses);
+                //  ticks = scale.ticks(nClasses);
                 for (var i = 0; i < ticks.length; i++) {
                     var color = scale(ticks[i]);
                     color = self.rgb2hex(color);
@@ -311,16 +222,6 @@ var GraphHighlight = (function () {
                 for (var key in ordinalLegendMap) {
                     ticksColors.push({color: ordinalLegendMap[key], tick: key});
                 }
-                /*  type = "ordinal";
-                  ticks = scale.domain();
-
-                  for (var i = 0; i < ticks.length; i++) {
-                      var index = Math.round(domain(ticks[i] - 1));
-                      color = scale(ticks[i]);
-                      color = self.rgb2hex(color);
-                      ticksColors.push({color: color, tick: ticks[i]});
-                  }*/
-
             }
             var str = " <img onClick=\"GraphHighlight.onCloseLegendDiv()\" src=\"img/trash.png\" width=\"20\" alt=\"Filter\"> &nbsp;"
             str += "<b>" + self.currentHighlightProperty + "<b></b><br><table style='font-size: 10px;font-weight: normal'>";
@@ -341,6 +242,8 @@ var GraphHighlight = (function () {
 
 
         }
+
+
         self.onCloseLegendDiv = function () {
             self.clearHighlight();
             $("#GraphHighlight_legendDiv").css("visibility", "hidden");
@@ -385,8 +288,7 @@ var GraphHighlight = (function () {
                         if (value == "" && nodeData.labelNeo == self.currentLabel) {
                             ids.push(key);
                             legendStr = " All " + self.currentLabel;
-                        }
-                        else if (visJsDataProcessor.isLabelNodeOk(nodeData, property, operator, value, type)) {
+                        } else if (visJsDataProcessor.isLabelNodeOk(nodeData, property, operator, value, type)) {
                             ids.push(key);
                             legendStr = self.currentLabel + "." + property + "" + operator + "" + value;
                         }
@@ -406,8 +308,7 @@ var GraphHighlight = (function () {
                         if (property == "" && relData.type == self.currentRelType) {
                             ids.push(relData.neoId);
                             legendStr = " All " + self.currentRelType;
-                        }
-                        else if (visJsDataProcessor.isLabelNodeOk(relData.neoAttrs, property, operator, value, type)) {
+                        } else if (visJsDataProcessor.isLabelNodeOk(relData.neoAttrs, property, operator, value, type)) {
                             ids.push(relData.neoId);
                             legendStr = self.currentRelType + "." + property + "" + operator + "" + value;
                         }
@@ -431,8 +332,7 @@ var GraphHighlight = (function () {
 
                   })*/
 
-            }
-            else if (self.currentRelType) {
+            } else if (self.currentRelType) {
                 var strokeWidth = $("#propertiesSelectionDialog_strokeWidthInput").val()
                 self.applyInitialGraphObjectAttrs(nodeColor, nodeR, linkStroke, linkStrokeWidth);
                 d3.selectAll(".link").select("line").each(function (d) {
@@ -448,16 +348,16 @@ var GraphHighlight = (function () {
 
         }
         self.clearHighlight = function () {
-            var nodes = [];
-            for (var key in  visjsGraph.nodes._data) {
-                var node = visjsGraph.nodes._data[key];
-                nodes.push({id: node.id, color: node.initialColor})
-            }
-            visjsGraph.nodes.update(nodes);
+
+            var nodes=visjsGraph.data.nodes.get();
+            nodes.forEach(function(item){
+                item.color=item.initialColor;
+                item.highlightedProperty=null;
+            })
+
+           visjsGraph.data.nodes.update(nodes);
 
         }
-
-
 
 
         self.onActionTypeSelect = function (action) {
@@ -511,7 +411,7 @@ var GraphHighlight = (function () {
         self.onLegendItemClick = function (value) {
 
             var selectedNodes = [];
-            var nodes = visjsGraph.nodes.get();
+            var nodes = visjsGraph.data.nodes.get();
             for (var i = 0; i < nodes.length; i++) {
                 if (clickedLegendItem != value) {//hide other nodes than value
 
@@ -521,8 +421,7 @@ var GraphHighlight = (function () {
                         selectedNodes.push({id: nodes[i].id, hidden: false})
                     else
                         selectedNodes.push({id: nodes[i].id, hidden: true})
-                }
-                else {//remove hidden on all nodes
+                } else {//remove hidden on all nodes
                     selectedNodes.push({id: nodes[i].id, hidden: false})
 
                 }
@@ -532,7 +431,7 @@ var GraphHighlight = (function () {
             else
                 clickedLegendItem = "";
 
-            visjsGraph.nodes.update(selectedNodes)
+            visjsGraph.data.nodes.update(selectedNodes)
 
         }
 
@@ -589,9 +488,7 @@ var GraphHighlight = (function () {
                     visjsGraph.network.cluster(clusterOptionsByData);
 
 
-                }
-
-                else {
+                } else {
                     var clusterOptionsByData = {
                         processProperties: function (clusterOptions, childNodes) {
                             clusterOptions.label = "[" + childNodes.length + "]";
@@ -615,7 +512,7 @@ var GraphHighlight = (function () {
                 var size = logScale(ticksColors[i].size)
                 // size=size/10
                 console.log(clusterSize + "  " + size);
-                visjsGraph.nodes.update({
+                visjsGraph.nodesDS.update({
                     id: 'cluster:' + ticksColors[i].color,
                     label: label + '(' + clusterSize + ')',
                     size: size,
@@ -694,8 +591,7 @@ var GraphHighlight = (function () {
                         return containedNodesPositions;
                     }
                 })
-            }
-            else if (action == "graphClusterNodes") {
+            } else if (action == "graphClusterNodes") {
                 var nodeIds = visjsGraph.network.getNodesInCluster(context.currentNode.id)
                 buildPaths.getWhereClauseFromArray("_id", nodeIds, function (err, result) {
 
@@ -711,8 +607,7 @@ var GraphHighlight = (function () {
                     });
 
                 })
-            }
-            else if (action == "listClusterNodes") {
+            } else if (action == "listClusterNodes") {
                 var nodeIds = visjsGraph.network.getNodesInCluster(context.currentNode.id);
 
 
@@ -751,7 +646,7 @@ var GraphHighlight = (function () {
                     });
                 }
             }
-            visjsGraph.nodes.update(nodes);
+            visjsGraph.nodesDS.update(nodes);
             if (GraphHighlight.currentHighlightProperty && GraphHighlight.currentHighlightProperty != "")
                 GraphHighlight.paintClasses(GraphHighlight.currentHighlightProperty)
         }
