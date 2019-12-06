@@ -48,12 +48,12 @@ var UI_query = (function () {
 
 
 
-    self.setContextQueryObjectParams = function (targetDialogPrefix) {
+    self.getQueryObjectFromUI = function (targetDialogPrefix) {
         if (!targetDialogPrefix)
             targetDialogPrefix = "query";
 
         var label = $("#" + targetDialogPrefix + "_labelSelect").val();
-        if (context.queryObject.label && context.queryObject.label != "")
+        if (label=="" && context.queryObject.label && context.queryObject.label != "")
             label = context.queryObject.label;
 
         var property = $("#" + targetDialogPrefix + "_propertySelect").val();
@@ -69,7 +69,7 @@ var UI_query = (function () {
         if (!value || value == "")
             text = "all"
         else
-            text = property + " " + operator + " " + value;
+            text = "["+label+"] "+property + " " + operator + " " + value;
 
 
         context.queryObject = {
@@ -85,6 +85,8 @@ var UI_query = (function () {
 
 
     }
+
+
 
     self.setUIPermittedLabels = function (label) {
 
@@ -167,7 +169,7 @@ var UI_query = (function () {
         if (!targetDialogPrefix)
             targetDialogPrefix = "query";
         //  context.queryObject = {};
-        var queryObj = self.setContextQueryObjectParams(targetDialogPrefix);
+        var queryObj = self.getQueryObjectFromUI(targetDialogPrefix);
 
         $("#" + targetDialogPrefix + "_operatorSelect").val("=");
 

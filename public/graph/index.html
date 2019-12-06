@@ -125,6 +125,7 @@
     <script src="js/core/visJsGraph2.js"></script>
     <script src="js/core/visjsDataProcessor.js"></script>
     <script src="js/core/requestProcessor.js"></script>
+    <script src="js/ui/graphComplexQuery.js"></script>
 
     <!---------- fin scripts visjs ----------->
 
@@ -222,6 +223,12 @@
 
         <ul class="list-unstyled components accordionCF">
             <li class="active">
+                <a class="navbar-brand" href="#" data-toggle="modal" data-placement="bottom" title="Expand Node Menu"
+                   onclick=" GraphComplexQuery.initDialog() " onmouseover="$(this).tooltip('show');">
+                    <img src="img/expandLabel.png" width="40" height="40" alt="">
+                </a>
+            </li>
+            <li class="active">
                 <!--   <a href="#searchSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Search</a>-->
                 <a onclick="MainController.openAccordion('searchSubMenu')" aria-expanded="false" class="dropdown-toggle">Search View</a>
                 <ul class="collapse list-unstyled accordion" id="searchSubMenu">
@@ -248,6 +255,9 @@
 
 
                         </div>
+                    </li>
+                    <li>
+
                     </li>
                 </ul>
             </li>
@@ -473,6 +483,11 @@
 
         <!-- Graph Filter Collaspse menu -->
         <div class="modal fade bd-example-modal-lg" id="GraphFilterModalMenu" tabindex="-1" role="dialog"
+             aria-labelledby="displayModalLabel" aria-hidden="true">
+        </div>
+
+        <!-- Graph complexQuery menu -->
+        <div class="modal fade bd-example-modal-lg" id="GraphComplexQueryMenu" tabindex="-1" role="dialog"
              aria-labelledby="displayModalLabel" aria-hidden="true">
         </div>
 

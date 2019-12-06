@@ -96,22 +96,25 @@ var binder=(function(){
 
 
       $("#GraphExpandModalMenu").load("htmlSnippets/graph/expand.html", function () {
-          console.log("graphExpand.html loaded")
+         // console.log("graphExpand.html loaded")
       })
 
       $("#GraphHighlightModalMenu").load("htmlSnippets/graph/highlight.html", function () {
-          console.log("graphHighlight.html loaded")
+        //  console.log("graphHighlight.html loaded")
       })
       $("#GraphFilterModalMenu").load("htmlSnippets/graph/filter.html", function () {
-          console.log("graphfilter.html loaded")
+         // console.log("graphfilter.html loaded")
       })
 
       $("#ExportDataModalMenu").load("htmlSnippets/exportDataModal.html", function () {
-          console.log("exportDataModal.html loaded")
+         // console.log("exportDataModal.html loaded")
       })
 
       $("#adminModalMenu").load("htmlSnippets/admin.html", function () {
-          console.log("exportDataModal.html loaded")
+        //  console.log("exportDataModal.html loaded")
+      })
+      $("#GraphComplexQueryMenu").load("htmlSnippets/graph/complexQuery.html", function () {
+
       })
 
       if(Config.plugins.paragraphEntitiesGraph){

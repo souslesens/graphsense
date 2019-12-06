@@ -1,4 +1,4 @@
-var requestProcessor = (function () {
+var RequestProcessor = (function () {
     var self = {};
 
     self.showGraph = function (type, options) {

@@ -1,0 +1,114 @@
+
+<style>
+.queryObj{
+    border: solid 1px black;
+    border-radius: 5px;
+    margin: 2px;
+    padding: 2px;
+
+}
+.queryObjAttr{
+    border: solid 1px black;
+    border-radius: 4px;
+    margin: 2px;
+    padding: 2px;
+}
+</style>
+
+<div class="modal-dialog" role="document" id="complexQuery_dialogDiv">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="displayModalLabel">Filter Graph Menu</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm">
+
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <label class="col-form-label" for="complexQuery_labelSelect">Label</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <select class="form-control " id="complexQuery_labelSelect" onchange="GraphComplexQuery.setLabelPropertiesSelect($(this).val())">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-4">
+                                <label class="col-form-label" for="complexQuery_propertySelect">Property(optional)</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <select class="form-control " id="complexQuery_propertySelect" onchange=" $('.complexQuery_propertyDiv').removeClass('d-none');">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="query_possibleValuesDiv" class="form-group row complexQuery_propertyDiv d-none">
+                            <legend class="col-form-label col-sm-4">
+                                <button type="button" class="btn btn-primary" onclick="UI_query.listPropertyValues('complexQuery')">List values</button>
+                            </legend>
+
+                            <div class="col-sm-8">
+                                <span id="complexQuery_possibleValuesSpan"></span>
+                            </div>
+
+                        </div>
+                        <div class="form-group row complexQuery_propertyDiv ">
+                            <legend class="col-form-label col-sm-4">Filter Type</legend>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="complexQuery_operatorSelect">
+                                    <option value="contains">contains</option>
+                                    <option value="=">=</option>
+                                    <option value="!=">not equal</option>
+                                    <option value=">">greater than</option>
+                                    <option value="<">lesser than</option>
+                                    <!--  <option value="notContains">not contains</option>
+                                      <option value="exists">null</option>
+                                      <option value="notExists">not null</option>-->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row complexQuery_propertyDiv">
+                            <label for="complexQuery_valueInput" class="col-form-label col-sm-4">Filter Value</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="complexQuery_valueInput"
+                                       placeholder="enter value here...">
+                            </div>
+                        </div>
+
+
+                        <div class="alert alert-success d-none" id="complexQuery_alertDiv" role="alert"></div>
+
+                    </div>
+
+                    <div class="col-sm">
+                        <div>
+                            <button type="button" onclick="GraphComplexQuery.addQueryObject()" class="btn btn-dark">Add</button>
+                        </div>
+                        <div id="complexQuery_queryObjectsDiv"></div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="modal-footer" id="filterActionButtons">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" onclick="GraphComplexQuery.validateDialog()" class="btn btn-primary">Only</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    /* $('#GraphComplexQueryMenu').on('shown.bs.modal', function (e) {
+         var labels = Object.keys(DataModel.DBstats.nodes).sort()
+         common.fillSelectOptionsWithStringArray("complexQuery_labelSelect", labels, true);
+     })*/
+
+</script>

@@ -36,15 +36,17 @@ var GraphFilter = (function () {
      */
 
 
-    self.initDialog = function () {
+    self.initDialog = function (labels) {
+        if(!labels)
+            labels=visjsGraph.legendLabels
         $("#GraphFilterModalMenu").modal("show");
         $(".graphFilter_propertyDiv").addClass("d-none");
-        if (visjsGraph.legendLabels.length == 1) {
-            common.fillSelectOptionsWithStringArray("graphFilter_labelSelect", visjsGraph.legendLabels);
-            self.setLabelPropertiesSelect(visjsGraph.legendLabels[0])
+        if (labels == 1) {
+            common.fillSelectOptionsWithStringArray("graphFilter_labelSelect", labels);
+            self.setLabelPropertiesSelect(labels[0])
 
         } else
-            common.fillSelectOptionsWithStringArray("graphFilter_labelSelect", visjsGraph.legendLabels, true);
+            common.fillSelectOptionsWithStringArray("graphFilter_labelSelect", labels, true);
     }
 
     self.setLabelPropertiesSelect = function (label) {
@@ -65,7 +67,7 @@ var GraphFilter = (function () {
 
         $("#GraphFilterModalMenu").modal("hide");
         context.queryObject = {}
-        var queryObj = UI_query.setContextQueryObjectParams("graphFilter");
+        var queryObj = UI_query.getQueryObjectFromUI("graphFilter");
         self.filterGraph(booleanOption, queryObj.label, queryObj.property, queryObj.operator, queryObj.value);
     }
 
