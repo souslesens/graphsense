@@ -2,18 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0b8677d-dbc9-4124-b08c-92f03bd70409" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/public/graph/htmlSnippets/graph/complexQuery.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/graph/js/ui/graphComplexQuery.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/graph/htmlSnippets/graph/filter.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/htmlSnippets/graph/filter.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/mappings.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/mappings.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/etl/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/etl/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/etl/js/UI.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/etl/js/UI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/graph/htmlSnippets/graph/complexQuery.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/htmlSnippets/graph/complexQuery.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/graph/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/graph/js/core/buildPaths.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/core/buildPaths.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/graph/js/core/requestProcessor.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/core/requestProcessor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/UI_query.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/ui/UI_query.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/binder.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/ui/binder.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/graphFilter.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/ui/graphFilter.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/core/visjsGraph2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/core/visjsGraph2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/graphComplexQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/ui/graphComplexQuery.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/graph/js/ui/graphSimpleQuery.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/ui/graphSimpleQuery.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/graph/js/ui/tree.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/graph/js/ui/tree.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -183,7 +182,7 @@
       <workItem from="1574689661290" duration="593000" />
       <workItem from="1574703538251" duration="4492000" />
       <workItem from="1574878162591" duration="2098000" />
-      <workItem from="1575048440886" duration="60083000" />
+      <workItem from="1575048440886" duration="70214000" />
     </task>
     <servers />
   </component>
@@ -247,6 +246,12 @@
           <line>120</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1300" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/public/etl/js/UI.js</url>
+          <line>187</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1301" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

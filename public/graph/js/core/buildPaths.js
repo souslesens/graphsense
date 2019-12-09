@@ -413,27 +413,28 @@ var buildPaths = (function () {
                 if (key == "distinctIds")
                     continue;
                 if (key.indexOf("r") == 0) {// relation
-                    if(Array.isArray(subLine)){
-                        var type="";
-                        subLine.forEach(function(item,index){
-                            if(index>0)
-                                type+="-"
-                            type+=item.type
+                    if (Array.isArray(subLine)) {
+                        var type = "";
+                        subLine.forEach(function (item, index) {
+                            if (index > 0)
+                                type += "-"
+                            type += item.type
                         })
-                        var obj={
-                            type:type,
-                            _fromId:subLine[0]._fromId,
-                            _toId: subLine[subLine.length-1]._toId,
-                            _id:subLine[0]._id*subLine[subLine.length-1]._id
+                        var obj = {
+                            type: type,
+                            _fromId: subLine[0]._fromId,
+                            _toId: subLine[subLine.length - 1]._toId,
+                            _id: subLine[0]._id * subLine[subLine.length - 1]._id
                         }
-                        subLine=obj;
+                        subLine = obj;
                     }
                     if (relTypes.indexOf(subLine.type) < 0)
                         relTypes.push(subLine.type);
 
                     currentRel = {id: subLine._id, neoAttrs: subLine.properties, type: subLine.type};
-
-                    if (subLine._fromId == currentNode.id)
+                    if (!currentNode)
+                        currentRel.direction = "transitive"
+                    else if (subLine._fromId == currentNode.id)
                         currentRel.direction = "normal"
                     else
                         currentRel.direction = "inverse"

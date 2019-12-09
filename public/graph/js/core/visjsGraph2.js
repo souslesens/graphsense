@@ -44,6 +44,7 @@ var visjsGraph = (function () {
                 else
                     self.network.startSimulation();
                 simulationOn = !simulationOn;
+              GraphController.hideNodePopover();
             }
 
             // select node

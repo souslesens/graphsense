@@ -222,12 +222,7 @@
         <hr class="sidebar-divider"/>
 
         <ul class="list-unstyled components accordionCF">
-            <li class="active">
-                <a class="navbar-brand" href="#" data-toggle="modal" data-placement="bottom" title="Expand Node Menu"
-                   onclick=" GraphComplexQuery.initDialog() " onmouseover="$(this).tooltip('show');">
-                    <img src="img/expandLabel.png" width="40" height="40" alt="">
-                </a>
-            </li>
+
             <li class="active">
                 <!--   <a href="#searchSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Search</a>-->
                 <a onclick="MainController.openAccordion('searchSubMenu')" aria-expanded="false" class="dropdown-toggle">Search View</a>
@@ -365,15 +360,15 @@
 
 
                 <li class="nav-item">
-                    <a id="showTreeButton" onmouseover="$(this).tooltip('show');" class="navbar-brand" href="#" data-toggle="tooltip" data-placement="bottom" title="Search Menu">
+                    <a id="showTreeButton" onmouseover="$(this).tooltip('show');"    onclick=" GraphComplexQuery.initDialog()" class="navbar-brand" href="#" data-toggle="tooltip" data-placement="bottom" title="Search Menu">
                         <img src="img/advancedSearch.png" width="40" height="40" alt="Filter">
                     </a>
                 </li>
-                <li class="nav-item">
+           <!--     <li class="nav-item">
                     <select class="form-input" id="GraphSaved_nameSelect" onchange="GraphController.drawSavedGraph($(this).val())">
 
                     </select>
-                </li>
+                </li>-->
 
                 <li class="nav-item">
                     <div class="spinner-border text-primary d-none" id="waitSpinnerDiv" role="status">
@@ -382,7 +377,7 @@
                 </li>
                 <li class="nav-item">
                     <a id="ClearGraphButton" onmouseover="$(this).tooltip('show');" class="navbar-brand" href="#" data-toggle="tooltip" data-placement="bottom" title="Clear Graph">
-                        <img id="simpleQuery_erase" class="d-none" onclick="GraphSimpleQuery.clear()" src="img/eraser.png" width="40" height="40" alt="clear Graph">
+                        <img id="simpleQuery_erase" class="d-none" onclick="  GraphComplexQuery.clear();GraphSimpleQuery.clear()" src="img/eraser.png" width="40" height="40" alt="clear Graph">
                     </a>
                 </li>
             </ul>

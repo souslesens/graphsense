@@ -18,18 +18,23 @@ var GraphComplexQuery = (function () {
         common.fillSelectOptionsWithStringArray("complexQuery_propertySelect", properties, true);
     }
 
+
+
+
     self.addQueryObject = function () {
         var queryObj = UI_query.getQueryObjectFromUI("complexQuery")
+        if(queryObj.property=="" && queryObj.value!=="")
+           return alert(" select a property for value "+queryObj.value)
         var index = self.queryObjects.length
         if (index > 0)
             var distanceFromPrecious = self.calculateLabelsDistance(self.queryObjects[index - 1].label, queryObj.label);
-        if(distanceFromPrecious>1)
-            queryObj.distanceFromPrecious=distanceFromPrecious;
+        if (distanceFromPrecious > 1)
+            queryObj.distanceFromPrecious = distanceFromPrecious;
         self.queryObjects.push(queryObj)
 
 
         var html = "<div class='queryObj' id='complexQuery_queryObjDiv_" + index + "'>" +
-            "<span class='queryObjAttr' onclick='GraphComplexQuery.setQueryObjectNotNotInResult(" + index + ")'>No</span>" +
+            "<span class='queryObjAttr' onclick='GraphComplexQuery.setQueryObjectInResult(" + index + ")'>No</span>" +
             "<span class='queryObjAttr' onclick='GraphComplexQuery.removeQueryObject(" + index + ")'>-</span>"
             + queryObj.text
 
@@ -41,8 +46,14 @@ var GraphComplexQuery = (function () {
         self.queryObjects.splice(index, 1)
         $("#complexQuery_queryObjDiv_" + index).remove();
     }
-    self.setQueryObjectNotNotInResult = function (index) {
-        self.queryObjects[index].inResult = false;
+    self.setQueryObjectInResult = function (index) {
+        self.queryObjects[index].inResult = ! self.queryObjects[index].inResult;
+    }
+
+    self.clear=function(){
+        self.queryObjects=[];
+        $("#complexQuery_queryObjectsDiv").html("");
+
     }
 
     self.validateDialog = function (booleanOption) {
@@ -78,8 +89,8 @@ var GraphComplexQuery = (function () {
             }
         }
 
-         recurse(startLabel, endLabel);
-        return distance+1;
+        recurse(startLabel, endLabel);
+        return distance ;
 
     }
 

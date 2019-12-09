@@ -128,6 +128,7 @@ var GraphSimpleQuery = (function () {
         self.fromLabelCardId = null;
         self.currentLabel = null;
 
+
     }
 
 

@@ -4,7 +4,9 @@
     border: solid 1px black;
     border-radius: 5px;
     margin: 2px;
+    margin-bottom: 8px;
     padding: 2px;
+    display: flex;
 
 }
 .queryObjAttr{
@@ -15,10 +17,10 @@
 }
 </style>
 
-<div class="modal-dialog" role="document" id="complexQuery_dialogDiv">
+<div class="modal-dialog modal-lg" role="document" id="complexQuery_dialogDiv">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="displayModalLabel">Filter Graph Menu</h5>
+            <h5 class="modal-title" id="displayModalLabel">Query Menu</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -26,7 +28,7 @@
         <div class="modal-body">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm">
+                    <div class="col">
 
                         <div class="form-group row">
                             <div class="col-sm-4">
@@ -85,9 +87,10 @@
 
                     </div>
 
-                    <div class="col-sm">
+                    <div class="col-6">
                         <div>
-                            <button type="button" onclick="GraphComplexQuery.addQueryObject()" class="btn btn-dark">Add</button>
+                            <button type="button" onclick="GraphComplexQuery.addQueryObject()" class="btn btn-info">Add</button>
+                            <button type="button" onclick="GraphComplexQuery.clear()" class="btn btn-secondary">Clear</button>
                         </div>
                         <div id="complexQuery_queryObjectsDiv"></div>
                     </div>
@@ -99,7 +102,7 @@
 
             <div class="modal-footer" id="filterActionButtons">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" onclick="GraphComplexQuery.validateDialog()" class="btn btn-primary">Only</button>
+                <button type="button" onclick="GraphComplexQuery.validateDialog()" class="btn btn-primary">OK</button>
 
             </div>
         </div>

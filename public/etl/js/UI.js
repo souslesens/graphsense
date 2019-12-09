@@ -52,7 +52,7 @@ var UI = (function () {
         common.fillSelectOptionsWithStringArray("nodeMapping_ColIdSelect", header);
         common.fillSelectOptionsWithStringArray("nodeMapping_ColNameSelect", header);
 
-
+        common.fillSelectOptionsWithStringArray("relationMapping_ColPropertiesSelect", header);
         common.fillSelectOptionsWithStringArray("relationMapping_ColFromIdSelect", header);
         common.fillSelectOptionsWithStringArray("relationMapping_ColToIdSelect", header);
 
@@ -171,7 +171,7 @@ var UI = (function () {
 
 
         var emptyFields=self.getEmptyFieldsInForm("relationMapping_form");
-        if(emptyFields.length>0)
+        if(emptyFields.length>0 && emptyFields[0]!="relationMapping_ColPropertiesSelect" )
             return alert("All fields are mandatory " +emptyFields.toString())
 
         obj.source = $("#relationMapping_DatasetSelect").val();
@@ -184,6 +184,7 @@ var UI = (function () {
         obj.neoToLabel = $("#relationMapping_NeoToLabelSelect").val();
         obj.neoToId = $("#relationMapping_NeoToIdSelect").val();
         obj.relationType = $("#relationMapping_typeName").val();
+        obj.exportedFields = $("#relationMapping_ColPropertiesSelect").val();
         obj.mappingset=context.currentmappingset;
         obj.type = "relation";
 
@@ -243,6 +244,13 @@ var UI = (function () {
         $("#relationMapping_ColToIdSelect").val(mapping.colToId);
         $("#relationMapping_NeoToLabelSelect").val(mapping.neoToLabel);
         common.fillSelectOptionsWithStringArray("relationMapping_NeoToIdSelect",header,true,mapping.neoToId);
+
+        $("#relationMapping_ColPropertiesSelect").val(mapping.exportedFields);
+        if(mapping.exportedFields && Array.isArray(mapping.exportedFields)) {
+            mapping.exportedFields.forEach(function (colName) {
+                $("#nodeMapping_ColPropertiesSelect").find('option[text=' + colName + ']').prop('selected', true);
+            })
+        }
         context.currentRelationMapping=mapping.name;
 
 

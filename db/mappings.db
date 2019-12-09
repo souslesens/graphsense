@@ -1900,6 +1900,17 @@
           "distinctValues": "on",
           "type": "node",
           "mappingset": "thelanthropia"
+        },
+        "Ouvrage": {
+          "colName": "ouvrage",
+          "colId": "isbn",
+          "exportedFields": null,
+          "label": "Ouvrage",
+          "source": "kohaGraphImport#rVedetteOuvrage",
+          "name": "Ouvrage",
+          "distinctValues": "on",
+          "type": "node",
+          "mappingset": "thelanthropia"
         }
       },
       "relations": {
@@ -1913,6 +1924,9 @@
           "neoToLabel": "Vedette",
           "neoToId": "vedette",
           "relationType": "aVedette",
+          "exportedFields": [
+            "freq"
+          ],
           "mappingset": "thelanthropia",
           "type": "relation"
         },
@@ -1921,11 +1935,30 @@
           "name": "Vedette-lieA->Vedette",
           "colFromId": "vedette1",
           "neoFromLabel": "Vedette",
-          "neoFromId": "vedette",
+          "neoFromId": "vedette1",
           "colToId": "vedette2",
           "neoToLabel": "Vedette",
-          "neoToId": "freq",
+          "neoToId": "vedette2",
           "relationType": "lieA",
+          "exportedFields": [
+            ""
+          ],
+          "mappingset": "thelanthropia",
+          "type": "relation"
+        },
+        "Ouvrage-aVedette->Vedette": {
+          "source": "kohaGraphImport#rVedetteOuvrage",
+          "name": "Ouvrage-aVedette->Vedette",
+          "colFromId": "isbn",
+          "neoFromLabel": "Ouvrage",
+          "neoFromId": "isbn",
+          "colToId": "vedette",
+          "neoToLabel": "Vedette",
+          "neoToId": "vedette",
+          "relationType": "aVedette",
+          "exportedFields": [
+            "vedette"
+          ],
           "mappingset": "thelanthropia",
           "type": "relation"
         }

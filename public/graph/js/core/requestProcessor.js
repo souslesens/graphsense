@@ -19,10 +19,14 @@ var RequestProcessor = (function () {
                 Cypher.executeCypher(cypher, function (err, result) {
                     if (err)
                         callbackSeries(err);
+                    if(result.length==0) {
+                        return callbackSeries("no result for this query");
+                    }
                     neoData = buildPaths.prepareDataset(result);
                     return callbackSeries();
                 })
             },
+
 
 
             // prepare results
@@ -46,11 +50,16 @@ var RequestProcessor = (function () {
                 return callbackSeries();
             },
 
-            // show graphTools
+            // show graphTools and hide modal
             function (callbackSeries) {
-                GraphSimpleQuery.afterQuery(visjsData)
+                $('#GraphComplexQueryMenu').modal('hide');
+                $("#navbar_graph_Graph_ul").removeClass("d-none");
+                $("#simpleQuery_erase").removeClass("d-none");
                 return callbackSeries();
             },
+
+
+
 
         ], function (err) {
             if (err)
