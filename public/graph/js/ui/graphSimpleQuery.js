@@ -186,7 +186,7 @@ var GraphSimpleQuery = (function () {
     self.onExecQueryButton = function (type) {
 
         var addToGraph;
-        var queryObject = UI_query.getQueryObjectFromUI();
+        var queryObject = UI_query.getNodeQueryObjectFromUI();
         var label = self.currentLabel;
         queryObject.label = label;
 

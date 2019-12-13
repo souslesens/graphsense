@@ -485,20 +485,19 @@ self.transformNeo2Visj=function(neoData){
 
             var labelsMap = {};
 
-            for (var key in visjsGraph.edges._data) {
+            visjsGraph.data.edges.get().forEach(function(edge) {
 
-                var edge = visjsGraph.edges._data[key];
-                var fromNode = visjsGraph.nodes._data[edge.from];
-                var toNode = visjsGraph.nodes._data[edge.to];
+
+                var fromNode = visjsGraph.data.nodes.get(edge.from);
+                var toNode = visjsGraph.data.nodes.get(edge.to);
 
                 processNodes(fromNode, toNode);
                 processNodes(toNode, fromNode);
-            }
+            })
 
-            for (var key in visjsGraph.nodes._data) {
-                var node = visjsGraph.nodes._data[key];
+            visjsGraph.data.nodes.get().forEach(function(node) {
                 processNodes(node);
-            }
+            })
 
             var data = [];
             var columns = [];

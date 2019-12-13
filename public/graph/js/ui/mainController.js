@@ -9,6 +9,8 @@ var MainController = (function () {
     self.init = function () {
 
         self.loadPlugins();
+        //$("#sidebar").addClass("d-none")
+
         GraphController.initComponentsPositionAndSize("content")
 
         $("#navbar_graph").addClass("d-none");
@@ -51,6 +53,8 @@ self.loadPlugins=function(){
             UI_query.initQueryLabels();
             UI_query.newQuery();
             Tree.iniTrees();
+
+
 
             if (Config.plugins.paragraphEntitiesGraph)
                 MainController.openAccordion("searchSubMenu");

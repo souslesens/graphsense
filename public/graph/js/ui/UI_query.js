@@ -45,10 +45,45 @@ var UI_query = (function () {
     }
 
 
+    self.getRelationQueryObjectFromUI = function (targetDialogPrefix) {
+        if (!targetDialogPrefix)
+            targetDialogPrefix = "query";
+
+        var relName = $("#" + targetDialogPrefix + "_relationSelect").val();
+
+        var relation=Schema.getAllRelationsProperties()[relName];
+
+        var property = $("#" + targetDialogPrefix + "_propertySelect").val();
+        var operator = $("#" + targetDialogPrefix + "_operatorSelect").val();
+        var value = $("#" + targetDialogPrefix + "_valueInput").val();
+
+        var inResult = true /// $("#query_filterCardInResult").prop("checked");  à completer !!!!
 
 
 
-    self.getQueryObjectFromUI = function (targetDialogPrefix) {
+        var booleanOperatorStr = "";//booleanOperator || ""; à finir
+        var text = "";
+        if (!value || value == "")
+            text = "["+relation.type+"]all relations"
+        else
+            text = "["+label+"] "+property + " " + operator + " " + value;
+
+
+        context.queryObject = {
+            relation: relation,
+            property: property,
+            operator: operator,
+            value: value,
+            text: text,
+
+        }
+        return context.queryObject;
+
+
+    }
+
+
+    self.getNodeQueryObjectFromUI = function (targetDialogPrefix) {
         if (!targetDialogPrefix)
             targetDialogPrefix = "query";
 
@@ -67,7 +102,7 @@ var UI_query = (function () {
         var booleanOperatorStr = "";//booleanOperator || ""; à finir
         var text = "";
         if (!value || value == "")
-            text = "all"
+            text = "["+label+"]all nodes"
         else
             text = "["+label+"] "+property + " " + operator + " " + value;
 
@@ -169,7 +204,7 @@ var UI_query = (function () {
         if (!targetDialogPrefix)
             targetDialogPrefix = "query";
         //  context.queryObject = {};
-        var queryObj = self.getQueryObjectFromUI(targetDialogPrefix);
+        var queryObj = self.getNodeQueryObjectFromUI(targetDialogPrefix);
 
         $("#" + targetDialogPrefix + "_operatorSelect").val("=");
 

@@ -1,36 +1,63 @@
 var GraphComplexQuery = (function () {
     var self = {};
     self.queryObjects = [];
-
+    var relations;
+    var currentObjectType = null;
     self.initDialog = function () {
 
-
+        $('.wrapper').removeClass('active');
         $('#GraphComplexQueryMenu').modal('show');
-        var labels = Object.keys(DataModel.DBstats.nodes).sort()
+        $('.complexQuery_propertyDiv').addClass("d-none")
+        $('.complexQuery_propertyPropNameDiv').addClass("d-none")
+
+        var labels = Schema.getAllLabelNames();
         common.fillSelectOptionsWithStringArray("complexQuery_labelSelect", labels, true);
+
+
+        relations = Schema.getAllRelationsProperties()
+        var relationNames = Object.keys(relations).sort()
+        common.fillSelectOptionsWithStringArray("complexQuery_relationSelect", relationNames, true);
 
 
     }
     self.setLabelPropertiesSelect = function (label) {
+        currentObjectType = "label";
         if (label == "")
             return;
+        $('.complexQuery_propertyPropNameDiv').removeClass("d-none")
         var properties = Schema.getLabelProperties(label)
         common.fillSelectOptionsWithStringArray("complexQuery_propertySelect", properties, true);
     }
 
-
+    self.setRelationPropertiesSelect = function (relation) {
+        currentObjectType = "relation";
+        if (relation == "")
+            return;
+        $('.complexQuery_propertyPropNameDiv').removeClass("d-none")
+        var properties = relations[relation].properties
+        common.fillSelectOptionsWithStringArray("complexQuery_propertySelect", properties, true);
+    }
 
 
     self.addQueryObject = function () {
-        var queryObj = UI_query.getQueryObjectFromUI("complexQuery")
-        if(queryObj.property=="" && queryObj.value!=="")
-           return alert(" select a property for value "+queryObj.value)
-        var index = self.queryObjects.length
-        if (index > 0)
-            var distanceFromPrecious = self.calculateLabelsDistance(self.queryObjects[index - 1].label, queryObj.label);
-        if (distanceFromPrecious > 1)
-            queryObj.distanceFromPrecious = distanceFromPrecious;
-        self.queryObjects.push(queryObj)
+
+        if (currentObjectType == "relation") {
+            var queryObj = UI_query.getRelationQueryObjectFromUI("complexQuery")
+            self.queryObjects.push(queryObj)
+        } else if (currentObjectType == "label") {
+
+            var queryObj = UI_query.getNodeQueryObjectFromUI("complexQuery")
+
+            var index = self.queryObjects.length
+            if (index > 0)
+                var distanceFromPrecious = self.calculateLabelsDistance(self.queryObjects[index - 1].label, queryObj.label);
+            if (distanceFromPrecious > 1)
+                queryObj.distanceFromPrecious = distanceFromPrecious;
+            self.queryObjects.push(queryObj)
+        }
+
+        if (queryObj.property == "" && queryObj.value !== "")
+            return alert(" select a property for value " + queryObj.value)
 
 
         var html = "<div class='queryObj' id='complexQuery_queryObjDiv_" + index + "'>" +
@@ -39,6 +66,9 @@ var GraphComplexQuery = (function () {
             + queryObj.text
 
         $("#complexQuery_queryObjectsDiv").append(html)
+        $('.complexQuery_propertyDiv').addClass("d-none")
+        $('.complexQuery_propertyPropNameDiv').addClass("d-none")
+        $('#complexQuery_valueInput').val("");
 
     }
 
@@ -47,11 +77,11 @@ var GraphComplexQuery = (function () {
         $("#complexQuery_queryObjDiv_" + index).remove();
     }
     self.setQueryObjectInResult = function (index) {
-        self.queryObjects[index].inResult = ! self.queryObjects[index].inResult;
+        self.queryObjects[index].inResult = !self.queryObjects[index].inResult;
     }
 
-    self.clear=function(){
-        self.queryObjects=[];
+    self.clear = function () {
+        self.queryObjects = [];
         $("#complexQuery_queryObjectsDiv").html("");
 
     }
@@ -64,7 +94,7 @@ var GraphComplexQuery = (function () {
 
     self.calculateLabelsDistance = function (startLabel, endLabel) {
 
-        var distance = 0;
+        var distance = 1;
         var visitedLabels = {};
 
         function recurse(startLabel, _endLabel) {
@@ -77,6 +107,7 @@ var GraphComplexQuery = (function () {
                 return false;
             if (permittedLabels.indexOf(endLabel) < 0) {
                 var stop = false;
+                distance += 1
                 permittedLabels.forEach(function (childLabel) {
                     if (stop)
                         return;
@@ -84,13 +115,13 @@ var GraphComplexQuery = (function () {
                 })
                 return stop;
             } else {
-                distance += 1
+
                 return true;
             }
         }
 
         recurse(startLabel, endLabel);
-        return distance ;
+        return distance;
 
     }
 

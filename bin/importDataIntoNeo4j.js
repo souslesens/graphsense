@@ -565,13 +565,11 @@ var importDataIntoNeo4j = {
                 var properties = {};
                 if (params.subGraph != null)
                     properties.subGraph = params.subGraph;
-                if (params.neoRelAttributeField != null && params.neoRelAttributeField.length > 0) {
-                    var relProps = params.neoRelAttributeField.split(";");
-                    for (var j = 0; j < relProps.length; j++) {
-                        var prop = relProps[j].trim();
-                        if (obj[prop])
-                            properties[prop] = obj[prop];
-                    }
+                if (params.exportedFields != null && params.exportedFields.length > 0) {
+                    params.exportedFields.forEach(function(field){
+                        if (obj[field])
+                            properties[field] = obj[field];
+                    })
                 }
 
 

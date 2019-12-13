@@ -90,6 +90,7 @@
 
     <script type="text/javascript" src="js/ui/graphFilter.js"></script>
     <script type="text/javascript" src="js/ui/graphHighlight.js"></script>
+    <script type="text/javascript" src="js/ui/graphEdgesDialog.js"></script>
     <script type="text/javascript" src="js/ui/graphExpand.js"></script>
     <script type="text/javascript" src="js/ui/graphDisplay.js"></script>
     <script type="text/javascript" src="js/ui/tree.js"></script>
@@ -224,7 +225,7 @@
         <ul class="list-unstyled components accordionCF">
 
             <li class="active">
-                <!--   <a href="#searchSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Search</a>-->
+                <!--<a href="#searchSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Search</a>-->
                 <a onclick="MainController.openAccordion('searchSubMenu')" aria-expanded="false" class="dropdown-toggle">Search View</a>
                 <ul class="collapse list-unstyled accordion" id="searchSubMenu">
                     <li>
@@ -364,6 +365,7 @@
                         <img src="img/advancedSearch.png" width="40" height="40" alt="Filter">
                     </a>
                 </li>
+
            <!--     <li class="nav-item">
                     <select class="form-input" id="GraphSaved_nameSelect" onchange="GraphController.drawSavedGraph($(this).val())">
 
@@ -403,6 +405,11 @@
                     <a class="navbar-brand" href="#" data-toggle="modal" data-target="#GraphFilterModalMenu" data-placement="bottom" title="Highlight Node Menu" onclick="GraphFilter.initDialog()"
                        onmouseover="$(this).tooltip('show');">
                         <img src="img/filter.png" width="40" height="40" alt="Tag">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a id="showEdgesDialogButton" onmouseover="$(this).tooltip('show');"    onclick=" GraphEdgesDialog.initDialog()" class="navbar-brand" href="#" data-toggle="tooltip" data-placement="bottom" title="Search Menu">
+                        <img src="img/edges.jpg" width="40" height="40" alt="Edges">
                     </a>
                 </li>
                 <li class="nav-item">
@@ -483,6 +490,10 @@
 
         <!-- Graph complexQuery menu -->
         <div class="modal fade bd-example-modal-lg" id="GraphComplexQueryMenu" tabindex="-1" role="dialog"
+             aria-labelledby="displayModalLabel" aria-hidden="true">
+        </div>
+        <!-- Graph Edges Dialog menu -->
+        <div class="modal fade bd-example-modal-lg" id="GraphEdgesModalMenu" tabindex="-1" role="dialog"
              aria-labelledby="displayModalLabel" aria-hidden="true">
         </div>
 

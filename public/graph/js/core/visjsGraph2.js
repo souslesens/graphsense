@@ -63,7 +63,18 @@ var visjsGraph = (function () {
 
 
             }
-        }).on("zoom", function (params) {
+
+            //select edge{
+            else if (params.edges.length == 1) {
+                var edgeId = params.edges[0];
+                var edge = self.data.edges.get(edgeId);
+                edge.fromNode = self.data.nodes.get(edge.from);
+                edge.toNode = self.data.nodes.get(edge.to);
+                var point = params.pointer.DOM;
+                GraphController.onEdgeClicked(edge, point)
+            }
+
+            }).on("zoom", function (params) {
             self.onScaleChange()
 
         });

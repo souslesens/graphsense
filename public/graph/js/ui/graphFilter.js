@@ -67,7 +67,7 @@ var GraphFilter = (function () {
 
         $("#GraphFilterModalMenu").modal("hide");
         context.queryObject = {}
-        var queryObj = UI_query.getQueryObjectFromUI("graphFilter");
+        var queryObj = UI_query.getNodeQueryObjectFromUI("graphFilter");
         self.filterGraph(booleanOption, queryObj.label, queryObj.property, queryObj.operator, queryObj.value);
     }
 

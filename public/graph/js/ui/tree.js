@@ -593,7 +593,7 @@ var Tree = (function () {
 
             $("#query_validateQueryButton").bind('click', function (target) {
                 $('#dbQueryFilterLabelModal').modal('hide');
-                var queryObj = UI_query.getQueryObjectFromUI();
+                var queryObj = UI_query.getNodeQueryObjectFromUI();
                 var whereStr = buildPaths.getWhereClauseFromQueryObject(queryObj, "n");
                 var cypher = "match(n) where " + whereStr + "  return labels(n)[0] as label , collect(id(n)) as ids, collect(n." + Config.defaultNodeNameProperty + ") as names limit " + Config.maxListDisplayLimit;
                 self.searchNodes(cypher);

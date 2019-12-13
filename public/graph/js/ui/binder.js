@@ -116,6 +116,14 @@ var binder=(function(){
       $("#GraphComplexQueryMenu").load("htmlSnippets/graph/complexQuery.html", function () {
 
       })
+      $("#GraphEdgesModalMenu").load("htmlSnippets/graph/edgesDialog.html", function () {
+
+      })
+
+
+
+
+
 
       if(Config.plugins.paragraphEntitiesGraph){
 

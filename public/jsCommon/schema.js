@@ -60,8 +60,7 @@ var Schema = (function () {
                     /*  setTimeout(function () {
                           GraphController.dispatchAction('showSchemaConfigDialog');//({create:1});
                       }, 2000)*/
-                }
-                else {
+                } else {
                     var schema = result[0].n.properties.data;
                     schema = JSON.parse(atob(schema))
                     Schema.initSchema(schema, callback);
@@ -79,7 +78,7 @@ var Schema = (function () {
 
 
         self.createSchema = function (subGraph, callback) {
-         MainController.alert("generating subgraph schema");
+            MainController.alert("generating subgraph schema");
 
             // location.reload()
 
@@ -89,8 +88,7 @@ var Schema = (function () {
                     if (callback)
                         return callback(err)
                     return $("#schemaConfig_message").html("ERROR while generating schema");
-                }
-                else {
+                } else {
                     $("#schemaConfig_message").html("Schema generated");
                     $("#schemaConfig_configSchemaDiv").css("visibility", "visible");
 
@@ -99,8 +97,8 @@ var Schema = (function () {
                     MainController.alertClose();
                     UI_query.initQueryLabels();
 
-                    Schema.createSchemaNeo4jGraph (function(err,result){
-                        if(err)
+                    Schema.createSchemaNeo4jGraph(function (err, result) {
+                        if (err)
                             return console.log(err);
 
                     });
@@ -228,7 +226,6 @@ var Schema = (function () {
                 UI_graph.showSchema(context.subGraph);
 
 
-
                 if (Schema.schema.Config) {
                     for (var key in Schema.schema.Config) {
                         Config[key] = Schema.schema.Config[key];
@@ -348,7 +345,7 @@ var Schema = (function () {
                         if (relation.color)
                             linkColors[relKey] = relation.color;
                         else {
-                            if(Config.palette   ) {
+                            if (Config.palette) {
                                 var index = (i++) % Config.palette.length;
 
 
@@ -358,8 +355,7 @@ var Schema = (function () {
 
                     }
                     var xxx = ';'
-                }
-                else {
+                } else {
                     for (var i = 0; i < DataModel.allRelationsArray.length; i++) {
                         var index = (i) % Config.palette.length;
                         linkColors[DataModel.allRelationsArray[i]] = Config.palette[index];
@@ -374,7 +370,7 @@ var Schema = (function () {
                     if (false && Schema.schema.labels[key].color)
                         context.nodeColors[key] = Schema.schema.labels[key].color;
                     else {
-                        if(Config.palette   ) {
+                        if (Config.palette) {
                             var index = (i++) % Config.palette.length;
 
                             context.nodeColors[key] = Config.palette[index];
@@ -384,8 +380,7 @@ var Schema = (function () {
                     if (Schema.schema.labels[key].icon == "default.png")
                         delete Schema.schema.labels[key].icon;
                 }
-            }
-            else {
+            } else {
                 for (var i = 0; i < DataModel.allLabels.length; i++) {
                     var label = DataModel.allLabels[i];
                     var index = i % Config.palette.length;
@@ -411,7 +406,7 @@ var Schema = (function () {
                     relation.inverse = 1;
                     ok = true;
                 }
-                if (ok===true) {
+                if (ok === true) {
                     relationNames.push(relation.type);
                     relationsPermitted.push(relation);
 
@@ -445,6 +440,26 @@ var Schema = (function () {
 
 
         }
+        self.getAllRelationsProperties = function (subGraph) {
+            var relations = Schema.schema.relations;
+
+            var relationsProperties = [];
+            for (var key in relations) {
+                var rel = relations[key];
+                var name = rel.startLabel + "-" + rel.type + "->" + rel.endLabel
+                relationsProperties[name] =
+                    {
+                        name: name,
+                        properties: rel.properties,
+                        type: rel.type
+                    }
+
+            }
+            return relationsProperties;
+        }
+
+
+
         self.getLabelProperties = function (label) {
             var properties = [];
             for (var prop in Schema.schema.properties[label]) {
@@ -459,8 +474,8 @@ var Schema = (function () {
             var properties = [];
             for (var label in Schema.schema.properties) {
                 for (var prop in Schema.schema.properties[label]) {
-                    if( properties.indexOf(prop)<0)
-                    properties.push(prop);
+                    if (properties.indexOf(prop) < 0)
+                        properties.push(prop);
                 }
             }
             properties.sort();
@@ -662,7 +677,7 @@ var Schema = (function () {
                 if (relations2) {
                     for (var i = 0; i < relations2.length; i++) {
                         var relation = relations2[i];
-                        if( relation.properties) {
+                        if (relation.properties) {
                             relation.properties.forEach(function (property) {
                                 if (properties.indexOf(property) < 0)
                                     properties.push(property);
@@ -737,41 +752,39 @@ var Schema = (function () {
 
 
         }
-        self.getRecursiveRelsLabels=function(){
-            var recursiveRels=[]
-            for (var key in Schema.schema.relations){
+        self.getRecursiveRelsLabels = function () {
+            var recursiveRels = []
+            for (var key in Schema.schema.relations) {
 
-                var rel=Schema.schema.relations[key];
-                if(rel.startLabel==rel.endLabel)
+                var rel = Schema.schema.relations[key];
+                if (rel.startLabel == rel.endLabel)
                     recursiveRels.push(rel.startLabel)
             }
-           return recursiveRels;
-
+            return recursiveRels;
 
 
         }
 
-        self.LabelsRelationsCount=function(){
-            var labels=Object.keys(Schema.schema.labels);
-            countMap={};
-            for (var key in Schema.schema.relations){
+        self.LabelsRelationsCount = function () {
+            var labels = Object.keys(Schema.schema.labels);
+            countMap = {};
+            for (var key in Schema.schema.relations) {
 
 
             }
 
         }
 
-        self.getPathsBetweenLabels = function (fromLabel,toLabel,callback) {
+        self.getPathsBetweenLabels = function (fromLabel, toLabel, callback) {
 
-                var cypher = "Match (n:shemaLabel{name:'" + fromLabel + "'}),  (m:shemaLabel{name:'" + toLabel + "'}) WITH * WHERE id(n) <> id(m) MATCH path = allShortestPaths( (n)-[*..6]-(m)) RETURN  nodes(path) as nodes, relationships(path) as relations"
-                Cypher.executeCypher(cypher, function (err, result) {
-                    if (err)
-                         console.log(err)
+            var cypher = "Match (n:shemaLabel{name:'" + fromLabel + "'}),  (m:shemaLabel{name:'" + toLabel + "'}) WITH * WHERE id(n) <> id(m) MATCH path = allShortestPaths( (n)-[*..6]-(m)) RETURN  nodes(path) as nodes, relationships(path) as relations"
+            Cypher.executeCypher(cypher, function (err, result) {
+                if (err)
+                    console.log(err)
 
-                    callback(err,result);
-                })
+                callback(err, result);
+            })
         }
-
 
 
         self.createSchemaNeo4jGraph = function (callbackOuter) {
@@ -846,15 +859,12 @@ var Schema = (function () {
 
                 ], function (err) {
                     console.log("done");
-                    if(callbackOuter)
+                    if (callbackOuter)
                         callbackOuter(err, "done");
                 })
 
 
         }
-
-
-
 
 
         return self;

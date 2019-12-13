@@ -182,40 +182,37 @@ var buildPaths = (function () {
 
             // set relation where
             var relType = "";
-            if (queryObject.incomingRelation) {
-                var relation = queryObject.incomingRelation.selected
-                if (index > 0 && relation) {
-                    relType = ":" + relation.type;
-
-                    var queryRelObject = relation.queryObject;
-                    if (queryRelObject.property == "numberOfRelations") {
-                        cypherObj.with.push(queryRelObject);
-//with n,count(r) as cnt  MATCH (n:personne)-[r]-(m:communaute) where cnt>3  return n,m
-                    } else if (queryRelObject.value != "") {
-                        var withStr = self.getWhereClauseFromQueryObject(queryRelObject, symbol)
-                        cypherObj.whereRelation.push(withStr)
+            if (queryObject.relation) {
 
 
-                    }
-                }
+
+                    relType = ":" + queryObject.relation.type;
+
+
+                    var withStr = self.getWhereClauseFromQueryObject(queryObject, symbol)
+                    cypherObj.whereRelation.push(withStr)
+
+
+
             }
+
 
             var labelStr = "";
             if (queryObject.label)
                 labelStr = ":" + queryObject.label;
 
-            if (index == 0) {
+            if (index == 0 ) {
 
                 matchCypher = "(" + symbol + labelStr + ")";
             } else {
                 var distanceStr = "";
                 if (options.withOrphans)
                     distanceStr = "*0..1";
-
                 else if (options.nodesDistance > 1 && index < 2)
                     distanceStr = "*.." + options.nodesDistance;
                 else if (queryObject.distanceFromPrecious)
                     distanceStr = "*" + queryObject.distanceFromPrecious;
+
                 matchCypher += "-[r" + index + distanceStr + relType + "]-"
                 matchCypher += "(" + symbol + labelStr + ")";
                 cypherObj.return.push("r" + index);
